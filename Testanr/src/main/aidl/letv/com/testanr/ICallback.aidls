@@ -1,0 +1,8 @@
+// IMyAidlInterface.aidl
+package letv.com.testanr;
+
+
+interface ICallback {
+    void showTYResult(String result);
+    void showOWResult(String result);
+}

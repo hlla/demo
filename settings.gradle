@@ -1,0 +1,1 @@
+include ':Testanr', ':TestAidlClient1', ':TestAidlService', ':TestlaunchmodeA', ':TestlaunchmodeB', ':testmemory', ':Testjni', ':Testviewpager'

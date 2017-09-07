@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">TestLaunchModeA</string>
+    <string name="main_activity">this is LaunchModeA  main Activity</string>
+    <string name="activity_a">this is ActivityA</string>
+    <string name="activity_b">this is ActivityB</string>
+    <string name="activity_c">this is ActivityC</string>
+    <string name="start_modeA_main">Start LaunchModeA Main Activity </string>
+    <string name="start_a">Start ActivityA</string>
+    <string name="start_b">Start ActivityB</string>
+    <string name="start_c">Start ActivityC</string>
+    <string name="start_modeB_x">Start LaunchModeB ActivityX</string>
+    <string name="start_modeB_y">Start LaunchModeB ActivityY</string>
+    <string name="start_modeB_z">Start LaunchModeB ActivityZ</string>
+    <string name="documentCentric">Start documentCentric</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_new_document_counter">Hello Document %s!</string>
+    <string name="reusing_document_counter">Reusing Document %s!</string>
+    <string name="activity_new_document_title">DocumentActivity</string>
+    <string name="new_document_button_text">Create new document</string>
+    <string name="multiple_task_checkbox_label">Task per document</string>
+    <string name="remove_task_button_text">Remove from Overview</string>
+</resources>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Test JNI</string>
+    <string name="malloc">malloc</string>
+    <string name="start_b">start B</string>
+</resources>

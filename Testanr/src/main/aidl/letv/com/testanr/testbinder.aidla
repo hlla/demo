@@ -1,0 +1,13 @@
+package letv.com.testanr;
+import letv.com.testanr.School;
+import letv.com.testanr.ICallback;
+  interface testbinder {
+
+    int getAdId(String aa);
+    oneway void testCall(in List<School> ssss);
+    List<School> test(in School sc);
+     void testSchool(inout School sc);
+    School[]  testArray(out School sc);
+    void unregisterCallback(in ICallback cb);
+    void registerCallback(in ICallback cb);
+    }
