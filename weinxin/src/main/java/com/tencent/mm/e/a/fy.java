@@ -1,0 +1,58 @@
+package com.tencent.mm.e.a;
+
+import com.tencent.gmtrace.GMTrace;
+import com.tencent.mm.sdk.b.b;
+
+public final class fy
+  extends b
+{
+  public a fKZ;
+  public b fLa;
+  
+  public fy()
+  {
+    this((byte)0);
+    GMTrace.i(4206920466432L, 31344);
+    GMTrace.o(4206920466432L, 31344);
+  }
+  
+  private fy(byte paramByte)
+  {
+    GMTrace.i(4207054684160L, 31345);
+    this.fKZ = new a();
+    this.fLa = new b();
+    this.uqr = false;
+    this.nDP = null;
+    GMTrace.o(4207054684160L, 31345);
+  }
+  
+  public static final class a
+  {
+    public long fCn;
+    
+    public a()
+    {
+      GMTrace.i(4239401156608L, 31586);
+      this.fCn = 0L;
+      GMTrace.o(4239401156608L, 31586);
+    }
+  }
+  
+  public static final class b
+  {
+    public int count;
+    
+    public b()
+    {
+      GMTrace.i(4203028152320L, 31315);
+      this.count = 0;
+      GMTrace.o(4203028152320L, 31315);
+    }
+  }
+}
+
+
+/* Location:              /home/chengjian/weinxin/weinxin_1100/classes.jar!/com/tencent/mm/e/a/fy.class
+ * Java compiler version: 6 (50.0)
+ * JD-Core Version:       0.7.1
+ */

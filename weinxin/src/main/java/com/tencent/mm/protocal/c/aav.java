@@ -1,0 +1,132 @@
+package com.tencent.mm.protocal.c;
+
+import a.a.a.b;
+import com.tencent.gmtrace.GMTrace;
+import java.util.LinkedList;
+
+public final class aav
+  extends ave
+{
+  public String tfW;
+  public avt thY;
+  
+  public aav()
+  {
+    GMTrace.i(3746419441664L, 27913);
+    GMTrace.o(3746419441664L, 27913);
+  }
+  
+  protected final int a(int paramInt, Object... paramVarArgs)
+  {
+    GMTrace.i(3746553659392L, 27914);
+    if (paramInt == 0)
+    {
+      paramVarArgs = (a.a.a.c.a)paramVarArgs[0];
+      if (this.thY == null) {
+        throw new b("Not all required fields were included: RandomEncryKey");
+      }
+      if (this.tXb != null)
+      {
+        paramVarArgs.eQ(1, this.tXb.aUd());
+        this.tXb.a(paramVarArgs);
+      }
+      if (this.tfW != null) {
+        paramVarArgs.e(2, this.tfW);
+      }
+      if (this.thY != null)
+      {
+        paramVarArgs.eQ(3, this.thY.aUd());
+        this.thY.a(paramVarArgs);
+      }
+      GMTrace.o(3746553659392L, 27914);
+      return 0;
+    }
+    int i;
+    if (paramInt == 1)
+    {
+      i = 0;
+      if (this.tXb != null) {
+        i = a.a.a.a.eN(1, this.tXb.aUd()) + 0;
+      }
+      paramInt = i;
+      if (this.tfW != null) {
+        paramInt = i + a.a.a.b.b.a.f(2, this.tfW);
+      }
+      i = paramInt;
+      if (this.thY != null) {
+        i = paramInt + a.a.a.a.eN(3, this.thY.aUd());
+      }
+      GMTrace.o(3746553659392L, 27914);
+      return i;
+    }
+    if (paramInt == 2)
+    {
+      paramVarArgs = new a.a.a.a.a((byte[])paramVarArgs[0], unknownTagHandler);
+      for (paramInt = ave.a(paramVarArgs); paramInt > 0; paramInt = ave.a(paramVarArgs)) {
+        if (!super.a(paramVarArgs, this, paramInt)) {
+          paramVarArgs.chS();
+        }
+      }
+      if (this.thY == null) {
+        throw new b("Not all required fields were included: RandomEncryKey");
+      }
+      GMTrace.o(3746553659392L, 27914);
+      return 0;
+    }
+    if (paramInt == 3)
+    {
+      Object localObject1 = (a.a.a.a.a)paramVarArgs[0];
+      aav localaav = (aav)paramVarArgs[1];
+      paramInt = ((Integer)paramVarArgs[2]).intValue();
+      Object localObject2;
+      boolean bool;
+      switch (paramInt)
+      {
+      default: 
+        GMTrace.o(3746553659392L, 27914);
+        return -1;
+      case 1: 
+        paramVarArgs = ((a.a.a.a.a)localObject1).Eg(paramInt);
+        i = paramVarArgs.size();
+        paramInt = 0;
+        while (paramInt < i)
+        {
+          localObject2 = (byte[])paramVarArgs.get(paramInt);
+          localObject1 = new em();
+          localObject2 = new a.a.a.a.a((byte[])localObject2, unknownTagHandler);
+          for (bool = true; bool; bool = ((em)localObject1).a((a.a.a.a.a)localObject2, (com.tencent.mm.bd.a)localObject1, ave.a((a.a.a.a.a)localObject2))) {}
+          localaav.tXb = ((em)localObject1);
+          paramInt += 1;
+        }
+        GMTrace.o(3746553659392L, 27914);
+        return 0;
+      case 2: 
+        localaav.tfW = ((a.a.a.a.a)localObject1).xky.readString();
+        GMTrace.o(3746553659392L, 27914);
+        return 0;
+      }
+      paramVarArgs = ((a.a.a.a.a)localObject1).Eg(paramInt);
+      i = paramVarArgs.size();
+      paramInt = 0;
+      while (paramInt < i)
+      {
+        localObject2 = (byte[])paramVarArgs.get(paramInt);
+        localObject1 = new avt();
+        localObject2 = new a.a.a.a.a((byte[])localObject2, unknownTagHandler);
+        for (bool = true; bool; bool = ((avt)localObject1).a((a.a.a.a.a)localObject2, (com.tencent.mm.bd.a)localObject1, ave.a((a.a.a.a.a)localObject2))) {}
+        localaav.thY = ((avt)localObject1);
+        paramInt += 1;
+      }
+      GMTrace.o(3746553659392L, 27914);
+      return 0;
+    }
+    GMTrace.o(3746553659392L, 27914);
+    return -1;
+  }
+}
+
+
+/* Location:              /home/chengjian/weinxin/weinxin_1100/classes.jar!/com/tencent/mm/protocal/c/aav.class
+ * Java compiler version: 6 (50.0)
+ * JD-Core Version:       0.7.1
+ */

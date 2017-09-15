@@ -1,0 +1,248 @@
+-injars /home/chengjian/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.6.0/48efa6f14074e1a6b16e02ac05eba3fc5c7c7ec8/butterknife-annotations-8.6.0.jar(**.class)
+-injars /home/chengjian/.android/build-cache/8081cda2d66edc70f7d0c9fb38a54a88a15b0846/output/jars/classes.jar(**.class)
+-injars /home/chengjian/.android/build-cache/fbfc32a9365ad5058d78af027dc03af6cb1e5bb6/output/jars/classes.jar(**.class)
+-injars /home/chengjian/android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar(**.class)
+-injars /home/chengjian/workspace/TestApp/Testanr/build/intermediates/classes/release(**.class)
+-outjars /home/chengjian/workspace/TestApp/Testanr/build/intermediates/transforms/proguard/release/jars/3/1f/main.jar
+
+-libraryjars /home/chengjian/android/sdk/platforms/android-23/android.jar
+-libraryjars /home/chengjian/android/sdk/platforms/android-23/optional/org.apache.http.legacy.jar
+
+-forceprocessing
+-dontshrink
+-printusage /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/usage.txt
+-dontoptimize
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-optimizationpasses 5
+-printmapping /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/mapping.txt
+-obfuscationdictionary /home/chengjian/workspace/TestApp/Testanr/obfuscationdictionary.txt
+-dontusemixedcaseclassnames
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod,Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses,SourceFile,LineNumberTable,Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses
+-renamesourcefileattribute adsourceFile
+-dontpreverify
+-verbose
+-dontnote com.android.vending.licensing.ILicensingService,com.google.vending.licensing.ILicensingService,com.google.android.vending.licensing.ILicensingService,android.support.**
+-dontwarn android.support.**,com.letv.ads.**,com.letv.plugin.pluginloader.**,butterknife.internal.**,android.support.**,com.tencent.bugly.**
+-printconfiguration /home/chengjian/workspace/TestApp/Testanr/print_config.txt
+-dump /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/dump.txt
+-printseeds /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/seeds.txt
+
+
+-keep public class com.google.vending.licensing.ILicensingService
+
+-keep public class com.android.vending.licensing.ILicensingService
+
+-keep public class com.google.android.vending.licensing.ILicensingService
+
+# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
+-keepclasseswithmembers,allowshrinking class * {
+    native <methods>;
+}
+
+# Keep setters in Views so that animations can still work.
+-keepclassmembers public class * extends android.view.View {
+    void set*(***);
+    *** get*();
+}
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick.
+-keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+}
+
+# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
+-keepclassmembers enum  * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclassmembers class * extends android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+-keepclassmembers class **.R$* {
+    public static <fields>;
+}
+
+# Preserve annotated Javascript interface methods.
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface
+    <methods>;
+}
+
+# Understand the @Keep support annotation.
+-keep class android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class * {
+    <fields>;
+    <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep
+    <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep
+    <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep
+    <init>(...);
+}
+
+# -keepattributes LineNumberTable
+# -ignorewarnings
+-keep public class * extends android.app.Activity
+
+-keep public class * extends android.app.Fragment
+
+-keepclasseswithmembers,allowshrinking class * {
+    native <methods>;
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context,android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context,android.util.AttributeSet,int);
+}
+
+-keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+}
+
+-keepclassmembers enum  * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * extends android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+-keep public class android.support.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class * extends android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+-keep public class com.nostra13.universalimageloader.** {
+    <fields>;
+    <methods>;
+}
+
+-keep public class com.google.zxing.** {
+    <fields>;
+    <methods>;
+}
+
+-keep public class com.letv.ads.** {
+    <fields>;
+    <methods>;
+}
+
+-keep public class com.letv.plugin.pluginloader.** {
+    <fields>;
+    <methods>;
+}
+
+-keep public class com.letv.ad.demo.utils.AdEventUtils {
+    <fields>;
+    <methods>;
+}
+
+-keep class butterknife.** {
+    <fields>;
+    <methods>;
+}
+
+-keep class **$$ViewBinder {
+    <fields>;
+    <methods>;
+}
+
+-keepclasseswithmembers,allowshrinking class * {
+    @butterknife.*
+    <fields>;
+}
+
+-keepclasseswithmembers,allowshrinking class * {
+    @butterknife.*
+    <methods>;
+}
+
+-keep public class com.tencent.bugly.** {
+    <fields>;
+    <methods>;
+}
+
+# Retain generated class which implement Unbinder.
+-keep public class * extends butterknife.Unbinder {
+    public <init>(**,android.view.View);
+}
+
+# Prevent obfuscation of types which use ButterKnife annotations since the simple name
+# is used to reflectively look up the generated ViewBinding.
+-keep class butterknife.*
+
+-keepclasseswithmembers,allowshrinking class * {
+    @butterknife.*
+    <methods>;
+}
+
+-keepclasseswithmembers,allowshrinking class * {
+    @butterknife.*
+    <fields>;
+}
+
+# view AndroidManifest.xml #generated:63
+-keep class letv.com.testanr.GrayInnerService {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:33
+-keep class letv.com.testanr.LoadingActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:67
+-keep class letv.com.testanr.MessengerService {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:23
+-keep class letv.com.testanr.MyActivity {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:16
+-keep class letv.com.testanr.MyApplication {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:71
+-keep class letv.com.testanr.MyJobService {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:59
+-keep class letv.com.testanr.MyService {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:42
+-keep class letv.com.testanr.MyStaticReceiverA {
+    <init>(...);
+}
+
+# view AndroidManifest.xml #generated:51
+-keep class letv.com.testanr.MyStaticReceiverB {
+    <init>(...);
+}
