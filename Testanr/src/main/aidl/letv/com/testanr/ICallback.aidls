@@ -3,6 +3,6 @@ package letv.com.testanr;
 
 
 interface ICallback {
-    void showTYResult(String result);
-    void showOWResult(String result);
+    void showResult(String result);
+    void showTestResult(String result);
 }

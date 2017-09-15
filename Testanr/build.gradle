@@ -1,13 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "25.0.0"
-
+    signingConfigs {
+        config {
+            keyAlias 'cj'
+            keyPassword '123456'
+            storeFile file('/home/chengjian/workspace/TestApp/test.ks')
+            storePassword '123456'
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "letv.com.testanr"
-        minSdkVersion 16
-        targetSdkVersion 24
+        minSdkVersion 15
+        targetSdkVersion 19
         versionCode 1
         versionName "1.0"
 
@@ -16,7 +23,11 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+        debug {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

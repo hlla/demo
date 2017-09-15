@@ -14,11 +14,11 @@ public class MyStaticReceiverB extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(TAG, "onReceive:");
-        try {
-            Thread.currentThread().sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Log.d(TAG, "onReceive:=" + intent.getStringExtra("abc"));
+//        try {
+//            Thread.currentThread().sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

@@ -1,9 +1,7 @@
 package letv.com.testanr;
 
 import android.app.Activity;
-import android.app.IntentService;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,21 +30,20 @@ public class LoadingActivity extends Activity {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                try {
-//                    Thread.sleep(15000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                SharedPreferences dd = getSharedPreferences(SP_FILE_NAME, Context
-//                        .MODE_PRIVATE);
-//                dd.edit().putString(KEY_FINISH, "1").commit();
-//                finish();
-//            }
-//        }.start();
-        startService(new Intent(this, InstallService.class));
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(115000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                SharedPreferences dd = getSharedPreferences(SP_FILE_NAME, Context
+                        .MODE_PRIVATE);
+                dd.edit().putString(KEY_FINISH, "1").commit();
+                finish();
+            }
+        }.start();
     }
 
     @Override
@@ -78,14 +75,10 @@ public class LoadingActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
-        System.exit(0);
     }
 
     @OnClick(R.id.loading)
     public void onViewClicked() {
         Log.d(TAG, "onViewClicked: ");
-        Intent intent = new Intent(MyActivity.ACTION);
-        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        sendBroadcast(intent);
     }
 }

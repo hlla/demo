@@ -57,20 +57,20 @@ public interface ICallback extends android.os.IInterface {
                     reply.writeString(DESCRIPTOR);
                     return true;
                 }
-                case TRANSACTION_showTYResult: {
+                case TRANSACTION_showResult: {
                     data.enforceInterface(DESCRIPTOR);
                     String _arg0;
                     _arg0 = data.readString();
-                    this.showTYResult(_arg0);
+                    this.showResult(_arg0);
                     reply.writeNoException();
                     return true;
                 }
-                case TRANSACTION_showOWResult: {
+                case TRANSACTION_showTestResult: {
                     data.enforceInterface(DESCRIPTOR);
                     String _arg0;
                     _arg0 = data.readString();
-                    this.showOWResult(_arg0);
-//                    reply.writeNoException();
+                    this.showTestResult(_arg0);
+                    reply.writeNoException();
                     return true;
                 }
             }
@@ -99,8 +99,8 @@ public interface ICallback extends android.os.IInterface {
             }
 
             @Override
-            public void showTYResult(String result) throws android.os.RemoteException {
-                Log.d(TAG, "showTYResult" + " tid=" + Thread
+            public void showResult(String result) throws android.os.RemoteException {
+                Log.d(TAG, "showResult" + " tid=" + Thread
                         .currentThread().getId() + ",tName=" + Thread.currentThread().getName
                         () + " ,pid=" + Process.myPid());
                 android.os.Parcel _data = android.os.Parcel.obtain();
@@ -108,7 +108,7 @@ public interface ICallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(result);
-                    mRemote.transact(Stub.TRANSACTION_showTYResult, _data, _reply, 0);
+                    mRemote.transact(Stub.TRANSACTION_showResult, _data, _reply, 0);
                     _reply.readException();
                 } finally {
                     _reply.recycle();
@@ -117,8 +117,8 @@ public interface ICallback extends android.os.IInterface {
             }
 
             @Override
-            public void showOWResult(String result) throws android.os.RemoteException {
-                Log.d(TAG, "showOWResult" + " tid=" + Thread
+            public void showTestResult(String result) throws android.os.RemoteException {
+                Log.d(TAG, "showTestResult" + " tid=" + Thread
                         .currentThread().getId() + ",tName=" + Thread.currentThread().getName
                         () + " ,pid=" + Process.myPid());
                 android.os.Parcel _data = android.os.Parcel.obtain();
@@ -126,9 +126,8 @@ public interface ICallback extends android.os.IInterface {
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     _data.writeString(result);
-                    mRemote.transact(Stub.TRANSACTION_showOWResult, _data, _reply, android.os.IBinder
-                            .FLAG_ONEWAY);
-//                    _reply.readException();
+                    mRemote.transact(Stub.TRANSACTION_showTestResult, _data, _reply, 0);
+                    _reply.readException();
                 } finally {
                     _reply.recycle();
                     _data.recycle();
@@ -136,12 +135,12 @@ public interface ICallback extends android.os.IInterface {
             }
         }
 
-        static final int TRANSACTION_showTYResult = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
-        static final int TRANSACTION_showOWResult = (android.os.IBinder.FIRST_CALL_TRANSACTION
+        static final int TRANSACTION_showResult = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+        static final int TRANSACTION_showTestResult = (android.os.IBinder.FIRST_CALL_TRANSACTION
                 + 1);
     }
 
-    public void showTYResult(String result) throws android.os.RemoteException;
+    public void showResult(String result) throws android.os.RemoteException;
 
-    public void showOWResult(String result) throws android.os.RemoteException;
+    public void showTestResult(String result) throws android.os.RemoteException;
 }

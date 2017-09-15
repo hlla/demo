@@ -59,7 +59,7 @@ public interface ITestbinder extends android.os.IInterface {
                 }
                 case TRANSACTION_getAdId: {
                     data.enforceInterface(DESCRIPTOR);
-                    java.lang.String _arg0;
+                    String _arg0;
                     _arg0 = data.readString();
                     int _result = this.getAdId(_arg0);
                     reply.writeNoException();
@@ -68,29 +68,29 @@ public interface ITestbinder extends android.os.IInterface {
                 }
                 case TRANSACTION_testCall: {
                     data.enforceInterface(DESCRIPTOR);
-                    java.util.List<letv.com.testanr.School> _arg0;
-                    _arg0 = data.createTypedArrayList(letv.com.testanr.School.CREATOR);
+                    java.util.List<School> _arg0;
+                    _arg0 = data.createTypedArrayList(School.CREATOR);
                     this.testCall(_arg0);
                     return true;
                 }
                 case TRANSACTION_test: {
                     data.enforceInterface(DESCRIPTOR);
-                    letv.com.testanr.School _arg0;
+                    School _arg0;
                     if ((0 != data.readInt())) {
-                        _arg0 = letv.com.testanr.School.CREATOR.createFromParcel(data);
+                        _arg0 = School.CREATOR.createFromParcel(data);
                     } else {
                         _arg0 = null;
                     }
-                    java.util.List<letv.com.testanr.School> _result = this.test(_arg0);
+                    java.util.List<School> _result = this.test(_arg0);
                     reply.writeNoException();
                     reply.writeTypedList(_result);
                     return true;
                 }
                 case TRANSACTION_testSchool: {
                     data.enforceInterface(DESCRIPTOR);
-                    letv.com.testanr.School _arg0;
+                    School _arg0;
                     if ((0 != data.readInt())) {
-                        _arg0 = letv.com.testanr.School.CREATOR.createFromParcel(data);
+                        _arg0 = School.CREATOR.createFromParcel(data);
                     } else {
                         _arg0 = null;
                     }
@@ -107,9 +107,9 @@ public interface ITestbinder extends android.os.IInterface {
                 }
                 case TRANSACTION_testArray: {
                     data.enforceInterface(DESCRIPTOR);
-                    letv.com.testanr.School _arg0;
-                    _arg0 = new letv.com.testanr.School();
-                    letv.com.testanr.School[] _result = this.testArray(_arg0);
+                    School _arg0;
+                    _arg0 = new School();
+                    School[] _result = this.testArray(_arg0);
                     reply.writeNoException();
                     reply.writeTypedArray(_result, android.os.Parcelable
                             .PARCELABLE_WRITE_RETURN_VALUE);
@@ -124,8 +124,8 @@ public interface ITestbinder extends android.os.IInterface {
                 }
                 case TRANSACTION_unregisterCallback: {
                     data.enforceInterface(DESCRIPTOR);
-                    letv.com.testanr.ICallback _arg0;
-                    _arg0 = letv.com.testanr.ICallback.Stub.asInterface(data.readStrongBinder());
+                    ICallback _arg0;
+                    _arg0 = ICallback.Stub.asInterface(data.readStrongBinder());
                     this.unregisterCallback(_arg0);
                     reply.writeNoException();
                     return true;
@@ -133,8 +133,8 @@ public interface ITestbinder extends android.os.IInterface {
                 case TRANSACTION_registerCallback: {
                     Log.d(TAG, "onTransact: register 1");
                     data.enforceInterface(DESCRIPTOR);
-                    letv.com.testanr.ICallback _arg0;
-                    _arg0 = letv.com.testanr.ICallback.Stub.asInterface(data.readStrongBinder());
+                    ICallback _arg0;
+                    _arg0 = ICallback.Stub.asInterface(data.readStrongBinder());
                     this.registerCallback(_arg0);
                     reply.writeNoException();
                     Log.d(TAG, "onTransact: register 2");
@@ -171,7 +171,7 @@ public interface ITestbinder extends android.os.IInterface {
             }
 
             @Override
-            public int getAdId(java.lang.String aa) throws android.os.RemoteException {
+            public int getAdId(String aa) throws android.os.RemoteException {
                 Log.d(TAG, "getAdId" + " tid=" + Thread
                         .currentThread().getId() + ",tName=" + Thread.currentThread().getName
                         () + " ,pid=" + Process.myPid());
@@ -208,11 +208,11 @@ public interface ITestbinder extends android.os.IInterface {
             }
 
             @Override
-            public java.util.List<letv.com.testanr.School> test(letv.com.testanr.School sc)
+            public java.util.List<School> test(School sc)
                     throws android.os.RemoteException {
                 android.os.Parcel _data = android.os.Parcel.obtain();
                 android.os.Parcel _reply = android.os.Parcel.obtain();
-                java.util.List<letv.com.testanr.School> _result;
+                java.util.List<School> _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     if ((sc != null)) {
@@ -223,7 +223,7 @@ public interface ITestbinder extends android.os.IInterface {
                     }
                     mRemote.transact(Stub.TRANSACTION_test, _data, _reply, 0);
                     _reply.readException();
-                    _result = _reply.createTypedArrayList(letv.com.testanr.School.CREATOR);
+                    _result = _reply.createTypedArrayList(School.CREATOR);
                 } finally {
                     _reply.recycle();
                     _data.recycle();
@@ -232,7 +232,7 @@ public interface ITestbinder extends android.os.IInterface {
             }
 
             @Override
-            public void testSchool(letv.com.testanr.School sc) throws android.os.RemoteException {
+            public void testSchool(School sc) throws android.os.RemoteException {
                 android.os.Parcel _data = android.os.Parcel.obtain();
                 android.os.Parcel _reply = android.os.Parcel.obtain();
                 Log.d(TAG, "testSchool" + " tid=" + Thread
@@ -258,19 +258,19 @@ public interface ITestbinder extends android.os.IInterface {
             }
 
             @Override
-            public letv.com.testanr.School[] testArray(letv.com.testanr.School sc) throws android
+            public School[] testArray(School sc) throws android
                     .os.RemoteException {
                 Log.d(TAG, "testArray" + " tid=" + Thread
                         .currentThread().getId() + ",tName=" + Thread.currentThread().getName
                         () + " ,pid=" + Process.myPid());
                 android.os.Parcel _data = android.os.Parcel.obtain();
                 android.os.Parcel _reply = android.os.Parcel.obtain();
-                letv.com.testanr.School[] _result;
+                School[] _result;
                 try {
                     _data.writeInterfaceToken(DESCRIPTOR);
                     mRemote.transact(Stub.TRANSACTION_testArray, _data, _reply, 0);
                     _reply.readException();
-                    _result = _reply.createTypedArray(letv.com.testanr.School.CREATOR);
+                    _result = _reply.createTypedArray(School.CREATOR);
                     if ((0 != _reply.readInt())) {
                         sc.readFromParcel(_reply);
                     }
@@ -282,7 +282,7 @@ public interface ITestbinder extends android.os.IInterface {
             }
 
             @Override
-            public void unregisterCallback(letv.com.testanr.ICallback cb) throws android.os
+            public void unregisterCallback(ICallback cb) throws android.os
                     .RemoteException {
                 Log.d(TAG, "unregisterCallback" + " tid=" + Thread
                         .currentThread().getId() + ",tName=" + Thread.currentThread().getName
@@ -301,7 +301,7 @@ public interface ITestbinder extends android.os.IInterface {
             }
 
             @Override
-            public void registerCallback(letv.com.testanr.ICallback cb) throws android.os
+            public void registerCallback(ICallback cb) throws android.os
                     .RemoteException {
                 Log.d(TAG, "registerCallback" + " tid=" + Thread
                         .currentThread().getId() + ",tName=" + Thread.currentThread().getName
@@ -331,20 +331,20 @@ public interface ITestbinder extends android.os.IInterface {
                 .FIRST_CALL_TRANSACTION + 6);
     }
 
-    public int getAdId(java.lang.String aa) throws android.os.RemoteException;
+    public int getAdId(String aa) throws android.os.RemoteException;
 
-    public void testCall(java.util.List<letv.com.testanr.School> ssss) throws android.os
+    public void testCall(java.util.List<School> ssss) throws android.os
             .RemoteException;
 
-    public java.util.List<letv.com.testanr.School> test(letv.com.testanr.School sc) throws
+    public java.util.List<School> test(School sc) throws
             android.os.RemoteException;
 
-    public void testSchool(letv.com.testanr.School sc) throws android.os.RemoteException;
+    public void testSchool(School sc) throws android.os.RemoteException;
 
-    public letv.com.testanr.School[] testArray(letv.com.testanr.School sc) throws android.os
+    public School[] testArray(School sc) throws android.os
             .RemoteException;
 
-    public void unregisterCallback(letv.com.testanr.ICallback cb) throws android.os.RemoteException;
+    public void unregisterCallback(ICallback cb) throws android.os.RemoteException;
 
-    public void registerCallback(letv.com.testanr.ICallback cb) throws android.os.RemoteException;
+    public void registerCallback(ICallback cb) throws android.os.RemoteException;
 }

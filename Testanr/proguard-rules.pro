@@ -23,3 +23,94 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+
+-obfuscationdictionary obfuscationdictionary.txt
+#-classobfuscationdictionary classobfuscationdictionary.txt
+-printconfiguration print_config.txt
+
+
+-optimizationpasses 5
+-dontoptimize
+-dontshrink
+-verbose
+-optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes JavascriptInterface
+-keepattributes Exceptions,InnerClasses
+-renamesourcefileattribute adsourceFile
+#打印异常堆栈源码和行数，便于排查问题s
+-keepattributes SourceFile,LineNumberTable
+#-keepattributes LineNumberTable
+#-ignorewarnings
+#
+-keep public class * extends android.app.Activity
+-keep public class * extends android.app.Fragment
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet);
+}
+
+-keepclasseswithmembers class * {
+    public <init>(android.content.Context, android.util.AttributeSet, int);
+}
+
+-keepclassmembers class * extends android.app.Activity {
+   public void *(android.view.View);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+ -keep public class android.support.**{
+ *;
+ }
+-keepattributes Signature
+-keepattributes *Annotation*
+-keepattributes JavascriptInterface
+-keepattributes Exceptions,InnerClasses
+-keep class * implements android.os.Parcelable {
+  public static final android.os.Parcelable$Creator *;
+}
+ -keep public class com.nostra13.universalimageloader.**{
+ *;
+ }
+ -keep public class com.google.zxing.**{
+    *;
+ }
+  -keep public class com.letv.ads.**{
+  *;
+  }
+  -keep public class com.letv.plugin.pluginloader.**{
+      *;
+   }
+  -keep public class com.letv.ad.demo.utils.AdEventUtils{
+      *;
+   }
+
+    -dontwarn com.letv.ads.**
+    -dontwarn com.letv.plugin.pluginloader.**
+-keep class butterknife.** { *; }
+-dontwarn butterknife.internal.**
+-keep class **$$ViewBinder { *; }
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <fields>;
+}
+
+-keepclasseswithmembernames class * {
+    @butterknife.* <methods>;
+}
+-dontwarn android.support.**
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}
+#

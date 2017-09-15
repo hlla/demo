@@ -3,16 +3,13 @@ package letv.com.testanr;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.List;
-import java.util.logging.LogRecord;
 
 import static letv.com.testanr.MyActivity.ACTION_DYNAMIC;
 
@@ -23,12 +20,7 @@ import static letv.com.testanr.MyActivity.ACTION_DYNAMIC;
 public class MyService extends Service {
     private static final String TAG = "Testanr_MyService";
     public static final int NOTIFICATION_ID = 11111;
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            notifyResult("ddddd");
-        }
-    };
+
     private RemoteCallbackList<ICallback> mCallbacks = new RemoteCallbackList<ICallback>() {
         @Override
         public void onCallbackDied(ICallback callback) {
@@ -66,19 +58,17 @@ public class MyService extends Service {
                 e.printStackTrace();
             }
             Log.d(MyService.TAG, "testCall: end");
-            Log.d(MyService.TAG, "testCall: ssss error" + ssss.toString());
-        }
-
-        @Override
-        public void testSchool(School sc) throws RemoteException {
-            Log.d(MyService.TAG, "testSchool: ");
-            Log.d(MyService.TAG, "testSchool: ssss error" + sc.toString());
         }
 
         @Override
         public List<School> test(School sc) throws RemoteException {
             Log.d(MyService.TAG, "test: ");
             return null;
+        }
+
+        @Override
+        public void testSchool(School sc) throws RemoteException {
+            Log.d(MyService.TAG, "testSchool: ");
         }
 
         @Override
@@ -101,7 +91,6 @@ public class MyService extends Service {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            mHandler.sendEmptyMessage(0);
         }
     };
 
@@ -110,8 +99,8 @@ public class MyService extends Service {
         for (int i = 0; i < len; i++) {
             try {
                 // 通知回调
-                mCallbacks.getBroadcastItem(i).showOWResult(result);
-                mCallbacks.getBroadcastItem(i).showTYResult(result);
+                mCallbacks.getBroadcastItem(i).showResult(result);
+                mCallbacks.getBroadcastItem(i).showTestResult(result);
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

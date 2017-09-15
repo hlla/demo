@@ -1,6 +1,8 @@
 package letv.com.testanr;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -15,18 +17,20 @@ import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.PowerManager;
 import android.os.Process;
 import android.os.RemoteException;
+import android.provider.Settings;
 import android.util.Log;
 import android.widget.Button;
 
-import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,8 +40,7 @@ import letv.com.testanr.reflect.MethodUtils;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_SHARED_LIBRARY_FILES;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static letv.com.testanr.R.drawable.a;
+import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
 
 public class MyActivity extends Activity {
     private static final String TAG = "Testanr_MyActivity";
@@ -78,12 +81,55 @@ public class MyActivity extends Activity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Log.d(TAG, "handleMessage what-" + msg.what);
-            PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-            wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
-                    "DPA");
+            int what = msg.what;
+            switch (what) {
+                case 1: {
+                    PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+                    wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager
+                            .ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
+                            "WakeAndLock");
+//                    wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE))
+// .newWakeLock(PARTIAL_WAKE_LOCK, "cpu_lck");
+//                    wakeLock = pm.newWakeLock(PARTIAL_WAKE_LOCK, "WakeAndLock");
+                    Log.d(TAG, "handleMessage what-" + msg.what + " wakeLock=" + wakeLock.isHeld());
+                    wakeLock.acquire();
+//                    wakeLock.acquire();
+//                    wakeLock.acquire();
+                    break;
+                }
+                case 2: {
+                    if (null != wakeLock) {
+                        Log.d(TAG, "handleMessage what-" + msg.what + " wakeLock=" + wakeLock
+                                .isHeld());
+                        if (wakeLock.isHeld()) {
+                            wakeLock.release();
+                        }
+                    }
+                    break;
+                }
+            }
 
-            wakeLock.acquire();
+//            wakeLock.release();
+//            try {
+//                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+//                        30000);
+//            } catch (SecurityException e) {
+//
+//            } catch (Exception e) {
+//                Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_OFF_TIMEOUT,
+//                        30000);
+//            }
+//            pm.goToSleep(SystemClock.uptimeMillis());
+//            PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+//            PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.ACQUIRE_CAUSES_WAKEUP
+// | PowerManager.SCREEN_DIM_WAKE_LOCK, "TAG");
+//            wakeLock.acquire();
+////然后定时
+//            mTimeHandler.postDelayed(new Runnable(){
+//                public void run(){
+//                    wakeLock.release();//
+//                }
+//            }, 10*1000);//延时10秒灭屏
         }
     };
     private ITestbinder iTestbinder;
@@ -96,24 +142,15 @@ public class MyActivity extends Activity {
     private MessengerConnection messengerConnection = new MessengerConnection();
     private ICallback.Stub iCallback = new ICallback.Stub() {
         @Override
-        public void showTYResult(String result) throws RemoteException {
-            Log.d(MyActivity.TAG, "showTYResult result=" + result + " CallingPid=" + Binder
+        public void showResult(String result) throws RemoteException {
+            Log.d(MyActivity.TAG, "showResult result=" + result + " CallingPid=" + Binder
                     .getCallingPid() + " CallingUid=" + Binder.getCallingUid());
-            String test = null;
-            //twoway  被调用方有异常(比如空指针)发生崩溃,但是崩溃发生在调用进程
-//            at android.os.Parcel.readException(Parcel.java:1626)
-//            at android.os.Parcel.readException(Parcel.java:1573)
-//            at letv.com.testanr.ICallback$Stub$Proxy.showTYResult(ICallback.java:112)
-            Log.d(MyActivity.TAG, "showTYResult error" + test.toString());
         }
 
         @Override
-        public void showOWResult(String result) throws RemoteException {
-            Log.d(MyActivity.TAG, "showOWResult result=" + result + " CallingPid=" + Binder
+        public void showTestResult(String result) throws RemoteException {
+            Log.d(MyActivity.TAG, "showTestResult result=" + result + " CallingPid=" + Binder
                     .getCallingPid() + " CallingUid=" + Binder.getCallingUid());
-            String test = null;
-            //oneway  被调用方有异常(比如空指针)不会发生崩溃
-            Log.d(MyActivity.TAG, "showOWResult error" + test.toString());
         }
     };
 
@@ -154,8 +191,6 @@ public class MyActivity extends Activity {
             Log.d(TAG, "onServiceConnected =" + name + " service=" + service + " iTestbinder=" +
                     iTestbinder);
             try {
-//                iTestbinder.testSchool(null);
-//                iTestbinder.testCall(null);
                 iTestbinder.asBinder().linkToDeath(new IBinder.DeathRecipient() {
                     @Override
                     public void binderDied() {
@@ -164,7 +199,6 @@ public class MyActivity extends Activity {
                 }, 0);
             } catch (RemoteException e) {
                 e.printStackTrace();
-                Log.d(TAG, "test ddddd=" + e);
             }
 //            try {
 //                Log.d(TAG, "onServiceConnected 1 ");
@@ -187,12 +221,88 @@ public class MyActivity extends Activity {
         }
     }
 
+    static class MyTest {
+        String str;
+        int code;
+
+        MyTest(String name, int code) {
+            str = name;
+            this.code = code;
+        }
+
+        @Override
+        public int hashCode() {
+            return code;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            String other = ((MyTest) o).str;
+            return str.substring(0, 1).equals(other.substring(0, 1));
+        }
+
+        @Override
+        public String toString() {
+            return str;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-        Process.setThreadPriority(Process.THREAD_PRIORITY_LOWEST);
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(ACTION);
+        Log.d(TAG, "Testanr_MySR onCreate: ");
+        intent.putExtra("abc", "ddddddd55666");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.cancel(pendingIntent);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis() + 16 * 1000,
+                5000,
+                pendingIntent);
+        Intent intent1 = new Intent(ACTION);
+        intent1.putExtra("abc", "fff");
+        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, intent1,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        alarm.cancel(pendingIntent1);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP,
+                System.currentTimeMillis() + 20 * 1000,
+                8000,
+                pendingIntent1);
+//        alarm.setWindow(AlarmManager.RTC_WAKEUP,
+//                System.currentTimeMillis() + 3 * 1000,
+//                1000,
+//                pendingIntent);
+        Process.setThreadPriority(Process.THREAD_PRIORITY_AUDIO);
+        List<String> mHostThemeCallbackList = Collections.synchronizedList(new
+                ArrayList<String>());
+        mHostThemeCallbackList.add("a");
+        mHostThemeCallbackList.add("b");
+        mHostThemeCallbackList.add("c");
+        String dd = null;
+        for (String str : mHostThemeCallbackList) {
+//            mHostThemeCallbackList.remove("c");
+        }
+        String a = new String("abcd");
+        String b = new String("abcd");
+
+        System.out.println(a.hashCode());
+        System.out.println(b.hashCode());
+        System.out.println(a.equals(b));
+        HashMap<MyTest, String> hashMap = new HashMap<>();
+        hashMap.put(new MyTest("ab", 1), "fff");
+        hashMap.put(new MyTest("ad", 1), "hhh");
+        hashMap.put(new MyTest("cd", 1), "vv");
+        hashMap.put(new MyTest("fe", 1), "eee");
+        hashMap.put(new MyTest("ww", 1), "eee");
+        hashMap.put(new MyTest("bb", 1), "eee");
+        hashMap.put(new MyTest("vd", 3), "eee");
+        System.out.println("hashMap =" + hashMap);
+        for (MyTest myTest : hashMap.keySet()) {
+            System.out.println("myTest=" + myTest);
+        }
         BitmapFactory.Options options = new BitmapFactory.Options();
 //        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         options.inTargetDensity = 480;
@@ -214,11 +324,11 @@ public class MyActivity extends Activity {
         try {
             ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo(getPackageName
                     (), GET_META_DATA | GET_SHARED_LIBRARY_FILES);
-            Log.d(TAG, "onCreate: applicationInfo.sourceDir=" + applicationInfo.sourceDir + " " +
-                    "sharedLibraryFiles=" + applicationInfo.sharedLibraryFiles + " " +
-                    "splitSourceDirs=" + applicationInfo.splitSourceDirs + " " +
-                    "mDataDir=" + applicationInfo.dataDir + " nativeLibraryDir=" +
-                    applicationInfo.nativeLibraryDir);
+//            Log.d(TAG, "onCreate: applicationInfo.sourceDir=" + applicationInfo.sourceDir + " " +
+//                    "sharedLibraryFiles=" + applicationInfo.sharedLibraryFiles + " " +
+//                    "splitSourceDirs=" + applicationInfo.splitSourceDirs + " " +
+//                    "mDataDir=" + applicationInfo.dataDir + " nativeLibraryDir=" +
+//                    applicationInfo.nativeLibraryDir);
             Class ApplicationLoaders = Class.forName("android.app.ApplicationLoaders");
             Object applicationLoaders = MethodUtils.invokeStaticMethod(ApplicationLoaders,
                     "getDefault");
@@ -236,68 +346,55 @@ public class MyActivity extends Activity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 //        try {
 //            Thread.currentThread().sleep(15000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        long tPriority = Thread.currentThread().getPriority();
-        int pPriority = Process.getThreadPriority(Process.myTid());
-        Log.d(TAG, "onCreate: tPriority=" + tPriority + " pPriority=" + pPriority);
-//        for (int i = 0; i < 200; i++) {
-        new Thread() {
-            @Override
-            public void run() {
-//                while (true) {
-//                }
-                Process.setThreadPriority(Process.THREAD_PRIORITY_LOWEST);
-                long tPriority = Thread.currentThread().getPriority();
-                int pPriority = Process.getThreadPriority(Process.myTid());
-                Log.d(TAG, "onCreate: work thread 1 tPriority=" + tPriority + " pPriority=" +
-                        pPriority);
-                for (int a = 0; a < 40000000; a++) {
-                    m += a;
-                }
-                Log.d(TAG, "Thread 1 dne m=" + m);
-            }
-        }.start();
-        new Thread() {
-            @Override
-            public void run() {
-//                while (true) {
-//                }
-                long tPriority = Thread.currentThread().getPriority();
-                int pPriority = Process.getThreadPriority(Process.myTid());
-                Log.d(TAG, "onCreate: work thread 2 tPriority=" + tPriority + " pPriority=" +
-                        pPriority);
-                for (int a = 0; a < 40000000; a++) {
-                    n += a;
-                }
-                Log.d(TAG, "Thread 2 dne n=" + n);
-            }
-        }.start();
-        for (int a = 0; a < 40000000; a++) {
-            p += a;
-        }
-        Log.d(TAG, "main dne p=" + p);
+//        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+//        Process.setThreadPriority(Process.THREAD_PRIORITY_LOWEST);
+//        Log.d(TAG, "onCreate: mLoaders=" + Process.getThreadPriority(Process.myTid()));
+//        Log.d(TAG, "onCreate: mLoaders=" + Thread.currentThread().getPriority());
+//        try {
+//            Thread.sleep(15000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
 //        }
+//        test();
+//        while (true) {
+//            i++;
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    setName("test_thread_i=" + i);
+//                    long time = System.currentTimeMillis();
+//                    while (true/*(System.currentTimeMillis() - time) < 25000*/) {
+//
+//                    }
+//
+//                }
+//            }.start();
+//            if (i > 150) {
+//                break;
+//            }
+//        }
+//        new TestRetrace().test("fff");
+
     }
 
-    int i;
-    long m, n,p;
+    int i = 0;
     private PowerManager.WakeLock wakeLock;
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.d(TAG, "onResume: ");
-        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
-                "DPA");
-
-        wakeLock.acquire();
-        mHandler.sendEmptyMessageDelayed(0, 3000);
+//        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+//        wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK,
+//                "DPA");
+//
+//        wakeLock.acquire();
+//        mHandler.sendEmptyMessageDelayed(0, 5000);
 //        try {
 //            Thread.sleep(3000);
 //        } catch (InterruptedException e) {
@@ -309,9 +406,14 @@ public class MyActivity extends Activity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: ");
+//        PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+//        wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager
+//                .ACQUIRE_CAUSES_WAKEUP, "WakeAndLock");
         if (wakeLock != null) {
-            wakeLock.release();
+//            wakeLock.release();
+            Log.d(TAG, "onPause: wakeLock=" + wakeLock.isHeld());
         }
+//        mHandler.sendEmptyMessageDelayed(2, 3000);
     }
 
     @Override
@@ -324,15 +426,15 @@ public class MyActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
-        Process.killProcess(android.os.Process.myPid());
-        try {
-            Method method = Process.class.getDeclaredMethod("killProcessGroup", Integer.class,
-                    Integer.class);
-            method.invoke(null, Process.myUid(), Process.myPid());
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d(TAG, "onDestroy: e=" + e);
-        }
+//        Process.killProcess(android.os.Process.myPid());
+//        try {
+//            Method method = Process.class.getDeclaredMethod("killProcessGroup", Integer.class,
+//                    Integer.class);
+//            method.invoke(null, Process.myUid(), Process.myPid());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.d(TAG, "onDestroy: e=" + e);
+//        }
     }
 
     @Override
@@ -345,9 +447,26 @@ public class MyActivity extends Activity {
     @OnClick(R.id.start_fg_service)
     public void onStartFgServiceClicked() {
         Log.d(TAG, "onStartFgServiceClicked: ");
-        Intent intent = new Intent(this, MyService.class);
-        intent.putExtra("abc", "cj");
-        startService(intent);
+        mHandler.sendEmptyMessageDelayed(1, 3000);
+//        Intent intent = new Intent(this, MyService.class);
+//        intent.putExtra("abc", "cj");
+//        startService(intent);
+    }
+
+
+    @OnClick(R.id.job_Service)
+    public void onJobServiceClicked() {
+        Log.d(TAG, "onJobServiceClicked");
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            pollServer();
+//        }
+//        mCpuLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock
+// (PowerManager.PARTIAL_WAKE_LOCK, "cpu_lck");
+        mHandler.sendEmptyMessageDelayed(2, 8000);
+        if (wakeLock != null) {
+//            wakeLock.release();
+            Log.d(TAG, "onJobServiceClicked: wakeLock=" + wakeLock.isHeld());
+        }
     }
 
     @OnClick(R.id.start_bg_service)
@@ -356,14 +475,6 @@ public class MyActivity extends Activity {
         Intent intent = new Intent(this, MyService.class);
         intent.putExtra("abc", "cj");
         startService(intent);
-    }
-
-    @OnClick(R.id.job_Service)
-    public void onJobServiceClicked() {
-        Log.d(TAG, "onJobServiceClicked");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            pollServer();
-        }
     }
 
     public void pollServer() {
@@ -403,10 +514,9 @@ public class MyActivity extends Activity {
 
     @OnClick(R.id.start_bg_broadcast)
     public void onStartBgBroadcastClicked() {
-        Intent intent = new Intent(ACTION);
-        sendBroadcast(intent);
+        Intent intent = new Intent(ACTION_DYNAMIC);
 //        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-//        sendOrderedBroadcast(intent, null);
+        sendOrderedBroadcast(intent, null);
     }
 
     @OnClick(R.id.start_static_broadcast)
@@ -562,6 +672,20 @@ public class MyActivity extends Activity {
     @OnClick(R.id.test_anr)
     public void onTestAnrClicked() {
         mHandler.sendEmptyMessage(0);
+        new Thread() {
+            @Override
+            public void run() {
+                long time = System.currentTimeMillis();
+                while (true) {
+                    try {
+                        Thread.currentThread().sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Log.d(TAG, "anr anr anr");
+                }
+            }
+        }.start();
         try {
             Thread.currentThread().sleep(15000);
         } catch (InterruptedException e) {
