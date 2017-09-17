@@ -78,6 +78,8 @@ public class MyActivity extends Activity {
     Button jobService;
     @BindView(R.id.register_messager)
     Button registerMessager;
+    private final Object mLockObject = new Object();
+    private final Object mWaitObject = new Object();
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -86,7 +88,7 @@ public class MyActivity extends Activity {
                 case 1: {
                     PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
                     wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager
-                            .ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
+                                    .ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
                             "WakeAndLock");
 //                    wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE))
 // .newWakeLock(PARTIAL_WAKE_LOCK, "cpu_lck");
@@ -379,7 +381,38 @@ public class MyActivity extends Activity {
 //            }
 //        }
 //        new TestRetrace().test("fff");
-
+//        try {
+//            Thread.sleep(15000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        Thread workThread = new Thread() {
+//            @Override
+//            public void run() {
+//                synchronized (mLockObject) {
+//                    Log.d(TAG, "test work thread");
+//                    try {
+//                        Thread.sleep(25000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        };
+//        workThread.start();
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        synchronized (mLockObject) {
+            try {
+                mLockObject.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "test main thread");
+        }
     }
 
     int i = 0;

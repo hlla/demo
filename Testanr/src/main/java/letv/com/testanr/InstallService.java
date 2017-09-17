@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static letv.com.testanr.LoadingActivity.KEY_FINISH;
 import static letv.com.testanr.LoadingActivity.SP_FILE_NAME;
 
@@ -17,6 +16,7 @@ import static letv.com.testanr.LoadingActivity.SP_FILE_NAME;
 
 public class InstallService extends IntentService {
     private static final String TAG = "Testanr_InstallService";
+
     public InstallService(String name) {
         super(name);
     }
@@ -28,21 +28,21 @@ public class InstallService extends IntentService {
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         int result = super.onStartCommand(intent, flags, startId);
-        Log.d(TAG, "onStartCommand: result="+result);
+        Log.d(TAG, "onStartCommand: result=" + result);
         return START_REDELIVER_INTENT;
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Log.d(TAG, "onHandleIntent: intent="+intent);
+        Log.d(TAG, "onHandleIntent: intent=" + intent);
         //模拟耗时
         // Log.d("wzj" , "install start" );
 
         try {
             Thread.sleep(35000);
             SharedPreferences dd = getSharedPreferences(SP_FILE_NAME, Context
-                        .MODE_PRIVATE);
-                dd.edit().putString(KEY_FINISH, "1").commit();
+                    .MODE_PRIVATE);
+            dd.edit().putString(KEY_FINISH, "1").commit();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
