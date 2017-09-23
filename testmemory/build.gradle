@@ -3,10 +3,17 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion '25.0.0'
-
+    signingConfigs {
+        config {
+            keyAlias 'cj'
+            keyPassword '123456'
+            storeFile file('/home/chengjian/workspace/TestApp/test.ks')
+            storePassword '123456'
+        }
+    }
     defaultConfig {
         applicationId "com.example.testmemory"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -18,6 +25,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }

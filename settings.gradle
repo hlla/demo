@@ -1,1 +1,1 @@
-include ':Testanr', ':TestAidlClient1', ':TestAidlService', ':TestlaunchmodeA', ':TestlaunchmodeB', ':testmemory', ':Testjni', ':Testviewpager', ':app', ':weinxin', ':library', ':testSurfaceview', ':testzip'
+include ':Testanr', ':TestAidlClient1', ':TestAidlService', ':TestlaunchmodeA', ':TestlaunchmodeB', ':testmemory', ':Testjni', ':Testviewpager', ':app', ':weinxin', ':library', ':testSurfaceview', ':testzip', ':debugframework', ':testjava', ':bugly', ':BugleDemo'

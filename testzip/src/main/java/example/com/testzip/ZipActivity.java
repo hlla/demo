@@ -1,8 +1,12 @@
 package example.com.testzip;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +32,39 @@ public class ZipActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zip);
+        File anrDir = new File("/data/anr/");
+        Log.d(TAG, "onCreate: trace=" + anrDir.exists() + " can=" + anrDir.canRead());
+        File[] anrTraceFiles = anrDir.listFiles();
+        Log.d(TAG, "onCreate: anrTraceFiles=" + anrTraceFiles);
+        if (null != anrTraceFiles) {
+            Log.d(TAG, "onCreate: anrTraceFiles.size=" + anrTraceFiles.length);
+            for (File file : anrTraceFiles) {
+                Log.d(TAG, "onCreate: file111=" + file.getPath());
+            }
+        }
+
+        File trace = new File("/data/anr/traces.txt");
+        Log.d(TAG, "onCreate: canRead=" + trace.canRead());
+        File dropbox = new File("/data/system/dropbox/");
+        Log.d(TAG, "onCreate: dropbox.canRead=" + dropbox.canRead() + " exist=" + dropbox.exists());
         ButterKnife.bind(this);
+        Intent intent = new Intent();
+        intent.setComponent(new ComponentName("letv.com.testanr", "letv.com.testanr" +
+                ".MyService"));
+        intent.setAction("test.service");
+        intent.putExtra("abc", "cj");
+        boolean result = bindService(intent, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d(TAG, "onServiceConnected: ");
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        }, BIND_AUTO_CREATE);
+        Log.d(TAG, "onBindServiceClicked: end result=" + result);
 //        getDataPartitionAvailableSize();
     }
 

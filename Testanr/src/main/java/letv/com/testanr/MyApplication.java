@@ -2,7 +2,6 @@ package letv.com.testanr;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,10 +25,21 @@ public class MyApplication extends Application {
         boolean isLoadDexProcess = isLoadDexProcess();
         Log.d(TAG, "attachBaseContext isLoadDexProcess=" + isLoadDexProcess);
         boolean isFinished = false;
-        if (!isLoadDexProcess) {
-            SharedPreferences dd = getSharedPreferences(LoadingActivity.SP_FILE_NAME,
-                    MODE_MULTI_PROCESS);
-            isFinished = "1".equals(dd.getString(LoadingActivity.KEY_FINISH, "0"));
+        if (isLoadDexProcess) {
+//                            Intent intent = new Intent();
+//            ComponentName componentName = new
+//                    ComponentName("letv.com.testanr", LoadingActivity.class.getName());
+//            intent.setComponent(componentName);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            base.startActivity(intent);
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            SharedPreferences dd = getSharedPreferences(LoadingActivity.SP_FILE_NAME,
+//                    MODE_MULTI_PROCESS);
+//            isFinished = "1".equals(dd.getString(LoadingActivity.KEY_FINISH, "0"));
             if (!isFinished) {
 //                Intent intent = new Intent();
 //                ComponentName componentName = new
@@ -66,5 +76,10 @@ public class MyApplication extends Application {
         Exception exception = new Exception("onCreate");
         exception.printStackTrace();
         Log.d(TAG, "onCreate:  pid=" + Process.myPid(), exception);
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

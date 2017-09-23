@@ -112,6 +112,11 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: ");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //        Notification.Builder builder = new Notification.Builder(this);
 //        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
 //        startForeground(NOTIFICATION_ID, builder.build());
@@ -153,7 +158,8 @@ public class MyService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Log.d(TAG, "onBind 11: intent=" + intent + " iTestbinder=" + iTestbinder);
+        Exception exception = new Exception("onBind");
+        Log.d(TAG, "onBind 11: intent=" + intent + " iTestbinder=" + iTestbinder, exception);
         return iTestbinder;
     }
 

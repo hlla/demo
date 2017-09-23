@@ -1,8 +1,8 @@
 package letv.com.testanr;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
+import android.app.ActivityManager;
+import android.app.ActivityManager.ProcessErrorStateInfo;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -14,7 +14,6 @@ import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -23,10 +22,12 @@ import android.os.Messenger;
 import android.os.PowerManager;
 import android.os.Process;
 import android.os.RemoteException;
-import android.provider.Settings;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Button;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,10 +38,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import letv.com.testanr.reflect.FieldUtils;
 import letv.com.testanr.reflect.MethodUtils;
+import letv.com.testanr.util.ANRMonitorManager;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_SHARED_LIBRARY_FILES;
-import static android.os.PowerManager.PARTIAL_WAKE_LOCK;
+import static com.android.layoutlib.bridge.BridgeConstants.R;
+
+;
 
 public class MyActivity extends Activity {
     private static final String TAG = "Testanr_MyActivity";
@@ -164,7 +168,9 @@ public class MyActivity extends Activity {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "MessengerConnection onServiceConnected =" + name + " service=" + service);
+            Exception exception = new Exception("onServiceConnected");
+            Log.d(TAG, "MessengerConnection onServiceConnected =" + name + " service=" + service,
+                    exception);
             mServiceMessenger = new Messenger(service);
             Log.d(TAG, "MessengerConnection onServiceConnected =" + name + " service=" + service
                     + " mServiceMessenger=" +
@@ -188,11 +194,14 @@ public class MyActivity extends Activity {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.d(TAG, "onServiceConnected =" + name + " service=" + service);
+            Exception exception = new Exception("onServiceConnected");
+
+            Log.d(TAG, "onServiceConnected =" + name + " service=" + service, exception);
             iTestbinder = ITestbinder.Stub.asInterface(service);
             Log.d(TAG, "onServiceConnected =" + name + " service=" + service + " iTestbinder=" +
                     iTestbinder);
             try {
+//                Trace.beginSection();
                 iTestbinder.asBinder().linkToDeath(new IBinder.DeathRecipient() {
                     @Override
                     public void binderDied() {
@@ -249,30 +258,34 @@ public class MyActivity extends Activity {
         }
     }
 
+    ActivityManager activityManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager
+                .LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(ACTION);
         Log.d(TAG, "Testanr_MySR onCreate: ");
-        intent.putExtra("abc", "ddddddd55666");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        alarm.cancel(pendingIntent);
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + 16 * 1000,
-                5000,
-                pendingIntent);
-        Intent intent1 = new Intent(ACTION);
-        intent1.putExtra("abc", "fff");
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, intent1,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        alarm.cancel(pendingIntent1);
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + 20 * 1000,
-                8000,
-                pendingIntent1);
+//        intent.putExtra("abc", "ddddddd55666");
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+//        alarm.cancel(pendingIntent);
+//        alarm.setRepeating(AlarmManager.RTC_WAKEUP,
+//                System.currentTimeMillis() + 16 * 1000,
+//                5000,
+//                pendingIntent);
+//        Intent intent1 = new Intent(ACTION);
+//        intent1.putExtra("abc", "fff");
+//        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, intent1,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//        alarm.cancel(pendingIntent1);
+//        alarm.setRepeating(AlarmManager.RTC_WAKEUP,
+//                System.currentTimeMillis() + 20 * 1000,
+//                8000,
+//                pendingIntent1);
 //        alarm.setWindow(AlarmManager.RTC_WAKEUP,
 //                System.currentTimeMillis() + 3 * 1000,
 //                1000,
@@ -284,9 +297,9 @@ public class MyActivity extends Activity {
         mHostThemeCallbackList.add("b");
         mHostThemeCallbackList.add("c");
         String dd = null;
-        for (String str : mHostThemeCallbackList) {
+//        for (String str : mHostThemeCallbackList) {
 //            mHostThemeCallbackList.remove("c");
-        }
+//        }
         String a = new String("abcd");
         String b = new String("abcd");
 
@@ -389,14 +402,15 @@ public class MyActivity extends Activity {
 //        Thread workThread = new Thread() {
 //            @Override
 //            public void run() {
-//                synchronized (mLockObject) {
-//                    Log.d(TAG, "test work thread");
-//                    try {
-//                        Thread.sleep(25000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
+//                new WebView(MyActivity.this);
+////                synchronized (mLockObject) {
+////                    Log.d(TAG, "test work thread");
+////                    try {
+////                        Thread.sleep(25000);
+////                    } catch (InterruptedException e) {
+////                        e.printStackTrace();
+////                    }
+////                }
 //            }
 //        };
 //        workThread.start();
@@ -405,14 +419,27 @@ public class MyActivity extends Activity {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        synchronized (mLockObject) {
-            try {
-                mLockObject.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            Log.d(TAG, "test main thread");
-        }
+//        synchronized (mLockObject) {
+//            try {
+//                mLockObject.wait(10000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            Log.d(TAG, "test main thread");
+//        }
+        activityManager = (ActivityManager) getSystemService(Context
+                .ACTIVITY_SERVICE);
+        List<ProcessErrorStateInfo> processErrorStateInfos = activityManager
+                .getProcessesInErrorState();
+        Log.d(TAG, "onCreate: processErrorStateInfos=" + processErrorStateInfos);
+//        for (ProcessErrorStateInfo processErrorStateInfo : processErrorStateInfos) {
+//            Log.d(TAG, "onCreate: processName=" + processErrorStateInfo.processName + " msg=" +
+//                    processErrorStateInfo.longMsg + "  shortMsg=" + processErrorStateInfo
+//                    .shortMsg + " stackTrace" + processErrorStateInfo.stackTrace + "
+// condition=" +
+//                    processErrorStateInfo.condition);
+//        }
+        ANRMonitorManager.getInstance(this).startMonitor();
     }
 
     int i = 0;
@@ -459,6 +486,9 @@ public class MyActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
+        Intent intent = new Intent(ACTION);
+        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        sendBroadcast(intent);
 //        Process.killProcess(android.os.Process.myPid());
 //        try {
 //            Method method = Process.class.getDeclaredMethod("killProcessGroup", Integer.class,
@@ -477,11 +507,89 @@ public class MyActivity extends Activity {
         finish();
     }
 
+    private void readlog(final String param) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                java.lang.Process logcatProcess = null;
+                BufferedReader bufferedReader = null;
+                try {
+                    /** 获取系统logcat日志信息 */
+
+                    //相当于在命令行运行  logcat -s dalvikm ,  -s表示过滤，
+                    // 第三个参数表示过滤的条件。如果没有第三个参数，数组长度2，肯定也是可以的。下面有logcat的使      用方法
+//                    String[] running=new String[]{ "logcat","-s","dalvikvm" };
+                    logcatProcess = Runtime.getRuntime().exec("logcat " + param);
+
+                    bufferedReader = new BufferedReader(new InputStreamReader(
+                            logcatProcess.getInputStream()));
+
+                    String line;
+                    //筛选需要的字串
+                    String strFilter = "Could not find method";
+                    int n = 0;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        n++;
+                        Log.d(TAG, "run: sssss=" + line + " n=" + n);
+                        //读出每行log信息
+//                        System.out.println(line);
+//                        if (line.indexOf(strFilter) >= 0) {
+//                            /** 检测到strFilter的log日志语句，进行你需要的处理 */
+//                            break;
+//                        }
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
     @OnClick(R.id.start_fg_service)
     public void onStartFgServiceClicked() {
+        new Thread() {
+            @Override
+            public void run() {
+                long time = System.currentTimeMillis();
+                Log.d(TAG, "fffffffff time=" + time);
+                while (true) {
+                    if ((System.currentTimeMillis() - time) > 30000) {
+//                        readlog("");
+                        List<ProcessErrorStateInfo> processErrorStateInfos = activityManager
+                                .getProcessesInErrorState();
+                        Log.d(TAG, "run: processErrorStateInfo=" + processErrorStateInfos);
+                        if (null == processErrorStateInfos) {
+                            return;
+                        }
+                        for (ProcessErrorStateInfo processErrorStateInfo : processErrorStateInfos) {
+                            Log.d(TAG, "onCreate: processName=" + processErrorStateInfo
+                                    .processName +
+                                    " " +
+                                    "msg=" +
+                                    processErrorStateInfo.longMsg + "  shortMsg=" +
+                                    processErrorStateInfo
+                                            .shortMsg + " stackTrace" + processErrorStateInfo
+                                    .stackTrace + " " +
+                                    " " +
+                                    "condition=" +
+                                    processErrorStateInfo.condition);
+                        }
+                        break;
+                    }
+
+                }
+            }
+        }.start();
         Log.d(TAG, "onStartFgServiceClicked: ");
-        mHandler.sendEmptyMessageDelayed(1, 3000);
-//        Intent intent = new Intent(this, MyService.class);
+//        try {
+//            Thread.sleep(20000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        mHandler.sendEmptyMessageDelayed(1, 3000);
+//        Intent intent = new Intent(this, MyService
+// .class);
 //        intent.putExtra("abc", "cj");
 //        startService(intent);
     }
@@ -495,11 +603,11 @@ public class MyActivity extends Activity {
 //        }
 //        mCpuLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock
 // (PowerManager.PARTIAL_WAKE_LOCK, "cpu_lck");
-        mHandler.sendEmptyMessageDelayed(2, 8000);
-        if (wakeLock != null) {
-//            wakeLock.release();
-            Log.d(TAG, "onJobServiceClicked: wakeLock=" + wakeLock.isHeld());
-        }
+//        mHandler.sendEmptyMessageDelayed(2, 8000);
+//        if (wakeLock != null) {
+////            wakeLock.release();
+//            Log.d(TAG, "onJobServiceClicked: wakeLock=" + wakeLock.isHeld());
+//        }
     }
 
     @OnClick(R.id.start_bg_service)
@@ -527,10 +635,11 @@ public class MyActivity extends Activity {
     public void onBindServiceClicked() {
         Intent intent = new Intent(this, MyService.class);
         intent.putExtra("abc", "cj");
-        bindService(intent, connection, BIND_AUTO_CREATE);
-        Intent intent1 = new Intent(this, MessengerService.class);
-        intent1.putExtra("abc", "cj");
-        bindService(intent1, messengerConnection, BIND_AUTO_CREATE);
+        boolean result = bindService(intent, connection, BIND_AUTO_CREATE);
+        Log.d(TAG, "onBindServiceClicked: end result=" + result);
+//        Intent intent1 = new Intent(this, MessengerService.class);
+//        intent1.putExtra("abc", "cj");
+//        bindService(intent1, messengerConnection, BIND_AUTO_CREATE);
     }
 
     @OnClick(R.id.unbind_service)
@@ -726,4 +835,9 @@ public class MyActivity extends Activity {
         }
     }
 
+    @Override
+    public void onWindowAttributesChanged(WindowManager.LayoutParams params) {
+        Log.d(TAG, "onWindowAttributesChanged: params=" + params);
+        super.onWindowAttributesChanged(params);
+    }
 }

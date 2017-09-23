@@ -1723,6 +1723,7 @@ public class k
     /* Error */
     public final void onEvent(int paramInt, String paramString)
     {
+//      com.tencent.mm.sdk.f.e.post();
       // Byte code:
       //   0: ldc2_w 32
       //   3: ldc 34
@@ -1923,9 +1924,7 @@ public class k
                   v.i("MicroMsg.MMCrashReporter", "Parse ANR trace '%s': OK.", new Object[] { localObject4 });
                   k.this.h(str, ((ActivityManager.ProcessErrorStateInfo)localObject2).pid);
                 }
-              }
-              else
-              {
+              }else{
                 v.i("MicroMsg.MMCrashReporter", "ANR Parser ended.");
                 k.this.fwF = null;
                 GMTrace.o(12997913214976L, 96842);

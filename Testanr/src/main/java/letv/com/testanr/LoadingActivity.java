@@ -1,8 +1,6 @@
 package letv.com.testanr;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -30,20 +28,20 @@ public class LoadingActivity extends Activity {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(115000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                SharedPreferences dd = getSharedPreferences(SP_FILE_NAME, Context
-                        .MODE_PRIVATE);
-                dd.edit().putString(KEY_FINISH, "1").commit();
-                finish();
-            }
-        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(115000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                SharedPreferences dd = getSharedPreferences(SP_FILE_NAME, Context
+//                        .MODE_PRIVATE);
+//                dd.edit().putString(KEY_FINISH, "1").commit();
+//                finish();
+//            }
+//        }.start();
     }
 
     @Override

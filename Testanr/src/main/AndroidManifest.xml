@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="letv.com.testanr">
+          package="letv.com.testanr"
+          android:sharedUserId="com.example.uid">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="android.permission.READ_LOGS"/>
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/letv_app_theme">
+        android:theme="@style/letv_app_theme"
+        >
         <activity
             android:name=".MyActivity"
             android:screenOrientation="portrait"
@@ -34,16 +38,22 @@
             android:screenOrientation="portrait"
             android:theme="@style/LetvSplash"/>
 
-        <!--<receiver-->
-            <!--android:name=".MyStaticReceiverA"-->
-            <!--android:process=":remoteReceiver">-->
+        <receiver
+            android:name=".MyStaticReceiverA">
             <!--<intent-filter android:priority="5">-->
                 <!--<action android:name="android.intent.action.mystaticreceiver"/>-->
 
                 <!--<category android:name="android.intent.category.DEFAULT"/>-->
             <!--</intent-filter>-->
-        <!--</receiver>-->
-        <receiver android:name=".MyStaticReceiverB">
+            <intent-filter android:priority="5">
+                <action android:name="android.intent.action.MyStaticReceiverA"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".MyStaticReceiverB"
+            android:process=":loading">
             <intent-filter android:priority="9">
                 <action android:name="android.intent.action.mystaticreceiver"/>
 
@@ -53,8 +63,11 @@
 
         <service
             android:name=".MyService"
-            android:process=":remote"
-            android:exported="true">
+            android:exported="true"
+            android:process=":loading">
+            <intent-filter>
+                <action android:name="test.service"/>
+            </intent-filter>
         </service>
         <service
             android:name=".GrayInnerService"
