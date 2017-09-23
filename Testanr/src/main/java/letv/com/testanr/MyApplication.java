@@ -1,7 +1,9 @@
 package letv.com.testanr;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Process;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,12 +28,12 @@ public class MyApplication extends Application {
         Log.d(TAG, "attachBaseContext isLoadDexProcess=" + isLoadDexProcess);
         boolean isFinished = false;
         if (isLoadDexProcess) {
-//                            Intent intent = new Intent();
-//            ComponentName componentName = new
-//                    ComponentName("letv.com.testanr", LoadingActivity.class.getName());
-//            intent.setComponent(componentName);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            base.startActivity(intent);
+            Intent intent = new Intent();
+            ComponentName componentName = new
+                    ComponentName("letv.com.testanr", LoadingActivity.class.getName());
+            intent.setComponent(componentName);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            base.startActivity(intent);
 //            try {
 //                Thread.sleep(5000);
 //            } catch (InterruptedException e) {

@@ -42,9 +42,7 @@ import letv.com.testanr.util.ANRMonitorManager;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_SHARED_LIBRARY_FILES;
-import static com.android.layoutlib.bridge.BridgeConstants.R;
 
-;
 
 public class MyActivity extends Activity {
     private static final String TAG = "Testanr_MyActivity";

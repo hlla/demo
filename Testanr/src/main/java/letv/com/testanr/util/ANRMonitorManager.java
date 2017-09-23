@@ -32,7 +32,7 @@ public class ANRMonitorManager {
 
     private ANRMonitorManager(Context context) {
         mContext = context;
-        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context
+        mActivityManager = (ActivityManager) context.getSystemService(Context
                 .ACTIVITY_SERVICE);
     }
 
