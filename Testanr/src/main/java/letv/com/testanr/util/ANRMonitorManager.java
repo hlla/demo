@@ -41,10 +41,17 @@ public class ANRMonitorManager {
     public void startMonitor() {
         final String tracesPath = SystemProperties.get("dalvik.vm.stack-trace-file", null);
         Log.d(TAG, "startMonitor: tracesPath=" + tracesPath);
-        observer = new FileObserver(tracesPath, 2047) {
+        observer = new FileObserver(tracesPath, 8) {
             @Override
             public synchronized void onEvent(int event, String path) {
                 Log.d(TAG, "onEvent: event=" + event);
+//                if (sleep.exists()) {
+//                    try {
+//                        Thread.sleep(3000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
                 List<ProcessErrorStateInfo> processErrorStateInfos = mActivityManager
                         .getProcessesInErrorState();
                 Log.d(TAG, "run: processErrorStateInfo=" + processErrorStateInfos);
