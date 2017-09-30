@@ -33,7 +33,8 @@ public class ZipActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_zip);
         File anrDir = new File("/data/anr/");
-        Log.d(TAG, "onCreate: trace=" + anrDir.exists() + " can=" + anrDir.canRead());
+        Log.d(TAG, "onCreate: trace=" + anrDir.exists() + " can=" + anrDir.canRead() + " anrDir" +
+                ".canwrite=" + anrDir.canWrite());
         File[] anrTraceFiles = anrDir.listFiles();
         Log.d(TAG, "onCreate: anrTraceFiles=" + anrTraceFiles);
         if (null != anrTraceFiles) {
@@ -43,8 +44,8 @@ public class ZipActivity extends Activity {
             }
         }
 
-        File trace = new File("/data/anr/traces.txt");
-        Log.d(TAG, "onCreate: canRead=" + trace.canRead());
+        File trace = new File("/data/anr/traces.txt.anr");
+        Log.d(TAG, "onCreate: canRead=" + trace.canRead() + " trace.canwrite=" + trace.canWrite());
         File dropbox = new File("/data/system/dropbox/");
         Log.d(TAG, "onCreate: dropbox.canRead=" + dropbox.canRead() + " exist=" + dropbox.exists());
         ButterKnife.bind(this);

@@ -15,8 +15,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
 import android.os.PowerManager;
@@ -27,6 +29,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -82,6 +85,7 @@ public class MyActivity extends Activity {
     Button registerMessager;
     private final Object mLockObject = new Object();
     private final Object mWaitObject = new Object();
+    private ArrayList<byte[]> mLeakyContainer = new ArrayList<>();
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -263,6 +267,32 @@ public class MyActivity extends Activity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager
                 .LayoutParams.FLAG_KEEP_SCREEN_ON);
+        int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
+        Log.d(TAG, "onCreate: NUMBER_OF_CORES=" + NUMBER_OF_CORES);
+        final Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Take a request from the queue.
+                    System.out.println("hahhhhahh is=" + Thread.currentThread().isInterrupted());
+                    Thread.currentThread().sleep(3000);
+                    System.out.println("gggg ");
+                } catch (InterruptedException e) {
+                    // We may have been interrupted because it was time to quit.
+                    e.printStackTrace();
+                    Log.d(TAG, "run: ", e);
+                    System.out.println("e=" + e + "  isInterrupted= " + Thread.currentThread()
+                            .isInterrupted());
+                }
+            }
+        });
+        thread.start();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        thread.interrupt();
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(ACTION);
         Log.d(TAG, "Testanr_MySR onCreate: ");
@@ -438,10 +468,99 @@ public class MyActivity extends Activity {
 //                    processErrorStateInfo.condition);
 //        }
         ANRMonitorManager.getInstance(this).startMonitor();
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
+            public void run() {
+                Log.d(TAG, "dfdfsddfsff");
+            }
+        });
+//        new Thread(){
+//            @Override
+//            public void run() {
+////                Log.d(TAG, "1111111");
+//                Runtime.getRuntime().exit(0);
+//            }
+//        }.start();
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "1111111");
+//                Runtime.getRuntime().exit(0);
+//            }
+//        }.start();
+        final Thread.UncaughtExceptionHandler oldHandler = Thread
+                .getDefaultUncaughtExceptionHandler();
+        Log.d(TAG, "sadasds =" + Looper.getMainLooper().getThread().getState());
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(final Thread thread, final Throwable ex) {
+                Log.d(TAG, "1111111 thread=" + thread + " ex=" + ex);
+                Log.d(TAG, "22222 fdsfd=" + Looper.getMainLooper().getThread().getState());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                oldHandler.uncaughtException(thread, ex);
+                new Thread() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "22222 =" + Looper.getMainLooper().getThread().getState());
+                        try {
+//                            Thread.sleep(3000);
+                            Log.d(TAG, "aaaaaaaaa");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        new Thread() {
+                            @Override
+                            public void run() {
+                                Log.d(TAG, "3333333");
+                            }
+                        }.start();
+                        Log.d(TAG, "444444");
+                    }
+                }.start();
+//                new Thread() {
+//                    @Override
+//                    public void run() {
+//                        Log.d(TAG, "55555");
+//                        oldHandler.uncaughtException(thread, ex);
+//                    }
+//                }.start();
+                Log.d(TAG, "66666");
+
+            }
+        });
+        Log.d(TAG, "fdsffsdf");
+        new Thread() {
+            @Override
+            public void run() {
+                Log.d(TAG, "before aaaa this=" + this);
+                test(null);
+                Log.d(TAG, "after aaaa this=" + this);
+            }
+        }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                testCrash();
+            }
+        }.start();
+        Log.d(TAG, "aaaa");
     }
 
     int i = 0;
     private PowerManager.WakeLock wakeLock;
+
+    private void test(File file) {
+        Log.d(TAG, "test: file=" + file.exists());
+    }
+
+    private void testCrash() {
+        String ss = "fff";
+        Integer.valueOf(ss);
+    }
 
     @Override
     protected void onResume() {
@@ -484,9 +603,10 @@ public class MyActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
-        Intent intent = new Intent(ACTION);
-        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        sendBroadcast(intent);
+        mLeakyContainer.clear();
+//        Intent intent = new Intent(ACTION);
+//        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+//        sendBroadcast(intent);
 //        Process.killProcess(android.os.Process.myPid());
 //        try {
 //            Method method = Process.class.getDeclaredMethod("killProcessGroup", Integer.class,
@@ -544,42 +664,221 @@ public class MyActivity extends Activity {
         }).start();
     }
 
+    int ii = 0;
+    int b = 0;
+    int c = 0;
+    int[] aa;
+    String[] bb;
+
+    public void onStartFgServiceClicked(long a, long b, long c) {
+        ii++;
+        if (ii > 7500) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+        onStartFgServiceClicked(a, b, c);
+    }
+
+    long total;
+
+    private void allocMemory() {
+        byte[] b = new byte[2 * 1000 * 1000];
+        mLeakyContainer.add(b);
+        ActivityManager activityManager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+
+        int largeMemoryClass = activityManager.getLargeMemoryClass();
+        int memoryClass = activityManager.getMemoryClass();
+
+        ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
+        activityManager.getMemoryInfo(info);
+
+        Log.d(TAG, "largeMemoryClass = " + largeMemoryClass);
+        Log.d(TAG, "memoryClass = " + memoryClass / 1024 / 1024 + "   availMem=" + info.availMem
+                / 1024 / 1024 + " totalMem="
+                + info.totalMem / 1024 / 1024 + " threshold=" + info.threshold / 1024 / 1024 + " " +
+                " freeMemory=" + Runtime.getRuntime().freeMemory() / 1024 / 1024 + " " +
+                "totalMemory=" + Runtime
+                .getRuntime().totalMemory() / 1024 / 1024 + " max=" + Runtime.getRuntime()
+                .maxMemory());
+    }
+
     @OnClick(R.id.start_fg_service)
     public void onStartFgServiceClicked() {
-        new Thread() {
-            @Override
-            public void run() {
-                long time = System.currentTimeMillis();
-                Log.d(TAG, "fffffffff time=" + time);
-                while (true) {
-                    if ((System.currentTimeMillis() - time) > 30000) {
-//                        readlog("");
-                        List<ProcessErrorStateInfo> processErrorStateInfos = activityManager
-                                .getProcessesInErrorState();
-                        Log.d(TAG, "run: processErrorStateInfo=" + processErrorStateInfos);
-                        if (null == processErrorStateInfos) {
-                            return;
-                        }
-                        for (ProcessErrorStateInfo processErrorStateInfo : processErrorStateInfos) {
-                            Log.d(TAG, "onCreate: processName=" + processErrorStateInfo
-                                    .processName +
-                                    " " +
-                                    "msg=" +
-                                    processErrorStateInfo.longMsg + "  shortMsg=" +
-                                    processErrorStateInfo
-                                            .shortMsg + " stackTrace" + processErrorStateInfo
-                                    .stackTrace + " " +
-                                    " " +
-                                    "condition=" +
-                                    processErrorStateInfo.condition);
-                        }
-                        break;
-                    }
+        allocMemory();
+        Log.d(TAG, "onStartFgServiceClicked start");
+        final File file = new File(Environment.getExternalStorageDirectory() + "/1.dat");
+        Log.d(TAG, "onStartFgServiceClicked start exist=" + file.exists());
+//        Executors.newScheduledThreadPool()
+        final byte[] conent = new byte[1];
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    while (true) {
+////                        Class ProcessCpuTracker = Class.forName("com.android.internal.os" +
+////                                ".ProcessCpuTracker");
+//////                        Constructor<?>[] constructors = ProcessCpuTracker
+//////                                .getDeclaredConstructors();
+//////                        for (Constructor name : constructors) {
+//////                            Log.d(TAG, "run: name=" + name);
+//////                        }
+////                        Constructor constructor = ProcessCpuTracker.getConstructor(boolean
+/// .class);
+////                        Object object = constructor.newInstance(true);
+////                        Method method = ProcessCpuTracker.getDeclaredMethod("printCurrentState",
+////                                long
+////                                        .class);
+////                        Method method1 = ProcessCpuTracker.getDeclaredMethod("update");
+////                        method.setAccessible(true);
+////                        method1.setAccessible(true);
+////                        method1.invoke(object);
+////                        Thread.sleep(3000);
+////                        String body = (String) method.invoke(object, SystemClock.uptimeMillis
+/// ());
+////                        Log.d(TAG, "run: body=" + body);
+//                    }
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    Log.d(TAG, "run: eeeeeee=" + e);
+//                }
+//            }
+//        }.start();
+//        for (int i = 0; i < 3; i++) {
+//            new Thread() {
+//                @Override
+//                public void run() {
+////                    try {
+////                        Log.d(TAG, "dumpHprofData start");
+////                        Debug.dumpHprofData(Environment.getExternalStorageDirectory() +
+/// "/dump" +
+////                                    ".dat");
+////                    } catch (IOException e) {
+////                        e.printStackTrace();
+////                    }
+////                    Log.d(TAG, "dumpHprofData end");
+//                    try {
+//                        FileInputStream fileInputStream = new FileInputStream(file);
+//                        BufferedInputStream bis = new BufferedInputStream(fileInputStream);
+//                        FileOutputStream fileOutputStream = new FileOutputStream(Environment
+//                                .getExternalStorageDirectory() + "/c.test");
+//                        BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
+//                        int length = 0;
+//                        while ((length = bis.read(conent, 0, conent.length)) != -1) {
+//                            total += length;
+//                            bos.write(conent);
+//                        }
+//                        Log.d(TAG, "onStartFgServiceClicked end result total=" + total);
+//                        bos.flush();
+////            fileOutputStream.flush();
+////            fileOutputStream.close();
+//                        bos.close();
+//
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        Log.d(TAG, "onStartFgServiceClicked e=" + e);
+//                    }
+//                }
+//            }.start();
+//        }
 
-                }
-            }
-        }.start();
-        Log.d(TAG, "onStartFgServiceClicked: ");
+//        boolean result = file.renameTo(new File(Environment.getExternalStorageDirectory() + "/b" +
+//                ".test"));
+//        onStartFgServiceClicked(1,2,3);
+//        aa = new int[40000000];
+//                                bb = new String[4000000];
+//                                aa = new int[4000000];
+//                                bb = new String[4000000];
+//                                for (int b = 0; b < aa.length; b++) {
+//                                    aa[b] = b;
+//                                }
+//                                Log.d(TAG, "aa=" + aa);
+//                                dArray[i].clear();
+//        while (true){
+//            int a = 1;
+//            int b0 = 2;
+//            int b1 = 2;
+//            int b2 = 2;
+//            int b3 = 2;
+//            int b4 = 2;
+//            int b5 = a + b0 + b1+b2+b3+b4;
+//        }
+
+//        Log.d(TAG, "onStartFgServiceClicked: b5=" + b5);
+//        ii++;
+////        c++;
+//        if (ii > 7000) {
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            return;
+//        }
+//        onStartFgServiceClicked();
+
+//        for (int i = 0; i < 1950; i++) {
+//            new Thread() {
+//                @Override
+//                public void run() {
+//                    synchronized (mLockObject) {
+//                        try {
+////                            long a = 1;
+////                            long b0 = 2;
+////                            long b1 = 2;
+////                            long b2 = 2;
+////                            long b3 = 2;
+////                            long b4 = 2;
+////                            long b5 = a + b0 + b1+b2+b3+b4;
+////                            Log.d(TAG, "onStartFgServiceClicked: b5=" + b5);
+//                            mLockObject.wait();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//
+//            }.start();
+//        }
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                long time = System.currentTimeMillis();
+//                Log.d(TAG, "fffffffff time=" + time);
+//                while (true) {
+//                    if ((System.currentTimeMillis() - time) > 30000) {
+////                        readlog("");
+//                        List<ProcessErrorStateInfo> processErrorStateInfos = activityManager
+//                                .getProcessesInErrorState();
+//                        Log.d(TAG, "run: processErrorStateInfo=" + processErrorStateInfos);
+//                        if (null == processErrorStateInfos) {
+//                            return;
+//                        }
+//                        for (ProcessErrorStateInfo processErrorStateInfo :
+// processErrorStateInfos) {
+//                            Log.d(TAG, "onCreate: processName=" + processErrorStateInfo
+//                                    .processName +
+//                                    " " +
+//                                    "msg=" +
+//                                    processErrorStateInfo.longMsg + "  shortMsg=" +
+//                                    processErrorStateInfo
+//                                            .shortMsg + " stackTrace" + processErrorStateInfo
+//                                    .stackTrace + " " +
+//                                    " " +
+//                                    "condition=" +
+//                                    processErrorStateInfo.condition);
+//                        }
+//                        break;
+//                    }
+//
+//                }
+//            }
+//        }.start();
+//        Log.d(TAG, "onStartFgServiceClicked: ");
 //        try {
 //            Thread.sleep(20000);
 //        } catch (InterruptedException e) {

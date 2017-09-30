@@ -1,15 +1,12 @@
 package com.example.testmemory;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.view.View;
@@ -17,14 +14,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-
-import static android.R.attr.button;
 
 public class TestMemoryActivity extends Activity {
     private static final String TAG = "TestMemoryActivity";
@@ -117,6 +109,15 @@ public class TestMemoryActivity extends Activity {
 //        sBitmaps.add(bmp);
 //        sBitmaps.add(bmp1);
 //        clearPreloadedDrawables();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bmp1.compress(Bitmap.CompressFormat.JPEG, 100, out);
+        Log.d(TAG, "onCreate: size1=" + out.size() / 1024 + " out=" + out.toByteArray()[out.size
+                () - 1]);
+        bmp1.compress(Bitmap.CompressFormat.PNG, 100, out);
+        Log.d(TAG, "onCreate: size2=" + out.size() / 1024);
+        bmp1.compress(Bitmap.CompressFormat.WEBP, 100, out);
+        Log.d(TAG, "onCreate: size3=" + out.size() / 1024);
+
     }
 
     public void setWallpaper(Bitmap bitmap) {
