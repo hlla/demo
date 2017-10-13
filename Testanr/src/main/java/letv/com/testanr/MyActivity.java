@@ -501,7 +501,7 @@ public class MyActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                oldHandler.uncaughtException(thread, ex);
+//                oldHandler.uncaughtException(thread, ex);
                 new Thread() {
                     @Override
                     public void run() {
@@ -528,25 +528,25 @@ public class MyActivity extends Activity {
 //                        oldHandler.uncaughtException(thread, ex);
 //                    }
 //                }.start();
-                Log.d(TAG, "66666");
+//                Log.d(TAG, "66666");
 
             }
         });
-        Log.d(TAG, "fdsffsdf");
-        new Thread() {
-            @Override
-            public void run() {
-                Log.d(TAG, "before aaaa this=" + this);
-                test(null);
-                Log.d(TAG, "after aaaa this=" + this);
-            }
-        }.start();
-        new Thread() {
-            @Override
-            public void run() {
+//        Log.d(TAG, "fdsffsdf");
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "before aaaa this=" + this);
+//                test(null);
+//                Log.d(TAG, "after aaaa this=" + this);
+//            }
+//        }.start();
+//        new Thread() {
+//            @Override
+//            public void run() {
                 testCrash();
-            }
-        }.start();
+//            }
+//        }.start();
         Log.d(TAG, "aaaa");
     }
 
