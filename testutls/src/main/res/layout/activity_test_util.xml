@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="example.com.testutls.TestUtilActivity">
+
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/first_layout"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#0000ff"-->
+    <!--&gt;-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tap_hint"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="#ff0000"-->
+    <!--android:text="ssssssssssss"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:paddingTop="1dp"-->
+    <!--android:paddingBottom="4dp"-->
+    <!--android:textSize="16sp"/>-->
+
+    <!--</RelativeLayout>-->
+
+    <Button
+        android:id="@+id/test_asynctask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="asyncTask"
+        />
+
+    <Button
+        android:id="@+id/test_wt_schedule_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test work thread schedule timer"
+        />
+
+    <Button
+        android:id="@+id/test_ui_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test ui thread timer"
+        />
+
+    <Button
+        android:id="@+id/test_schedule_fix_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test scheduleAtFixedRate timer"
+        />
+
+    <Button
+        android:id="@+id/cancel_wt_schedule_fix_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel scheduleAtFixedRate timer"
+        />
+
+    <Button
+        android:id="@+id/cancel_wt_schedule_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel work thread schedule timer"
+        />
+
+    <Button
+        android:id="@+id/cancel_ui_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel UI timer"
+        />
+</LinearLayout>
