@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Timer;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -73,7 +74,7 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //        final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd
 // HH:mm:ss");
 //                Date startDate = new Date(System.currentTimeMillis() - 5000);
-//                Timer timer = new Timer();
+        Timer timer = new Timer();
 //                timer.schedule(new TimerTask() {
 //                    @Override
 //                    public void run() {
@@ -281,29 +282,56 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
         }
     }
 
+    private int[] m;
+
     @OnClick(R.id.cancel_ui_timer)
     public void onCancelUiTimerClicked() {
-        synchronized (this) {
-            Random rd = new Random();
-            if (uiScheduletimerTaskices.size() > 0) {
-                final int index = rd.nextInt(uiScheduletimerTaskices.size());
-                final TimerTaskEx timerTaskEx = uiScheduletimerTaskices.remove(index);
-                if (index % 2 == 0) {
-                    Log.d(TAG, "mainThread onCancelUiTimerClicked name=" +
-                            timerTaskEx.name);
-                    TimerManager.getInstance().cancel(timerTaskEx);
-                } else {
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            Log.d(TAG, "workThread onCancelUiTimerClicked name=" +
-                                    timerTaskEx.name);
-                            TimerManager.getInstance().cancel(timerTaskEx);
-                        }
-                    }.start();
-                }
-            }
+        m = new int[1000000];
+        for (int i = 0; i < 1000000; i++) {
+            m[i]=i;
+//            HandlerThread handlerThread = new HandlerThread("ffff");
+//            handlerThread.start();
         }
+//        new ThreadEx("test") {
+//            @Override
+//            public void run() {
+//                super.run();
+//                Log.d(TAG, "runImpl: ");
+//            }
+//        }.start();
+//        new ThreadEx(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "runImpl:11111 ");
+//            }
+//        }, "test") {
+//            @Override
+//            public void run() {
+//                super.run();
+//                Log.d(TAG, "runImpl: 22222");
+//            }
+//        }.start();
+//        synchronized (this) {
+//            Random rd = new Random();
+//            if (uiScheduletimerTaskices.size() > 0) {
+//                final int index = rd.nextInt(uiScheduletimerTaskices.size());
+//                final TimerTaskEx timerTaskEx = uiScheduletimerTaskices.remove(index);
+//                if (index % 2 == 0) {
+//                    Log.d(TAG, "mainThread onCancelUiTimerClicked name=" +
+//                            timerTaskEx.name);
+//                    TimerManager.getInstance().cancel(timerTaskEx);
+//                } else {
+//                    new Thread() {
+//                        @Override
+//                        public void run() {
+//                            Log.d(TAG, "workThread onCancelUiTimerClicked name=" +
+//                                    timerTaskEx.name);
+//                            TimerManager.getInstance().cancel(timerTaskEx);
+//                        }
+//                    }.start();
+//                }
+//            }
+//        }
     }
 
 //    private Handler mHandler = new Handler() {

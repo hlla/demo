@@ -17,6 +17,7 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
@@ -269,30 +270,30 @@ public class MyActivity extends Activity {
                 .LayoutParams.FLAG_KEEP_SCREEN_ON);
         int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
         Log.d(TAG, "onCreate: NUMBER_OF_CORES=" + NUMBER_OF_CORES);
-        final Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // Take a request from the queue.
-                    System.out.println("hahhhhahh is=" + Thread.currentThread().isInterrupted());
-                    Thread.currentThread().sleep(3000);
-                    System.out.println("gggg ");
-                } catch (InterruptedException e) {
-                    // We may have been interrupted because it was time to quit.
-                    e.printStackTrace();
-                    Log.d(TAG, "run: ", e);
-                    System.out.println("e=" + e + "  isInterrupted= " + Thread.currentThread()
-                            .isInterrupted());
-                }
-            }
-        });
-        thread.start();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        thread.interrupt();
+//        final Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    // Take a request from the queue.
+//                    System.out.println("hahhhhahh is=" + Thread.currentThread().isInterrupted());
+//                    Thread.currentThread().sleep(3000);
+//                    System.out.println("gggg ");
+//                } catch (InterruptedException e) {
+//                    // We may have been interrupted because it was time to quit.
+//                    e.printStackTrace();
+//                    Log.d(TAG, "run: ", e);
+//                    System.out.println("e=" + e + "  isInterrupted= " + Thread.currentThread()
+//                            .isInterrupted());
+//                }
+//            }
+//        });
+//        thread.start();
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        thread.interrupt();
         setContentView(R.layout.activity_main);
         Intent intent = new Intent(ACTION);
         Log.d(TAG, "Testanr_MySR onCreate: ");
@@ -467,13 +468,13 @@ public class MyActivity extends Activity {
 // condition=" +
 //                    processErrorStateInfo.condition);
 //        }
-        ANRMonitorManager.getInstance(this).startMonitor();
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                Log.d(TAG, "dfdfsddfsff");
-            }
-        });
+//        ANRMonitorManager.getInstance(this).startMonitor();
+//        Runtime.getRuntime().addShutdownHook(new Thread() {
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "dfdfsddfsff");
+//            }
+//        });
 //        new Thread(){
 //            @Override
 //            public void run() {
@@ -544,7 +545,11 @@ public class MyActivity extends Activity {
 //        new Thread() {
 //            @Override
 //            public void run() {
-                testCrash();
+//        testCrash();
+        for (int i = 0; i < 10000; i++) {
+            HandlerThread handlerThread = new HandlerThread("ffff");
+            handlerThread.start();
+        }
 //            }
 //        }.start();
         Log.d(TAG, "aaaa");
