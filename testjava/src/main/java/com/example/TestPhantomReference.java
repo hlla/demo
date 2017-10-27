@@ -5,13 +5,16 @@ import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
-import java.util.WeakHashMap;
 
-public class TestPhantomReference {
+public class TestPhantomReference extends junit.framework.TestCase {
     public static boolean isRun = true;
 
     static class AA {
-
+        @Override
+        protected void finalize() throws Throwable {
+            super.finalize();
+            System.out.println("finalize()");
+        }
     }
 
     private static class MyWeakReference<T> extends WeakReference<T> {
@@ -88,20 +91,20 @@ public class TestPhantomReference {
         System.out.println("abc=" + abc + " time=" + System
                 .currentTimeMillis() / 1000);
         final ReferenceQueue<AA> referenceQueue = new ReferenceQueue<AA>();
-        final MyPhantomReference<AA> abcWeakRef = new MyPhantomReference<AA>(abc,
-                referenceQueue);
-//        final MyWeakReference<AA> abcWeakRef = new MyWeakReference<AA>(abc,
+//        final MyPhantomReference<AA> abcWeakRef = new MyPhantomReference<AA>(abc,
 //                referenceQueue);
+        final MyWeakReference<AA> abcWeakRef = new MyWeakReference<AA>(abc,
+                referenceQueue);
         new Thread() {
             public void run() {
                 while (isRun) {
-                    Object o = referenceQueue.poll();
-                    if (o != null) {
-                        System.out.println(o + " time=" + System
-                                .currentTimeMillis() / 1000);
-                        System.out.println("gc0 will collect:"
-                                + abcWeakRef.get());
-                        try {
+                    try {
+                        Object o = referenceQueue.remove(1000);
+                        if (o != null) {
+                            System.out.println(o + " time=" + System
+                                    .currentTimeMillis() / 1000);
+                            System.out.println("gc0 will collect:"
+                                    + abcWeakRef.get());
                             Field rereferent = Reference.class
                                     .getDeclaredField("referent");
                             rereferent.setAccessible(true);
@@ -109,12 +112,7 @@ public class TestPhantomReference {
                             System.out.println("gc will collect:"
                                     + result + " time=" + System
                                     .currentTimeMillis() / 1000);
-                            try {
-                                Thread.currentThread().sleep(3000);
-                            } catch (InterruptedException e) {
-                                // TODO Auto-generated catch block
-                                e.printStackTrace();
-                            }
+                            Thread.currentThread().sleep(3000);
                             result = rereferent.get(o);
                             System.out.println("gc111 will collect:"
                                     + result);
@@ -130,11 +128,11 @@ public class TestPhantomReference {
                                         + result1 + " time=" + System
                                         .currentTimeMillis() / 1000);
                             }
-                        } catch (Exception e) {
-
-                            e.printStackTrace();
                         }
+                    } catch (Exception e) {
+
                     }
+
                 }
             }
         }.start();
@@ -148,12 +146,12 @@ public class TestPhantomReference {
         System.gc();
         System.out.println("after gc abcWeakRef=" + abcWeakRef + " time=" + System
                 .currentTimeMillis() / 1000);
-        try {
-            Thread.currentThread().sleep(3000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        isRun = false;
+//        try {
+//            Thread.currentThread().sleep(3000);
+//        } catch (InterruptedException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        isRun = false;
     }
 }

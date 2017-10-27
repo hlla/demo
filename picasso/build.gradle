@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    compileOptions {
+//        sourceCompatibility rootProject.ext.sourceCompatibilityVersion
+//        targetCompatibility rootProject.ext.targetCompatibilityVersion
+        sourceCompatibility 1.7
+        targetCompatibility 1.7
+    }
+
+    lintOptions {
+        textOutput 'stdout'
+        textReport true
+        lintConfig file('lint.xml')
+    }
+
+    dexOptions {
+        preDexLibraries = !rootProject.ext.isCi
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+
+        consumerProguardFiles 'consumer-proguard-rules.txt'
+    }
+    buildToolsVersion '26.0.2'
+}
+
+dependencies {
+    compile rootProject.ext.dep.okhttp
+    compile rootProject.ext.dep["supportAnnotations"]
+    provided rootProject.ext.dep.junit
+    compile rootProject.ext.dep.truth
+    compile rootProject.ext.dep.supportV4
+    compile rootProject.ext.dep.robolectric
+    compile rootProject.ext.dep.mockito
+    compile rootProject.ext.dep.mockWebServer
+}
+
+//apply from: rootProject.file('gradle/gradle-mvn-push.gradle')

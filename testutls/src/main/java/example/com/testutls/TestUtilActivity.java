@@ -212,20 +212,20 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
         uiScheduletimerTaskices.add(timerTaskEx);
         Random rd = new Random();
 //        final int period = rd.nextInt(8) * 1000 + 1000;
-        final int period = rd.nextInt(5) * 1000 + 1000;
+        final int period = rd.nextInt(8) * 1000 + 1000;
         Random rdnum = new Random();
         final int num = rdnum.nextInt(10);
         if (num % 2 == 0) {
             Log.d(TAG, "mainThread onclick UiTimer period=" + period + " name=" +
                     timerTaskEx.name);
-            TimerManager.getInstance().schedule(timerTaskEx, 1000, period, true);
+            TimerManager.getInstance().schedule(timerTaskEx, period, true);
         } else {
             new Thread() {
                 @Override
                 public void run() {
                     Log.d(TAG, "workThread onclick UiTimer period=" + period + " name=" +
                             timerTaskEx.name);
-                    TimerManager.getInstance().schedule(timerTaskEx, 1000, period, true);
+                    TimerManager.getInstance().schedule(timerTaskEx, period, true);
                 }
             }.start();
         }
@@ -288,7 +288,7 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     public void onCancelUiTimerClicked() {
         m = new int[1000000];
         for (int i = 0; i < 1000000; i++) {
-            m[i]=i;
+            m[i] = i;
 //            HandlerThread handlerThread = new HandlerThread("ffff");
 //            handlerThread.start();
         }
@@ -312,25 +312,25 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //            }
 //        }.start();
 //        synchronized (this) {
-//            Random rd = new Random();
-//            if (uiScheduletimerTaskices.size() > 0) {
-//                final int index = rd.nextInt(uiScheduletimerTaskices.size());
-//                final TimerTaskEx timerTaskEx = uiScheduletimerTaskices.remove(index);
-//                if (index % 2 == 0) {
-//                    Log.d(TAG, "mainThread onCancelUiTimerClicked name=" +
-//                            timerTaskEx.name);
-//                    TimerManager.getInstance().cancel(timerTaskEx);
-//                } else {
-//                    new Thread() {
-//                        @Override
-//                        public void run() {
-//                            Log.d(TAG, "workThread onCancelUiTimerClicked name=" +
-//                                    timerTaskEx.name);
-//                            TimerManager.getInstance().cancel(timerTaskEx);
-//                        }
-//                    }.start();
-//                }
-//            }
+        Random rd = new Random();
+        if (uiScheduletimerTaskices.size() > 0) {
+            final int index = rd.nextInt(uiScheduletimerTaskices.size());
+            final TimerTaskEx timerTaskEx = uiScheduletimerTaskices.remove(index);
+            if (index % 2 == 0) {
+                Log.d(TAG, "mainThread onCancelUiTimerClicked name=" +
+                        timerTaskEx.name);
+                TimerManager.getInstance().cancel(timerTaskEx);
+            } else {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "workThread onCancelUiTimerClicked name=" +
+                                timerTaskEx.name);
+                        TimerManager.getInstance().cancel(timerTaskEx);
+                    }
+                }.start();
+            }
+        }
 //        }
     }
 

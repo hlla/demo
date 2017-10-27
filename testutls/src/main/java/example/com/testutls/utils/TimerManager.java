@@ -1,5 +1,6 @@
 package example.com.testutls.utils;
 
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -11,7 +12,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import example.com.testutls.BuildConfig;
 
 /**
  * Created by chengjian on 17-10-11.
@@ -24,7 +24,7 @@ import example.com.testutls.BuildConfig;
  * 2.使用Handle实现倒计时的计算,避免使用wait(long millis),导致线程无用的等待
  */
 public class TimerManager {
-    private static final String TAG = "Utils_TimerManager";
+    private static final String TAG = "TimerManager";
     //    private static final int COUNT_BITS = Integer.SIZE - 3;
 //    private static final int CAPACITY = (1 << COUNT_BITS) - 1;
 //    //当线程池中没有空闲线程时,尽可能开启线程执行任务,而不是放在任务队列里面,避免阻塞,50个核心线程应该足够啦
@@ -36,7 +36,7 @@ public class TimerManager {
     private static final int MSG_TIMING = 1;
     private static final int MSG_IDLE_THREAD_TIME_OUT = 2;
     private static final int MSG_EXECUTE_TASK = 3;
-    private static final long IDLE_THREAD_KEEP_ALIVE_TIME = 15 * 1000;
+    private static final long IDLE_THREAD_KEEP_ALIVE_TIME = 60 * 1000;
     private final Object mlock = new Object();
     //任务线程,可能以后会限制线程的个数
     private List<Handler> mTasKHandlers = new LinkedList<>();
@@ -103,8 +103,9 @@ public class TimerManager {
         public void handleMessage(Message msg) {
             int what = msg.what;
 
-            Log.d(TAG, "WTTimerHandler : what=" + what + " tid=" + Thread.currentThread().getId
-                    ());
+            Log.d(TAG, "WTTimerHandler : what=" + what + " tid=" + Thread.currentThread()
+                    .getId
+                            ());
             switch (what) {
                 case MSG_TIMING: {
                     TimerTaskEx timerTask = (TimerTaskEx) msg.obj;
@@ -115,7 +116,8 @@ public class TimerManager {
                                 return;
                             }
                             Handler taskHandler = timerTask.runner;
-                            Log.d(TAG, "WTTimerHandler : taskHandler=" + taskHandler + "  " +
+                            Log.d(TAG, "WTTimerHandler : taskHandler=" + taskHandler + " " +
+                                    " " +
                                     "timerTask" +
                                     ".period=" + timerTask.period + " timerTask=" + timerTask);
                             if (null == taskHandler) {
@@ -159,12 +161,16 @@ public class TimerManager {
 
         @Override
         public void handleMessage(Message msg) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                getLooper().getQueue();
+            }
             int what = msg.what;
             TimerTaskEx timerTask = null;
             if (msg.obj instanceof TimerTaskEx) {
                 timerTask = (TimerTaskEx) msg.obj;
             }
-            Log.d(TAG, "TaskHandler : what=" + what + " tid=" + Thread.currentThread().getId() +
+            Log.d(TAG, "TaskHandler : what=" + what + " tid=" + Thread.currentThread()
+                    .getId() +
                     " this=" + this + " timerTask=" + timerTask);
             switch (what) {
                 case MSG_EXECUTE_TASK: {
@@ -268,7 +274,7 @@ public class TimerManager {
     }
 
     private TimerManager() {
-        HandlerThread handlerThread = new HandlerThread("Timer HandlerThread");
+        HandlerThread handlerThread = new HandlerThread("Launcher_Timer_Dispatch_Thread");
         handlerThread.start();
         mTimerHandler = new WTTimerHandler(handlerThread.getLooper());
         mUIHandler = new UITimerHandler(Looper.getMainLooper());
@@ -293,7 +299,7 @@ public class TimerManager {
         if (mCount.get() >= MAX_THREAD_NUM) {
             mCount.set(1);
         }
-        StringBuffer buffer = new StringBuffer("TimerTaskThread #");
+        StringBuffer buffer = new StringBuffer("Launcher_TimerTask_Thread #");
         buffer.append(mCount.getAndIncrement());
         HandlerThread thread = new HandlerThread(buffer.toString());
         thread.start();
@@ -398,7 +404,7 @@ public class TimerManager {
 
         synchronized (mlock) {
             if (task.isScheduled()) {
-                if (BuildConfig.DEBUG) {
+                if (true) {
                     throw new IllegalStateException("TimerTaskEx is scheduled already");
                 } else {
                     Log.e(TAG, "scheduleImpl: TimerTaskEx is scheduled already");
@@ -407,7 +413,7 @@ public class TimerManager {
             }
 
             if (task.cancelled) {
-                if (BuildConfig.DEBUG) {
+                if (true) {
                     throw new IllegalStateException("TimerTaskEx is canceled");
                 } else {
                     Log.e(TAG, "scheduleImpl: TimerTaskEx is canceled");
@@ -447,18 +453,15 @@ public class TimerManager {
                     //如果是工作线程执行task,那么就要终止该线程,避免无用占坑
                     //获取正在执行timerTask的线程
                     Handler willTerminateHandler = timerTask.runner;
-                    if (null == willTerminateHandler && mTimerHandler.hasMessages(MSG_TIMING,
-                            timerTask)) {
-                        //如果没有正在执行timerTask的线程,而且该任务还在任务队列里面,则从空闲线程获取一个线程,认为是即将执行timerTask的线程
-                        willTerminateHandler = getIdleHandler();
-                    }
                     //终止跟这个任务相关的线程
-                    Looper looper = willTerminateHandler.getLooper();
-                    if (null != looper) {
-                        looper.quit();
+                    if (null != willTerminateHandler) {
+                        Looper looper = willTerminateHandler.getLooper();
+                        if (null != looper) {
+                            looper.quit();
+                        }
+                        mIdleHandlers.remove(willTerminateHandler);
+                        mTasKHandlers.remove(willTerminateHandler);
                     }
-                    mIdleHandlers.remove(willTerminateHandler);
-                    mTasKHandlers.remove(willTerminateHandler);
                 }
             }
         }

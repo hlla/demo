@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-public class oTestSerivceActivity extends Activity implements TestCj, TextureView
+public class TestSerivceActivity extends Activity implements TestCj, TextureView
         .SurfaceTextureListener {
     private static final String TAG = "TestSerivceActivity";
     private static ImageView sImageView;

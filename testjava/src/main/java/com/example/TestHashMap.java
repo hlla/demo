@@ -10,6 +10,12 @@ import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TestHashMap {
+    /**
+     * Magic number for current version of cache file format.
+     */
+    private static final int CACHE_MAGIC = 0x20150306;
+    private static final int CACHE_MAGIC2 = 0x20160615;
+
     static class MyTest {
         String str;
         int code;
@@ -48,10 +54,30 @@ public class TestHashMap {
         }
     }
 
+    public static byte[] writeInt(int n) {
+        final byte[] tmp = new byte[8];
+        int offset = 0;
+        tmp[offset++] = (byte) ((n) & 0xff);
+        tmp[offset++] = (byte) ((n >> 8) & 0xff);
+        tmp[offset++] = (byte) ((n >> 16) & 0xff);
+        tmp[offset] = (byte) ((n >> 24) & 0xff);
+        return tmp;
+    }
+
+    public static int readInt(byte[] tmp) {
+        int offset = 0;
+        return ((tmp[offset++] & 0xff)) |
+                ((tmp[offset++] & 0xff) << 8) |
+                ((tmp[offset++] & 0xff) << 16) |
+                ((tmp[offset] & 0xff) << 24);
+    }
+
     public static void main(String[] args) {
+        byte[] tmp = writeInt(CACHE_MAGIC2);
+        System.out.println("timer test=" + readInt(tmp));
         Exception exception = new Exception("new Timer");
         exception.printStackTrace();
-        System.out.println("timer test=" + exception);
+
         MyTest aa = null;
         MyTestSub diyThemeEffect = (MyTestSub) aa;
         System.out.println(exception.fillInStackTrace());
