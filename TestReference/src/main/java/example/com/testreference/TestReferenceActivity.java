@@ -124,6 +124,11 @@ public class TestReferenceActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_reference);
         ButterKnife.bind(this);
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         new Thread() {
             @Override
             public void run() {

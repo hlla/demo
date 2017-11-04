@@ -63,6 +63,7 @@
         android:text="cancel scheduleAtFixedRate timer"
         />
 
+
     <Button
         android:id="@+id/cancel_wt_schedule_timer"
         android:layout_width="wrap_content"
@@ -70,10 +71,25 @@
         android:text="cancel work thread schedule timer"
         />
 
-    <Button
-        android:id="@+id/cancel_ui_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="cancel UI timer"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/cancel_ui_timer"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="cancel UI timer"
+            />
+
+        <ViewStub
+            android:id="@+id/stub_import"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inflatedId="@+id/panel_import"
+            android:layout="@layout/test_layout"
+            />
+    </LinearLayout>
 </LinearLayout>

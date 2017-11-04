@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
+import android.os.MessageQueue;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewStub;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +61,7 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     private final AtomicInteger mWTScheduleFixCount = new AtomicInteger(0);
     private final AtomicInteger mCount1 = new AtomicInteger(1);
     private ScheduledThreadPoolExecutor mScheduledExecutorService;
-
+    private RelativeLayout mTestRelativeLayout;
 
     @OnClick(R.id.test_asynctask)
     public void onTestAsynctaskClicked() {
@@ -233,53 +237,55 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 
     @OnClick(R.id.cancel_wt_schedule_fix_timer)
     public void onCancelWtScheduleFixTimerClicked() {
-        synchronized (this) {
-            if (wtScheduleFixtimerTaskices.size() > 0) {
-                Random rd = new Random();
-                final int index = rd.nextInt(wtScheduleFixtimerTaskices.size());
-                final TimerTaskEx timerTaskEx = wtScheduleFixtimerTaskices.remove(index);
-                if (index % 2 == 0) {
-                    Log.d(TAG, "mainThread onCancelWtScheduleFixTimerClicked   name=" +
-                            timerTaskEx.name);
-                    TimerManager.getInstance().cancel(timerTaskEx);
-                } else {
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            Log.d(TAG, "workThread onCancelWtScheduleFixTimerClicked name=" +
-                                    timerTaskEx.name);
-                            TimerManager.getInstance().cancel(timerTaskEx);
-                        }
-                    }.start();
-                }
-            }
-        }
+        mTestRelativeLayout.setVisibility(View.VISIBLE);
+//        synchronized (this) {
+//            if (wtScheduleFixtimerTaskices.size() > 0) {
+//                Random rd = new Random();
+//                final int index = rd.nextInt(wtScheduleFixtimerTaskices.size());
+//                final TimerTaskEx timerTaskEx = wtScheduleFixtimerTaskices.remove(index);
+//                if (index % 2 == 0) {
+//                    Log.d(TAG, "mainThread onCancelWtScheduleFixTimerClicked   name=" +
+//                            timerTaskEx.name);
+//                    TimerManager.getInstance().cancel(timerTaskEx);
+//                } else {
+//                    new Thread() {
+//                        @Override
+//                        public void run() {
+//                            Log.d(TAG, "workThread onCancelWtScheduleFixTimerClicked name=" +
+//                                    timerTaskEx.name);
+//                            TimerManager.getInstance().cancel(timerTaskEx);
+//                        }
+//                    }.start();
+//                }
+//            }
+//        }
     }
 
     @OnClick(R.id.cancel_wt_schedule_timer)
     public void onCancelWtScheduleTimerClicked() {
-        synchronized (this) {
-            if (wtScheduletimerTaskices.size() > 0) {
-                Random rd = new Random();
-                final int index = rd.nextInt(wtScheduletimerTaskices.size());
-                final TimerTaskEx timerTaskEx = wtScheduletimerTaskices.remove(index);
-                if (index % 2 == 0) {
-                    Log.d(TAG, "mainThread onCancelWtScheduleTimerClicked name=" +
-                            timerTaskEx.name);
-                    TimerManager.getInstance().cancel(timerTaskEx);
-                } else {
-                    new Thread() {
-                        @Override
-                        public void run() {
-                            Log.d(TAG, "workThread onCancelWtScheduleTimerClicked name=" +
-                                    timerTaskEx.name);
-                            TimerManager.getInstance().cancel(timerTaskEx);
-                        }
-                    }.start();
-                }
-            }
-
-        }
+        mTestRelativeLayout.setVisibility(View.GONE);
+//        synchronized (this) {
+//            if (wtScheduletimerTaskices.size() > 0) {
+//                Random rd = new Random();
+//                final int index = rd.nextInt(wtScheduletimerTaskices.size());
+//                final TimerTaskEx timerTaskEx = wtScheduletimerTaskices.remove(index);
+//                if (index % 2 == 0) {
+//                    Log.d(TAG, "mainThread onCancelWtScheduleTimerClicked name=" +
+//                            timerTaskEx.name);
+//                    TimerManager.getInstance().cancel(timerTaskEx);
+//                } else {
+//                    new Thread() {
+//                        @Override
+//                        public void run() {
+//                            Log.d(TAG, "workThread onCancelWtScheduleTimerClicked name=" +
+//                                    timerTaskEx.name);
+//                            TimerManager.getInstance().cancel(timerTaskEx);
+//                        }
+//                    }.start();
+//                }
+//            }
+//
+//        }
     }
 
     private int[] m;
@@ -312,26 +318,33 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //            }
 //        }.start();
 //        synchronized (this) {
-        Random rd = new Random();
-        if (uiScheduletimerTaskices.size() > 0) {
-            final int index = rd.nextInt(uiScheduletimerTaskices.size());
-            final TimerTaskEx timerTaskEx = uiScheduletimerTaskices.remove(index);
-            if (index % 2 == 0) {
-                Log.d(TAG, "mainThread onCancelUiTimerClicked name=" +
-                        timerTaskEx.name);
-                TimerManager.getInstance().cancel(timerTaskEx);
-            } else {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "workThread onCancelUiTimerClicked name=" +
-                                timerTaskEx.name);
-                        TimerManager.getInstance().cancel(timerTaskEx);
-                    }
-                }.start();
-            }
-        }
+//        Random rd = new Random();
+//        if (uiScheduletimerTaskices.size() > 0) {
+//            final int index = rd.nextInt(uiScheduletimerTaskices.size());
+//            final TimerTaskEx timerTaskEx = uiScheduletimerTaskices.remove(index);
+//            if (index % 2 == 0) {
+//                Log.d(TAG, "mainThread onCancelUiTimerClicked name=" +
+//                        timerTaskEx.name);
+//                TimerManager.getInstance().cancel(timerTaskEx);
+//            } else {
+//                new Thread() {
+//                    @Override
+//                    public void run() {
+//                        Log.d(TAG, "workThread onCancelUiTimerClicked name=" +
+//                                timerTaskEx.name);
+//                        TimerManager.getInstance().cancel(timerTaskEx);
+//                    }
+//                }.start();
+//            }
 //        }
+//        }
+        mHandler.sendEmptyMessage(0);
+        mTestRelativeLayout = (RelativeLayout) ((ViewStub) findViewById(R.id.stub_import))
+                .inflate();
+        mTestRelativeLayout.setVisibility(View.VISIBLE);
+        View testLayout = findViewById(R.id.test_r_layout);
+        View testBtn = findViewById(R.id.test_button);
+        Log.d(TAG, "onCreate: testLayout=" + testLayout + " testBtn=" + testBtn);
     }
 
 //    private Handler mHandler = new Handler() {
@@ -411,11 +424,17 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
             return new Thread(r, "TimerThread service #" + mCount1.getAndIncrement());
         }
     };
+    int p = 0;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_util);
+        View testLayout = findViewById(R.id.test_r_layout);
+        Button testBtn = (Button) findViewById(R.id.test_button);
+//        Integer ss = null;
+//        int a = (int)ss;
+        Log.d(TAG, "onCreate: testLayout=" + testLayout + " testBtn=" + testBtn);
         ButterKnife.bind(this);
         mScheduledExecutorService = (ScheduledThreadPoolExecutor) Executors
                 .newScheduledThreadPool(4, mThreadFactory);
@@ -428,8 +447,9 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //        findViewById(R.id.cancel_wt_timer).setOnClickListener(this);
 //        findViewById(R.id.test_ui_timer).setOnClickListener(this);
         HandlerThread handlerThread = new HandlerThread("ggg") {
-//            @Override
-//            public void run() {
+            @Override
+            public void run() {
+                super.run();
 //                Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
 //                    @Override
 //                    public boolean queueIdle() {
@@ -437,13 +457,21 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //                        return true;
 //                    }
 //                });
-//            }
+            }
         };
         handlerThread.start();
+        handlerThread.getLooper().getQueue().addIdleHandler(new MessageQueue.IdleHandler() {
+            @Override
+            public boolean queueIdle() {
+                Log.d(TAG, "queueIdle()");
+                return true;
+            }
+        });
         mHandler = new Handler(handlerThread.getLooper()) {
             @Override
             public void handleMessage(Message msg) {
 //                mHandler.removeMessages(0);
+                p++;
                 Log.d(TAG, "handleMessage() 11");
 //                try {
 //                    Thread.sleep(3000);
@@ -451,6 +479,9 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //                    e.printStackTrace();
 //                }
                 Log.d(TAG, "handleMessage() 22");
+                if (p < 4) {
+                    mHandler.sendEmptyMessage(0);
+                }
             }
         };
 //        mHandler.getLooper().getQueue().addIdleHandler(new MessageQueue.IdleHandler() {

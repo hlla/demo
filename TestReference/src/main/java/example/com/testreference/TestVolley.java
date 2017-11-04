@@ -1,15 +1,10 @@
 package example.com.testreference;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Environment;
-//import android.os.SystemProperties;
 import android.util.Log;
 import android.widget.Button;
-
-import com.android.volley.extra.VolleyImageLoader;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -28,6 +23,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+//import android.os.SystemProperties;
 
 public class TestVolley extends Activity {
     private static final String TAG = "TestReference_Volley";
@@ -219,22 +216,22 @@ public class TestVolley extends Activity {
         mPhantomReference = new TestPhantomReference<TestObject>(object, mPhantomReferenceQueue);
 //        Log.d(TAG, "onTestPhantomReferenceClicked: object=" + object + " test=" + test);
         object = null;
-        VolleyImageLoader.getInstance().decodeImage("https://ss3.baidu" +
-                        ".com/-fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign" +
-                        "=a7c104bbd81373f0ea3f689d940e4b8b/63d9f2d3572c11dfdf6e23e36a2762d0f603c2b7.jpg", 200,
-                200, new VolleyImageLoader.BitmapListener() {
-
-                    @Override
-                    public void onLoaded(Bitmap bitmap) {
-                        findViewById(R.id.test_weak_reference).setBackground(new BitmapDrawable
-                                (getResources(), bitmap));
-                    }
-
-                    @Override
-                    public void onFailed(Throwable error) {
-
-                    }
-                });
+//        VolleyImageLoader.getInstance().decodeImage("https://ss3.baidu" +
+//                        ".com/-fo3dSag_xI4khGko9WTAnF6hhy/image/h%3D220/sign" +
+//                        "=a7c104bbd81373f0ea3f689d940e4b8b/63d9f2d3572c11dfdf6e23e36a2762d0f603c2b7.jpg", 200,
+//                200, new VolleyImageLoader.BitmapListener() {
+//
+//                    @Override
+//                    public void onLoaded(Bitmap bitmap) {
+//                        findViewById(R.id.test_weak_reference).setBackground(new BitmapDrawable
+//                                (getResources(), bitmap));
+//                    }
+//
+//                    @Override
+//                    public void onFailed(Throwable error) {
+//
+//                    }
+//                });
     }
 
     @OnClick(R.id.test_weak_reference)

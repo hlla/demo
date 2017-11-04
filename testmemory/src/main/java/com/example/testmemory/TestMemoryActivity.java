@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Trace;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.view.View;
@@ -14,32 +16,145 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class TestMemoryActivity extends Activity {
+    private final static int DARK_COLOR_ALPHA = 230;
+    private final static int DARK_COLOR_RED = 50;
+    private final static int DARK_COLOR_GREEN = 50;
+    private final static int DARK_COLOR_BLUE = 50;
+    private final static float DARK_COLOR_MIN_RATE = 0.2f;
     private static final String TAG = "TestMemoryActivity";
     private static ArrayList<Bitmap> sBitmaps = new ArrayList<>();
     private static ArrayList<Activity> sActivities = new ArrayList<>();
     private static ImageView sImageView;
     //    @BindView(R.id.test_webview)
     Button testWebview;
+    ImageView testImage;
     private Bitmap bmp;
     private Bitmap bmp1;
     private Button dd;
 
+    static int add(int a, int b) {
+        int sum = a;
+
+	/*直到进位的结果为0*/
+        while (b != 0) {
+            sum = a ^ b; /*不考虑进位的和*/
+            b = (a & b) << 1; /*只考虑进位的产生值*/
+            a = sum;
+        }//while
+        return sum;
+    }
+
+    /**
+     * 分析Bitmap的平均色及纯黑像素所点的比例
+     *
+     * @param bitmap 需要分析的图片
+     * @return float[3] result[0] is average color [0..0xffffffff], result[1] is black color rate
+     * [0.. 1],
+     * result[3] is main color of the whole bitmap
+     */
+    public static Bitmap getAverageColorInfoForBitmap(Bitmap bitmap) {
+        Log.d(TAG, "getAverageColorInfoForBitmap: start width=" + bitmap.getWidth() + " height="
+                + bitmap.getHeight());
+        int redValue = 0;
+        int greenValue = 0;
+        int blueValue = 0;
+
+        int rate = bitmap.getWidth() / 60;
+        rate = rate == 0 ? 1 : rate;
+        int newW = Math.max(bitmap.getWidth() / rate, 0);
+        int newH = Math.max(bitmap.getHeight() / rate, 0);
+        Log.d(TAG, "getAverageColorInfoForBitmap: newW=" + newW + " newH=" + newH);
+        Bitmap tmpBitmap = null;
+        try {
+            tmpBitmap = (rate == 1 ? bitmap : Bitmap.createScaledBitmap(bitmap, newW, newH, false));
+        } catch (OutOfMemoryError e) {
+        }
+        int index = 0;
+        int blackCount = 0;
+        int[] colorMapPixels = new int[newW * newH];
+        tmpBitmap.getPixels(colorMapPixels, 0, newW, 0, 0, newW, newH);
+        int length = newW * newH;
+        while (index < length) {
+            int color = colorMapPixels[index];
+            int alpha = Color.alpha(color);
+            int red = Color.red(color);
+            int green = Color.green(color);
+            int blue = Color.blue(color);
+            redValue += red;
+            greenValue += green;
+            blueValue += blue;
+//                redValue += add(red, redValue);
+//                total = totalRed;
+//                greenValue += add(green, greenValue);
+//                blueValue += add(blueValue, blueValue);
+            if (alpha > DARK_COLOR_ALPHA && red < DARK_COLOR_RED && green < DARK_COLOR_GREEN
+                    && blue < DARK_COLOR_BLUE) {
+                blackCount++;
+            }
+            index += 3;
+        }
+//        for (int y = 0; y < length; y++) {
+//            for (int x = 0; x < newW; x++) {
+//                int color = colorMapPixels[index];
+//                int alpha = Color.alpha(color);
+//                int red = Color.red(color);
+//                int green = Color.green(color);
+//                int blue = Color.blue(color);
+//                redValue += red;
+//                greenValue += green;
+//                blueValue += blue;
+////                redValue += add(red, redValue);
+////                total = totalRed;
+////                greenValue += add(green, greenValue);
+////                blueValue += add(blueValue, blueValue);
+//                if (alpha > DARK_COLOR_ALPHA && red < DARK_COLOR_RED && green < DARK_COLOR_GREEN
+//                        && blue < DARK_COLOR_BLUE) {
+//                    blackCount++;
+//                }
+//                index++;
+//            }
+//        }
+//        if (tmpBitmap != bitmap) {
+//            tmpBitmap.recycle();
+//        }
+        Log.d(TAG, "getAverageColorInfoForBitmap: end");
+        return tmpBitmap;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Trace.beginSection("testmemory");
+        Log.d(TAG, "onCreate: start");
         setContentView(R.layout.activity_test_memory);
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        Log.d(TAG, "onCreate: end");
+        getWindow().setBackgroundDrawable(null);
         testWebview = (Button) findViewById(R.id.test_webview);
+        testImage = (ImageView) findViewById(R.id.test_image);
         testWebview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(TestMemoryActivity.this, TestWebViewActivity.class);
 //                startActivity(intent);
-                clearPreloadedDrawables();
+//                clearPreloadedDrawables();
+                BitmapFactory.Options options1 = new BitmapFactory.Options();
+                options1.inPreferredConfig = Bitmap.Config.RGB_565;
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.wb,
+                        options1);
+                Log.d(TAG, "onClick: options1=" + options1.outMimeType);
+                testImage.setImageBitmap(bitmap);
+//                bitmap.recycle();
+//                testWebview.setBackground(new BitmapDrawable(getAverageColorInfoForBitmap
+// (bitmap)));
             }
         });
 //        new Thread() {
@@ -109,15 +224,15 @@ public class TestMemoryActivity extends Activity {
 //        sBitmaps.add(bmp);
 //        sBitmaps.add(bmp1);
 //        clearPreloadedDrawables();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        bmp1.compress(Bitmap.CompressFormat.JPEG, 100, out);
-        Log.d(TAG, "onCreate: size1=" + out.size() / 1024 + " out=" + out.toByteArray()[out.size
-                () - 1]);
-        bmp1.compress(Bitmap.CompressFormat.PNG, 100, out);
-        Log.d(TAG, "onCreate: size2=" + out.size() / 1024);
-        bmp1.compress(Bitmap.CompressFormat.WEBP, 100, out);
-        Log.d(TAG, "onCreate: size3=" + out.size() / 1024);
-
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        bmp1.compress(Bitmap.CompressFormat.JPEG, 100, out);
+//        Log.d(TAG, "onCreate: size1=" + out.size() / 1024 + " out=" + out.toByteArray()[out.size
+//                () - 1]);
+//        bmp1.compress(Bitmap.CompressFormat.PNG, 100, out);
+//        Log.d(TAG, "onCreate: size2=" + out.size() / 1024);
+//        bmp1.compress(Bitmap.CompressFormat.WEBP, 100, out);
+//        Log.d(TAG, "onCreate: size3=" + out.size() / 1024);
+        Trace.endSection();
     }
 
     public void setWallpaper(Bitmap bitmap) {
