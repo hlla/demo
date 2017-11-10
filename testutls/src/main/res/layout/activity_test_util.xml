@@ -5,34 +5,70 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="example.com.testutls.TestUtilActivity">
-
-    <!--<RelativeLayout-->
+    tools:context="example.com.testutls.TestUtilActivity"
+    >
+    <!--<LinearLayout-->
     <!--android:id="@+id/first_layout"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
     <!--android:background="#0000ff"-->
     <!--&gt;-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tap_hint_1"-->
+    <!--android:layout_width="100dip"-->
+    <!--android:layout_height="100dip"-->
+    <!--android:text="ssssssssssss"-->
+    <!--/>-->
+    <!--<ImageView-->
+    <!--android:id="@+id/today_set_city_img"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:src="@drawable/ic_setting_arrow"/>-->
+    <!--</LinearLayout>-->
+    <!--<RelativeLayout-->
+    <!--android:id="@+id/first_layout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#0000ff"-->
+    <!--&gt;-->
+
+    <!--<TextView-->
+    <!--android:id="@+id/tap_hint_1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerInParent="true"-->
+    <!--android:layout_toLeftOf="@+id/tap_hint"-->
+    <!--android:background="#ff0000"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:paddingBottom="4dp"-->
+    <!--android:paddingTop="1dp"-->
+    <!--android:text="ssssssssssss"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:textSize="16sp"/>-->
 
     <!--<TextView-->
     <!--android:id="@+id/tap_hint"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentRight="true"-->
     <!--android:background="#ff0000"-->
-    <!--android:text="ssssssssssss"-->
-    <!--android:textColor="#ffffff"-->
     <!--android:gravity="center_vertical"-->
-    <!--android:paddingTop="1dp"-->
     <!--android:paddingBottom="4dp"-->
-    <!--android:textSize="16sp"/>-->
-
+    <!--android:paddingTop="1dp"-->
+    <!--android:text="11111"-->
+    <!--android:textColor="#ffffff"-->
+    <!--android:textSize="16sp"-->
+    <!--android:visibility="gone"/>-->
     <!--</RelativeLayout>-->
 
     <Button
         android:id="@+id/test_asynctask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#ff0000"
         android:text="asyncTask"
+        android:textSize="10dp"
         />
 
     <Button
@@ -68,7 +104,28 @@
         android:id="@+id/cancel_wt_schedule_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="cancel work thread schedule timer"
+        android:text="change limit times"
+        />
+    <!--android:text="cancel work thread schedule timer"-->
+    <Button
+        android:id="@+id/test_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test Barrier"
+        />
+
+    <Button
+        android:id="@+id/remove_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="remove Barrier"
+        />
+
+    <example.com.testutls.ui.TestTextView
+        android:id="@+id/test_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
         />
 
     <LinearLayout

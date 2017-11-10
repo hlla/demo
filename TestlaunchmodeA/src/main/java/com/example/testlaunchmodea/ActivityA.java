@@ -1,6 +1,5 @@
 package com.example.testlaunchmodea;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +42,6 @@ public class ActivityA extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
-        () findViewById(R.id.);
         ButterKnife.bind(this);
         SharedPreferences sp = getSharedPreferences("cj", Context.MODE_PRIVATE);
         String name = sp.getString("name", "ddddd");

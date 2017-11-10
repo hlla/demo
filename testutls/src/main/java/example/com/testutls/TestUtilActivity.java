@@ -6,14 +6,22 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.os.MessageQueue;
+import android.os.SystemProperties;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
@@ -27,12 +35,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import example.com.testutls.ui.TestTextView;
 import example.com.testutls.utils.AsyncTaskEx;
 import example.com.testutls.utils.TimerManager;
 import example.com.testutls.utils.TimerTaskEx;
 
 public class TestUtilActivity extends Activity /*implements View.OnClickListener */ {
-    private static final String TAG = "TestUtilsActivity";
+    //    private static final String TAG = new String("TestUtilActivity");
+    private static final String TAG = "TestUtilActivity";
+    //    private static final String TAG1 = "TestUtilActivity";
+    private static final int SKIPPED_FRAME_WARNING_LIMIT = SystemProperties.getInt(
+            "debug.choreographer.skipwarning", 30);
     @BindView(R.id.test_asynctask)
     Button testAsynctask;
     @BindView(R.id.test_wt_schedule_timer)
@@ -47,6 +60,14 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     Button cancelWtScheduleTimer;
     @BindView(R.id.cancel_ui_timer)
     Button cancelUiTimer;
+    @BindView(R.id.stub_import)
+    ViewStub stubImport;
+    @BindView(R.id.test_barrier)
+    Button testBarrier;
+    @BindView(R.id.remove_barrier)
+    Button removeBarrier;
+    @BindView(R.id.test_textview)
+    TestTextView testTextView;
     private ArrayList<MyRunnable> myRunnables = new ArrayList<>();
     private ArrayList<TimerTaskEx> wtScheduletimerTaskices = new ArrayList<>();
     private List<TimerTaskEx> uiScheduletimerTaskices = Collections.synchronizedList(new
@@ -62,14 +83,14 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     private final AtomicInteger mCount1 = new AtomicInteger(1);
     private ScheduledThreadPoolExecutor mScheduledExecutorService;
     private RelativeLayout mTestRelativeLayout;
+    private int mBarrierToken = -1;
 
     @OnClick(R.id.test_asynctask)
     public void onTestAsynctaskClicked() {
-        Log.d(TAG, "onTestAsynctaskClicked");
-        for (int i = 0; i < 50; i++) {
-            MyAsyncTaskEx asyncTaskEx = new MyAsyncTaskEx();
-            asyncTaskEx.executeOnExecutor(AsyncTaskEx.THREAD_POOL_EXECUTOR, "" + i);
-        }
+//        for (int i = 0; i < 50; i++) {
+//            MyAsyncTaskEx asyncTaskEx = new MyAsyncTaskEx();
+//            asyncTaskEx.executeOnExecutor(AsyncTaskEx.THREAD_POOL_EXECUTOR, "" + i);
+//        }
     }
 
     @OnClick(R.id.test_wt_schedule_timer)
@@ -263,7 +284,8 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 
     @OnClick(R.id.cancel_wt_schedule_timer)
     public void onCancelWtScheduleTimerClicked() {
-        mTestRelativeLayout.setVisibility(View.GONE);
+        changeWarningLimit();
+//        mTestRelativeLayout.setVisibility(View.GONE);
 //        synchronized (this) {
 //            if (wtScheduletimerTaskices.size() > 0) {
 //                Random rd = new Random();
@@ -292,12 +314,14 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 
     @OnClick(R.id.cancel_ui_timer)
     public void onCancelUiTimerClicked() {
-        m = new int[1000000];
-        for (int i = 0; i < 1000000; i++) {
-            m[i] = i;
-//            HandlerThread handlerThread = new HandlerThread("ffff");
-//            handlerThread.start();
-        }
+        Log.d(TAG, "onTestAsynctaskClicked SKIPPED_FRAME_WARNING_LIMIT=" +
+                SKIPPED_FRAME_WARNING_LIMIT);
+//        m = new int[1000000];
+//        for (int i = 0; i < 1000000; i++) {
+//            m[i] = i;
+////            HandlerThread handlerThread = new HandlerThread("ffff");
+////            handlerThread.start();
+//        }
 //        new ThreadEx("test") {
 //            @Override
 //            public void run() {
@@ -338,13 +362,159 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //            }
 //        }
 //        }
-        mHandler.sendEmptyMessage(0);
-        mTestRelativeLayout = (RelativeLayout) ((ViewStub) findViewById(R.id.stub_import))
-                .inflate();
-        mTestRelativeLayout.setVisibility(View.VISIBLE);
-        View testLayout = findViewById(R.id.test_r_layout);
-        View testBtn = findViewById(R.id.test_button);
-        Log.d(TAG, "onCreate: testLayout=" + testLayout + " testBtn=" + testBtn);
+//        mHandler.sendEmptyMessage(0);
+//        mTestRelativeLayout.setVisibility(View.VISIBLE);
+//        View testLayout = findViewById(R.id.test_r_layout);
+
+        //        test1();
+        int test = SystemProperties.getInt("debug.test_link", 0);
+        Collection<Integer> strings = null;
+        switch (test) {
+            case 1: {
+                strings = new LinkedList<>();
+                break;
+            }
+            case 2: {
+                strings = new HashSet<>();
+                break;
+            }
+            case 3: {
+                strings = new ArrayList<>();
+                break;
+            }
+            default: {
+                strings = new LinkedList<>();
+            }
+        }
+//        HashSet<TestVolatile> strings = new HashSet<>();
+//        ArrayList<TestVolatile> strings = new ArrayList<>();
+        long time = System.currentTimeMillis();
+        int num = SystemProperties.getInt("debug.test_num", 10000);
+        for (int i = 0; i <= num; i++) {
+            strings.add(i);
+        }
+        Log.d(TAG, "onCancelUiTimerClicked: time=" + (System.currentTimeMillis() - time) + " " +
+                "strings=" + strings.getClass());
+        time = System.currentTimeMillis();
+//        Iterator<TestVolatile> iter = strings.iterator();
+//        while (iter.hasNext()) {
+//            iter.next();
+//        }
+        int num1 = SystemProperties.getInt("debug.test_num1", 100);
+        for (int i = 0; i < num1; i++) {
+            Random random = new Random();
+//            strings.add(0, new TestVolatile());
+            strings.remove(Integer.valueOf(random.nextInt(num)));
+        }
+        Log.d(TAG, "onCancelUiTimerClicked: num=" + num + " num1=" + num1 + " strings=" + strings
+                .size());
+//        System.out.println(ss);
+//        HashSet<TestVolatile> stringHashSet = new HashSet<>();
+//        for (int i = 0; i < 1500000; i++) {
+//            stringHashSet.add(new TestVolatile());
+//        }
+        Exception exception = new Exception("click");
+        Log.d(TAG, "onCancelUiTimerClicked: start sleep ", exception);
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "onCancelUiTimerClicked: time1=" + (System.currentTimeMillis() - time));
+        mUIHandler.sendEmptyMessageDelayed(0, 3000);
+    }
+
+    @OnClick(R.id.test_barrier)
+    public void onTestBarrierClicked() {
+        Message msg1 = Message.obtain();
+        msg1.what = 1;
+        mHandler.sendMessage(msg1);
+        Message msg2 = Message.obtain();
+        msg2.what = 2;
+        msg2.setAsynchronous(true);
+        mHandler.sendMessage(msg2);
+        mBarrierToken = postSyncBarrier(mHandler.getLooper().getQueue());
+        Message msg3 = Message.obtain();
+        msg3.what = 3;
+        mHandler.sendMessage(msg3);
+        Message msg4 = Message.obtain();
+        msg4.what = 4;
+        mHandler.sendMessage(msg4);
+        Message msg5 = Message.obtain();
+        msg5.what = 5;
+        msg5.setAsynchronous(false);
+        mHandler.sendMessageDelayed(msg5, 3000);
+        Message msg6 = Message.obtain();
+        msg6.what = 6;
+        msg6.setAsynchronous(true);
+        mHandler.sendMessageDelayed(msg6, 5000);
+        Log.d(TAG, "onTestBarrierClicked: mBarrierToken=" + mBarrierToken);
+    }
+
+    @OnClick(R.id.remove_barrier)
+    public void onRemoveBarrierClicked() {
+        Log.d(TAG, "onRemoveBarrierClicked: mBarrierToken=" + mBarrierToken);
+        removeSyncBarrier(mHandler.getLooper().getQueue(), mBarrierToken);
+    }
+
+    private int postSyncBarrier(MessageQueue queue) {
+        int token = -1;
+        try {
+            Method method = MessageQueue.class.getDeclaredMethod("postSyncBarrier");
+            method.setAccessible(true);
+            token = (int) method.invoke(queue);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "postSyncBarrier: e=" + e);
+        }
+        return token;
+    }
+
+    private void removeSyncBarrier(MessageQueue queue, int token) {
+        try {
+            Method method = MessageQueue.class.getDeclaredMethod("removeSyncBarrier", int.class);
+            method.setAccessible(true);
+            method.invoke(queue, token);
+        } catch (Exception e) {
+            Log.d(TAG, "removeSyncBarrier: e=" + e);
+            e.printStackTrace();
+        }
+    }
+
+    private void changeWarningLimit() {
+        try {
+            Class<?> testClass = Class.forName("android.view.Choreographer");
+            Field field = testClass.getDeclaredField("SKIPPED_FRAME_WARNING_LIMIT");
+            field.setAccessible(true);
+            field.setInt(null, 1);
+        } catch (Exception e) {
+            Log.d(TAG, "changeWarningLimit: e=" + e);
+        }
+        try {
+            Class<?> testClass = Class.forName("android.view.Choreographer");
+            Field field = testClass.getDeclaredField("LOG_EXCEPTION");
+            field.setAccessible(true);
+            field.setBoolean(null, true);
+        } catch (Exception e) {
+            Log.d(TAG, "changeWarningLimit: e=" + e);
+        }
+//        try {
+//            Class<?> testClass = Class.forName("android.view.Choreographer");
+//            Field field = testClass.getDeclaredField("USE_VSYNC");
+//            field.setAccessible(true);
+//            field.setBoolean(null, false);
+//        } catch (Exception e) {
+//            Log.d(TAG, "changeWarningLimit: e=" + e);
+//        }
+//        try {
+//            Class<?> testClass = Class.forName("example.com.testutls.TestUtilActivity");
+//            Field field = testClass.getDeclaredField("TAG");
+//            field.setAccessible(true);
+//            field.set(null, "hhhhhhhh");
+//            Log.d(TAG, "changeWarningLimit: ssss=" + field.get(null));
+//        } catch (Exception e) {
+//            Log.d(TAG, "changeWarningLimit: e=" + e);
+//        }
     }
 
 //    private Handler mHandler = new Handler() {
@@ -417,6 +587,31 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     }
 
     private Handler mHandler;
+    private Handler mUIHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+//            Log.d(TAG, "handleMessage: start what=" + msg.what);
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            testTextView.setText("testTextView 11 what" + msg.what);
+//            removeBarrier.setText("testTextView 11 what" + msg.what);
+            Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
+                @Override
+                public void doFrame(long frameTimeNanos) {
+                    Log.d(TAG, "doFrame: frameTimeNanos=" + frameTimeNanos);
+                }
+            });
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "handleMessage: end");
+        }
+    };
     private final ThreadFactory mThreadFactory = new ThreadFactory() {
 //        private final AtomicInteger mWTScheduleCount = new AtomicInteger(1);
 
@@ -429,7 +624,9 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(TAG, "onCreate: setContentView before");
         setContentView(R.layout.activity_test_util);
+        Log.d(TAG, "onCreate: setContentView after");
         View testLayout = findViewById(R.id.test_r_layout);
         Button testBtn = (Button) findViewById(R.id.test_button);
 //        Integer ss = null;
@@ -470,18 +667,25 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
         mHandler = new Handler(handlerThread.getLooper()) {
             @Override
             public void handleMessage(Message msg) {
+                Log.d(TAG, "handleMessage: start what=" + msg.what);
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+                Log.d(TAG, "handleMessage: end");
 //                mHandler.removeMessages(0);
-                p++;
-                Log.d(TAG, "handleMessage() 11");
-//                try {
-//                    Thread.sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
+//                p++;
+//                Log.d(TAG, "handleMessage() 11");
+////                try {
+////                    Thread.sleep(3000);
+////                } catch (InterruptedException e) {
+////                    e.printStackTrace();
+////                }
+//                Log.d(TAG, "handleMessage() 22");
+//                if (p < 4) {
+//                    mHandler.sendEmptyMessage(0);
 //                }
-                Log.d(TAG, "handleMessage() 22");
-                if (p < 4) {
-                    mHandler.sendEmptyMessage(0);
-                }
             }
         };
 //        mHandler.getLooper().getQueue().addIdleHandler(new MessageQueue.IdleHandler() {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="theme_diy_share_btn_height">32dp</dimen>
+    <dimen name="theme_diy_share_dialog_close_size">12dp</dimen>
+    <dimen name="theme_diy_share_checked_image_size">14dp</dimen>
+    <dimen name="theme_diy_share_succ_text_size">12sp</dimen>
+    <dimen name="theme_diy_share_tips_text_size">10sp</dimen>
+    <dimen name="theme_diy_share_btn_text_size">12sp</dimen>
+</resources>
