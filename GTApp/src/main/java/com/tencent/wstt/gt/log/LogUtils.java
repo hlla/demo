@@ -23,6 +23,8 @@
  */
 package com.tencent.wstt.gt.log;
 
+import android.text.TextUtils;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -41,6 +43,7 @@ import com.tencent.wstt.gt.ui.model.TagTimeEntry;
 import com.tencent.wstt.gt.ui.model.TimeEntry;
 import com.tencent.wstt.gt.utils.FileUtil;
 import com.tencent.wstt.gt.utils.GTUtils;
+import com.tencent.wstt.gt.utils.StringUtil;
 
 public class LogUtils {
 
@@ -66,7 +69,7 @@ public class LogUtils {
 
 	/**
 	 * GT中的日志保存
-	 * 
+	 *
 	 * @param list
 	 * @param path
 	 */
@@ -574,7 +577,7 @@ public class LogUtils {
 			return;
 		}
 
-		String sFolder = Env.S_ROOT_GW_FOLDER 
+		String sFolder = Env.S_ROOT_GW_FOLDER
 				+ saveEntry.path1 + FileUtil.separator + saveEntry.path2 + FileUtil.separator + saveEntry.path3 + FileUtil.separator;
 		File folder = new File(sFolder);
 		folder.mkdirs();
@@ -708,22 +711,14 @@ public class LogUtils {
 		}
 	}
 
-	private static String getTagTimeEntryFileName(final TagTimeEntry tte, final GWSaveEntry saveEntry)
-	{
-		long lastDataTime = 0;
-		if (!tte.hasChild() && tte.getRecordSize() > 0)
-		{
-			ArrayList<TimeEntry> dataList = tte.getRecordList();
-			lastDataTime = dataList.get(dataList.size() -1).time;
+	private static String getTagTimeEntryFileName(final TagTimeEntry tte, final GWSaveEntry saveEntry) {
+		String pathStamp = "";
+		if (!TextUtils.isEmpty(saveEntry.path3)) {
+			pathStamp = saveEntry.path3.replace('/', '_');
 		}
-		else if (tte.hasChild() && tte.getSubTagEntrys()[0].getRecordSize() > 0)
-		{
-			ArrayList<TimeEntry> dataList = tte.getSubTagEntrys()[0].getRecordList();
-			lastDataTime = dataList.get(dataList.size() -1).time;
-		}
-
-		String recordTime = lastDataTime == 0 ? saveEntry.now : GTUtils.getSaveDate(lastDataTime);
-		String tteFileName = tte.getName() + "_" + recordTime + LogUtils.GW_POSFIX;
+		String tteFileName = StringUtil.notEmptyAOrB(pathStamp, "") + "_"
+				+ StringUtil.notEmptyAOrB(saveEntry.desc, "")
+				+ LogUtils.GW_POSFIX;
 		tteFileName = tteFileName.replace(':', '_');
 		return tteFileName;
 	}

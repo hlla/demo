@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Notwithstanding anything to the contrary herein, any previous version
+<?xml version="1.0" encoding="utf-8"?><!-- Notwithstanding anything to the contrary herein, any previous version
      of Tencent GT shall not be subject to the license hereunder.
      All right, title, and interest, including all intellectual property rights,
      in and to the previous version of Tencent GT (including any and all copies thereof)
@@ -148,6 +147,7 @@
     <string name="save_folder_valid">输入的文字不能包含特殊字符</string>
     <string name="digit_valid">输入的必须是数字</string>
     <string name="gw_root_folder">/sdcard/GT/GW/</string>
+    <string name="gw_root_folder_clear">/SM/</string>
     <string name="test_desc">备注:</string>
     <!-- AUT页 -->
     <string name="AUT_page_title">AUT</string>
@@ -197,7 +197,7 @@
     <string name="prof_detail_score">整体分:</string>
     <string name="prof_detail_good">流畅:</string>
     <string name="prof_detail_bad">卡顿:</string>
-    
+
     <string name="prof_detail_attent_hint">请选择关注的项</string>
     <!-- 告警 -->
     <string name="warning_title">告警区(可用)</string>
@@ -236,6 +236,7 @@
     <string name="pi_battery_sample_tip">您输入刷新率或亮度不是数字!</string>
     <string name="pi_battery_sample_tip2">输入的数字应大于100!</string>
     <string name="pi_battery_sample_tip3">请先停止已进行的耗电数据采集!</string>
+    <string name="pi_battery_sample_tip4">该机型或系统尚未适配</string>
     <string name="pi_battery_select_items">选择关注的指标:</string>
     <string name="pi_battery_i">电流:</string>
     <string name="pi_battery_u">电压:</string>
@@ -280,5 +281,8 @@
     <string name="use_detail">使用详情</string>
     <string name="about">关于</string>
     <string name="cannot_empty">*必填项不能为空!</string>
+    <string name="process_hint">processing please wait… \n1. check root \n2. check process assigned
+        \n3. run SM service \n\n use broadcast to switch SM collector status:
+        \n \"com.kylece.gt.turn_on_sm\" to turn on \n \"com.kylece.gt.turn_off_sm\" to turn off</string>
 
 </resources>

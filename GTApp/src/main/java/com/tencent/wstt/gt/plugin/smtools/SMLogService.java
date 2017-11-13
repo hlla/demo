@@ -69,11 +69,13 @@ public class SMLogService extends IntentService {
 
             String str = intent.getStringExtra("pid");
             int pid = Integer.parseInt(str);
-
-            List<String> args = new ArrayList<String>(Arrays.asList("logcat", "-v", "time", "Choreographer:I", "*:S"));
+            Log.d("chengjian", "pid: " + pid);
+            List<String> args = new ArrayList<String>(Arrays.asList("logcat", "-v", "time",
+                    "Choreographer:I", "*:S"));
 
             dumpLogcatProcess = RuntimeHelper.exec(args);
-            reader = new BufferedReader(new InputStreamReader(dumpLogcatProcess.getInputStream()), 8192);
+            reader = new BufferedReader(new InputStreamReader(dumpLogcatProcess.getInputStream())
+                    , 8192);
 
             String line;
 
@@ -84,7 +86,8 @@ public class SMLogService extends IntentService {
                     continue;
                 }
                 int pID = LogLine.newLogLine(line, false).getProcessId();
-                if (pID != pid){
+                Log.d("chengjian", "pID: " + pID + "  line=" + line);
+                if (pID != pid) {
                     continue;
                 }
 

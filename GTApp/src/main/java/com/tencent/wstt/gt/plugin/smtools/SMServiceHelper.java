@@ -32,71 +32,77 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class SMServiceHelper {
-    private static SMServiceHelper INSTANCE;
+	private static SMServiceHelper INSTANCE;
+	
+	BlockingQueue<Integer> dataQueue = new LinkedBlockingQueue<Integer>();
+	
+	// 观察者们，包括UI和自动化模块
+	private List<SMPluginListener> listeners;
+	public synchronized void addListener(SMPluginListener listener)
+	{
+		listeners.add(listener);
+	}
 
-    BlockingQueue<Integer> dataQueue = new LinkedBlockingQueue<Integer>();
+	public synchronized void removeListener(SMPluginListener listener)
+	{
+		listeners.remove(listener);
+	}
 
-    // 观察者们，包括UI和自动化模块
-    private List<SMPluginListener> listeners;
+	boolean start = false;
 
-    public synchronized void addListener(SMPluginListener listener) {
-        listeners.add(listener);
-    }
+	public boolean isStarted() {
+		return start;
+	}
 
-    public synchronized void removeListener(SMPluginListener listener) {
-        listeners.remove(listener);
-    }
+	void setStarted(boolean isStarted) {
+		start = isStarted;
+	}
 
-    boolean start = false;
+	private SMServiceHelper()
+	{
+		listeners = new ArrayList<SMPluginListener>();
+	}
 
-    boolean isStarted() {
-        return start;
-    }
+	public static SMServiceHelper getInstance() {
+		if (null == INSTANCE) {
+			INSTANCE = new SMServiceHelper();
+		}
+		return INSTANCE;
+	}
 
-    void setStarted(boolean isStarted) {
-        start = isStarted;
-    }
+	public synchronized void stopBackgroundServiceIfRunning(Context context) {
 
-    private SMServiceHelper() {
-        listeners = new ArrayList<SMPluginListener>();
-    }
+		if (isStarted())
+		{
+			context.stopService(new Intent(context, SMLogService.class));
+			context.stopService(new Intent(context, SMDataService.class));
+			setStarted(false);
+			for (SMPluginListener listener : listeners)
+			{
+				listener.onSMStop();
+			}
+		}
+	}
 
-    public static SMServiceHelper getInstance() {
-        if (null == INSTANCE) {
-            INSTANCE = new SMServiceHelper();
-        }
-        return INSTANCE;
-    }
-
-    synchronized void stopBackgroundServiceIfRunning(Context context) {
-
-        if (isStarted()) {
-            context.stopService(new Intent(context, SMLogService.class));
-            context.stopService(new Intent(context, SMDataService.class));
-            setStarted(false);
-            for (SMPluginListener listener : listeners) {
-                listener.onSMStop();
-            }
-        }
-    }
-
-    synchronized void startBackgroundService(Context context, Integer pid, String pkgName) {
-        if (!isStarted()) {
-            setStarted(true);
-
-            Intent intent = new Intent(context, SMLogService.class);
-            intent.putExtra("pid", pid.toString());
-            intent.putExtra("pkgName", pkgName);
-            context.startService(intent);
-
-            Intent intent2 = new Intent(context, SMDataService.class);
-            intent2.putExtra("pid", pid.toString());
-            intent2.putExtra("pkgName", pkgName);
-            context.startService(intent2);
-
-            for (SMPluginListener listener : listeners) {
-                listener.onSMStart();
-            }
-        }
-    }
+	public synchronized void startBackgroundService(Context context, Integer pid, String pkgName) {
+		if (! isStarted())
+		{
+			setStarted(true);
+			
+			Intent intent = new Intent(context, SMLogService.class);
+			intent.putExtra("pid", pid.toString());
+			intent.putExtra("pkgName", pkgName);
+			context.startService(intent);
+			
+			Intent intent2 = new Intent(context, SMDataService.class);
+			intent2.putExtra("pid", pid.toString());
+			intent2.putExtra("pkgName", pkgName);
+			context.startService(intent2);
+			
+			for (SMPluginListener listener : listeners)
+			{
+				listener.onSMStart();
+			}
+		}
+	}
 }

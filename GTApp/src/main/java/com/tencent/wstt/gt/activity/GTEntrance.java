@@ -23,15 +23,15 @@
  */
 package com.tencent.wstt.gt.activity;
 
+import android.content.Context;
+import android.content.Intent;
+
 import com.tencent.wstt.gt.GTApp;
 import com.tencent.wstt.gt.api.utils.ProcessUtils;
 import com.tencent.wstt.gt.dao.GTPref;
 import com.tencent.wstt.gt.service.GTFloatView;
 import com.tencent.wstt.gt.service.GTLogo;
 import com.tencent.wstt.gt.service.GTService;
-
-import android.content.Context;
-import android.content.Intent;
 /**
  * 开启关闭BH的入口
  */
@@ -43,17 +43,17 @@ public class GTEntrance {
 		aidlIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startService(aidlIntent);
 
-		// 插件加载完成后显示GT入口悬浮图标
-		if ( GTPref.getGTPref().getBoolean(GTPref.AC_SWITCH_FLAG, true))
-		{
-			Intent intent = new Intent(context, GTLogo.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			context.startService(intent);
-
-			Intent mintent = new Intent(context, GTFloatView.class);
-			mintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			context.startService(mintent);
-		}
+//		// 插件加载完成后显示GT入口悬浮图标
+//		if ( GTPref.getGTPref().getBoolean(GTPref.AC_SWITCH_FLAG, true))
+//		{
+//			Intent intent = new Intent(context, GTLogo.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			context.startService(intent);
+//
+//			Intent mintent = new Intent(context, GTFloatView.class);
+//			mintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			context.startService(mintent);
+//		}
 
 		GTApp.setGTRunStatus(true);
 	}

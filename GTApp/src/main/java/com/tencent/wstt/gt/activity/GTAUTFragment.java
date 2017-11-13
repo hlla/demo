@@ -23,9 +23,6 @@
  */
 package com.tencent.wstt.gt.activity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.app.ProgressDialog;
@@ -54,6 +51,8 @@ import com.tencent.wstt.gt.Functions;
 import com.tencent.wstt.gt.GTApp;
 import com.tencent.wstt.gt.OutPara;
 import com.tencent.wstt.gt.R;
+import com.tencent.wstt.gt.actors.BaseActor;
+import com.tencent.wstt.gt.actors.PackageActor;
 import com.tencent.wstt.gt.api.utils.CpuUtils;
 import com.tencent.wstt.gt.api.utils.NetUtils;
 import com.tencent.wstt.gt.api.utils.ProcessUtils;
@@ -70,6 +69,9 @@ import com.tencent.wstt.gt.proInfo.floatView.GTMemHelperFloatview;
 import com.tencent.wstt.gt.ui.model.TagTimeEntry;
 import com.tencent.wstt.gt.utils.CommonString;
 import com.tencent.wstt.gt.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GTAUTFragment extends Fragment {
 //TOOD
@@ -107,6 +109,7 @@ public class GTAUTFragment extends Fragment {
 	private static boolean isAutoGetMem = true;
 
 	private Thread thread;
+	private BaseActor baseActor;
 
 	// 用于外部变化需要通知AUT页刷新的Handler
 	private Handler handler = new Handler() {
@@ -114,7 +117,7 @@ public class GTAUTFragment extends Fragment {
 			doResume();
 		}
 	};
-	
+
 	public GTAUTFragment()
 	{
 		super();
@@ -126,6 +129,7 @@ public class GTAUTFragment extends Fragment {
 	{
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+		baseActor = new PackageActor(getContext());
 	}
 
 	@Override
@@ -181,7 +185,7 @@ public class GTAUTFragment extends Fragment {
 		memSwitch = autLayout.findViewById(R.id.memswitch);
 		selectDrawable = R.drawable.swbtn_selected;
 		defaultDrawable = R.drawable.swbtn_default;
-		
+
 		if (isAutoGetMem) {
 			memOn.setText("");
 			memOn.setBackgroundResource(selectDrawable);
@@ -195,11 +199,11 @@ public class GTAUTFragment extends Fragment {
 			memOff.setText("");
 			memOff.setBackgroundResource(defaultDrawable);
 		}
-		
+
 		RelativeLayout rl_save = (RelativeLayout) LayoutInflater.from(getActivity()).inflate(
 				R.layout.gt_dailog_save, container, false);
 		et_savePath = (EditText) rl_save.findViewById(R.id.save_editor);
-		
+
 		dlg_save = new Builder(getActivity())
 		.setTitle(getString(R.string.save))
 		.setView(rl_save)
@@ -224,9 +228,9 @@ public class GTAUTFragment extends Fragment {
 				dialog.dismiss();
 			}
 		}).create();
-		
+
 		memSwitch.setOnTouchListener(new OnTouchListener() {
-			
+
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
 				if (!tv_PkName.getText().toString().equals("n/a")) {
@@ -236,7 +240,7 @@ public class GTAUTFragment extends Fragment {
 						memOn.setBackgroundResource(defaultDrawable);
 						memOff.setText("");
 						memOff.setBackgroundResource(selectDrawable);
-	
+
 						// if(!tv_PkName.getText().toString().equals("n/a")){
 						Intent intent = new Intent(GTApp.getContext(),
 								GTMemHelperFloatview.class);
@@ -255,9 +259,9 @@ public class GTAUTFragment extends Fragment {
 						memOn.setBackgroundResource(selectDrawable);
 						memOff.setText("off");
 						memOff.setBackgroundResource(defaultDrawable);
-						
+
 						GTMemHelperFloatview.tagTimes = 0;
-						
+
 						PluginManager
 								.getInstance()
 								.getPluginControler()
@@ -270,10 +274,10 @@ public class GTAUTFragment extends Fragment {
 				return false;
 			}
 		});
-		
+
 		return autLayout;
 	}
-	
+
 	@Override
 	public void onHiddenChanged(boolean newHiddenState) {
 		if (!newHiddenState)
@@ -287,7 +291,7 @@ public class GTAUTFragment extends Fragment {
 		super.onResume();
 		doResume();
 	}
-	
+
 	private void doResume() {
 		// 判断是否选择了AUT
 		tv_Appstatus.setText(AUTManager.appstatus);
@@ -351,75 +355,63 @@ public class GTAUTFragment extends Fragment {
 		menu.setGroupVisible(0, true); // 屏蔽设置主菜单
 	}
 
-	private OnClickListener select = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			if (!OpUIManager.gw_running) {
-				Intent intent = new Intent(getActivity(),
-						GTShowPackageActivity.class);
-				if (pkn_old != null) {
-					boolean previous = true;
-					for (int i = 0; i < cb_status.length; i++) {
-						if (hasAppHistory(i)) {
-							break;
-						}
-					}
+	private OnClickListener select = v -> {
+        if (!OpUIManager.gw_running) {
+            Intent intent;
+            if (pkn_old != null) {
+                boolean previous = true;
+                for (int i = 0; i < cb_status.length; i++) {
+                    if (hasAppHistory(i)) {
+                        break;
+                    }
+                }
 
-					if (previous) {
-						Builder builder = new Builder(
-								getActivity());
-						builder.setMessage(getString(R.string.AUT_page_tip1));
-						builder.setTitle(getString(R.string.AUT_page_tip_title));
-						builder.setPositiveButton(R.string.cancel,
-								new DialogInterface.OnClickListener() {
+                if (previous) {
+                    Builder builder = new Builder(
+                            getActivity());
+                    builder.setMessage(getString(R.string.AUT_page_tip1));
+                    builder.setTitle(getString(R.string.AUT_page_tip_title));
+                    builder.setPositiveButton(R.string.cancel,
+                            new DialogInterface.OnClickListener() {
 
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										dialog.dismiss();
-									}
-								});
-						builder.setNegativeButton(getString(R.string.ok),
-								new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                        int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    builder.setNegativeButton(getString(R.string.ok),
+                            new DialogInterface.OnClickListener() {
 
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										// UI需要清理dataSet
-										Intent intent = new Intent(
-												getActivity(),
-												GTShowPackageActivity.class);
-										intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-										startActivity(intent);
-										dialog.dismiss();
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                        int which) {
+									packageActorAct();
+									dialog.dismiss();
 
-									}
-								});
-						builder.setCancelable(false);
-						builder.show();
-						// }
-					} else {
-						intent = new Intent(getActivity(),
-								GTShowPackageActivity.class);
+                                }
+                            });
+                    builder.setCancelable(false);
+                    builder.show();
+                    // }
+                } else {
+					packageActorAct();
 
-						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-						startActivity(intent);
-
-					}
-				} else {
-					intent = new Intent(getActivity(),
-							GTShowPackageActivity.class);
-
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					startActivity(intent);
-					// finish();
 				}
-			} else {
-				ToastUtil.ShowLongToast(getActivity(),
-						getString(R.string.AUT_page_tip2), "center");
+            } else {
+				packageActorAct();
 			}
-		}
-	};
+        } else {
+            ToastUtil.ShowLongToast(getActivity(),
+                    getString(R.string.AUT_page_tip2), "center");
+        }
+    };
+
+	private void packageActorAct() {
+        if (!baseActor.isActed()) {
+			baseActor.act();
+        }
+	}
 
 	private OnClickListener launchapp = new OnClickListener() {
 		@Override
@@ -531,7 +523,7 @@ public class GTAUTFragment extends Fragment {
 	 */
 	public static List<OutPara> registerOutpara(int type, int designatedPid) {
 		List<OutPara> result = new ArrayList<OutPara>();
-				
+
 		OpUIManager.list_change = true;
 		cb_status[type] = true;
 		if (! AUTManager.appstatus.equals("running")) {
@@ -540,7 +532,7 @@ public class GTAUTFragment extends Fragment {
 
 		List<String> registOutList = new ArrayList<String>();
 		AUTManager.registOpTable.put(cb_alias[type], registOutList);
-		
+
 		if (AUTManager.pIds != null) {
 			String[] tempPids = AUTManager.pIds;
 			if (designatedPid >= 0) // 指定pid的情况
@@ -555,7 +547,7 @@ public class GTAUTFragment extends Fragment {
 					}
 				}
 			}
-			
+
 			for (int i = 0; i < tempPids.length; i++) {
 				String preOpName; // 出参的前缀
 				String key;
@@ -572,7 +564,7 @@ public class GTAUTFragment extends Fragment {
 					key = preOpName + AUTManager.pNames[i];
 					alias = cb_alias[type] + i;
 				}
-				
+
 				Client autClient = ClientManager.getInstance().getAUTClient();
 				autClient.registerOutPara(key, alias);
 				autClient.setOutparaMonitor(key, true); // FIXME 默认设置为已采集，应和上一步合并
@@ -592,13 +584,13 @@ public class GTAUTFragment extends Fragment {
 				case AUTManager.SEQ_JIF:
 					// 需要有对应的CPU记录对象，JIF才可用
 					String keyCpu = cb_key[AUTManager.SEQ_CPU] + i + ":" + AUTManager.pNames[i];
-					
+
 					if (null == CpuUtils.cpuInfoMap.get(keyCpu))
 					{
 						// 设置CPU记录对象
 						CpuUtils.cpuInfoMap.put(keyCpu, new CpuUtils());
 					}
-					
+
 					OpPerfBridge.startProfier(op,
 							Functions.PERF_DIGITAL_NORMAL,
 							"", "");
@@ -634,7 +626,7 @@ public class GTAUTFragment extends Fragment {
 		}
 		return result;
 	}
-	
+
 	private static void registerOutpara(int type) {
 		registerOutpara(type, -1);
 	}
@@ -672,7 +664,7 @@ public class GTAUTFragment extends Fragment {
 
 		OpUIManager.list_change = true;
 		cb_status[type] = false;
-		
+
 		if (AUTManager.pIds != null) {
 			for (int i = 0; i < AUTManager.pIds.length; i++) {
 				String preOpName; // 出参的前缀
@@ -684,11 +676,11 @@ public class GTAUTFragment extends Fragment {
 				{
 					preOpName = cb_key[type] + i + ":";
 				}
-				
+
 				Client autClient = ClientManager.getInstance().getAUTClient();
 				autClient.unregisterOutPara(preOpName + AUTManager.pNames[i]);
 			}
-			
+
 			AUTManager.registOpTable.remove(cb_alias[type]);
 		}
 	}
@@ -736,7 +728,7 @@ public class GTAUTFragment extends Fragment {
 				}
 				break;
 			}
-			
+
 			if (GTApp.getOpHandler() != null)
 			{
 				GTApp.getOpHandler().sendEmptyMessage(5); // 通知出参界面刷新下UI

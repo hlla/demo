@@ -481,7 +481,7 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
         }
     }
 
-    private void changeWarningLimit() {
+    public static void changeWarningLimit() {
         try {
             Class<?> testClass = Class.forName("android.view.Choreographer");
             Field field = testClass.getDeclaredField("SKIPPED_FRAME_WARNING_LIMIT");
@@ -493,6 +493,22 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
         try {
             Class<?> testClass = Class.forName("android.view.Choreographer");
             Field field = testClass.getDeclaredField("LOG_EXCEPTION");
+            field.setAccessible(true);
+            field.setBoolean(null, true);
+        } catch (Exception e) {
+            Log.d(TAG, "changeWarningLimit: e=" + e);
+        }
+        try {
+            Class<?> testClass = Class.forName("android.view.Choreographer");
+            Field field = testClass.getDeclaredField("DEBUG_FRAMES");
+            field.setAccessible(true);
+            field.setBoolean(null, true);
+        } catch (Exception e) {
+            Log.d(TAG, "changeWarningLimit: e=" + e);
+        }
+        try {
+            Class<?> testClass = Class.forName("android.view.Choreographer");
+            Field field = testClass.getDeclaredField("DEBUG_FRAMES");
             field.setAccessible(true);
             field.setBoolean(null, true);
         } catch (Exception e) {
@@ -622,9 +638,20 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     int p = 0;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume: ");
+    }
+
+    @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: setContentView before");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_test_util);
         Log.d(TAG, "onCreate: setContentView after");
         View testLayout = findViewById(R.id.test_r_layout);
@@ -657,12 +684,9 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
             }
         };
         handlerThread.start();
-        handlerThread.getLooper().getQueue().addIdleHandler(new MessageQueue.IdleHandler() {
-            @Override
-            public boolean queueIdle() {
-                Log.d(TAG, "queueIdle()");
-                return true;
-            }
+        handlerThread.getLooper().getQueue().addIdleHandler(() -> {
+            Log.d(TAG, "queueIdle()");
+            return true;
         });
         mHandler = new Handler(handlerThread.getLooper()) {
             @Override
@@ -688,6 +712,11 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //                }
             }
         };
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 //        mHandler.getLooper().getQueue().addIdleHandler(new MessageQueue.IdleHandler() {
 //            @Override
 //            public boolean queueIdle() {

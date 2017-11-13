@@ -2,9 +2,13 @@ package com.example;
 
 import java.lang.ref.WeakReference;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestReference {
     public static void main(String[] args) {
+        AtomicInteger count = new AtomicInteger(0);
+        count.addAndGet(11);
+        System.out.printf("count.addAndGet(2):"+count.addAndGet(2));
         // TODO Auto-generated method stub
         YDateProxy yDateProxy = new YDateProxy();
         yDateProxy = null;

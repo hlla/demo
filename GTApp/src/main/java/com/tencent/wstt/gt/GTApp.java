@@ -23,7 +23,11 @@
  */
 package com.tencent.wstt.gt;
 
-import java.lang.ref.WeakReference;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.util.Log;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.stat.MtaSDkException;
@@ -55,11 +59,9 @@ import com.tencent.wstt.gt.plugin.smtools.SMToolsPluginItem;
 import com.tencent.wstt.gt.plugin.tcpdump.TcpdumpPluginItem;
 import com.tencent.wstt.gt.utils.GTUtils;
 
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Handler;
-import android.util.Log;
+import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class GTApp extends Application {
 	private static Context mContext;
@@ -67,6 +69,7 @@ public class GTApp extends Application {
 	public static DaemonHandler daemonHandler;
 
 	static Handler emptyHandler = new Handler();
+	public static ExecutorService sExecutor;
 
 	// 是否在GT的UI中
 	private static boolean isInGT = false;
@@ -77,6 +80,10 @@ public class GTApp extends Application {
 
 	public static void setInGT(boolean inGT) {
 		isInGT = inGT;
+	}
+
+	public static ExecutorService getsExecutor() {
+		return sExecutor;
 	}
 
 	public GTApp() {
@@ -133,6 +140,8 @@ public class GTApp extends Application {
 			// MTA初始化失败
 			Log.e("gt_mta", "MTA start failed.");
 		}
+
+		sExecutor = Executors.newFixedThreadPool(4);
 	}
 
 	private void loadEnvInfo() {
@@ -201,6 +210,8 @@ public class GTApp extends Application {
 
 		// 如果有在模拟位置，要即时清理状态
 		GTGPSReplayEngine.getInstance().stopMockLocation();
+
+		sExecutor.shutdownNow();
 
 		// 这个一定要放在最后，因为里面有杀进程的动作
 		GTEntrance.GTclose(mContext);

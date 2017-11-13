@@ -633,9 +633,9 @@ public class ProcessUtils {
 
         @Override
         public List<ProcessInfo> getAllRunningAppProcessInfo() {
-            if (isLike5x) {
-                return super.getAllRunningAppProcessInfo();
-            }
+//            if (isLike5x) {
+//                return super.getAllRunningAppProcessInfo();
+//            }
             List<ProcessInfo> appProcessList = new ArrayList<ProcessInfo>();
 
             // 正式取可用的Android进程

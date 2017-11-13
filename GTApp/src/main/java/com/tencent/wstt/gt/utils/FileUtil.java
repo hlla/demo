@@ -24,15 +24,19 @@
 package com.tencent.wstt.gt.utils;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
 import java.io.Reader;
+import java.io.StringReader;
 import java.io.Writer;
 import java.net.Socket;
 import java.nio.channels.FileChannel;
@@ -83,6 +87,85 @@ public class FileUtil {
 			}
 			return false;
 		}};
+
+	private static final boolean DEFAULT_IS_APPEND = true; //
+	private static final int DEFAULT_CHAR_SIZE = 1024;
+	public static String getFileSimpleName(String path) {
+		String fileName = path.trim();
+		return fileName.substring(fileName.lastIndexOf("/") + 1);
+	}
+
+	public static boolean writeStringToFile(File file, CharSequence content) {
+		return writeStringToFile(file, content, DEFAULT_IS_APPEND);
+	}
+
+	public static boolean writeStringToFile(File file, CharSequence content, boolean isAppend) {
+		boolean isOk = false;
+		char[] buffer = null;
+		int count = 0;
+		BufferedReader br = null;
+		BufferedWriter bw = null;
+		try {
+			if (!file.exists()) {
+				createNewFileAndParentDir(file);
+			}
+			if (file.exists()) {
+				br = new BufferedReader(new StringReader(content.toString()));
+				bw = new BufferedWriter(new FileWriter(file, isAppend));
+				buffer = new char[DEFAULT_CHAR_SIZE];
+				int len = 0;
+				while ((len = br.read(buffer, 0, DEFAULT_CHAR_SIZE)) != -1) {
+					bw.write(buffer, 0, len);
+					count += len;
+				}
+				bw.flush();
+			}
+			isOk = content.length() == count;
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bw != null) {
+					bw.close();
+				}
+				if (br != null) {
+					br.close();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return isOk;
+	}
+
+	public static boolean createNewFileAndParentDir(File file) {
+		boolean isCreateNewFileOk = true;
+		isCreateNewFileOk = createParentDir(file);
+		// 创建父目录失败，直接返回false，不再创建子文件
+		if (isCreateNewFileOk) {
+			if (!file.exists()) {
+				try {
+					isCreateNewFileOk = file.createNewFile();
+				} catch (IOException e) {
+					e.printStackTrace();
+					isCreateNewFileOk = false;
+				}
+			}
+		}
+		return isCreateNewFileOk;
+	}
+
+	public static boolean createParentDir(File file) {
+		boolean isMkdirs = true;
+		if (!file.exists()) {
+			File dir = file.getParentFile();
+			if (!dir.exists()) {
+				isMkdirs = dir.mkdirs();
+			}
+		}
+		return isMkdirs;
+	}
+
 	// ==================================================关于文件处理====================================================
 	public static boolean isPathStringValid(String path) {
 		if (null == path || path.length() == 0) {

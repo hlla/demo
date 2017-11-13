@@ -23,13 +23,13 @@
  */
 package com.tencent.wstt.gt.activity;
 
-import com.tencent.wstt.gt.GTApp;
-import com.tencent.wstt.gt.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.tencent.wstt.gt.GTApp;
+import com.tencent.wstt.gt.R;
 
 public class SplashActivity extends Activity {
 
@@ -51,7 +51,7 @@ public class SplashActivity extends Activity {
 		// 已启动
 		if(GTApp.getGTRunStatus()){
 			if(!GTMainActivity.isActived){
-				Intent intent = new Intent(SplashActivity.this, GTMainActivity.class);
+				Intent intent = new Intent(SplashActivity.this, InitializeActivity.class);
 				startActivity(intent);
 			}
 			finish();
@@ -73,7 +73,7 @@ public class SplashActivity extends Activity {
 				new Handler().postDelayed(new Runnable() {
 					public void run() {
 						Intent intent = new Intent(SplashActivity.this,
-								GTMainActivity.class);
+								InitializeActivity.class);
 						startActivity(intent);
 						SplashActivity.this.finish();
 					}
@@ -81,7 +81,7 @@ public class SplashActivity extends Activity {
 
 				sIsFirstTimeEnter = false;
 			} else {
-				Intent intent = new Intent(this, GTMainActivity.class);
+				Intent intent = new Intent(this, InitializeActivity.class);
 				startActivity(intent);
 				this.finish();
 			}

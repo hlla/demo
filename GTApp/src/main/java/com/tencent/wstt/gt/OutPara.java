@@ -183,7 +183,7 @@ public class OutPara extends AidlEntry {
 		parcel.writeLong(time);
 	}
 
-	public static final Parcelable.Creator<OutPara> CREATOR = new Creator<OutPara>() {
+	public static final Creator<OutPara> CREATOR = new Creator<OutPara>() {
 		public OutPara createFromParcel(Parcel source) {
 			return new OutPara(source);
 		}

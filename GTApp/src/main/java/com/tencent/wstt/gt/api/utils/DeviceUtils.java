@@ -32,12 +32,21 @@ import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.UUID;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
 import com.tencent.wstt.gt.GTApp;
@@ -49,7 +58,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备型号
-	 * 
+	 *
 	 * @return 设备型号
 	 */
 	public static String getDevModel() {
@@ -62,7 +71,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取SDK版本
-	 * 
+	 *
 	 * @return SDK版本
 	 */
 	public static String getSDKVersion() {
@@ -86,7 +95,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备dip(device independent pixels)
-	 * 
+	 *
 	 * @param mactivity
 	 *            应用程序最前端的activity对象
 	 * @return 设备dip
@@ -100,7 +109,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备density
-	 * 
+	 *
 	 * @param mactivity
 	 *            应用程序最前端的activity对象
 	 * @return 设备density
@@ -121,7 +130,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备比例因子
-	 * 
+	 *
 	 * @param mactivity
 	 *            应用程序最前端的activity对象
 	 * @return 设备比例因子
@@ -135,7 +144,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备屏幕宽度
-	 * 
+	 *
 	 * @param context
 	 *            应用程序的上下文环境
 	 * @return 设备屏幕宽度
@@ -152,7 +161,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备屏幕高度
-	 * 
+	 *
 	 * @param context
 	 *            应用程序的上下文环境
 	 * @return 设备屏幕高度
@@ -169,7 +178,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备屏幕宽度
-	 * 
+	 *
 	 * @param mactivity
 	 *            应用程序最前端的activity对象
 	 * @return 设备屏幕宽度
@@ -180,7 +189,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备屏幕高度
-	 * 
+	 *
 	 * @param mactivity
 	 *            应用程序最前端的activity对象
 	 * @return 设备屏幕高度
@@ -189,9 +198,71 @@ public class DeviceUtils {
 		return mactivity.getWindowManager().getDefaultDisplay().getHeight();
 	}
 
+	@SuppressLint("NewApi")
+	public static int getRealScreenHeightIncludeNavBar(Context context) {
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			DisplayMetrics metrics = new DisplayMetrics();
+			wm.getDefaultDisplay().getMetrics(metrics);
+			wm.getDefaultDisplay().getRealMetrics(metrics);
+			return metrics.heightPixels;
+		} else {
+			return getDisplayHeight(context);
+		}
+	}
+
+	public static int getDisplayWidth(@NonNull Context context) {
+		return getDisplaySize(context)[0];
+	}
+
+	public static int getDisplayHeight(@NonNull Context context) {
+		return getDisplaySize(context)[1];
+	}
+
+	public static int[] getDisplaySize(@NonNull Context context) {
+		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		return new int[]{size.x, size.y};
+	}
+
+	/**
+     * @param c context
+     * @return height of navigation bar
+     */
+    public static int getNavBarHeight(Context c) {
+		boolean hasMenuKey = ViewConfiguration.get(c).hasPermanentMenuKey();
+		boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+		if (!hasMenuKey && !hasBackKey) {
+			//The device has a navigation bar
+			Resources r = c.getResources();
+
+			int ori = r.getConfiguration().orientation;
+			int id;
+			if (isTablet(c)) {
+				id = r.getIdentifier(ori == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android");
+			} else {
+				id = r.getIdentifier(ori == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_width", "dimen", "android");
+			}
+
+			if (id > 0) {
+				return r.getDimensionPixelSize(id);
+			}
+		}
+		return 0;
+	}
+
+
+	private static boolean isTablet(Context c) {
+		return (c.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+				>= Configuration.SCREENLAYOUT_SIZE_LARGE;
+	}
+
 	/**
 	 * 获取状态栏高度
-	 * 
+	 *
 	 * @param context
 	 *            应用程序的上下文环境
 	 * @return 状态栏高度
@@ -238,7 +309,7 @@ public class DeviceUtils {
 
 	/**
 	 * 检测网络是否可用
-	 * 
+	 *
 	 * @param context
 	 *            应用程序的上下文环境
 	 * @return true 网络可用；false 网络不可用
@@ -254,7 +325,7 @@ public class DeviceUtils {
 
 	/**
 	 * 获取设备UUID
-	 * 
+	 *
 	 * @param context
 	 *            应用程序的上下文环境
 	 * @return 设备UUID
@@ -350,8 +421,8 @@ public class DeviceUtils {
 	public static String getABI() {
 		String CPU_ABI = Build.CPU_ABI;
 		String CPU_ABI2 = Build.CPU_ABI2;
-		
-		
+
+
 
 		return CPU_ABI + " " + CPU_ABI2;
 	}

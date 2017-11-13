@@ -4,8 +4,8 @@
     coreApp="true"
     package="com.tencent.wstt.gt"
     android:installLocation="auto"
-    android:versionCode="22064"
-    android:versionName="2.2.6.4" >
+    android:versionCode="22065"
+    android:versionName="2.2.6.5">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -62,14 +62,15 @@
         android:smallScreens="true" />
 
     <application
-        android:name="com.tencent.wstt.gt.GTApp"
+        android:name=".GTApp"
+        android:allowBackup="false"
         android:icon="@drawable/gt_apk"
-        android:label="@string/app_name" >
+        android:label="@string/app_name">
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,91 +78,86 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTMainActivity"
+            android:name=".activity.GTMainActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/translucentWithTitle"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTLogSearchActivity"
+            android:name=".activity.GTLogSearchActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTPerfGroupDetailActivity"
+            android:name=".activity.GTPerfGroupDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTOpMulPerfActivity"
+            android:name=".activity.GTOpMulPerfActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTOpSinglePerfActivity"
+            android:name=".activity.GTOpSinglePerfActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTOpSMActivity"
+            android:name=".activity.GTOpSMActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <!-- launchMode="singleInstance"这样从悬浮进入，回的时候会回到原来位置 -->
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTInputParamSetActivity"
+            android:name=".activity.GTInputParamSetActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTAboutActivity"
+            android:name=".activity.GTAboutActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTLogSwitchActivity"
+            android:name=".activity.GTLogSwitchActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTACSettingActivity"
+            android:name=".activity.GTACSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTIntervalSettingActivity"
+            android:name=".activity.GTIntervalSettingActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.plugin.tcpdump.GTCaptureActivity"
+            android:name=".plugin.tcpdump.GTCaptureActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.plugin.battery.GTBatteryActivity"
+            android:name=".plugin.battery.GTBatteryActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.activity.GTShowPackageActivity"
+            android:name=".plugin.screenlock.GTScreenlockActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.plugin.screenlock.GTScreenlockActivity"
+            android:name=".plugin.memfill.GTMemFillActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.plugin.memfill.GTMemFillActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/translucent" />
-        <activity
-            android:name="com.tencent.wstt.gt.activity.ShowhtmlActivity"
+            android:name=".activity.ShowhtmlActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
@@ -176,12 +172,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.plugin.smtools.SMActivity"
+            android:name=".plugin.smtools.SMActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
         <activity
-            android:name="com.tencent.wstt.gt.plugin.octopus.GTOctopusActivity"
+            android:name=".plugin.octopus.GTOctopusActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/translucent" />
@@ -189,7 +185,7 @@
         <!-- use for gt base -->
         <service
             android:name=".service.GTService"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.tencent.wstt.gt.service"
@@ -204,7 +200,7 @@
         <!-- use for battery -->
         <receiver
             android:name=".plugin.battery.BTBroadcast"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.tencent.wstt.gt.plugin.battery.startTest"
@@ -217,7 +213,7 @@
         <!-- use for memfill -->
         <receiver
             android:name=".plugin.memfill.MFBroadcast"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.tencent.wstt.gt.plugin.memfill.fill"
@@ -229,8 +225,8 @@
         </receiver>
         <!-- use for capture -->
         <receiver
-            android:name="com.tencent.wstt.gt.plugin.tcpdump.CaptureBroadcast"
-            android:exported="true" >
+            android:name=".plugin.tcpdump.CaptureBroadcast"
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.tencent.wstt.gt.plugin.tcpdump.startTest"
@@ -243,7 +239,7 @@
         <!-- use for GPS -->
         <receiver
             android:name=".plugin.gps.GPSMockBroadcast"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.tencent.wstt.gt.plugin.gps.startRecord"
@@ -262,7 +258,7 @@
         <!-- use for sm -->
         <receiver
             android:name=".plugin.smtools.SMBroadcast"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.tencent.wstt.gt.plugin.sm.check"
@@ -287,7 +283,7 @@
         <!-- use for base param auto test -->
         <receiver
             android:name=".receiver.BaseCommandReceiver"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action
                     android:name="com.tencent.wstt.gt.baseCommand.startTest"
@@ -307,11 +303,20 @@
         <!-- use for MTA -->
         <meta-data
             android:name="TA_APPKEY"
-            android:value="AA4Z1K9BZN39" />
-        <!-- 请将value改为APP的发布渠道（市场） < -->
+            android:value="Aqc1101346885" />
         <meta-data
             android:name="InstallChannel"
-            android:value="应用宝" />
+            android:value="play" />
+
+        <provider
+            android:name="com.tencent.mid.api.MidProvider"
+            android:authorities="com.tencent.wstt.gt.TENCENT.MID.V3"
+            android:exported="true" />
+
+        <activity
+            android:name=".activity.InitializeActivity"
+            android:screenOrientation="portrait"
+            android:exported="true" />
     </application>
 
 </manifest>

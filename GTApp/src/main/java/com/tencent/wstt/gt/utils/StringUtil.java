@@ -23,14 +23,27 @@
  */
 package com.tencent.wstt.gt.utils;
 
+import android.annotation.SuppressLint;
+import android.text.TextUtils;
+
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.text.TextUtils;
-
 public class StringUtil {
+
+	@SuppressLint("SimpleDateFormat")
+    public static String getCurrentLocalDateTimeStamp() {
+		return new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date());
+	}
+
+    public static String notEmptyAOrB(String a, String b) {
+        return !TextUtils.isEmpty(a) ? a : b;
+    }
+
     public static boolean isEmptyOrWhitespaceOnly(String str) {
     	if (TextUtils.isEmpty(str)) {
     		return true;
@@ -99,7 +112,7 @@ public class StringUtil {
 		{
 			numStartPos = 1;
 		}
-		
+
 		for (int i = s.length(); --i >= numStartPos;) {
 			int chr = s.charAt(i);
 			if ((chr < 48 || chr > 57) && chr != '.')

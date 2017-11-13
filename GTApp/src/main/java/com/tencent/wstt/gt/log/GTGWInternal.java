@@ -23,6 +23,8 @@
  */
 package com.tencent.wstt.gt.log;
 
+import android.text.TextUtils;
+
 import com.tencent.wstt.gt.api.utils.NetUtils;
 import com.tencent.wstt.gt.manager.OpPerfBridge;
 import com.tencent.wstt.gt.ui.model.TagTimeEntry;
@@ -69,22 +71,25 @@ public class GTGWInternal {
 	}
 
 	public static void saveAllEnableGWData(GWSaveEntry saveEntry) {
+		saveAllEnableGWData(saveEntry, "");
+	}
+
+	public static void saveAllEnableGWData(GWSaveEntry saveEntry, String keyToRemoveAfterProcess) {
 		setLastSaveFolder(saveEntry.path3);
 		String now = GTUtils.getSaveDate();
 		saveEntry.setNow(now);
 		TagTimeEntry[] ttes = OpPerfBridge.getAllEnableProfilerData();
-		for (TagTimeEntry tte : ttes)
-		{
-			if (null != tte && tte.getAlias().equals("SM"))
-			{
+		for (TagTimeEntry tte : ttes) {
+			if (null != tte && tte.getAlias().equals("SM")) {
 				LogUtils.writeGWDataForSM(saveEntry, tte);
-			}
-			else
-			{
+			} else {
 				LogUtils.writeGWData(saveEntry, tte);
 			}
 		}
 		LogUtils.writeGWDesc(saveEntry, ttes);
+		if(!TextUtils.isEmpty(keyToRemoveAfterProcess)){
+			OpPerfBridge.removeProfilerData(keyToRemoveAfterProcess);
+		}
 	}
 	
 	public static void clearAllGWData()

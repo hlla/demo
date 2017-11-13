@@ -126,7 +126,7 @@ public class InPara extends AidlEntry {
 		parcel.writeInt(displayProperty);
 	}
 
-	public static final Parcelable.Creator<InPara> CREATOR = new Creator<InPara>(){
+	public static final Creator<InPara> CREATOR = new Creator<InPara>(){
 		public InPara createFromParcel(Parcel parcel){
 			return new InPara(parcel);
 		}
