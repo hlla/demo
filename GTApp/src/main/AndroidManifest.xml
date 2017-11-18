@@ -303,7 +303,7 @@
         <!-- use for MTA -->
         <meta-data
             android:name="TA_APPKEY"
-            android:value="Aqc1101346885" />
+            android:value="1111" />
         <meta-data
             android:name="InstallChannel"
             android:value="play" />

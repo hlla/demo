@@ -63,6 +63,11 @@ public class ProcessActor extends BaseActor {
 //            }
             while (true) {
                 processFound = isProcessRunning();
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 if (processFound || isDisposed()) {
                     Log.d("chengjian", "Process starts to run:" + Const.PROCESS_NAME);
 //                    toast(mContext, "Process starts to run::\n" + Const.PROCESS_NAME);

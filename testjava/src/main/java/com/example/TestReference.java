@@ -1,14 +1,45 @@
 package com.example;
 
 import java.lang.ref.WeakReference;
+import java.nio.ByteBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TestReference {
+    public static long calcMd5_32(String plainText) {
+        MessageDigest md = null;
+        if (md == null) {
+            try {
+                md = MessageDigest.getInstance("MD5");
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        } else {
+            md.reset();
+        }
+
+        try {
+            md.update(plainText.getBytes());
+        } catch (Exception e) {
+            return 0;
+
+        }
+
+        byte[] digest = md.digest();
+        ByteBuffer bb = ByteBuffer.wrap(digest);
+        return bb.getLong();
+
+    }
+
     public static void main(String[] args) {
+        assert false;
         AtomicInteger count = new AtomicInteger(0);
         count.addAndGet(11);
-        System.out.printf("count.addAndGet(2):"+count.addAndGet(2));
+        System.out.printf("count.addAndGet(2):" + count.addAndGet(2));
+        System.out.printf("count.addAndGet(2):" + calcMd5_32("com.tencent.mm"));
         // TODO Auto-generated method stub
         YDateProxy yDateProxy = new YDateProxy();
         yDateProxy = null;

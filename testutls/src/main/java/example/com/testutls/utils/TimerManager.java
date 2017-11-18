@@ -1,6 +1,5 @@
 package example.com.testutls.utils;
 
-import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
@@ -161,9 +160,6 @@ public class TimerManager {
 
         @Override
         public void handleMessage(Message msg) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                getLooper().getQueue();
-            }
             int what = msg.what;
             TimerTaskEx timerTask = null;
             if (msg.obj instanceof TimerTaskEx) {

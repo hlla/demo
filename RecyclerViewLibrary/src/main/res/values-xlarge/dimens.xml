@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <dimen name="app_icon_size">80dp</dimen>
+    <!-- 定义app_icon的文字大小，单位为sp-->
+    <integer name="app_text_size_sp">20</integer>
+    <!--Folder-->
+    <dimen name="folder_title_height">80dp</dimen>
+    <dimen name="folder_cell_height">160dp</dimen>
+    <dimen name="folder_title_between_distance">50dp</dimen>
+    <integer name="folder_title_normal_size_sp">24</integer>
+    <integer name="folder_title_max_size_sp">30</integer>
+    <dimen name="lock_pattern_dot_scale_inaccuracy">5dp</dimen>
+
+    <dimen name="hideapp_gesture_navigator_text">24sp</dimen>
+
+    <!--AllApps-->
+    <dimen name="allapps_search_edittext_height">56dp</dimen>
+    <dimen name="allapps_search_icon_size">56dp</dimen>
+    <dimen name="allapps_search_icon_size_padding">11dp</dimen>
+
+    <dimen name="hotseat_icon_with_text_vertical_padding">-11dp</dimen>
+    <integer name="hotseat_icon_with_text_extra_edge">2</integer>
+    <dimen name="hotseat_icon_small_size">78dp</dimen>
+    <dimen name="boost_icon_size">74dp</dimen>
+    <dimen name="boost_icon_size_small">68dp</dimen>
+
+    <!--批量添加app-->
+    <!-- todo 需要根据分辨率进行适配-->
+    <dimen name="mul_addapps_dialog_paddingBottom">170dp</dimen>
+    <dimen name="mul_addapps_dialog_paddingTop">170dp</dimen>
+    <dimen name="mul_addapps_dialog_paddingLeft">150dp</dimen>
+    <dimen name="mul_addapps_dialog_paddingRight">150dp</dimen>
+    <dimen name="mul_addapps_dialog_app_textsize">18sp</dimen>
+    <dimen name="mul_addapps_dialog_title_textsize">22sp</dimen>
+    <dimen name="mul_addapps_dialog_button_textsize">20sp</dimen>
+    <dimen name="mul_addapps_dialog_title_height">60dp</dimen>
+
+    <!--overviewmode-->
+    <dimen name="overview_mode_page_offset">120dp</dimen>
+
+    <!--非搬家用户主动分类-->
+    <dimen name="sort_apps_dialog_paddingBottom">340dp</dimen>
+    <dimen name="sort_apps_dialog_paddingTop">340dp</dimen>
+    <dimen name="sort_apps_dialog_paddingLeft">80dp</dimen>
+    <dimen name="sort_apps_dialog_paddingRight">80dp</dimen>
+    <dimen name="sort_apps_dialog_title_textsize">18sp</dimen>
+    <dimen name="sort_apps_dialog_button_textsize">20sp</dimen>
+
+    <!--WorkSpace-->
+    <dimen name="dragbar_height">100dp</dimen>
+    <dimen name="dragbar_inner_image">40dp</dimen>
+    <dimen name="dragbar_inner_textsize">20sp</dimen>
+
+    <dimen name="recently_opened_grid_height">600dp</dimen>
+    <dimen name="recently_opened_grid_item_height">140dp</dimen>
+    <dimen name="recently_opened_grid_item_margin_title">30dp</dimen>
+
+    <dimen name="wifi_boost_apps_list_height">500dp</dimen>
+    <dimen name="wifi_boost_info_height">24dp</dimen>
+    <dimen name="test_button">124dp</dimen>
+
+</resources>

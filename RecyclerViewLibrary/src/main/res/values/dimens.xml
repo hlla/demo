@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Copyright (C) 2009 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+
+    <!-- clock widget -->
+    <dimen name="clock_time_left_padding">-2dp</dimen>
+    <dimen name="clock_time_text_size">44sp</dimen>
+    <dimen name="clock_time_text_hight">60dp</dimen>
+    <dimen name="weather_tomorrow_icon_hightweather_tomorrow_icon_hight">63dp</dimen>
+    <dimen name="clock_date_text_size">14sp</dimen>
+    <dimen name="clock_date_text_height">21dp</dimen>
+    <dimen name="weather_widget_tomorrow_textsize">12sp</dimen>
+    <dimen name="weather_widget_tomorrow_text_margin_top">6dp</dimen>
+    <dimen name="weather_widget_tomorrow_margin_right">20.8dp</dimen>
+    <dimen name="clock_widget_mid_padding">4dp</dimen>
+    <dimen name="weather_temp_mid_padding">8dp</dimen>
+    <dimen name="weather_temp_mid_padding_tomorrow">4dp</dimen>
+    <dimen name="weather_widget_icon_height">30dp</dimen>
+    <!-- clock upgrade widget -->
+    <dimen name="clock_upgrde_widget_mid_padding">8dp</dimen>
+    <!--new clock upgrade widget-->
+    <dimen name="clock_widget_new_time_margin_left">14dp</dimen>
+    <dimen name="clock_widget_new_time_text_margin_right">2dp</dimen>
+    <dimen name="clock_widget_new_ampm_textsize">12sp</dimen>
+    <dimen name="clock_widget_new_calendar_margin_left">10dp</dimen>
+    <dimen name="clock_widget_new_calendar_week_margin_right">8dp</dimen>
+    <dimen name="clock_widget_new_city_address_max_width">120dp</dimen>
+    <dimen name="clock_widget_tomorrow_image_size">45dp</dimen>
+    <dimen name="clock_widget_tomorrow_image_margin_bottom">18dp</dimen>
+    <dimen name="clock_widget_new_calendar_margin_left_again">11dp</dimen>
+    <dimen name="weather_temp_image_marginTop">7dp</dimen>
+    <dimen name="weather_temp_image_marginBottom">8dp</dimen>
+    <dimen name="clock_widget_new_weather_image_size">50dp</dimen>
+    <dimen name="weather_widget_today_layout_margin_left">8dp</dimen>
+    <dimen name="test_button">94dp</dimen>
+
+
+
+</resources>

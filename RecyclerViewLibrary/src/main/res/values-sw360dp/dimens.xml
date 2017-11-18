@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="memory_progress_bar_width">240dp</dimen>
+    <dimen name="mem_progress_bar_margin_top">28dp</dimen>
+    <dimen name="mem_progress_bar_stroke_width">7dp</dimen>
+    <dimen name="mem_progress_text_size">72dp</dimen>
+    <dimen name="mem_progress_unit_text_size">36dp</dimen>
+    <dimen name="mem_info_text_size">18dp</dimen>
+    <dimen name="mem_bottom_bg_height">189dp</dimen>
+    <dimen name="mem_top_bg_margin_bottom">150dp</dimen>
+    <dimen name="mem_bottom_margin">60dp</dimen>
+    <dimen name="roda_scan_radius">230dp</dimen>
+    <dimen name="roda_margin_top">38dp</dimen>
+    <dimen name="progress_text_margin_top">72dp</dimen>
+    <dimen name="progress_text_size">55dp</dimen>
+    <dimen name="progress_text_content_margin_top">28dp</dimen>
+    <dimen name="progress_percent">21dp</dimen>
+    <dimen name="progress_message">16dp</dimen>
+
+    <dimen name="boost_stars_width">160dp</dimen>
+    <dimen name="boost_diffuse_end_radius">116dp</dimen>
+    <dimen name="boost_mem_text_size">55dp</dimen>
+    <dimen name="boost_mem_unit_text_size">21dp</dimen>
+    <dimen name="boost_anim_width">237.5dp</dimen>
+    <dimen name="boost_rocket_width">183.5dp</dimen>
+    <dimen name="boost_result_ad_margin_bottom">37dp</dimen>
+</resources>

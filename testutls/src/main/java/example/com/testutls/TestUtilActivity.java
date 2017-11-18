@@ -1,35 +1,31 @@
 package example.com.testutls;
 
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Message;
 import android.os.MessageQueue;
-import android.os.SystemProperties;
 import android.util.Log;
-import android.view.Choreographer;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewStub;
+import android.webkit.WebSettings;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import butterknife.BindView;
@@ -40,12 +36,14 @@ import example.com.testutls.utils.AsyncTaskEx;
 import example.com.testutls.utils.TimerManager;
 import example.com.testutls.utils.TimerTaskEx;
 
+//import android.os.SystemProperties;
+
 public class TestUtilActivity extends Activity /*implements View.OnClickListener */ {
     //    private static final String TAG = new String("TestUtilActivity");
     private static final String TAG = "TestUtilActivity";
     //    private static final String TAG1 = "TestUtilActivity";
-    private static final int SKIPPED_FRAME_WARNING_LIMIT = SystemProperties.getInt(
-            "debug.choreographer.skipwarning", 30);
+//    private static final int SKIPPED_FRAME_WARNING_LIMIT = SystemProperties.getInt(
+//            "debug.choreographer.skipwarning", 30);
     @BindView(R.id.test_asynctask)
     Button testAsynctask;
     @BindView(R.id.test_wt_schedule_timer)
@@ -59,7 +57,7 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     @BindView(R.id.cancel_wt_schedule_timer)
     Button cancelWtScheduleTimer;
     @BindView(R.id.cancel_ui_timer)
-    Button cancelUiTimer;
+    TextView cancelUiTimer;
     @BindView(R.id.stub_import)
     ViewStub stubImport;
     @BindView(R.id.test_barrier)
@@ -312,10 +310,45 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 
     private int[] m;
 
+    private void test() {
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        synchronized (this) {
+            try {
+                wait(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Log.d("ffff", "test11: " + WebSettings.getDefaultUserAgent(this));
+    }
+
+
     @OnClick(R.id.cancel_ui_timer)
     public void onCancelUiTimerClicked() {
-        Log.d(TAG, "onTestAsynctaskClicked SKIPPED_FRAME_WARNING_LIMIT=" +
-                SKIPPED_FRAME_WARNING_LIMIT);
+        ApplicationInfo appInfo = null;
+        try {
+            appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String msg=appInfo.metaData.getString("abc");
+        Log.d(TAG, " msg == " + msg );
+        boolean test = false;
+        Log.d(TAG, "onCancelUiTimerClicked: start ");
+        assert test;
+        String ua = WebSettings.getDefaultUserAgent(this);
+        Log.d(TAG, "onCancelUiTimerClicked: end ua=" + ua);
+//        for (int i = 0; i < 6; i++) {
+//            test();
+//        }
+//        Log.d(TAG, "onTestAsynctaskClicked SKIPPED_FRAME_WARNING_LIMIT=" +
+//                SKIPPED_FRAME_WARNING_LIMIT);
 //        m = new int[1000000];
 //        for (int i = 0; i < 1000000; i++) {
 //            m[i] = i;
@@ -367,61 +400,61 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //        View testLayout = findViewById(R.id.test_r_layout);
 
         //        test1();
-        int test = SystemProperties.getInt("debug.test_link", 0);
-        Collection<Integer> strings = null;
-        switch (test) {
-            case 1: {
-                strings = new LinkedList<>();
-                break;
-            }
-            case 2: {
-                strings = new HashSet<>();
-                break;
-            }
-            case 3: {
-                strings = new ArrayList<>();
-                break;
-            }
-            default: {
-                strings = new LinkedList<>();
-            }
-        }
+//        int test = SystemProperties.getInt("debug.test_link", 0);
+//        Collection<Integer> strings = null;
+//        switch (test) {
+//            case 1: {
+//                strings = new LinkedList<>();
+//                break;
+//            }
+//            case 2: {
+//                strings = new HashSet<>();
+//                break;
+//            }
+//            case 3: {
+//                strings = new ArrayList<>();
+//                break;
+//            }
+//            default: {
+//                strings = new LinkedList<>();
+//            }
+//        }
 //        HashSet<TestVolatile> strings = new HashSet<>();
 //        ArrayList<TestVolatile> strings = new ArrayList<>();
-        long time = System.currentTimeMillis();
-        int num = SystemProperties.getInt("debug.test_num", 10000);
-        for (int i = 0; i <= num; i++) {
-            strings.add(i);
-        }
-        Log.d(TAG, "onCancelUiTimerClicked: time=" + (System.currentTimeMillis() - time) + " " +
-                "strings=" + strings.getClass());
-        time = System.currentTimeMillis();
-//        Iterator<TestVolatile> iter = strings.iterator();
-//        while (iter.hasNext()) {
-//            iter.next();
+//        long time = System.currentTimeMillis();
+//        int num = SystemProperties.getInt("debug.test_num", 10000);
+//        for (int i = 0; i <= num; i++) {
+//            strings.add(i);
 //        }
-        int num1 = SystemProperties.getInt("debug.test_num1", 100);
-        for (int i = 0; i < num1; i++) {
-            Random random = new Random();
-//            strings.add(0, new TestVolatile());
-            strings.remove(Integer.valueOf(random.nextInt(num)));
-        }
-        Log.d(TAG, "onCancelUiTimerClicked: num=" + num + " num1=" + num1 + " strings=" + strings
-                .size());
-//        System.out.println(ss);
-//        HashSet<TestVolatile> stringHashSet = new HashSet<>();
-//        for (int i = 0; i < 1500000; i++) {
-//            stringHashSet.add(new TestVolatile());
+//        Log.d(TAG, "onCancelUiTimerClicked: time=" + (System.currentTimeMillis() - time) + " " +
+//                "strings=" + strings.getClass());
+//        time = System.currentTimeMillis();
+////        Iterator<TestVolatile> iter = strings.iterator();
+////        while (iter.hasNext()) {
+////            iter.next();
+////        }
+//        int num1 = SystemProperties.getInt("debug.test_num1", 100);
+//        for (int i = 0; i < num1; i++) {
+//            Random random = new Random();
+////            strings.add(0, new TestVolatile());
+//            strings.remove(Integer.valueOf(random.nextInt(num)));
 //        }
-        Exception exception = new Exception("click");
-        Log.d(TAG, "onCancelUiTimerClicked: start sleep ", exception);
+//        Log.d(TAG, "onCancelUiTimerClicked: num=" + num + " num1=" + num1 + " strings=" + strings
+//                .size());
+////        System.out.println(ss);
+////        HashSet<TestVolatile> stringHashSet = new HashSet<>();
+////        for (int i = 0; i < 1500000; i++) {
+////            stringHashSet.add(new TestVolatile());
+////        }
+//        Exception exception = new Exception("click");
+//        Log.d(TAG, "onCancelUiTimerClicked: start sleep ", exception);
         try {
-            Thread.sleep(300);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.d(TAG, "onCancelUiTimerClicked: time1=" + (System.currentTimeMillis() - time));
-        mUIHandler.sendEmptyMessageDelayed(0, 3000);
+//        Log.d(TAG, "onCancelUiTimerClicked: time1=" + (System.currentTimeMillis() - time));
+//        mUIHandler.sendEmptyMessageDelayed(0, 3000);
     }
 
     @OnClick(R.id.test_barrier)
@@ -612,19 +645,19 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-//            testTextView.setText("testTextView 11 what" + msg.what);
+            testTextView.setText("testTextView 11 what" + msg.what);
 //            removeBarrier.setText("testTextView 11 what" + msg.what);
-            Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
-                @Override
-                public void doFrame(long frameTimeNanos) {
-                    Log.d(TAG, "doFrame: frameTimeNanos=" + frameTimeNanos);
-                }
-            });
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
+//                @Override
+//                public void doFrame(long frameTimeNanos) {
+//                    Log.d(TAG, "doFrame: frameTimeNanos=" + frameTimeNanos);
+//                }
+//            });
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             Log.d(TAG, "handleMessage: end");
         }
     };
@@ -653,17 +686,25 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
             e.printStackTrace();
         }
         setContentView(R.layout.activity_test_util);
+        Button testBtn = (Button) findViewById(R.id.remove_barrier);
+        testBtn.invalidate();
+        testBtn.setText("ffff");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Log.d(TAG, "onCreate: setContentView after");
         View testLayout = findViewById(R.id.test_r_layout);
-        Button testBtn = (Button) findViewById(R.id.test_button);
+//        Button testBtn = (Button) findViewById(R.id.test_button);
 //        Integer ss = null;
 //        int a = (int)ss;
         Log.d(TAG, "onCreate: testLayout=" + testLayout + " testBtn=" + testBtn);
         ButterKnife.bind(this);
-        mScheduledExecutorService = (ScheduledThreadPoolExecutor) Executors
-                .newScheduledThreadPool(4, mThreadFactory);
-        mScheduledExecutorService.allowCoreThreadTimeOut(true);
-        mScheduledExecutorService.setKeepAliveTime(50, TimeUnit.SECONDS);
+//        mScheduledExecutorService = (ScheduledThreadPoolExecutor) Executors
+//                .newScheduledThreadPool(4, mThreadFactory);
+//        mScheduledExecutorService.allowCoreThreadTimeOut(true);
+//        mScheduledExecutorService.setKeepAliveTime(50, TimeUnit.SECONDS);
 //        findViewById(R.id.test_async).setOnClickListener(this);
 //        findViewById(R.id.test_timer).setOnClickListener(this);
 //        findViewById(R.id.test_fix_timer).setOnClickListener(this);
