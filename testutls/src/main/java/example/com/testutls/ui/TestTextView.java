@@ -37,11 +37,11 @@ public class TestTextView extends TextView {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Exception exception = new Exception("onDraw");
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(1500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Log.d(TAG, "onDraw:", exception);
     }
 }

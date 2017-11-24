@@ -2,6 +2,7 @@ package example.com.testutls;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.webkit.WebSettings;
 
@@ -15,10 +16,13 @@ public class MyApp extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        Log.d(TAG, "attachBaseContext: start");
-        TestUtilActivity.changeWarningLimit();
+        Exception exception = new Exception("attachBaseContext()");
+        SharedPreferences sharedPreferences = getSharedPreferences("sfsdsfsd", MODE_PRIVATE);
+        sharedPreferences.edit().apply();
+        Log.d(TAG, "attachBaseContext: start", exception);
+//        TestUtilActivity.changeWarningLimit();
 //        try {
-//            Thread.sleep(5000);
+//            Thread.sleep(3000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
@@ -28,11 +32,14 @@ public class MyApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Exception exception = new Exception("onCreate()");
+        Log.d(TAG, "onCreate: start", exception);
 //        try {
-//            Thread.sleep(10000);
+//            Thread.sleep(3000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
+        Log.d(TAG, "onCreate: end");
 //        try {
 //        MyApp myApp = null;
 //        myApp.onCreate();

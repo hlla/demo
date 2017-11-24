@@ -1,8 +1,12 @@
 package example.com.testutls;
 
 import android.app.Activity;
-import android.content.pm.ApplicationInfo;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -44,6 +48,18 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     //    private static final String TAG1 = "TestUtilActivity";
 //    private static final int SKIPPED_FRAME_WARNING_LIMIT = SystemProperties.getInt(
 //            "debug.choreographer.skipwarning", 30);
+    private static final boolean isTest = isTestAA();
+    private static /*volatile*/ boolean stop = false;
+
+    public static boolean isTestAA() {
+        TestUtilActivity testVolatile = new TestUtilActivity();
+        return testVolatile == null;
+    }
+
+    static {
+        Log.d(TAG, "static initializer: sssss");
+    }
+
     @BindView(R.id.test_asynctask)
     Button testAsynctask;
     @BindView(R.id.test_wt_schedule_timer)
@@ -82,6 +98,10 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     private ScheduledThreadPoolExecutor mScheduledExecutorService;
     private RelativeLayout mTestRelativeLayout;
     private int mBarrierToken = -1;
+    Uri uri = Uri.parse("content://com.sec.android.app.launcher" +
+            ".settings/favorites?notify=true");
+    Uri uri1 = Uri.parse("content://com.sec.android.app.launcher.providers" +
+            ".LauncherProvider/favorites?notify=true");
 
     @OnClick(R.id.test_asynctask)
     public void onTestAsynctaskClicked() {
@@ -330,20 +350,99 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 
     @OnClick(R.id.cancel_ui_timer)
     public void onCancelUiTimerClicked() {
-        ApplicationInfo appInfo = null;
+        Log.d(TAG, "onCancelUiTimerClicked: click");
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(TestDBHelper.ID, 1);
+//        contentValues.put(TestDBHelper.FIELD_SOUCE_ID, 4);
+//        contentValues.put(TestDBHelper.FIELD_THUMBURL, "http:sss");
+//        ContentValues contentValues1 = new ContentValues();
+//        contentValues1.put(TestDBHelper.ID, 2);
+//        contentValues1.put(TestDBHelper.FIELD_SOUCE_ID, 7);
+//        contentValues1.put(TestDBHelper.FIELD_THUMBURL, "http:aaaa");
+//        ContentValues contentValues2 = new ContentValues();
+//        contentValues2.put(TestDBHelper.ID, 3);
+//        contentValues2.put(TestDBHelper.FIELD_SOUCE_ID, 7);
+//        contentValues2.put(TestDBHelper.FIELD_THUMBURL, "http:aaaa");
+//        Uri uri = getContentResolver().insert(TestContentProvider
+//                .CONTENT_URI_AUTHORITY_LOCAL, contentValues);
+//        Uri uri1 = getContentResolver().insert(TestContentProvider
+//                .CONTENT_URI_AUTHORITY_LOCAL, contentValues1);
+//        Uri uri2 = getContentResolver().insert(TestContentProvider
+//                .CONTENT_URI_AUTHORITY_LOCAL, contentValues2);
+//        Log.d(TAG, "onCancelUiTimerClicked: uri=" + uri);
+//        String value = "1";
+//        String selection = TestDBHelper.ID + " in (1,2,3) group by " +
+//                TestDBHelper.FIELD_SOUCE_ID;
+//        String[] selectionArgs = new String[]{String.valueOf(1)};
+////        final Cursor sc = contentResolver.query(screensUri, new String[]{LauncherSettings
+////                .Favorites.SCREEN}, selection, selectionArgs, null);
+//        Cursor cursor = getContentResolver().query(TestContentProvider
+//                .CONTENT_URI_AUTHORITY_LOCAL, null, selection, null, null);
+//        Log.d(TAG, "onCancelUiTimerClicked: cursor11=" + cursor.getCount());
+//        cursor.moveToFirst();
+//        Log.d(TAG, "onCancelUiTimerClicked: cursor11=" + cursor.getString(0));
+//        Log.d(TAG, "onCancelUiTimerClicked: cursor11=" + cursor.getString(1));
+//        Log.d(TAG, "onCancelUiTimerClicked: cursor11=" + cursor.getString(2));
+//        Log.d(TAG, "onCancelUiTimerClicked: uri=" + uri);
+//        String value = "1";
         try {
-            appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            Context context = createPackageContext("com.sec.android.app.launcher",
+                    Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
+            SharedPreferences preferences = context.getSharedPreferences("com.sec.android.app" +
+                    ".launcher.prefs", 0);
+            PackageInfo info = getPackageManager().getPackageInfo("com.sec.android.app.launcher",
+                    0);
+//            Log.d(TAG, " info.applicationInfo.sourceDir=" + info.applicationInfo.sourceDir + " " +
+//                    "preferences.getAll()=" + preferences.));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-
-        String msg=appInfo.metaData.getString("abc");
-        Log.d(TAG, " msg == " + msg );
-        boolean test = false;
-        Log.d(TAG, "onCancelUiTimerClicked: start ");
-        assert test;
-        String ua = WebSettings.getDefaultUserAgent(this);
-        Log.d(TAG, "onCancelUiTimerClicked: end ua=" + ua);
+        Uri uri = Uri.parse("content://com.sec.android.app.launcher/prefs?notify=true");
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+        Log.d(TAG, "onCancelUiTimerClicked: cursor=" + cursor);
+        if (null != cursor) {
+            Log.d(TAG, "onCancelUiTimerClicked: cursor=" + cursor.getCount());
+            for (int i = 0; i < cursor.getColumnCount(); i++) {
+                Log.d(TAG, "onCancelUiTimerClicked: cursor.field=" + cursor.getColumnName(i));
+            }
+            while (cursor.moveToNext()) {
+                Log.d(TAG, "onCancelUiTimerClicked: 11111111111111");
+//                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                Log.d(TAG, "onCancelUiTimerClicked: cursor.screen=" + cursor.getString(cursor
+                        .getColumnIndex("screen")));
+                Log.d(TAG, "onCancelUiTimerClicked: cursor.title=" + cursor.getString(cursor
+                        .getColumnIndex("title")));
+//                }
+            }
+        }
+//        Cursor cursor1 = getContentResolver().query(uri1, null, null, null, null);
+//        if (null != cursor1) {
+//            Log.d(TAG, "onCancelUiTimerClicked: cursor11=" + cursor1.getCount());
+//            for (int i = 0; i < cursor1.getColumnCount(); i++) {
+//                Log.d(TAG, "onCancelUiTimerClicked: cursor11.field=" + cursor1.getColumnName(i));
+//            }
+//            while (cursor1.moveToNext()) {
+//                for (int i = 0; i < cursor1.getColumnCount(); i++) {
+//                    Log.d(TAG, "onCancelUiTimerClicked: cursor.value=" + cursor1.getString(i));
+//                }
+//            }
+//        }
+//        Log.d(TAG, "onCancelUiTimerClicked: cursor1111=" + cursor1);
+//        ApplicationInfo appInfo = null;
+//        try {
+//            appInfo = this.getPackageManager().getApplicationInfo(getPackageName(),
+//                    PackageManager.GET_META_DATA);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String msg = appInfo.metaData.getString("abc");
+//        Log.d(TAG, " msg == " + msg);
+//        boolean test = false;
+//        Log.d(TAG, "onCancelUiTimerClicked: start ");
+//        assert test;
+//        String ua = WebSettings.getDefaultUserAgent(this);
+//        Log.d(TAG, "onCancelUiTimerClicked: end ua=" + ua);
 //        for (int i = 0; i < 6; i++) {
 //            test();
 //        }
@@ -676,24 +775,40 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
         Log.d(TAG, "onResume: ");
     }
 
+    private static void swap(Integer num1, Integer num2) {
+        try {
+            Field field = Integer.class.getDeclaredField("value");
+            field.setAccessible(true);
+            int temp1 = num1.intValue();
+            int temp2 = num2.intValue();
+            field.set(num1, temp2);
+            field.set(num2, temp1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+    }
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate: setContentView before");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        if (isTest) {
+//            try {
+//                Thread.sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
         setContentView(R.layout.activity_test_util);
         Button testBtn = (Button) findViewById(R.id.remove_barrier);
         testBtn.invalidate();
         testBtn.setText("ffff");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Log.d(TAG, "onCreate: setContentView after");
         View testLayout = findViewById(R.id.test_r_layout);
 //        Button testBtn = (Button) findViewById(R.id.test_button);
@@ -753,11 +868,11 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //                }
             }
         };
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 //        mHandler.getLooper().getQueue().addIdleHandler(new MessageQueue.IdleHandler() {
 //            @Override
 //            public boolean queueIdle() {

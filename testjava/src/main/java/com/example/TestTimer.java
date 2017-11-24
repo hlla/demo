@@ -25,8 +25,36 @@ public class TestTimer {
         int totalRed2 = 0;
         int total = 2 << Integer.SIZE - 1;
         System.out.println("start time=" + System.currentTimeMillis());
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                TestVolatile.isTestAA();
+            }
+        }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                TestVolatile.isTestAA();
+            }
+        }.start();
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                TestVolatile.isTestAA();
+            }
+        }.start();
         for (int i = 0; i <= 8000; i++) {
             for (int j = 0; j <= 8000; j++) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        super.run();
+                        boolean ss = TestVolatile.stop;
+                    }
+                };
 //                Random random = new Random();
 //                totalRed += random.nextInt(255);
 //                totalRed1 += random.nextInt(255);
