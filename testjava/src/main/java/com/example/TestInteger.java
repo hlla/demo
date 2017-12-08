@@ -24,6 +24,7 @@ public class TestInteger {
             int temp1 = num1.intValue();
             int temp2 = num2.intValue();
             field.set(num1, temp2);
+//            field.set(num2, temp1);
             field.set(num2, new Integer(temp1));
         } catch (Exception e) {
             e.printStackTrace();

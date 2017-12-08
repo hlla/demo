@@ -20,7 +20,7 @@ public class MyApp extends Application {
         SharedPreferences sharedPreferences = getSharedPreferences("sfsdsfsd", MODE_PRIVATE);
         sharedPreferences.edit().apply();
         Log.d(TAG, "attachBaseContext: start", exception);
-//        TestUtilActivity.changeWarningLimit();
+        TestUtilActivity.changeWarningLimit();
 //        try {
 //            Thread.sleep(3000);
 //        } catch (InterruptedException e) {

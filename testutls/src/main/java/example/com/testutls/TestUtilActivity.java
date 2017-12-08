@@ -1,22 +1,21 @@
 package example.com.testutls;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.Message;
 import android.os.MessageQueue;
 import android.util.Log;
+import android.view.Choreographer;
 import android.view.View;
 import android.view.ViewStub;
 import android.webkit.WebSettings;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -385,36 +384,37 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //        Log.d(TAG, "onCancelUiTimerClicked: cursor11=" + cursor.getString(2));
 //        Log.d(TAG, "onCancelUiTimerClicked: uri=" + uri);
 //        String value = "1";
-        try {
-            Context context = createPackageContext("com.sec.android.app.launcher",
-                    Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
-            SharedPreferences preferences = context.getSharedPreferences("com.sec.android.app" +
-                    ".launcher.prefs", 0);
-            PackageInfo info = getPackageManager().getPackageInfo("com.sec.android.app.launcher",
-                    0);
-//            Log.d(TAG, " info.applicationInfo.sourceDir=" + info.applicationInfo.sourceDir + " " +
-//                    "preferences.getAll()=" + preferences.));
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        Uri uri = Uri.parse("content://com.sec.android.app.launcher/prefs?notify=true");
-        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-        Log.d(TAG, "onCancelUiTimerClicked: cursor=" + cursor);
-        if (null != cursor) {
-            Log.d(TAG, "onCancelUiTimerClicked: cursor=" + cursor.getCount());
-            for (int i = 0; i < cursor.getColumnCount(); i++) {
-                Log.d(TAG, "onCancelUiTimerClicked: cursor.field=" + cursor.getColumnName(i));
-            }
-            while (cursor.moveToNext()) {
-                Log.d(TAG, "onCancelUiTimerClicked: 11111111111111");
-//                for (int i = 0; i < cursor.getColumnCount(); i++) {
-                Log.d(TAG, "onCancelUiTimerClicked: cursor.screen=" + cursor.getString(cursor
-                        .getColumnIndex("screen")));
-                Log.d(TAG, "onCancelUiTimerClicked: cursor.title=" + cursor.getString(cursor
-                        .getColumnIndex("title")));
-//                }
-            }
-        }
+//        try {
+//            Context context = createPackageContext("com.sec.android.app.launcher",
+//                    Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
+//            SharedPreferences preferences = context.getSharedPreferences("com.sec.android.app" +
+//                    ".launcher.prefs", 0);
+//            PackageInfo info = getPackageManager().getPackageInfo("com.sec.android.app.launcher",
+//                    0);
+////            Log.d(TAG, " info.applicationInfo.sourceDir=" + info.applicationInfo.sourceDir +
+/// " " +
+////                    "preferences.getAll()=" + preferences.));
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        Uri uri = Uri.parse("content://com.sec.android.app.launcher/prefs?notify=true");
+//        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+//        Log.d(TAG, "onCancelUiTimerClicked: cursor=" + cursor);
+//        if (null != cursor) {
+//            Log.d(TAG, "onCancelUiTimerClicked: cursor=" + cursor.getCount());
+//            for (int i = 0; i < cursor.getColumnCount(); i++) {
+//                Log.d(TAG, "onCancelUiTimerClicked: cursor.field=" + cursor.getColumnName(i));
+//            }
+//            while (cursor.moveToNext()) {
+//                Log.d(TAG, "onCancelUiTimerClicked: 11111111111111");
+////                for (int i = 0; i < cursor.getColumnCount(); i++) {
+//                Log.d(TAG, "onCancelUiTimerClicked: cursor.screen=" + cursor.getString(cursor
+//                        .getColumnIndex("screen")));
+//                Log.d(TAG, "onCancelUiTimerClicked: cursor.title=" + cursor.getString(cursor
+//                        .getColumnIndex("title")));
+////                }
+//            }
+//        }
 //        Cursor cursor1 = getContentResolver().query(uri1, null, null, null, null);
 //        if (null != cursor1) {
 //            Log.d(TAG, "onCancelUiTimerClicked: cursor11=" + cursor1.getCount());
@@ -547,13 +547,13 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 ////        }
 //        Exception exception = new Exception("click");
 //        Log.d(TAG, "onCancelUiTimerClicked: start sleep ", exception);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 //        Log.d(TAG, "onCancelUiTimerClicked: time1=" + (System.currentTimeMillis() - time));
-//        mUIHandler.sendEmptyMessageDelayed(0, 3000);
+        mUIHandler.sendEmptyMessageDelayed(0, 5000);
     }
 
     @OnClick(R.id.test_barrier)
@@ -738,13 +738,39 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     private Handler mUIHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            Log.d(TAG, "handleMessage: start");
+            new Thread() {
+                @Override
+                public void run() {
+                    Log.d(TAG, "post1111");
+                    Looper.prepare();
+                    Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback
+                            () {
+                        @Override
+                        public void doFrame(long frameTimeNanos) {
+                            Log.d(TAG, "doFrame: frameTimeNanos=" + frameTimeNanos);
+                        }
+                    });
+                    Looper.loop();
+                }
+            }.start();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 //            Log.d(TAG, "handleMessage: start what=" + msg.what);
 //            try {
 //                Thread.sleep(3000);
 //            } catch (InterruptedException e) {
 //                e.printStackTrace();
 //            }
-            testTextView.setText("testTextView 11 what" + msg.what);
+//            testTextView.setText("testTextView 11 what" + msg.what);
+//            try {
+//                Thread.sleep(3000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 //            removeBarrier.setText("testTextView 11 what" + msg.what);
 //            Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
 //                @Override
@@ -772,7 +798,14 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
+        Exception exception = new Exception("onResume");
+        Log.d(TAG, "onResume: start", exception);
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        Log.d(TAG, "onResume: end");
     }
 
     private static void swap(Integer num1, Integer num2) {
@@ -791,19 +824,35 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate: sssssssss");
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: setContentView before");
+        TestUtilActivity.changeWarningLimit();
+        Exception exception = new Exception("onCreate");
+        Log.d(TAG, "onCreate: setContentView before", exception);
 //        if (isTest) {
-//            try {
-//                Thread.sleep(5000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 //        }
         setContentView(R.layout.activity_test_util);
         Button testBtn = (Button) findViewById(R.id.remove_barrier);
-        testBtn.invalidate();
-        testBtn.setText("ffff");
+        ImageView imageView = (ImageView) findViewById(R.id.test_img);
+        imageView.getDrawable().setColorFilter(0x4CFFFFFF, PorterDuff.Mode.SRC_IN);
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(5000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                testBtn.setText("11111111");
+//            }
+//        }.start();
+//        testBtn.invalidate();
+
 //        try {
 //            Thread.sleep(5000);
 //        } catch (InterruptedException e) {

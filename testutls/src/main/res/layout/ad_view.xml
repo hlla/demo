@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sub_rela"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ff00ff00" >
+
+    <!--
+         <ImageView
+        android:id="@+id/ad_view_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/a" />
+    -->
+
+    <include
+        android:id="@+id/ad_view_top"
+        layout="@layout/ad_view_top" />
+
+    <include
+        android:id="@+id/ad_view_bottom"
+        layout="@layout/ad_view_bottom" />
+
+</RelativeLayout>

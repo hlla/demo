@@ -1,4 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TestUtls</string>
-    <string name="num">1234</string>
+
+    <string name="app_name">TestTouch</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hide_cv">hide CV</string>
+    <string name="hide_pv">hide pv</string>
+    <string name="action_settings">Settings</string>
+
 </resources>

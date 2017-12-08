@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.TextView;
 
 /**
@@ -34,9 +35,14 @@ public class TestTextView extends TextView {
     }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Exception exception = new Exception("onDraw");
+//        Exception exception = new Exception("onDraw");
 //        try {
 //            Thread.sleep(1500);
 //        } catch (InterruptedException e) {

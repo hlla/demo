@@ -5,6 +5,22 @@ package com.example;
  */
 
 public class TestTimer {
+    public TestTimer() {
+        aa = 3;
+        System.out.println("TestTimer aa=" + aa);
+    }
+
+    public int aa;
+
+    class MyTest extends TestTimer {
+        public int aa = 2;
+
+        public MyTest() {
+            System.out.println("MyTest aa=" + aa);
+        }
+
+    }
+
     static int i = 0;
 
     static int add(int a, int b) {
@@ -20,6 +36,10 @@ public class TestTimer {
     }
 
     public static void main(String[] args) {
+        int[][] sss=new int[3][4];
+        System.out.println("MyTest sss.length=" + sss.length+"  lengtg11="+sss[0].length);
+        TestTimer aa =new TestTimer().new MyTest();
+        System.out.println("MyTest 111 aa=" + aa.aa);
         int totalRed = 0;
         int totalRed1 = 0;
         int totalRed2 = 0;

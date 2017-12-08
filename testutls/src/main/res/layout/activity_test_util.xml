@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0000ff"
     android:orientation="vertical"
     android:paddingBottom="1dip"
     tools:context="example.com.testutls.TestUtilActivity"
@@ -62,6 +63,18 @@
     <!--android:textSize="16sp"-->
     <!--android:visibility="gone"/>-->
     <!--</RelativeLayout>-->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher_uninstall_2"
+        />
+
+    <ImageView
+        android:id="@+id/test_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher_uninstall"
+        />
 
     <Button
         android:id="@+id/test_asynctask"
@@ -80,6 +93,13 @@
         />
 
     <Button
+        android:id="@+id/cancel_wt_schedule_fix_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cancel scheduleAtFixedRate timer"
+        />
+
+    <Button
         android:id="@+id/test_ui_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,13 +111,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="test scheduleAtFixedRate timer"
-        />
-
-    <Button
-        android:id="@+id/cancel_wt_schedule_fix_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="cancel scheduleAtFixedRate timer"
         />
 
 
