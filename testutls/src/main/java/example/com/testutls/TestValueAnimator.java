@@ -4,8 +4,10 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 
@@ -24,11 +26,26 @@ public class TestValueAnimator extends Activity {
         mBlueBall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verticalRun(v);
+                TestValueAnimator.this.verticalRun(v);
             }
         });
+        getMCC(this);
     }
 
+    public static String getMCC(Context context) {
+        if (context == null)
+            return null;
+        final TelephonyManager tm = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        String mcc_mnc = tm.getSimOperator();
+        StringBuilder mcc = null;
+        if (null != mcc_mnc && mcc_mnc.length() >= 3) {
+            mcc = new StringBuilder();
+            mcc.append(mcc_mnc, 0, 3);
+            return mcc.toString();
+        }
+        return null;
+    }
 
     /**
      * 自由落体
@@ -49,6 +66,7 @@ public class TestValueAnimator extends Activity {
                         .getCurrentPlayTime());
                 mBlueBall.setTranslationY((Float) animation.getAnimatedValue());
             }
+
         });
         animator.addListener(new AnimatorListenerAdapter() {
             @Override

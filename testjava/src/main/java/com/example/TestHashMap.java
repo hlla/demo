@@ -3,8 +3,12 @@ package com.example;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.locks.ReentrantLock;
@@ -17,12 +21,14 @@ public class TestHashMap {
     private static final int CACHE_MAGIC2 = 0x20160615;
 
     static class MyTest {
-        String str;
+        String name;
         int code;
+        boolean isDock;
 
-        MyTest(String name, int code) {
-            str = name;
+        MyTest(String name, int code, boolean isDock) {
+            this.name = name;
             this.code = code;
+            this.isDock = isDock;
         }
 
 //        @Override
@@ -32,25 +38,40 @@ public class TestHashMap {
 //
 //        @Override
 //        public boolean equals(Object o) {
-//            String other = ((MyTest) o).str;
-//            return str.substring(0, 1).equals(other.substring(0, 1));
+//            String other = ((MyTest) o).name;
+//            return name.substring(0, 1).equals(other.substring(0, 1));
 //        }
+
+        //        @Override
+//        public String toString() {
+//            return name;
+//        }
+        @Override
+        public String toString() {
+            return "MyTest";
+        }
 
 //        @Override
 //        public String toString() {
-//            return str;
+//
+//            return "name=" + name + " code=" + code;
 //        }
 
-        @Override
-        protected Object clone() throws CloneNotSupportedException {
-            System.out.println("clone()");
-            return new MyTest(str, code);
-        }
+//        @Override
+//        protected Object clone() throws CloneNotSupportedException {
+//            System.out.println("clone()");
+//            return new MyTest(name, code);
+//        }
     }
 
     class MyTestSub extends MyTest {
         public MyTestSub() {
-            super("a", 1);
+            super("a", 1, true);
+        }
+
+        @Override
+        public String toString() {
+            return "MyTestSubMyTestSubMyTestSub";
         }
     }
 
@@ -72,15 +93,129 @@ public class TestHashMap {
                 ((tmp[offset] & 0xff) << 24);
     }
 
+    public static String getStackTraceInfo(final Throwable throwable) {
+        String trace = "";
+        try {
+            Writer writer = new StringWriter();
+            PrintWriter pw = new PrintWriter(writer);
+            throwable.printStackTrace(pw);
+            trace = writer.toString();
+            pw.close();
+        } catch (Exception e) {
+            return "";
+        }
+        return trace;
+    }
+
+    private static void testCrash() {
+//        RuntimeException exception1 = new RuntimeException("ssssss");
+//        throw exception1;
+        try {
+            RuntimeException exception1 = new RuntimeException("ssssss");
+            throw exception1;
+//            testCrash();
+        } catch (Exception exception1) {
+//            StackTraceElement[] stackTraceElements = null;
+//            for (StackTraceElement stackTraceElement : stackTraceElements) {
+//                System.out.println("stackTraceElement=" + stackTraceElement);
+//            }
+
+            System.out.println("exception1=" + getStackTraceInfo(exception1));
+//            exception1.fillInStackTrace();
+//            exception1.printStackTrace();
+//            System.out.println(exception1);
+        }
+    }
+
     public static void main(String[] args) {
-        byte[] tmp = writeInt(CACHE_MAGIC2);
-        System.out.println("timer test=" + readInt(tmp));
-        Exception exception = new Exception("new Timer");
-        exception.printStackTrace();
+        MyTest myTest1 = new TestHashMap().new MyTestSub();
+        System.out.println("myTest1=" + myTest1);
+        testCrash();
+        MyTest myTest11 = new MyTest("a", 1, false);
+        MyTest myTest2 = new MyTest("b", 2, false);
+        MyTest myTest3 = new MyTest("c", 3, true);
+        MyTest myTest4 = new MyTest("d", 4, false);
+        MyTest myTest5 = new MyTest("e", 5, true);
+        MyTest myTest6 = new MyTest("e", 1, true);
+        MyTest myTest7 = new MyTest("e", 7, true);
+        ArrayList<MyTest> testArrayList = new ArrayList<>();
+        testArrayList.add(myTest11);
+        testArrayList.add(myTest2);
+        testArrayList.add(myTest3);
+        testArrayList.add(myTest4);
+        testArrayList.add(myTest5);
+        testArrayList.add(myTest6);
+        testArrayList.add(myTest7);
+        Collections.sort(testArrayList, new Comparator<MyTest>() {
+            @Override
+            public int compare(MyTest o1, MyTest o2) {
+                System.out.println("timer o1=" + o1 + " o2=" + o2);
+                if (o1.isDock == o2.isDock && o2.isDock) {
+                    if (o2.code >= o1.code) {
+                        return 1;
+                    } else {
+                        return -1;
+                    }
+                }
+                return 0;
+            }
+        });
+        System.out.println("timer testArrayList=" + testArrayList);
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("1");
+        strings.add("2");
+        strings.add("3");
+        strings.add("4");
+        strings.add("0");
+        Collections.sort(strings, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                System.out.println("timer o1=" + o1 + " o2=" + o2);
+                return -1;
+            }
+        });
+//        byte[] tmp = writeInt(CACHE_MAGIC2);
+        System.out.println("timer strings=" + strings);
+        outer:
+        for (int i = 0; i < 3; i++) {
+            System.out.println("main i=" + i);
+            inner:
+            for (int m = 0; m < 3; m++) {
+                System.out.println("main m=" + m);
+                if (m == 1) {
+                    continue outer;
+                }
+            }
+            System.out.println("main iii=" + i);
+        }
+        MyTest myTestaaaa = new MyTest("cj", 100, true);
+        ArrayList<MyTest> myTestsa = new ArrayList<>();
+        myTestsa.add(myTestaaaa);
+        ArrayList<MyTest> myTestsb = new ArrayList<>();
+        myTestsb.addAll(myTestsa);
+        myTestsa.clear();
+        myTestaaaa.name = "aaa";
+        System.out.println("myTests=" + myTestsa + " myTests1=" + myTestsb);
+
+        ArrayList<String> strings11 = new ArrayList<>();
+        strings11.add("1");
+        strings11.add("2");
+        strings11.add("3");
+        Collections.sort(strings11, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                System.out.println("timer o1=" + o1 + " o2=" + o2);
+                return o1.compareTo(o2);
+            }
+        });
+//        byte[] tmp = writeInt(CACHE_MAGIC2);
+        System.out.println("timer strings=" + strings);
+//        Exception exception = new Exception("new Timer");
+//        exception.printStackTrace();
 
         MyTest aa = null;
         MyTestSub diyThemeEffect = (MyTestSub) aa;
-        System.out.println(exception.fillInStackTrace());
+//        System.out.println(exception.fillInStackTrace());
         int x = -5 >> 1;
         System.out.println(x);
         System.out.println(Integer.toBinaryString(x));
@@ -97,12 +232,12 @@ public class TestHashMap {
         System.out.println(cmdline1.substring(cmdline1.length()));
         System.out.println(cmdline1.substring(cmdline1.length()).length());
         ArrayList<MyTest> myTests = new ArrayList<>();
-        myTests.add(new MyTest("a", 1));
-        myTests.add(new MyTest("b", 1));
-        myTests.add(new MyTest("c", 1));
-        for (MyTest myTest : myTests) {
-            System.out.println("myTest11=" + myTest);
-        }
+//        myTests.add(new MyTest("a", 1));
+//        myTests.add(new MyTest("b", 1));
+//        myTests.add(new MyTest("c", 1));
+//        for (MyTest myTest : myTests) {
+//            System.out.println("myTest11=" + myTest);
+//        }
         ArrayList<MyTest> myTests11 = (ArrayList) myTests.clone();
         myTests11.remove(myTests.get(0));
         for (MyTest myTest : myTests11) {
@@ -114,9 +249,9 @@ public class TestHashMap {
 //        mHostThemeCallbackList.add("b");
 //        mHostThemeCallbackList.add("c");
         String dd = null;
-//        for (String str : mHostThemeCallbackList) {
+//        for (String name : mHostThemeCallbackList) {
 //            mHostThemeCallbackList.remove("c");
-//            System.out.println("str=" + str);
+//            System.out.println("name=" + name);
 //        }
         int offset = "ancde:".indexOf(':');
 //        if (offset == -1)
@@ -158,7 +293,7 @@ public class TestHashMap {
 //                mHostThemeCallbackList.add("c");
 //                String dd = null;
 //                for (int i = 0; i < mHostThemeCallbackList.size(); i++) {
-//                    String str = mHostThemeCallbackList.get(i);
+//                    String name = mHostThemeCallbackList.get(i);
 //                    try {
 //                        Thread.sleep(100);
 //                    } catch (InterruptedException e) {
@@ -201,26 +336,28 @@ public class TestHashMap {
 //        String[] contentA2rray = content2.split("\n");
 //        ArrayList<String> content1List = new ArrayList<>();
 //        ArrayList<String> content2List = new ArrayList<>();
-//        for (String str : content1Array) {
-//            content1List.add(str.trim());
+//        for (String name : content1Array) {
+//            content1List.add(name.trim());
 //        }
-//        for (String str : contentA2rray) {
-//            content2List.add(str.trim());
+//        for (String name : contentA2rray) {
+//            content2List.add(name.trim());
 //        }
 //        System.out.println("content2List="+content2List.size());
-//        for (String str : content1List) {
-//            System.out.println("content1List str="+str);
-//            content2List.remove(str);
+//        for (String name : content1List) {
+//            System.out.println("content1List name="+name);
+//            content2List.remove(name);
 //        }
 //        System.out.println(content2List.size());
 //        int i=0;
-//        for (String str : content1List) {
-//            if(content2List.contains(str)){
+//        for (String name : content1List) {
+//            if(content2List.contains(name)){
 //                i++;
-//                System.out.println("delete=" + str);
+//                System.out.println("delete=" + name);
 //            }
 //        }
 //        System.out.println("all total=" + i);
+        RuntimeException exception1 = new RuntimeException("ssssss");
+        throw exception1;
     }
 
     private static String readString(String filePath) {

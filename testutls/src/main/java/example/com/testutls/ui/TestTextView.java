@@ -48,6 +48,6 @@ public class TestTextView extends TextView {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        Log.d(TAG, "onDraw:", exception);
+//        Log.d(TAG, "onDraw:", exception);
     }
 }

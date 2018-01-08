@@ -32,10 +32,10 @@ public class TestContentProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        Exception exception = new Exception("onCreate()");
-        String str = getContext().getString(R.string.num);
-        Log.d(TAG, "onCreate: getContext()=" + getContext() + " str=" + str + " app=" +
-                getContext().getApplicationContext(), exception);
+//        Exception exception = new Exception("onCreate()");
+//        String str = getContext().getString(R.string.num);
+//        Log.d(TAG, "onCreate: getContext()=" + getContext() + " str=" + str + " app=" +
+//                getContext().getApplicationContext(), exception);
         mTestDBHelper = new TestDBHelper(getContext());
         return true;
     }

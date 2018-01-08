@@ -4,6 +4,7 @@ buildscript {
     repositories {
         jcenter()
         google()
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
@@ -13,19 +14,20 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-Project
-buildscript {
-    repositories {
-        jcenter()
-    }
-//    dependencies {
-//        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.3'
+//Project
+//buildscript {
+//    repositories {
+//        jcenter()
 //    }
-}
+////    dependencies {
+////        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.3'
+////    }
+//}
 allprojects {
     repositories {
         jcenter()
         google()
+        mavenCentral()
     }
 //    plugins.apply('checkstyle')
 //

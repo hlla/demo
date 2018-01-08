@@ -42,7 +42,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import letv.com.testanr.reflect.FieldUtils;
 import letv.com.testanr.reflect.MethodUtils;
-import letv.com.testanr.util.ANRMonitorManager;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_SHARED_LIBRARY_FILES;
@@ -492,36 +491,36 @@ public class MyActivity extends Activity {
         final Thread.UncaughtExceptionHandler oldHandler = Thread
                 .getDefaultUncaughtExceptionHandler();
         Log.d(TAG, "sadasds =" + Looper.getMainLooper().getThread().getState());
-        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-            @Override
-            public void uncaughtException(final Thread thread, final Throwable ex) {
-                Log.d(TAG, "1111111 thread=" + thread + " ex=" + ex);
-                Log.d(TAG, "22222 fdsfd=" + Looper.getMainLooper().getThread().getState());
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-//                oldHandler.uncaughtException(thread, ex);
-                new Thread() {
-                    @Override
-                    public void run() {
-                        Log.d(TAG, "22222 =" + Looper.getMainLooper().getThread().getState());
-                        try {
-//                            Thread.sleep(3000);
-                            Log.d(TAG, "aaaaaaaaa");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        new Thread() {
-                            @Override
-                            public void run() {
-                                Log.d(TAG, "3333333");
-                            }
-                        }.start();
-                        Log.d(TAG, "444444");
-                    }
-                }.start();
+//        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+//            @Override
+//            public void uncaughtException(final Thread thread, final Throwable ex) {
+//                Log.d(TAG, "1111111 thread=" + thread + " ex=" + ex);
+//                Log.d(TAG, "22222 fdsfd=" + Looper.getMainLooper().getThread().getState());
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+////                oldHandler.uncaughtException(thread, ex);
+//                new Thread() {
+//                    @Override
+//                    public void run() {
+//                        Log.d(TAG, "22222 =" + Looper.getMainLooper().getThread().getState());
+//                        try {
+////                            Thread.sleep(3000);
+//                            Log.d(TAG, "aaaaaaaaa");
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                        new Thread() {
+//                            @Override
+//                            public void run() {
+//                                Log.d(TAG, "3333333");
+//                            }
+//                        }.start();
+//                        Log.d(TAG, "444444");
+//                    }
+//                }.start();
 //                new Thread() {
 //                    @Override
 //                    public void run() {
@@ -531,8 +530,8 @@ public class MyActivity extends Activity {
 //                }.start();
 //                Log.d(TAG, "66666");
 
-            }
-        });
+//            }
+//        });
 //        Log.d(TAG, "fdsffsdf");
 //        new Thread() {
 //            @Override
@@ -546,13 +545,22 @@ public class MyActivity extends Activity {
 //            @Override
 //            public void run() {
 //        testCrash();
-        for (int i = 0; i < 10000; i++) {
-            HandlerThread handlerThread = new HandlerThread("ffff");
-            handlerThread.start();
-        }
+//        for (int i = 0; i < 20; i++) {
+//            HandlerThread handlerThread = new HandlerThread("ffff") {
+//                @Override
+//                public void run() {
+//                    while (true) ;
+//                }
+//            };
+//            handlerThread.start();
+//        }
+//        while(true){
+//
+//        }
 //            }
 //        }.start();
-        Log.d(TAG, "aaaa");
+//        Log.d(TAG, "aaaa");
+        Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
     }
 
     int i = 0;
@@ -713,7 +721,7 @@ public class MyActivity extends Activity {
 
     @OnClick(R.id.start_fg_service)
     public void onStartFgServiceClicked() {
-        allocMemory();
+//        allocMemory();
         Log.d(TAG, "onStartFgServiceClicked start");
         final File file = new File(Environment.getExternalStorageDirectory() + "/1.dat");
         Log.d(TAG, "onStartFgServiceClicked start exist=" + file.exists());
@@ -900,6 +908,18 @@ public class MyActivity extends Activity {
     @OnClick(R.id.job_Service)
     public void onJobServiceClicked() {
         Log.d(TAG, "onJobServiceClicked");
+        for (int i = 0; i < 5; i++) {
+            Thread handlerThread = new Thread("name i=" + i) {
+                @Override
+                public void run() {
+                    setPriority(Thread.MAX_PRIORITY);
+                    while (true) {
+
+                    }
+                }
+            };
+            handlerThread.start();
+        }
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            pollServer();
 //        }
@@ -915,9 +935,9 @@ public class MyActivity extends Activity {
     @OnClick(R.id.start_bg_service)
     public void onStartBgServiceClicked() {
         Log.d(TAG, "onStartFgServiceClicked: ");
-        Intent intent = new Intent(this, MyService.class);
-        intent.putExtra("abc", "cj");
-        startService(intent);
+//        Intent intent = new Intent(this, MyService.class);
+//        intent.putExtra("abc", "cj");
+//        startService(intent);
     }
 
     public void pollServer() {
