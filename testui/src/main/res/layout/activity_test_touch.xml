@@ -1,0 +1,81 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:id="@+id/test_content"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_gravity="center"
+             android:orientation="horizontal"
+             android:paddingBottom="5dp">
+
+    <ImageView
+        android:id="@+id/img0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#0000ff"
+        android:layout_marginTop="300dip"
+        android:src="@mipmap/ic_launcher_round"
+        android:visibility="gone"/>
+    <!--<Button-->
+    <!--android:id="@+id/hide_cv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/hide_cv"/>-->
+
+    <!--<Button-->
+    <!--android:id="@+id/hide_pv"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/hide_pv"/>-->
+    <!--
+         <example.com.testui.TestRelativeLayout
+        android:id="@+id/test_relative"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    -->
+    <example.com.testui.TestLinearLayout
+        android:id="@+id/touch_area1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ff0000"
+        android:clickable="false"
+        android:visibility="gone"
+        >
+    </example.com.testui.TestLinearLayout>
+
+    <example.com.testui.TestRelativeLayout
+        android:id="@+id/touch_area"
+        android:layout_width="match_parent"
+        android:layout_height="500dip"
+        android:background="#ff00ff"
+        android:clickable="true">
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#0000ff"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/img2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:background="#ff0000"
+            android:visibility="gone"/>
+
+        <example.com.testui.TestTextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="#0000ff"
+            android:text="@string/hello_world"
+            android:clickable="true"/>
+    </example.com.testui.TestRelativeLayout>
+
+
+</FrameLayout>
