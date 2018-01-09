@@ -457,15 +457,17 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.d(TAG, "Activity onTouchEvent action=" + event.getAction());
         boolean handle = super.onTouchEvent(event);
-        Log.d(TAG, "onTouchEvent action=" + event.getAction() + " handle=" + handle);
+        Log.d(TAG, "Activity onTouchEvent handle=" + handle);
         return handle;
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.d(TAG, "Activity dispatchTouchEvent action=" + ev.getAction());
         boolean handle = super.dispatchTouchEvent(ev);
-        Log.d(TAG, "dispatchTouchEvent action=" + ev.getAction() + " handle=" + handle);
+        Log.d(TAG, "Activity dispatchTouchEvent handle="+handle);
         return handle;
     }
 

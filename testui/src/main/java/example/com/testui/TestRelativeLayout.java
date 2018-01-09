@@ -76,10 +76,11 @@ public class TestRelativeLayout extends RelativeLayout {
         super.onHoverChanged(hovered);
     }
 
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
+        Log.d(TAG, "TestRelativeLayout onTouchEvent action=" + event.getAction());
         boolean handle = super.onTouchEvent(event);
-        Log.d(TAG, "TestRelativeLayout onTouchEvent action=" + event.getAction() + " handle=" +
+        Log.d(TAG, "TestRelativeLayout onTouchEvent  handle=" +
                 handle);
         if (MotionEvent.ACTION_UP == event.getAction()) {
 //            setScaleX((float) 3.0);
@@ -96,18 +97,18 @@ public class TestRelativeLayout extends RelativeLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.d(TAG, "TestRelativeLayout dispatchTouchEvent action=" + ev.getAction());
         boolean handle = super.dispatchTouchEvent(ev);
-        Log.d(TAG, "TestRelativeLayout dispatchTouchEvent action=" + ev.getAction() + " handle=" +
-                handle);
+        Log.d(TAG, "TestRelativeLayout dispatchTouchEvent handle=" + handle);
         return handle;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        boolean handle = super.onInterceptTouchEvent(ev);
+        Log.d(TAG, "TestRelativeLayout onInterceptTouchEvent action=" + ev.getAction());
+        boolean handle = false;
 //        boolean handle = ev.getAction() == MotionEvent.ACTION_UP;
-        Log.d(TAG, "TestRelativeLayout onInterceptTouchEvent action=" + ev.getAction() + " " +
-                "handle=" + handle);
+        Log.d(TAG, "TestRelativeLayout onInterceptTouchEvent handle = " + handle);
         return handle;
     }
 }

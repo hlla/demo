@@ -13,7 +13,7 @@ import android.view.ViewTreeObserver;
 import android.widget.TextView;
 
 public class TestTextView extends TextView {
-    private static final String TAG = "Touch_TestTextView111";
+    private static final String TAG = "Touch_TestTextView";
 
     /**
      * @param context
@@ -64,7 +64,8 @@ public class TestTextView extends TextView {
     @Override
     protected void onVisibilityChanged(View changedView, int visibility) {
         super.onVisibilityChanged(changedView, visibility);
-//        Log.d(TAG, "onVisibilityChanged visibility=" + visibility + "  changedView=" + changedView);
+//        Log.d(TAG, "onVisibilityChanged visibility=" + visibility + "  changedView=" +
+// changedView);
     }
 
     @Override
@@ -72,8 +73,9 @@ public class TestTextView extends TextView {
         super.onHoverChanged(hovered);
     }
 
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
-        // TODO Auto-generated method stub
+        Log.d(TAG, "TestTextView onTouchEvent action=" + event.getAction());
         boolean handle = super.onTouchEvent(event);
 //        if (MotionEvent.ACTION_UP == event.getAction()) {
 ////            setScaleX((float) 3.0);
@@ -85,15 +87,15 @@ public class TestTextView extends TextView {
 ////            setScaleY((float) 3.0);
 //        }
 ////        invalidate();
-        Log.d(TAG, "TestTextView onTouchEvent action=" + event.getAction() + " handle=" + handle);
+        Log.d(TAG, "TestTextView onTouchEvent  handle=" + handle);
         return handle;
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
+        Log.d(TAG, "TestTextView dispatchTouchEvent action=" + ev.getAction());
         boolean handle = super.dispatchTouchEvent(ev);
-        Log.d(TAG, "TestTextView dispatchTouchEvent action=" + ev.getAction() + " handle=" +
-                handle);
+        Log.d(TAG, "TestTextView dispatchTouchEvent  handle=" + handle);
         return handle;
     }
 
