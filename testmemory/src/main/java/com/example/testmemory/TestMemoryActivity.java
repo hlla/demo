@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.os.Trace;
 import android.util.Log;
 import android.util.LongSparseArray;
@@ -125,6 +126,17 @@ public class TestMemoryActivity extends Activity {
         return tmpBitmap;
     }
 
+    public class A {
+//        int a;
+        byte b;
+//        double c;
+//        double e;
+//        Integer d;
+    }
+
+    private ArrayList<A> mAArrayList = new ArrayList<>();
+    private A[] ints;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,18 +152,27 @@ public class TestMemoryActivity extends Activity {
         getWindow().setBackgroundDrawable(null);
         testWebview = (Button) findViewById(R.id.test_webview);
         testImage = (ImageView) findViewById(R.id.test_image);
+        final int num = SystemProperties.getInt("debug.test.num", 1500000);
+        ints = new A[num];
         testWebview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final int num = SystemProperties.getInt("debug.test.num", 1500000);
+//                ints = new A[num];
+                for (int i = 0; i < num; i++) {
+                    A a = new A();
+                    mAArrayList.add(a);
+//                    ints[i] = a;
+                }
 //                Intent intent = new Intent(TestMemoryActivity.this, TestWebViewActivity.class);
 //                startActivity(intent);
 //                clearPreloadedDrawables();
-                BitmapFactory.Options options1 = new BitmapFactory.Options();
-                options1.inPreferredConfig = Bitmap.Config.RGB_565;
-                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.wb,
-                        options1);
-                Log.d(TAG, "onClick: options1=" + options1.outMimeType);
-                testImage.setImageBitmap(bitmap);
+//                BitmapFactory.Options options1 = new BitmapFactory.Options();
+//                options1.inPreferredConfig = Bitmap.Config.RGB_565;
+//                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.wb,
+//                        options1);
+//                Log.d(TAG, "onClick: options1=" + options1.outMimeType);
+//                testImage.setImageBitmap(bitmap);
 //                bitmap.recycle();
 //                testWebview.setBackground(new BitmapDrawable(getAverageColorInfoForBitmap
 // (bitmap)));

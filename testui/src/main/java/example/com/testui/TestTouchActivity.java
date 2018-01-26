@@ -7,6 +7,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -141,6 +143,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         final Bitmap b = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
         Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.aa);
         Drawable drawable = new BitmapDrawable(original);
+        drawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC);
+        drawable.clearColorFilter();
         Canvas canvas = new Canvas();
         //BubbleContentUtil.getGlowBitmap(getWidth() + padding, getHeight() + padding);
         canvas.setBitmap(b);
@@ -155,7 +159,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         canvas.drawBitmap(original, 0, 0, null);
 //        drawable.draw(canvas);
         canvas.setBitmap(null);
-        ((ImageView) findViewById(R.id.img)).setImageBitmap(b);
+//        ((ImageView) findViewById(R.id.img)).setImageBitmap(b);
+        ((ImageView) findViewById(R.id.img)).setImageDrawable(drawable);
 //        final Bitmap bb = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
 //        canvas.setBitmap(bb);
 //        canvas.translate(50, 50);
@@ -467,7 +472,12 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Log.d(TAG, "Activity dispatchTouchEvent action=" + ev.getAction());
         boolean handle = super.dispatchTouchEvent(ev);
-        Log.d(TAG, "Activity dispatchTouchEvent handle="+handle);
+        Log.d(TAG, "Activity dispatchTouchEvent handle=" + handle);
+//        final Bitmap b = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
+//        Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.aa);
+//        Drawable drawable = new BitmapDrawable(original);
+//        drawable.clearColorFilter();
+//        ((ImageView) findViewById(R.id.img)).clearColorFilter();
         return handle;
     }
 

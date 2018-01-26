@@ -21,9 +21,14 @@ public class TestHashMap {
     private static final int CACHE_MAGIC2 = 0x20160615;
 
     static class MyTest {
+        TestHashMap testHashMap = new TestHashMap();
         String name;
         int code;
         boolean isDock;
+
+        String getName() {
+            return name;
+        }
 
         MyTest(String name, int code, boolean isDock) {
             this.name = name;
@@ -48,7 +53,7 @@ public class TestHashMap {
 //        }
         @Override
         public String toString() {
-            return "MyTest";
+            return "MyTest name=" + getName() + " testHashMap=" + testHashMap;
         }
 
 //        @Override
@@ -65,14 +70,21 @@ public class TestHashMap {
     }
 
     class MyTestSub extends MyTest {
+        String name = "aaaaaaa";
+        TestHashMap testHashMap = null;
+
         public MyTestSub() {
             super("a", 1, true);
+            name = "cccc";
         }
 
-        @Override
-        public String toString() {
-            return "MyTestSubMyTestSubMyTestSub";
+        String getName() {
+            return name;
         }
+//        @Override
+//        public String toString() {
+//            return "MyTestSubMyTestSubMyTestSub";
+//        }
     }
 
     public static byte[] writeInt(int n) {
@@ -128,7 +140,7 @@ public class TestHashMap {
     }
 
     public static void main(String[] args) {
-        MyTest myTest1 = new TestHashMap().new MyTestSub();
+        MyTestSub myTest1 = new TestHashMap().new MyTestSub();
         System.out.println("myTest1=" + myTest1);
         testCrash();
         MyTest myTest11 = new MyTest("a", 1, false);

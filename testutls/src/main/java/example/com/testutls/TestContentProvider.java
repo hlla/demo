@@ -29,7 +29,6 @@ public class TestContentProvider extends ContentProvider {
         MATCHER.addURI(AUTHORITIES, "recent_local", RECENT_LOCAL);
         MATCHER.addURI(AUTHORITIES, "recent_favorite", RECENT_FAVORITE);
     }
-
     @Override
     public boolean onCreate() {
 //        Exception exception = new Exception("onCreate()");

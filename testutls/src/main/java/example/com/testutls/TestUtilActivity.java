@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Timer;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
@@ -865,8 +866,8 @@ public class TestUtilActivity extends Activity /*implements View.OnClickListener
 //        int a = (int)ss;
         Log.d(TAG, "onCreate: testLayout=" + testLayout + " testBtn=" + testBtn);
         ButterKnife.bind(this);
-//        mScheduledExecutorService = (ScheduledThreadPoolExecutor) Executors
-//                .newScheduledThreadPool(4, mThreadFactory);
+        mScheduledExecutorService = (ScheduledThreadPoolExecutor) Executors
+                .newScheduledThreadPool(4, mThreadFactory);
 //        mScheduledExecutorService.allowCoreThreadTimeOut(true);
 //        mScheduledExecutorService.setKeepAliveTime(50, TimeUnit.SECONDS);
 //        findViewById(R.id.test_async).setOnClickListener(this);

@@ -6,93 +6,135 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="letv.com.testanr.MyActivity">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <Button
                 android:id="@+id/start_fg_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_fg_service"/>
+
             <Button
                 android:id="@+id/start_bg_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_bg_service"/>
+
             <Button
                 android:id="@+id/bind_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bind_service"/>
+
             <Button
                 android:id="@+id/job_Service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/job_Service"/>
+
             <Button
                 android:id="@+id/unbind_service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/unbind_service"/>
+
             <Button
                 android:id="@+id/start_fg_broadcast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_fg_broadcast"/>
+
             <Button
                 android:id="@+id/start_bg_broadcast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_bg_broadcast"/>
+
             <Button
                 android:id="@+id/start_static_broadcast"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/start_static_broadcast"/>
+
             <Button
                 android:id="@+id/register_callback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register_callback"/>
+
             <Button
                 android:id="@+id/get_adId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/get_adId"/>
+
             <Button
                 android:id="@+id/test_messager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_messager"/>
+
             <Button
                 android:id="@+id/register_messager"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register_messager"/>
+
             <Button
                 android:id="@+id/test_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_school"/>
+
             <Button
                 android:id="@+id/test_call"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_call"/>
+
             <Button
                 android:id="@+id/launch_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/launch_loading"/>
+
             <Button
                 android:id="@+id/test_anr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_anr"/>
+
+            <Button
+                android:id="@+id/test_main_thread_consuming"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_main_thread_consuming"/>
+
+            <Button
+                android:id="@+id/test_mul_work_thread_block"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_mul_work_thread_block"/>
+
+            <Button
+                android:id="@+id/test_file_io_wait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_file_io_wait"/>
+
+            <Button
+                android:id="@+id/test_network_io_wait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_network_io_wait"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

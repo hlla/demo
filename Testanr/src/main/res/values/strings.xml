@@ -17,4 +17,8 @@
     <string name="launch_loading">launch_loading</string>
     <string name="loading">loading</string>
     <string name="test_anr">test anr</string>
+    <string name="test_main_thread_consuming">test main thread consuming</string>
+    <string name="test_mul_work_thread_block">test mul work thread block</string>
+    <string name="test_file_io_wait">test File IO Wait</string>
+    <string name="test_network_io_wait">test network IO Wait</string>
 </resources>

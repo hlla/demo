@@ -56,8 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:background="#0000ff"
-            android:visibility="gone"/>
+            android:background="#0000ff"/>
 
         <ImageView
             android:id="@+id/img2"
@@ -75,7 +74,8 @@
             android:background="#0000ff"
             android:clickable="true"
             android:gravity="center"
-            android:text="@string/hello_world"/>
+            android:text="@string/hello_world"
+            android:visibility="gone"/>
     </example.com.testui.TestRelativeLayout>
 
 

@@ -40,9 +40,9 @@ public class MyService extends Service {
         @Override
         public int getAdId(String aa) throws RemoteException {
             Log.d(MyService.TAG, "getAdId: ");
-            notifyResult("ffff");
+//            notifyResult("ffff");
             try {
-                Thread.currentThread().sleep(5000);
+                Thread.currentThread().sleep(15000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

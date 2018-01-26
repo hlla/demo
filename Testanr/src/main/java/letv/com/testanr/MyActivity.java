@@ -17,7 +17,6 @@ import android.os.Binder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
@@ -29,9 +28,17 @@ import android.util.Log;
 import android.view.WindowManager;
 import android.widget.Button;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,12 +52,14 @@ import letv.com.testanr.reflect.MethodUtils;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_SHARED_LIBRARY_FILES;
+import static java.net.Proxy.Type.HTTP;
 
 
 public class MyActivity extends Activity {
     private static final String TAG = "Testanr_MyActivity";
     public static final String ACTION = "android.intent.action.mystaticreceiver";
     public static final String ACTION_DYNAMIC = "android.intent.action.mydynamicreceiver";
+    public static final String mUrl = "http://10.60.214.2:8080/test_big_file.zip";
     @BindView(R.id.start_fg_service)
     Button startFgService;
     @BindView(R.id.start_bg_service)
@@ -85,6 +94,14 @@ public class MyActivity extends Activity {
     Button registerMessager;
     private final Object mLockObject = new Object();
     private final Object mWaitObject = new Object();
+    @BindView(R.id.test_main_thread_consuming)
+    Button testMainThreadConsuming;
+    @BindView(R.id.test_mul_work_thread_block)
+    Button testMulWorkThreadBlock;
+    @BindView(R.id.test_file_io_wait)
+    Button testFileIoWait;
+    @BindView(R.id.test_network_io_wait)
+    Button testNetWorkIoWait;
     private ArrayList<byte[]> mLeakyContainer = new ArrayList<>();
     private Handler mHandler = new Handler() {
         @Override
@@ -161,6 +178,161 @@ public class MyActivity extends Activity {
                     .getCallingPid() + " CallingUid=" + Binder.getCallingUid());
         }
     };
+
+    @OnClick(R.id.test_main_thread_consuming)
+    public void onTestMainThreadConsumingClicked() {
+        int m = 0;
+        Log.d(TAG, "onTestMainThreadConsumingClicked: m=" + m);
+        Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+        while (true) {
+            m++;
+            if (m == -1) {
+                break;
+            }
+        }
+        Log.d(TAG, "onTestMainThreadConsumingClicked: m=" + m);
+    }
+
+    @OnClick(R.id.test_mul_work_thread_block)
+    public void onTestMulWorkThreadBlockClicked() {
+        for (int i = 0; i < 15; i++) {
+            new Thread("chengjian_" + i) {
+                @Override
+                public void run() {
+                    Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
+                    int m = 0;
+                    Log.d(TAG, "onTestMainThreadConsumingClicked: m=" + m);
+                    while (true) {
+                        m++;
+                        if (m == -1) {
+                            break;
+                        }
+                    }
+                }
+            }.start();
+        }
+    }
+
+    @OnClick(R.id.test_file_io_wait)
+    public void onTestFileIoWaitClicked() {
+        for (int i = 0; i < 1; i++) {
+            new Thread() {
+                @Override
+                public void run() {
+//                try {
+//                    Log.d(TAG, "dumpHprofData start");
+//                    Debug.dumpHprofData(Environment.getExternalStorageDirectory() +
+//                            "/dump" + ".dat");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                Log.d(TAG, "dumpHprofData end");
+                    final File removeFile = new File(Environment.getExternalStorageDirectory() +
+                            "/c.test");
+                    removeFile.delete();
+                    final File file = new File(Environment.getExternalStorageDirectory() +
+                            "/1.dat");
+                    Log.d(TAG, "onTestIoWaitClicked file.exist=" + file.exists() + " file.path=" +
+                            file.getPath());
+                    final byte[] content = new byte[8096];
+                    try {
+                        FileInputStream fileInputStream = new FileInputStream(file);
+                        BufferedInputStream bis = new BufferedInputStream(fileInputStream);
+                        FileOutputStream fileOutputStream = new FileOutputStream(Environment
+                                .getExternalStorageDirectory() + "/c.test");
+                        BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
+                        int length = 0;
+                        while ((length = bis.read(content, 0, content.length)) != -1) {
+                            total += length;
+                            bos.write(content);
+                        }
+                        Log.d(TAG, "onTestIoWaitClicked end result total=" + total);
+                        bos.flush();
+                        fileOutputStream.flush();
+                        fileOutputStream.close();
+                        bos.close();
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d(TAG, "onTestIoWaitClicked e=" + e);
+                    }
+                }
+            }.start();
+        }
+    }
+
+    @OnClick(R.id.test_network_io_wait)
+    public void onTestNetworkIoWaitClicked() {
+        new Thread() {
+            public void run() {
+//                 String content = "";
+//                 Log.d(TAG, "load before");
+//                 try {
+//                     content = loadAssets(MainActivity.this, "content.json");
+//                 } catch (IOException e) {
+//                     // TODO Auto-generated catch block
+//                     e.printStackTrace();
+//                 }
+//                 Log.d(TAG, "load after");
+//                 String result =
+//                         HttpClientFactory.post("http://n.mark.letv.com/m3u8api/", content);
+//                 Log.d(TAG, "post result=" + result);
+                HttpURLConnection connection = null;
+                InputStream is = null;
+                try {
+                    URL url = new URL(mUrl);
+                    connection = (HttpURLConnection) url.openConnection();
+                    Log.d(TAG, "onCreate connection=" + connection);
+                    connection.setConnectTimeout(5000);
+                    connection.setReadTimeout(2000);
+                    connection.setInstanceFollowRedirects(false);
+                    connection.setRequestMethod("GET");
+                    // connection.setRequestProperty("content-type",
+                    // "application/json; charset=utf-8");
+//                    connection.setRequestProperty("Accept-Encoding", HTTP.UTF_8);
+                    Log.d(TAG, "ResponseCode 11");
+                    int ResponseCode = connection.getResponseCode();
+                    Log.d(TAG, "ResponseCode=" + ResponseCode);
+                    // 将要下载的文件写到保存在保存路径下的文件中
+                    is = connection.getInputStream();
+                    int fileSize = connection.getContentLength();
+                    Log.d(TAG, "fileSize=" + fileSize);
+                    byte[] buffer = new byte[8096];
+                    int length = -1;
+                    final File removeFile = new File(Environment.getExternalStorageDirectory() +
+                            "/c.test");
+                    removeFile.delete();
+                    FileOutputStream fo = new FileOutputStream(removeFile);
+                    while ((length = is.read(buffer)) != -1) {
+//                        Log.d(TAG, "download buffer =" + buffer + "length =" +
+//                                length);
+                        fo.write(buffer, 0, length);
+                    }
+                    Log.d(TAG, "msg=" + connection.getResponseMessage());
+                    String encoding = System.getProperty("file.encoding",
+                            "UTF-8");
+//                    Log.d(TAG, "result=" + new String(buffer,"");
+                    Log.d(TAG, "result11=" + encoding);
+                    Log.d(TAG, "type=" + connection.getContentType());
+                    Log.d(TAG, "getContentEncoding=" +
+                            connection.getContentEncoding());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Log.d(TAG, "download Exception =" + e);
+                } finally {
+                    try {
+                        is.close();
+                        connection.disconnect();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+
+        }.start();
+    }
 
     class MessengerConnection implements ServiceConnection {
         @Override
@@ -992,21 +1164,21 @@ public class MyActivity extends Activity {
     @OnClick(R.id.get_adId)
     public void onGetAdidClicked() {
         if (null != iTestbinder) {
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        Log.d(TAG, "onGetAdidClicked: pid=" + Process.myPid() + " " +
-                                "tid=" + Thread.currentThread().getId() + " calllingpId=" +
-                                Binder
-                                        .getCallingPid());
-                        iTestbinder.getAdId("aaa");
-                        Log.d(TAG, "onGetAdidClicked: end");
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }.start();
+//            new Thread() {
+//                @Override
+//                public void run() {
+            try {
+//                        Log.d(TAG, "onGetAdidClicked: pid=" + Process.myPid() + " " +
+//                                "tid=" + Thread.currentThread().getId() + " calllingpId=" +
+//                                Binder
+//                                        .getCallingPid());
+                iTestbinder.getAdId("aaa");
+//                        Log.d(TAG, "onGetAdidClicked: end");
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+//                }
+//            }.start();
         }
     }
 
