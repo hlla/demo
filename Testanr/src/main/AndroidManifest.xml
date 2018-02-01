@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="letv.com.testanr"
-          android:sharedUserId="com.example.uid">
+          package="letv.com.testanr">
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -11,6 +10,382 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
+    <uses-permission android:name="com.huawei.android.totemweather.permission.ACCESS_WEATHERCLOCK_PROVIDER"/>
+    <uses-permission android:name="huawei.android.permission.HW_SIGNATURE_OR_SYSTEM"/>
+    <uses-permission android:name="android.permission.ACCESS_WEATHERCLOCK_PROVIDER"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission
+        android:name="android.permission.INTERNET"/>
+
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"/>
+
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-permission
+        android:name="android.permission.GET_ACCOUNTS"/>
+
+    <uses-permission
+        android:name="android.permission.MANAGE_ACCOUNTS"/>
+
+    <uses-permission
+        android:name="android.permission.SET_WALLPAPER"/>
+
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"/>
+
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"/>
+
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+    <uses-permission
+        android:name="android.permission.GET_TASKS"/>
+
+    <uses-permission
+        android:name="android.permission.GRANT_RUNTIME_PERMISSIONS"/>
+
+    <uses-permission
+        android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+
+    <uses-permission
+        android:name="android.permission.READ_SECURE_SETTINGS"/>
+
+    <uses-permission
+        android:name="android.permission.READ_SETTINGS"/>
+
+    <uses-permission
+        android:name="com.android.providers.media.permission.SCAN_FOLDER"/>
+
+    <uses-permission
+        android:name="com.huawei.permission.sec.MDM.v2"/>
+
+    <uses-permission
+        android:name="com.huawei.hwid.permission.ACCESS"/>
+
+    <uses-permission
+        android:name="android.permission.USES_LOG_UPLOAD_SERVICE"/>
+
+    <uses-permission
+        android:name="com.huawei.authentication.HW_ACCESS_AUTH_SERVICE"/>
+
+    <uses-permission
+        android:name="com.huawei.hwid.permission.CONTENT_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.huawei.systemmanager.permission.APPLY_TRIM_POLICY"/>
+
+    <uses-permission
+        android:name="com.huawei.hwid.ACTION_MAIN_SETTING_ACCESS"/>
+
+    <uses-permission
+        android:name="android.permission.USE_FINGERPRINT"/>
+
+    <uses-permission
+        android:name="android.permission.REAL_GET_TASKS"/>
+
+    <uses-permission
+        android:name="com.huawei.hicloud.permission.hicloudLogin"/>
+
+    <uses-permission
+        android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <uses-permission
+        android:name="android.permission.READ_CONTACTS"/>
+
+    <uses-permission
+        android:name="android.permission.WRITE_CONTACTS"/>
+
+    <uses-permission
+        android:name="com.huawei.contacts.permission.hicloudLogin"/>
+
+    <uses-permission
+        android:name="com.android.contacts.permission.READ_CONTACTS_PRIVACY_DATA"/>
+
+    <uses-permission
+        android:name="com.android.contacts.permission.WRITE_CONTACTS_PRIVACY_DATA"/>
+
+    <uses-permission
+        android:name="com.huawei.android.contacts.permission.WRITE_HUAWEI_ACCOUNT"/>
+
+    <uses-permission
+        android:name="com.huawei.contacts.permission.HW_CONTACTS_ALL"/>
+
+    <uses-permission
+        android:name="android.permission.WRITE_SMS"/>
+
+    <uses-permission
+        android:name="android.permission.WRITE_CALL_LOG"/>
+
+    <uses-permission
+        android:name="android.permission.READ_CALL_LOG"/>
+
+    <uses-permission
+        android:name="android.permission.READ_CALENDAR"/>
+
+    <uses-permission
+        android:name="android.permission.WRITE_CALENDAR"/>
+
+    <uses-permission
+        android:name="com.huawei.notepad.provider.readPermission"/>
+
+    <uses-permission
+        android:name="com.huawei.notepad.provider.writePermission"/>
+
+    <uses-permission
+        android:name="com.android.permission.system_manager_interface"/>
+
+    <uses-permission
+        android:name="com.huawei.systemmanager.permission.ACCESS_INTERFACE"/>
+
+    <uses-permission
+        android:name="android.permission.READ_MEDIA_STORAGE"/>
+
+    <uses-permission
+        android:name="android.permission.RECV_PRIVACY_MODE_CHANGED"/>
+
+    <uses-permission
+        android:name="android.permission.BATTERY_STATS"/>
+
+    <uses-permission
+        android:name="com.huawei.remotocontrol.permission.REMOTECALL"/>
+
+    <uses-permission
+        android:name="android.permission.OVERRIDE_WIFI_CONFIG"/>
+
+    <uses-permission
+        android:name="com.huawei.gallery.permission.GALLERY_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.huawei.android.permission.gallerysupportphotoshare"/>
+
+    <uses-permission
+        android:name="com.huawei.photoshare.permissions.entersdk"/>
+
+    <uses-permission
+        android:name="com.huawei.android.sns.sdk.permission"/>
+
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS"/>
+
+    <uses-permission
+        android:name="huawei.android.permission.HW_SIGNATURE_OR_SYSTEM"/>
+
+    <uses-permission
+        android:name="com.huawei.android.permission.ANTITHEFT"/>
+
+    <uses-permission
+        android:name="android.permission.USE_CREDENTIALS"/>
+
+    <uses-permission
+        android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <uses-permission
+        android:name="android.permission.VIBRATE"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-permission
+        android:name="android.permission.DISABLE_KEYGUARD"/>
+
+    <uses-permission
+        android:name="android.permission.MANAGE_DEVICE_ADMINS"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_KEYGUARD_SECURE_STORAGE"/>
+
+    <uses-permission
+        android:name="android.permission.MANAGE_USERS"/>
+
+    <uses-permission
+        android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS"/>
+
+    <uses-permission
+        android:name="com.huawei.KoBackup.permission.ACCESS"/>
+
+    <uses-permission
+        android:name="com.huawei.hwsdlock.permission.ACCESS_HWSDCARD_SECURE"/>
+
+    <uses-permission
+        android:name="com.huawei.hwsdlock.permission.RECV_HWSDLOCK_STATE"/>
+
+    <uses-permission
+        android:name="android.permission.INTERACT_ACROSS_USERS"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_SDCARD_SECURE_STORAGE"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission
+        android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+    <uses-permission
+        android:name="android.permission.READ_LOGS"/>
+
+    <uses-permission
+        android:name="com.android.mylauncher.permission.INSTALL_SHORTCUT"/>
+
+    <uses-permission
+        android:name="com.huawei.android.calendar.CLOUD_SYNC"/>
+
+    <uses-permission
+        android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <uses-permission
+        android:name="com.huawei.hicloud.permission.hicloudSync"/>
+
+    <uses-permission
+        android:name="android.permission.SUBSTITUTE_NOTIFICATION_APP_NAME"/>
+
+    <uses-permission
+        android:name="android.permission.READ_SMS"/>
+
+
+    <uses-permission
+        android:name="android.permission.GET_PACKAGE_SIZE"/>
+
+    <uses-permission
+        android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <uses-permission
+        android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
+
+    <uses-permission
+        android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
+
+    <uses-permission
+        android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS"/>
+
+    <uses-permission
+        android:name="com.android.browser.permission.WRITE_HISTORY_BOOKMARKS"/>
+
+    <uses-permission
+        android:name="com.huawei.alarm.provider.readPermission"/>
+
+    <uses-permission
+        android:name="com.huawei.alarm.provider.writePermission"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_WEATHERCLOCK_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.huawei.android.totemweather.permission.ACCESS_WEATHERCLOCK_PROVIDER"/>
+
+    <uses-permission
+        android:name="android.permission.UPDATE_APP_OPS_STATS"/>
+
+    <uses-permission
+        android:name="com.huawei.android.contacts.permission.READ_HUAWEI_ACCOUNT"/>
+
+    <uses-permission
+        android:name="com.android.contacts.huawei.permission.REFRESH_DRAFT"/>
+
+    <uses-permission
+        android:name="com.android.deskclock.huawei.permission.UPDATE_ALARM"/>
+
+    <uses-permission
+        android:name="com.android.packageinstaller.permission.HUAWEI_CHECK_APP_RISK_ACCESS"/>
+
+    <uses-permission
+        android:name="com.huawei.permission.HUAWEI_SYSTEM_NODE_ACCESS"/>
+
+    <uses-permission
+        android:name="com.huawei.intelligent.permission.READ_INTELLIGENT_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.huawei.intelligent.permission.WRITE_INTELLIGENT_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.hicloud.android.clone.filebackup.permission.FILEBACKUP_ACCESS"/>
+
+    <uses-permission
+        android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
+
+    <uses-permission
+        android:name="com.huawei.hisuite.permission.RESTORE_ACCESS"/>
+
+    <uses-permission
+        android:name="com.huawei.appmarket.permission.RESTORE_ACCESS"/>
+
+
+    <uses-permission
+        android:name="com.huawei.camera.permission.BACKUP_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.huawei.android.FMRadio.permission.READ_FMRADIO_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.huawei.android.FMRadio.permission.WRITE_FMRADIO_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.huawei.android.sns.permission.BACKUP"/>
+
+    <uses-permission
+        android:name="android.permission.READ_CALLRECORD"/>
+
+    <uses-permission
+        android:name="android.permission.WRITE_CALLRECORD"/>
+
+    <uses-permission
+        android:name="com.baidu.input_huawei.permission.READ_INTELLIGENT_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.baidu.input_huawei.permission.WRITE_INTELLIGENT_PROVIDER"/>
+
+    <uses-permission
+        android:name="com.android.deskclock.backup.provider.readPermission"/>
+
+    <uses-permission
+        android:name="com.android.deskclock.backup.provider.writePermission"/>
+
+    <uses-permission
+        android:name="com.android.soundrecorder.permission.READ_RECORD"/>
+
+    <uses-permission
+        android:name="com.android.soundrecorder.permission.WRITE_RECORD"/>
+
+    <uses-permission
+        android:name="com.android.mms.provider.backup.permission.READ_PERMISSION"/>
+
+    <uses-permission
+        android:name="com.android.mms.provider.backup.permission.WRITE_PERMISSION"/>
+
+    <uses-permission
+        android:name="com.huawei.permission.recent.READ_LOCK_STATE"/>
+
+    <uses-permission
+        android:name="com.huawei.permission.recent.WRITE_LOCK_STATE"/>
+
+    <uses-permission
+        android:name="com.android.systemui.permission.BACKUP_RESTORE"/>
+
+    <uses-permission
+        android:name="android.permission.INTERNET"/>
+
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <uses-permission
+        android:name="android.permission.USES_LOG_UPLOAD_SERVICE"/>
 
     <application
         android:name=".MyApplication"
@@ -42,9 +417,9 @@
         <receiver
             android:name=".MyStaticReceiverA">
             <!--<intent-filter android:priority="5">-->
-                <!--<action android:name="android.intent.action.mystaticreceiver"/>-->
+            <!--<action android:name="android.intent.action.mystaticreceiver"/>-->
 
-                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
             <!--</intent-filter>-->
             <intent-filter android:priority="5">
                 <action android:name="android.intent.action.MyStaticReceiverA"/>

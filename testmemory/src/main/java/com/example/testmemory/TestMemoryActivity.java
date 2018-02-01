@@ -153,16 +153,16 @@ public class TestMemoryActivity extends Activity {
         testWebview = (Button) findViewById(R.id.test_webview);
         testImage = (ImageView) findViewById(R.id.test_image);
         final int num = SystemProperties.getInt("debug.test.num", 1500000);
-        ints = new A[num];
+//        ints = new A[num];
         testWebview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final int num = SystemProperties.getInt("debug.test.num", 1500000);
-//                ints = new A[num];
+                ints = new A[1500000];
                 for (int i = 0; i < num; i++) {
                     A a = new A();
-                    mAArrayList.add(a);
-//                    ints[i] = a;
+//                    mAArrayList.add(a);
+                    ints[i] = a;
                 }
 //                Intent intent = new Intent(TestMemoryActivity.this, TestWebViewActivity.class);
 //                startActivity(intent);

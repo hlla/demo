@@ -1,9 +1,12 @@
-
 package example.com.testui;
 
 import android.app.Activity;
 import android.app.KeyguardManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -22,7 +25,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RemoteViews;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -33,6 +39,10 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.PriorityBlockingQueue;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 //class PriorityEntity implements Comparable<PriorityEntity> {
 //    private static int count = 0;
@@ -67,12 +77,109 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
             + File.separator
             + "libhello-jni.so"; // data/data/com.letv.adlib.sdk/.sdkupd/libLetvAdSDK.so";
     private static final String TAG = "Touch_TouchActivity";
+    @BindView(R.id.img0)
+    ImageView img0;
+    @BindView(R.id.test_notify)
+    Button testNotify;
+    @BindView(R.id.touch_area1)
+    TestLinearLayout touchArea1;
+    @BindView(R.id.img)
+    ImageView img;
+    @BindView(R.id.img2)
+    ImageView img2;
+    @BindView(R.id.text)
+    TestTextView text;
+    @BindView(R.id.touch_area)
+    TestRelativeLayout touchArea;
+    @BindView(R.id.test_content)
+    FrameLayout testContent;
+    @BindView(R.id.cancel_notify)
+    Button cancelNotify;
+    private NotificationManager mNotificationManager;
 
     @Override
     public boolean onLongClick(View v) {
         Exception exception = new Exception("onLongClick");
         Log.d(TAG, "onLongClick: ", exception);
         return false;
+    }
+
+    @OnClick(R.id.img0)
+    public void onImg0Clicked() {
+    }
+
+    @OnClick(R.id.test_notify)
+    public void onTestNotifyClicked() {
+        NotificationBuilderCompat builder = new NotificationBuilderCompat(this);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                new Intent(),
+                PendingIntent.FLAG_CANCEL_CURRENT);
+
+        builder.setPriority(NotificationBuilderCompat.PRIORITY_MAX)
+                .setVisibility(NotificationBuilderCompat.VISIBILITY_PUBLIC)
+                .setWhen(2147483647L)
+                .setOngoing(true)
+                .setAutoCancel(true)
+                .setSmallIcon(R.drawable.aa)
+                .setContentIntent(pendingIntent);
+        RemoteViews remoteViews = new RemoteViews(getPackageName(),
+                R.layout.notification_shortcut_bar);
+        int requestCode = 0;
+        initBroadcastIntent(remoteViews, R.id.notification_tab2, requestCode++);
+        initBroadcastIntent(remoteViews, R.id.notification_tab3, requestCode++);
+        initBroadcastIntent(remoteViews, R.id.notification_tab4, requestCode++);
+        initBroadcastIntent(remoteViews, R.id.notification_tab6, requestCode++);
+        //初始化省电按钮点击事件
+        initBroadcastIntent(remoteViews, R.id.notification_tab7, requestCode++);
+        builder.setContent(remoteViews);
+        Notification notification = builder.build();
+        mNotificationManager.notify(1000, notification);
+    }
+
+    private void initBroadcastIntent(RemoteViews remoteViews, int viewId,
+                                     int requestCode) {
+        Intent intent = new Intent("android.intent.action.mystaticreceiver");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(viewId, pendingIntent);
+    }
+
+
+    @OnClick(R.id.touch_area1)
+    public void onTouchArea1Clicked() {
+    }
+
+    @OnClick(R.id.img)
+    public void onImgClicked() {
+    }
+
+    @OnClick(R.id.img2)
+    public void onImg2Clicked() {
+    }
+
+    @OnClick(R.id.text)
+    public void onTextClicked() {
+    }
+
+    @OnClick(R.id.touch_area)
+    public void onTouchAreaClicked() {
+    }
+
+    @OnClick(R.id.test_content)
+    public void onTestContentClicked() {
+    }
+
+    @OnClick(R.id.cancel_notify)
+    public void onCancelNotify() {
+        if (mNotificationManager != null) {
+            try {
+                mNotificationManager.cancel(1000);
+            } catch (Exception e) {
+            }
+        }
     }
 
 //    static {
@@ -140,6 +247,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         super.onCreate(savedInstanceState);
         // getResources().getDrawable(R.drawable.ad_pause_del);
         setContentView(R.layout.activity_test_touch);
+        ButterKnife.bind(this);
         final Bitmap b = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
         Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.aa);
         Drawable drawable = new BitmapDrawable(original);
@@ -280,6 +388,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         // mScroller = new Scroller(this);
 //        findViewById(R.id.img0).setOnClickListener(this);
 //        findViewById(R.id.img0).setOnLongClickListener(this);
+        mNotificationManager = (NotificationManager) getSystemService(Context
+                .NOTIFICATION_SERVICE);
     }
 
     @Override

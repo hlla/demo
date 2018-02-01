@@ -6,5 +6,13 @@
     <string name="hide_cv">hide CV</string>
     <string name="hide_pv">hide pv</string>
     <string name="action_settings">Settings</string>
-
+    <string name="test_notify">Test Notify</string>
+    <string name="cancel_notify">Cancel Notify</string>
+    <string name="shortcutbar_entry1">All Apps</string>
+    <string name="shortcutbar_entry2">Flashlight</string>
+    <string name="shortcutbar_entry3">Cellular</string>
+    <string name="shortcutbar_entry4">Wi-Fi</string>
+    <string name="shortcutbar_entry5">More</string>
+    <string name="shortcutbar_entry6">Booster</string>
+    <string name="shortcutbar_entry7">Saver</string>
 </resources>

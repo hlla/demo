@@ -11,10 +11,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -52,7 +54,6 @@ import letv.com.testanr.reflect.MethodUtils;
 
 import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_SHARED_LIBRARY_FILES;
-import static java.net.Proxy.Type.HTTP;
 
 
 public class MyActivity extends Activity {
@@ -102,6 +103,8 @@ public class MyActivity extends Activity {
     Button testFileIoWait;
     @BindView(R.id.test_network_io_wait)
     Button testNetWorkIoWait;
+    @BindView(R.id.test_dump_hprof)
+    Button testDumpHprof;
     private ArrayList<byte[]> mLeakyContainer = new ArrayList<>();
     private Handler mHandler = new Handler() {
         @Override
@@ -213,8 +216,26 @@ public class MyActivity extends Activity {
         }
     }
 
+    int count = 0;
+
     @OnClick(R.id.test_file_io_wait)
     public void onTestFileIoWaitClicked() {
+        for (int i = 0; i < 5; i++) {
+            new Thread() {
+                @Override
+                public void run() {
+                    while (true) {
+                        count++;
+                    }
+                }
+            }.start();
+        }
+        Log.d(TAG, "onTestFileIoWaitClicked: m=" + count);
+//        try {
+//            Thread.sleep(4000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         for (int i = 0; i < 1; i++) {
             new Thread() {
                 @Override
@@ -234,14 +255,14 @@ public class MyActivity extends Activity {
                             "/1.dat");
                     Log.d(TAG, "onTestIoWaitClicked file.exist=" + file.exists() + " file.path=" +
                             file.getPath());
-                    final byte[] content = new byte[8096];
+                    final byte[] content = new byte[4096];
                     try {
                         FileInputStream fileInputStream = new FileInputStream(file);
                         BufferedInputStream bis = new BufferedInputStream(fileInputStream);
-                        FileOutputStream fileOutputStream = new FileOutputStream(Environment
-                                .getExternalStorageDirectory() + "/c.test");
+                        FileOutputStream fileOutputStream = new FileOutputStream(removeFile);
                         BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream);
                         int length = 0;
+                        Log.d(TAG, "onTestIoWaitClicked start");
                         while ((length = bis.read(content, 0, content.length)) != -1) {
                             total += length;
                             bos.write(content);
@@ -251,8 +272,6 @@ public class MyActivity extends Activity {
                         fileOutputStream.flush();
                         fileOutputStream.close();
                         bos.close();
-
-
                     } catch (Exception e) {
                         e.printStackTrace();
                         Log.d(TAG, "onTestIoWaitClicked e=" + e);
@@ -298,7 +317,7 @@ public class MyActivity extends Activity {
                     is = connection.getInputStream();
                     int fileSize = connection.getContentLength();
                     Log.d(TAG, "fileSize=" + fileSize);
-                    byte[] buffer = new byte[8096];
+                    byte[] buffer = new byte[1];
                     int length = -1;
                     final File removeFile = new File(Environment.getExternalStorageDirectory() +
                             "/c.test");
@@ -334,6 +353,61 @@ public class MyActivity extends Activity {
         }.start();
     }
 
+    @OnClick(R.id.test_dump_hprof)
+    public void onTestDumpHprof() {
+        getAdId.dispatchWindowVisibilityChanged(0);
+        Context context = null;
+        try {
+            context = createPackageContext("com.huawei.android.totemweather", 3);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        Class totemweather = null;
+        Class view = null;
+        Class ViewGroup = null;
+        Class remoteView = null;
+        try {
+            totemweather = context.getClassLoader().loadClass("com.huawei.android" +
+                    ".totemweather" +
+                    ".widget.WidgetHomeView");
+            view = Class.forName("android.view.View");
+            ViewGroup = Class.forName("android.view.ViewGroup");
+            remoteView = Class.forName("android.view.ViewGroup");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "onTestDumpHprof: totemweather=" + totemweather);
+        try {
+            Class name = Class.forName("android.os.Handler");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        Intent intent = new Intent();
+        intent.setClassName("com.huawei.android.totemweather", "com.huawei.android" +
+                ".totemweather" +
+                ".service.WeatherService");
+        startService(intent);
+//        try {
+//            Thread.sleep(4000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Log.d(TAG, "dumpHprofData start");
+//                    Debug.dumpHprofData(Environment.getExternalStorageDirectory() +
+//                            "/dump" + ".dat");
+//                    Log.d(TAG, "dumpHprofData end");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.start();
+
+    }
+
     class MessengerConnection implements ServiceConnection {
         @Override
         public void onServiceDisconnected(ComponentName name) {
@@ -343,7 +417,8 @@ public class MyActivity extends Activity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             Exception exception = new Exception("onServiceConnected");
-            Log.d(TAG, "MessengerConnection onServiceConnected =" + name + " service=" + service,
+            Log.d(TAG, "MessengerConnection onServiceConnected =" + name + " service=" +
+                            service,
                     exception);
             mServiceMessenger = new Messenger(service);
             Log.d(TAG, "MessengerConnection onServiceConnected =" + name + " service=" + service
@@ -537,8 +612,9 @@ public class MyActivity extends Activity {
                 tagerSdkVersion + "  classLoader=" + classLoader + " parentClassLoader=" +
                 parentClassLoader);
         try {
-            ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo(getPackageName
-                    (), GET_META_DATA | GET_SHARED_LIBRARY_FILES);
+            ApplicationInfo applicationInfo = getPackageManager().getApplicationInfo
+                    (getPackageName
+                            (), GET_META_DATA | GET_SHARED_LIBRARY_FILES);
 //            Log.d(TAG, "onCreate: applicationInfo.sourceDir=" + applicationInfo.sourceDir + " " +
 //                    "sharedLibraryFiles=" + applicationInfo.sharedLibraryFiles + " " +
 //                    "splitSourceDirs=" + applicationInfo.splitSourceDirs + " " +
@@ -1070,10 +1146,10 @@ public class MyActivity extends Activity {
 //            e.printStackTrace();
 //        }
 //        mHandler.sendEmptyMessageDelayed(1, 3000);
-//        Intent intent = new Intent(this, MyService
-// .class);
-//        intent.putExtra("abc", "cj");
-//        startService(intent);
+        Intent intent = new Intent(this, MyService
+                .class);
+        intent.putExtra("abc", "cj");
+        startService(intent);
     }
 
 
@@ -1164,21 +1240,21 @@ public class MyActivity extends Activity {
     @OnClick(R.id.get_adId)
     public void onGetAdidClicked() {
         if (null != iTestbinder) {
-//            new Thread() {
-//                @Override
-//                public void run() {
-            try {
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
 //                        Log.d(TAG, "onGetAdidClicked: pid=" + Process.myPid() + " " +
 //                                "tid=" + Thread.currentThread().getId() + " calllingpId=" +
 //                                Binder
 //                                        .getCallingPid());
-                iTestbinder.getAdId("aaa");
+                        iTestbinder.getAdId("aaa");
 //                        Log.d(TAG, "onGetAdidClicked: end");
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
-//                }
-//            }.start();
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
         }
     }
 

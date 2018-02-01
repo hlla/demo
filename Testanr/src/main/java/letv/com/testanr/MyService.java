@@ -1,8 +1,8 @@
 package letv.com.testanr;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
@@ -10,8 +10,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.util.List;
-
-import static letv.com.testanr.MyActivity.ACTION_DYNAMIC;
 
 /**
  * Created by chengjian on 17/5/31.
@@ -51,13 +49,15 @@ public class MyService extends Service {
 
         @Override
         public void testCall(List<School> ssss) throws RemoteException {
+            RuntimeException runtimeException = new RuntimeException("testCall");
             Log.d(MyService.TAG, "testCall: ");
-            try {
-                Thread.currentThread().sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                Thread.currentThread().sleep(5000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             Log.d(MyService.TAG, "testCall: end");
+            throw runtimeException;
         }
 
         @Override
@@ -112,17 +112,17 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: ");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 //        Notification.Builder builder = new Notification.Builder(this);
 //        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
 //        startForeground(NOTIFICATION_ID, builder.build());
-        IntentFilter intentFilter = new IntentFilter(ACTION_DYNAMIC);
-        MyDynamicReceiverB myDynamicReceiverB = new MyDynamicReceiverB();
-        registerReceiver(myDynamicReceiverB, intentFilter);
+//        IntentFilter intentFilter = new IntentFilter(ACTION_DYNAMIC);
+//        MyDynamicReceiverB myDynamicReceiverB = new MyDynamicReceiverB();
+//        registerReceiver(myDynamicReceiverB, intentFilter);
 //        try {
 //            Thread.currentThread().sleep(22000);
 //        } catch (InterruptedException e) {
@@ -134,11 +134,11 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand 11: startId=" + startId + " intent=" + intent);
-//        Notification.Builder builder = new Notification.Builder(this);
-//        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
 //        Intent innerIntent = new Intent(this, GrayInnerService.class);
 //        startService(innerIntent);
-//        startForeground(NOTIFICATION_ID, new Notification());
+        startForeground(NOTIFICATION_ID, new Notification());
 //        try {
 //            Thread.currentThread().sleep(22000);
 //        } catch (InterruptedException e) {
@@ -160,6 +160,8 @@ public class MyService extends Service {
     public IBinder onBind(Intent intent) {
         Exception exception = new Exception("onBind");
         Log.d(TAG, "onBind 11: intent=" + intent + " iTestbinder=" + iTestbinder, exception);
+        RuntimeException runtimeException = new RuntimeException("onBind");
+//        throw runtimeException;
         return iTestbinder;
     }
 

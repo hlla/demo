@@ -12,6 +12,7 @@ import sun.misc.Unsafe;
  */
 public class SizeOfAgentTest {
     private static Unsafe unsafe;
+
     static {
         try {
             Field f = Unsafe.class.getDeclaredField("theUnsafe");
@@ -21,9 +22,10 @@ public class SizeOfAgentTest {
         }
     }
 
-    public static Unsafe getUnsafe(){
+    public static Unsafe getUnsafe() {
         return unsafe;
     }
+
     public static void main(String[] args) {
         try {
             System.out.println("------------------空对象----------------------------");
@@ -37,8 +39,8 @@ public class SizeOfAgentTest {
 
             // 16 bytes + 8 + 4 + padding = 32
             Field[] fields = A.class.getDeclaredFields();
-            for(Field f: fields){
-                System.out.println(f.getName() + " offset: " +unsafe.objectFieldOffset(f));
+            for (Field f : fields) {
+                System.out.println(f.getName() + " offset: " + unsafe.objectFieldOffset(f));
             }
             System.out.println("SizeOfObject.sizeOf(new A()) = " + SizeOfObject.sizeOf(new A()));
             System.out.println("SizeOfObject.fullSizeOf(new A()) = " + SizeOfObject.fullSizeOf
@@ -123,22 +125,26 @@ public class SizeOfAgentTest {
 //
 //            // 24 + 0*8 + padding = 24    引用对象 64-bit JVM 占用 8 bytes,
 //            // 因为没创建真实的 new B()所以 B类内部数据还未占用空间
-//            System.out.println("SizeOfObject.sizeOf(new B[0]) = " + SizeOfObject.sizeOf(new B[0]));
+//            System.out.println("SizeOfObject.sizeOf(new B[0]) = " + SizeOfObject.sizeOf(new
+// B[0]));
 //            System.out.println("SizeOfObject.fullSizeOf(new B[0]) = " + SizeOfObject.fullSizeOf
 //                    (new B[0]));
 //
 //            // 24 + 1*8 + padding = 32
-//            System.out.println("SizeOfObject.sizeOf(new B[1]) = " + SizeOfObject.sizeOf(new B[1]));
+//            System.out.println("SizeOfObject.sizeOf(new B[1]) = " + SizeOfObject.sizeOf(new
+// B[1]));
 //            System.out.println("SizeOfObject.fullSizeOf(new B[1]) = " + SizeOfObject.fullSizeOf
 //                    (new B[1]));
 //
 //            // 24 + 2*8 + padding = 40
-//            System.out.println("SizeOfObject.sizeOf(new B[2]) = " + SizeOfObject.sizeOf(new B[2]));
+//            System.out.println("SizeOfObject.sizeOf(new B[2]) = " + SizeOfObject.sizeOf(new
+// B[2]));
 //            System.out.println("SizeOfObject.fullSizeOf(new B[2]) = " + SizeOfObject.fullSizeOf
 //                    (new B[2]));
 //
 //            // 24 + 3*8 + padding = 48
-//            System.out.println("SizeOfObject.sizeOf(new B[3]) = " + SizeOfObject.sizeOf(new B[3]));
+//            System.out.println("SizeOfObject.sizeOf(new B[3]) = " + SizeOfObject.sizeOf(new
+// B[3]));
 //            System.out.println("SizeOfObject.fullSizeOf(new B[3]) = " + SizeOfObject.fullSizeOf
 //                    (new B[3]));
 //
@@ -170,10 +176,12 @@ public class SizeOfAgentTest {
 
     public static class A {
         int a;
-        byte b;
-        double c;
-        double e;
-        Integer d;
+        B[] b = new B[3];
+        byte c;
+        B[] d;
+//        double c;
+//        double e;
+//        Integer d;
     }
 
     public static class B {
