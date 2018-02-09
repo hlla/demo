@@ -124,3 +124,6 @@
 {Bitmap@324735328(0x135b1160)}
 {Bitmap@318439680(0x12fb0100)}
 {Bitmap@324401856(0x1355fac0)}
+
+
+java -javaagent:classes.jar -XX:-UseCompressedOops com.example.SizeOfAgentTest

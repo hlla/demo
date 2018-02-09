@@ -12,7 +12,8 @@ android {
     compileSdkVersion 23
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "letv.com.testanr"
+        multiDexEnabled true
+        applicationId "letv.com.testanr11"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
@@ -37,5 +38,6 @@ dependencies {
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
     provided files("libs/layoutlib.jar")
     compile 'com.jakewharton:butterknife:8.6.0'
+    api  project(':TestLib')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }

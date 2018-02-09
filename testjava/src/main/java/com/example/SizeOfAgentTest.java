@@ -175,10 +175,13 @@ public class SizeOfAgentTest {
     }
 
     public static class A {
-        int a;
-        B[] b = new B[3];
-        byte c;
-        B[] d;
+        B b;
+        B c;
+        B d;
+//        int a;
+//        B[] b = new B[3];
+//        byte c;
+//        B[] d;
 //        double c;
 //        double e;
 //        Integer d;
