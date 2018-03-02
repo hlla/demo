@@ -73,14 +73,13 @@
         android:layout_height="300dip"
         android:background="#ff0000"
         android:clickable="true"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <ImageView
             android:id="@+id/img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="#0000ff"/>
+            android:layout_centerInParent="true"/>
 
         <ImageView
             android:id="@+id/img2"

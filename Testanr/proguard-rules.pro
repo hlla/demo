@@ -30,9 +30,9 @@
 -printconfiguration print_config.txt
 
 
--optimizationpasses 5
--dontoptimize
--dontshrink
+#-optimizationpasses 5
+#-dontoptimize
+#-dontshrink
 -verbose
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 -keepattributes Signature
@@ -96,7 +96,13 @@
   -keep public class com.letv.ad.demo.utils.AdEventUtils{
       *;
    }
-
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String, int);
+    public static int w(...);
+    public static int d(...);
+    public static int v(...);
+    public static int i(...);
+}
     -dontwarn com.letv.ads.**
     -dontwarn com.letv.plugin.pluginloader.**
 -keep class butterknife.** { *; }
@@ -113,4 +119,7 @@
 -dontwarn android.support.**
 -dontwarn com.tencent.bugly.**
 -keep public class com.tencent.bugly.**{*;}
+#-keepnames public class letv.com.testanr.**
+#Android Optimization Part Start
+#Android Optimization Part End
 #

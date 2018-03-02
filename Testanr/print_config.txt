@@ -1,32 +1,83 @@
+-injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/butterknife-8.6.0.aar/6560f9ee1acef28448b5a57ab92bf6d5/jars/classes.jar(**.class)
+-injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/543faf280eb4618c7a3c6142f4e7fb50/jars/classes.jar(**.class)
 -injars /home/chengjian/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.6.0/48efa6f14074e1a6b16e02ac05eba3fc5c7c7ec8/butterknife-annotations-8.6.0.jar(**.class)
--injars /home/chengjian/.android/build-cache/8081cda2d66edc70f7d0c9fb38a54a88a15b0846/output/jars/classes.jar(**.class)
--injars /home/chengjian/.android/build-cache/fbfc32a9365ad5058d78af027dc03af6cb1e5bb6/output/jars/classes.jar(**.class)
+-injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/support-compat-25.1.0.aar/adce7969d8edcf4e84517f5ae1587f81/jars/classes.jar(**.class)
 -injars /home/chengjian/android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar(**.class)
--injars /home/chengjian/workspace/TestApp/Testanr/build/intermediates/classes/release(**.class)
--outjars /home/chengjian/workspace/TestApp/Testanr/build/intermediates/transforms/proguard/release/jars/3/1f/main.jar
+-injars /home/chengjian/workspace/AppDemo/TestLib/build/intermediates/intermediate-jars/release/classes.jar(**.class)
+-injars /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/classes/release(**.class)
+-injars /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/transforms/mergeJavaRes/release/0.jar(!**.class)
+-outjars /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/transforms/proguard/release/0.jar
 
+-libraryjars /home/chengjian/workspace/AppDemo/Testanr/libs/layoutlib.jar(**.class)
 -libraryjars /home/chengjian/android/sdk/platforms/android-23/android.jar
 -libraryjars /home/chengjian/android/sdk/platforms/android-23/optional/org.apache.http.legacy.jar
 
 -forceprocessing
--dontshrink
--printusage /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/usage.txt
+-printusage /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/usage.txt
 -dontoptimize
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
--optimizationpasses 5
--printmapping /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/mapping.txt
--obfuscationdictionary /home/chengjian/workspace/TestApp/Testanr/obfuscationdictionary.txt
+-printmapping /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/mapping.txt
+-obfuscationdictionary /home/chengjian/workspace/AppDemo/Testanr/obfuscationdictionary.txt
 -dontusemixedcaseclassnames
 -keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod,Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses,SourceFile,LineNumberTable,Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses
 -renamesourcefileattribute adsourceFile
--dontpreverify
 -verbose
 -dontnote com.android.vending.licensing.ILicensingService,com.google.vending.licensing.ILicensingService,com.google.android.vending.licensing.ILicensingService,android.support.**
 -dontwarn android.support.**,com.letv.ads.**,com.letv.plugin.pluginloader.**,butterknife.internal.**,android.support.**,com.tencent.bugly.**
--printconfiguration /home/chengjian/workspace/TestApp/Testanr/print_config.txt
--dump /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/dump.txt
--printseeds /home/chengjian/workspace/TestApp/Testanr/build/outputs/mapping/release/seeds.txt
+-printconfiguration /home/chengjian/workspace/AppDemo/Testanr/print_config.txt
+-dump /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/dump.txt
+-printseeds /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/seeds.txt
 
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:205
+-keep class letv.com.testanr.GrayInnerService {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:164
+-keep class letv.com.testanr.LoadingActivity {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:209
+-keep class letv.com.testanr.MessengerService {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:154
+-keep class letv.com.testanr.MyActivity {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:147
+-keep class letv.com.testanr.MyApplication {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:213
+-keep class letv.com.testanr.MyJobService {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:197
+-keep class letv.com.testanr.MyService {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:173
+-keep class letv.com.testanr.MyStaticReceiverA {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:187
+-keep class letv.com.testanr.MyStaticReceiverB {
+    <init>(...);
+}
+
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:219
+-keep class letv.com.testanr.component.TestProvider {
+    <init>(...);
+}
 
 -keep public class com.google.vending.licensing.ILicensingService
 
@@ -202,47 +253,10 @@
     <fields>;
 }
 
-# view AndroidManifest.xml #generated:63
--keep class letv.com.testanr.GrayInnerService {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:33
--keep class letv.com.testanr.LoadingActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:67
--keep class letv.com.testanr.MessengerService {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:23
--keep class letv.com.testanr.MyActivity {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:16
--keep class letv.com.testanr.MyApplication {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:71
--keep class letv.com.testanr.MyJobService {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:59
--keep class letv.com.testanr.MyService {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:42
--keep class letv.com.testanr.MyStaticReceiverA {
-    <init>(...);
-}
-
-# view AndroidManifest.xml #generated:51
--keep class letv.com.testanr.MyStaticReceiverB {
-    <init>(...);
+-assumenosideeffects class android.util.Log {
+    public static boolean isLoggable(java.lang.String,int);
+    public static int w(...);
+    public static int d(...);
+    public static int v(...);
+    public static int i(...);
 }

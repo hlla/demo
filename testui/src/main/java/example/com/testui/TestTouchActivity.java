@@ -251,8 +251,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         final Bitmap b = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
         Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.aa);
         Drawable drawable = new BitmapDrawable(original);
-        drawable.setColorFilter(Color.BLUE, PorterDuff.Mode.SRC);
-        drawable.clearColorFilter();
+        drawable.setColorFilter(0x3F0000FF, PorterDuff.Mode.DST_OVER);
+//        drawable.clearColorFilter();
         Canvas canvas = new Canvas();
         //BubbleContentUtil.getGlowBitmap(getWidth() + padding, getHeight() + padding);
         canvas.setBitmap(b);

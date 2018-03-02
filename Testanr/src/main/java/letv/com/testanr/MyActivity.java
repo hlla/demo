@@ -1,5 +1,6 @@
 package letv.com.testanr;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.ProcessErrorStateInfo;
@@ -15,6 +16,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
@@ -509,6 +511,7 @@ public class MyActivity extends Activity {
 
     ActivityManager activityManager;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -541,8 +544,17 @@ public class MyActivity extends Activity {
 //        }
 //        thread.interrupt();
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        int resId = getResources().getIdentifier(getString(R.string.test_dump_hprof_4), "drawable",
+                getPackageName());
+        startBgService.setBackground(getDrawable(resId));
         Intent intent = new Intent(ACTION);
         Log.d(TAG, "Testanr_MySR onCreate: ");
+        StringBuilder ddd = new StringBuilder("sssss");
+        Log.d(TAG, ddd.toString());
+        Log.d(TAG, "ddddd" + getResources());
+        Log.d(TAG, "" + getResources());
+        ddd = null;
 //        intent.putExtra("abc", "ddddddd55666");
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
 //                PendingIntent.FLAG_UPDATE_CURRENT);
@@ -601,7 +613,6 @@ public class MyActivity extends Activity {
 //        Log.d(TAG, "onCreate: byteCount=" + bmp.getByteCount() + " allocate=" + bmp
 //                .getAllocationByteCount() + " height=" + bmp.getHeight() + " options=" + options
 //                .outHeight + " onfig=" + options.inPreferredConfig + " dd=" + bmp.getConfig());
-        ButterKnife.bind(this);
         IntentFilter intentFilter = new IntentFilter(ACTION_DYNAMIC);
         MyDynamicReceiverA myDynamicReceiverA = new MyDynamicReceiverA();
         registerReceiver(myDynamicReceiverA, intentFilter);

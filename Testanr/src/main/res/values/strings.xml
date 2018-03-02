@@ -22,4 +22,8 @@
     <string name="test_file_io_wait">test File IO Wait</string>
     <string name="test_network_io_wait">test network IO Wait</string>
     <string name="test_dump_hprof">dump Hprof Data</string>
+    <string name="test_dump_hprof_1">ccccc</string>
+    <string name="test_dump_hprof_2">aaaa</string>
+    <string name="test_dump_hprof_3">qqqqqqqq</string>
+    <string name="test_dump_hprof_4">ic_pref_gesture_pinch_out</string>
 </resources>
