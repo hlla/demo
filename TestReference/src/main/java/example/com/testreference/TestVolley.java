@@ -55,7 +55,7 @@ public class TestVolley extends Activity {
             super.finalize();
             Exception exception = new Exception("finalize");
 //            mTestObject = this;
-            Log.d(TAG, "onCreate: TestObject finalize() mTestObject=" + mTestObject, exception);
+            Log.d(TAG, "onCreate: TestObjectWithFinalize finalize() mTestObject=" + mTestObject, exception);
         }
     }
 
@@ -279,10 +279,10 @@ public class TestVolley extends Activity {
                 }
             }
         }.start();
-//        TestObject object = new TestObject();
+//        TestObjectWithFinalize object = new TestObjectWithFinalize();
 //        mWeakReference = new TestWeakReference<>(object, mWeakReferenceQueue);
 //        object = null;
-//        mTestObject = (TestObject) mWeakReference.get();
+//        mTestObject = (TestObjectWithFinalize) mWeakReference.get();
 //        Log.d(TAG, "onTestWeakReferenceClicked: mWeakReference=" + mWeakReference + " value=" +
 //                mTestObject);
 //        try {

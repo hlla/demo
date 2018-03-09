@@ -1,2 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="example.com.testlib"/>
+          xmlns:tools="http://schemas.android.com/tools"
+          package="example.com.testlib">
+
+    <uses-feature
+        android:name="android.hardware.location.GPS"
+        android:required="true"/>
+</manifest>

@@ -1,0 +1,1016 @@
+launcher_public:9 xaid:string mcc:short ver:string cn:string cn2:string cl:string apilevel:int brand:string model:string rom:bit root:bit nettype:int mnc:short mover:byte theme:bit state:string prodid:byte method:byte pro:byte pkgname:string productmodule:byte
+launcher_6_1_0:102 value:int
+launcher_sec_det_off:105 value:byte
+launcher_sec_det_close:107 value:string value1:string value2:binary
+launcher_sec_det_ignore:108 value:string value1:string value2:binary
+launcher_wea_cf:111 value:string
+launcher_setting_default_select:112 value:byte
+launcher_setting_default_switch:113 value:bit
+launcher_setting_toolbar:114 value:bit
+launcher_setting_aroundapp:115 value:bit
+launcher_setting_moreapp:116 value:bit
+launcher_setting_search:117 value:bit
+launcher_setting_search_select:118 value:byte
+launcher_setting_feedback:119 value:byte
+launcher_setting_rate:120 value:byte
+launcher_widget:123 value:byte value1:byte
+launcher_sec_det_uninstall:124 value:bit
+launcher_sec_det_destroy:125 value:bit
+launcher_sec_det_notify:126 value:bit
+launcher_setting_about:127 click:byte
+launcher_folder_edit:129 way:byte more:byte
+launcher_time_click:130 pattern:bit
+launcher_app_install:134 countnum:int class:int
+launcher_app_top:135 appname:string class:int
+launcher_menu_click:136 name:byte
+launcher_widget_click:137 name:byte
+launcher_widget_more:138 name:string appname:string result:byte
+launcher_app_assign_none:139 class:int
+launcher_notificationbar:141 name:byte status:bit
+launcher_setting_about_select:143 click:byte
+launcher_notificationbar_more:144 name:byte status:bit
+launcher_wea__fail:150 reason:int
+launcher_recent_click:152 appname:string
+launcher_folder_moreapps:154 click:byte isnew:byte click1:byte seq:int time1:int posid:int
+launcher_folder_classify:155 class:byte local:byte name:string
+launcher_folder_other:157 name:string
+launcher_folder_fclassify:158 class:byte num:int
+launcher_boost_mem_end:159 used_num:string freed_num:short
+launcher_sec_det_result:161 class:byte
+launcher_sec_det_error:162 reason:byte
+launcher_sec_det_virus:163 class:string
+launcher_start_time:166 ready:int class:int prepare:int
+launcher_search_engine:167 result:bit
+launcher_app_lianpu:168 number:byte timeout:bit
+launcher_battery_opt:172 click:byte
+launcher_battery_opt_sh:173 source:byte
+launcher_battery_temp:175 level:string
+launcher_battery_temp_sh:176 source:byte
+launcher_battery_rank:177 click:byte
+launcher_battery_rank_sh:178 source:byte
+launcher_battery_circle:180 click:byte
+launcher_battery_rank_close:181 name:string
+launcher_app_messclean:183 class:byte appname:string
+launcher_wallpaper_open:185 open:int inlet:byte
+launcher_app_assign_error:190 method:string apptitle:string cellx:short celly:short container:string containersize:short isindb:bit reason:string clktime:int vercode:string
+launcher_rate:198 open:int inlet:byte result:byte
+launcher_wea_ip_exception:202 error:string data:string
+launcher_setting_cf:204 click:int value:bit
+launcher_setting_cf_select:205 value:bit
+launcher_wallpaper_pic_request:206 url:string
+launcher_wallpaper_pic_error:207 url:string reason:short
+launcher_setting_facebook:208 result:int
+launcher_wea_loc_fail_info:210 request:string response:string error:string
+launcher_wea_ip_locate_fail_info:211 request:string response:string error:string
+launcher_wea_load_fail_info:212 request:string response:string error:string
+launcher_default_chk:213 way:byte appname:string timing:short
+launcher_boost_icon:214 value:bit
+launcher_plugin_guide:216 name:byte handle:bit
+launcher_default_top:219 appname:string result:byte
+launcher_plugin_icon:221 class:byte name:byte
+launcher_setting_default_off:222 value:byte
+launcher_setting_restart:223 value:int
+launcher_wea_fail_netinfo:227 lastsuccess:int64 asktime:int64 failtime:int64 netstatus:byte
+launcher_default_unlocker:228 appname:string
+launcher_battery_desk:231 source:byte power:byte stay:string launcher:string
+launcher_battery_dow:232 source:byte result:byte
+launcher_widget_bettary:233 launcher:string result:byte
+launcher_search_money:244 result:byte
+launcher_search_money_click:245 value:byte keyword:string
+launcher_boost_sugcm:246 click:byte
+launcher_appsflyer_install:250 af_channel:string
+launcher_wea_fail_info:255 cachefade:string netstatus:byte degree:string source:byte
+launcher_wea_icon:256 way:byte source:byte
+launcher_wea_city_noresult:257 input:string
+launcher_reminder_guide_mark:259 click:bit position:byte
+launcher_app_market:263 click:bit
+launcher_folder_nclick:264 isnew:byte
+launcher_folder_nout:265 seq:short
+launcher_folder_nget:266 get:byte roll:byte
+launcher_folder_empty:267 number:short way:byte class:string
+launcher_reminder_active:268 value:byte clktime:int vercode:int reminder_ver:int
+launcher_boost_rec:270 rectype:byte recshow:byte
+launcher_search_results:274 result:byte keyword:string url:string
+launcher_cold_loading:275 showit:byte
+launcher_folder_open:278 way:byte class:byte clktime:int vercode:int
+launcher_sec_smsshow:279 cms:bit
+launcher_coexist:280 appname:byte
+launcher_plugin_click:288 class:bit name:byte
+launcher_wea_upgrade:293 result:bit
+launcher_wea_refresh:294 cachefade:int
+launcher_wea_remind:296 source:byte appear:byte result:byte disappear:byte
+launcher_app_duplicate:300 way:byte shortcutinfo1:string shortcutinfo2:string clktime:int vercode:int
+launcher_folder_num:302 num:byte first:byte empty:byte
+launcher_menu_screen:303 manage:byte
+launcher_app_missing:308 missingtype:int folderitem:string shortcutitem:string clktime:int vercode:int way:byte
+launcher_app_fix:309 reason:byte intent:string clktime:int vercode:int way:byte
+launcher_search_moreapp:310 click:byte
+launcher_nearbyapp_click:312 posid:short screenid:byte position:byte
+launcher_reminder_power:313 switch:bit appname:string class:byte
+launcher_app_rarelyused:316 way:byte
+launcher_reminder_setting:317 switch:bit class:byte clktime:int vercode:int reminder_ver:int appname:string
+launcher_widget_club:319 click:byte
+launcher_app_newinst:322 appname:string class:byte screenid:byte position:byte clktime:int vercode:int
+launcher_app_cmtop:323 result:byte vercode:int
+launcher_moreapps_click:324 posid:short position:byte
+launcher_wallpaper_preload:325 times:int64 ram1:int64 ram2:int64
+launcher_app_instsd:326 appname:string
+launcher_market_in:327 posid:short
+launcher_marketgp_click:330 click:bit
+launcher_marketsearch_click:331 posid:short click:bit
+launcher_folder_nearby:333 isnew:byte showapp:byte seq:int get:byte roll:byte posid:int data:byte
+launcher_market_out:334 click:byte seq:int time1:short posid:short data:byte
+launcher_app_apktoname:337 class:byte appname:string
+launcher_whatsnew:339 showit:byte
+launcher_widget_duplicate:346 appname:byte
+launcher_app_duplicate_checkall:349 number:byte location:string way:byte vercode:int
+launcher_restore_app:350 storage:byte package_name:string vercode:int
+launcher_guide_slide:351 showit:bit way:byte slide:bit
+launcher_guide_folder:352 showit:bit click:bit name:string
+launcher_wea_detail_error:353 step:byte error:string request:string
+launcher_app_componet_intent:357 number:byte location:string vercode:int way:byte intent:string
+launcher_theme_mine:359 inlet:byte
+launcher_theme_error:364 reason:byte
+launcher_search_voice:365 click:byte
+launcher_folder_out:367 click1:byte seq:int time1:int data:byte posid:short
+launcher_settingsecond_default_select:369 value:byte
+launcher_wea_detail_stay:371 stay:short
+launcher_settingsecond_default:372 value:byte
+launcher_setting_classify:373 value:bit
+launcher_setting_default_secondguide:374 sequence:byte click:byte
+launcher_rgicon_pv:375 pv:int appname:string position:byte
+launcher_rgicon_install:376 install:bit appname:string
+launcher_sydata_loadingtime:377 time2:byte
+launcher_rgicon_click:378 click:bit appname:string position:byte
+launcher_search_voice_result:379 result:byte
+launcher_theme_src_wallpaper:380 action:byte
+launcher_theme_mine_default:381 open:int class:bit dialog:byte action:byte
+launcher_calendar_click:382 name:string
+launcher_wea_alert_useless:387 pushid:string publish:int expires:int receive:int reason:byte
+launcher_search_down:389 result:byte
+launcher_debug_report:390 action:string data:string
+launcher_theme_set:392 result:bit name:string inlet:byte
+launcher_mover_dock:394 appname:string x:byte y:byte
+launcher_mover_widget:395 screenid:byte x:byte y:byte spanx:byte spany:byte
+launcher_mover_widget_num:396 num:byte
+launcher_mover_app:397 screenid:byte num:byte
+launcher_mover_screen:398 num:byte
+launcher_mover_desk:399 value:bit
+launcher_foldernearby_dataroll:400 roll:byte reason:byte
+launcher_marketbaokuan_show:401 show1:byte reason:byte time1:short
+launcher_facebook_exist:402 appname:string
+launcher_market_open:403 time1:int
+launcher_battery_cml:404 cpu:int64
+launcher_wea_remind_switch:406 result:bit object:byte
+launcher_wea_settings:407 source:byte
+launcher_wea_remind_widget:408 class:byte last:short result:bit
+launcher_wea_remind_widgetshow:409 class:byte appear:byte
+launcher_wea_remind_notifyclick:410 class:byte last:short
+launcher_wea_remind_notifyshow:411 class:byte appear:byte
+launcher_cold_start:413 ready:int iconload:int memuse:int sysmem:int modelload:int sysactivate:int bulid:string
+launcher_data_loadingtime:418 time1:short
+launcher_mofaxiu_open:419 time1:short
+launcher_wea_details:420 source:byte
+launcher_wea_alert_view:422 source:byte class:byte level:byte pushid:string clktime:int
+launcher_wea_alert_receive:423 class:byte level:byte cityname:string citycode:string pushid:string delay:short effective:byte clktime:int
+launcher_search_history1:425 result:string
+launcher_search_history3:426 result:byte
+launcher_mover_empty:432 gridcount:byte screennum:byte detail:string
+launcher_app_empty:433 screennum:byte detail:string
+launcher_mofaxiu_dataroll:443 reason:byte number1:byte time1:short
+launcher_mofaxiu_shuaxinclick:445 click1:int
+launcher_theme_open:454 action:byte pkgname:string inlet:byte cmlinstalled:byte
+launcher_screen_sethome:455 screenid:byte
+launcher_sousuokano_show:458 reason:byte class:byte
+launcher_sousuokaok_show:459 time1:short class:byte
+launcher_sousuoka_click:460 class:byte
+launcher_diy_leave:464 clktime:int ufrom:int64 target:int64
+launcher_diy_make:466 class:byte wid:string clktime:int ufrom:int64 target:int64
+launcher_diy_permit:469 class:byte clktime:int ufrom:int64 target:int64
+launcher_allapps_longitem:472 appname:string class:byte
+launcher_diy_makedone:475 wid:string clktime:int ufrom:int64 target:int64
+launcher_diy_done:476 class:byte clktime:int ufrom:int64 target:int64
+launcher_folder_drag:482 name:byte screen:byte position:byte fscreen:byte fposition:byte
+launcher_folder_create:483 name:string screen:byte position:byte fscreen:byte fposition:byte fclass:byte
+launcher_folder_delete:484 name:byte way:byte
+launcher_desktop_drag:485 name:string towhere:string fromwhere:string way:byte screen:byte position:byte fscreen:byte fposition:byte
+launcher_search_contacts:486 enter:string click:byte location:byte
+launcher_diy_wallpaper:489 value:int choose:int clktime:int ufrom:int64 target:int64
+launcher_diy_dialog:490 click:byte value:byte clktime:int ufrom:int64 target:int64
+launcher_diy_save:491 class:byte value:byte clktime:int ufrom:int64 target:int64
+launcher_mofaxiu_click:493 click1:int class:byte
+launcher_mofaxiu_pv:494 pv:int time1:short class:byte
+launcher_mover_condition:495 appname:string value:byte
+launcher_theme:498 inlet:byte pushid:string clktime:int ufrom:int64 target:int64 secondtab:byte
+launcher_allapps_search_in:499 result:byte
+launcher_allapps_search_click:500 keyword:string appname:string position:short
+launcher_allapps_search_leave:501 way:byte used:byte
+launcher_allapps_search_web:502 keyword:string haveapp:byte
+launcher_desktop_drag_cancel:503 fromwhere:short isfull:byte
+launcher_search_timeout:504 result:int class:byte
+launcher_diy_applied_share:505 class:byte
+launcher_marketapp_click:506 posid:int class:byte position:byte data:byte
+launcher_theme_lockerpage:507 action:byte themeid:string
+launcher_theme_lockerdialog:508 action:byte
+launcher_theme_lockererror:509 reason:byte
+launcher_mover_folder:510 name:string x:byte y:byte num:byte screenid:byte appnames:string
+launcher_diy_online:516 click:byte clktime:int ufrom:int64 target:int64
+launcher_theme_likedenter:517 action:byte pkgname:string
+launcher_search_contacts1:518 existpicnum:short nopicnum:short
+launcher_search_certificate:520 result:byte url:string
+launcher_mofaxiuapp_click:521 data:byte position:byte
+launcher_mofaxiu_out:522 click:byte seq:byte
+launcher_folder_background:523 value:byte
+launcher_desktop_gesture:525 screen:byte value:byte
+launcher_setting_default_select_new:526 action:byte scene:byte
+launcher_theme_leave:532 clktime:int ufrom:int64 target:int64
+launcher_personal_list:535 action:byte clktime:int ufrom:int64 target:int64
+launcher_wallpaper_upload_start:538 source:byte clktime:int
+launcher_wallpaper_upload_overload:539 size:byte clktime:int
+launcher_wallpaper_upload_name:540 previous:byte clktime:int
+launcher_wallpaper_back:542 display:int click:byte previous:string clktime:int
+launcher_wallpaper_refresh:543 class:byte result:byte tab:byte clktime:int
+launcher_wallpaper_back_result:544 inlet:byte result:byte clktime:int
+launcher_wallpaper_bigshow:546 click:byte clktime:int
+launcher_wallpaper_categories:548 class:byte clktime:int
+launcher_wallpaper_upload_class:550 class:byte clktime:int
+launcher_wallpaper_time:552 times:int64 clktime:int
+launcher_wallpaper_retry:554 value:int class:byte wid:int clktime:int
+launcher_wallpaper_request:555 result:byte wid:int times:int64 clktime:int
+launcher_wallpaper_permit:556 class:byte clktime:int
+launcher_wallpaper_mine_click:557 click:byte clktime:int
+launcher_wallpaper_local_click:559 click:byte clktime:int
+launcher_wallpaper_fb:560 class:byte clktime:int
+launcher_wallpaper_del:561 result:byte clktime:int
+launcher_wallpaper_crop:562 width:short height:short clktime:int
+launcher_wallpaper_change:563 click:int result:byte clktime:int
+launcher_wallpaper_click:564 click:int tab:byte clktime:int
+launcher_wallpaper_crop_done:565 size:byte move:bit pinch:bit clktime:int
+launcher_theme_refresh:566 action:byte secondtab:byte
+launcher_diy_defaultpic:567 result:bit
+launcher_wallpaper_preview:569 source:byte home:byte total:byte
+launcher_balloon_add:570 value:byte
+launcher_balloon_hot_click:572 title:string
+launcher_balloon_info_show:574 info:byte class:byte
+launcher_balloon_info_refresh:575 info:byte
+launcher_search_history2:582 click:byte location:byte clktime:int ufrom:int64 target:int64
+launcher_search_back:584 result:byte clktime:int ufrom:int64 target:int64
+launcher_search_recent:585 result:byte keyword:string location:byte clktime:int ufrom:int64 target:int64
+launcher_search_webview:586 result:byte clktime:int ufrom:int64 target:int64
+launcher_locale_change:587 locale_change:string mcc_change:string mnc_change:string clktime:int vercode:int
+launcher_search_begin:590 result:byte clktime:int ufrom:int64 target:int64
+launcher_search_click:591 result:byte value:byte
+launcher_search_value:592 result:byte enter:string keyword:string url:string location:byte clktime:int ufrom:int64 target:int64
+launcher_wea_loc_success:593 way:byte cache:bit source:byte clktime:int lat:string lng:string cityname:string
+launcher_wea_loc_fail:594 value:byte value1:byte source:byte clktime:int error:string lng:string lat:string
+launcher_search_settings:595 value:byte result:byte clktime:int ufrom:int64 target:int64
+launcher_balloon_show_result:596 result:byte news:int hot:int
+launcher_content_request_fail:597 class:byte code:int
+launcher_perf_gc:599 value:short
+launcher_perf_resume:600 value:short
+launcher_perf_pause:601 value:short
+launcher_wallpaper_upload:602 source:byte clktime:int
+launcher_app_update_modify:603 appname:string class:byte component:byte oldname:string newname:string
+launcher_balloon_news_show:604 newsid:string
+launcher_balloon_news_click:605 title:string url:string newsid:string
+launcher_theme_lockeropen:606 action:byte
+launcher_theme_focus:607 action:byte primarytab:byte pkgname:string clktime:int ufrom:int64 target:int64 landing:byte
+launcher_theme_lockericon:608 action:byte
+launcher_desktop_screens:609 num:byte class:byte empty:byte homescreen:byte leftscreen:byte clktime:int
+launcher_folder_add_apps:610 name:byte num:int
+launcher_folder_release:611 name:byte num:byte way:byte
+launcher_folder_add_apps_ok:612 name:byte num1:int num2:int
+launcher_wallpaper_upload_end:616 reason:string clktime:int times:int64
+launcher_theme_iconmark:617 action:byte showtype:byte clktime:int
+launcher_search_ad1:618 result:byte location:byte
+launcher_folder_create_merge:619 name:byte appname1:string appname2:string
+launcher_update_click:625 pushid:string wifitype:byte clktime:int intime:byte inlet:byte result:byte
+launcher_update_show:626 pushid:string wifitype:byte clktime:int intime:byte inlet:byte
+launcher_wallpaper_like_click:629 click:byte clktime:int
+launcher_gcm_remove:631 class:byte pushid:string clktime:int
+launcher_gcm:632 class:byte
+launcher_search_games:633 result:byte location:byte keyword:string
+launcher_search_newsshow:634 newsid:string
+launcher_search_news:635 newsid:string location:byte
+launcher_news_reqtime:636 value:int
+launcher_diy_submit_end:637 reason:string times:int64
+launcher_diy_submit:638 source:byte
+launcher_diy_preview:639 class:byte wid:int wallpaper:byte clktime:int ufrom:int64 target:int64
+launcher_diy_share:642 link:byte
+launcher_folder_onehand_click:643 clktime:int
+launcher_folder_onehand:644 clktime:int
+launcher_folder_onehand_exit:645 class:byte
+launcher_hide_guide_close:646 value:byte
+launcher_hide_clear_password:648 clktime:int
+launcher_hide_button_apply:649 value:byte way:byte appname:string
+launcher_hide_button_trigger:650 appname:string
+launcher_hide_forget_password_result:651 value:byte
+launcher_hide_forget_password_display:652 clktime:int
+launcher_hide_settings_apply:653 class:byte value:byte
+launcher_hide_settings_display:654 clktime:int
+launcher_theme_click:656 tab:byte name:string item:byte isrecommend:byte clktime:int ufrom:int64 target:int64 xy:int
+launcher_theme_leave_row:657 row:short
+launcher_in_sd:658 has_sd:bit in_sd:bit
+launcher_diy:659 value:int clktime:int ufrom:int64 target:int64 location:byte
+launcher_diy_share_channel:660 name:string
+launcher_diy_applied_end:661 class:byte click:byte
+launcher_theme_albums_share:662 channel:byte location:byte more:string name:string
+launcher_theme_share_channel:664 name:string
+launcher_folder_network_error:665 class:byte code:string
+launcher_folder_sortapps_auto_ok:666 clktime:int
+launcher_folder_sortapps_auto:667 clktime:int
+launcher_folder_sortapps_confirm:668 num1:short num2:short
+launcher_folder_sortapps:669 clktime:int
+launcher_content_request_queue:670 order1:string
+launcher_balloon_show_news:671 value:int
+launcher_balloon_show_hot:672 value:int
+launcher_balloon_show_ad:673 value:int64
+launcher_balloon_ad_click:674 class:byte value:byte
+launcher_content_request_picks:675 class:byte value:int
+launcher_content_request_fb:676 class:byte value:int
+launcher_search_screen2:677 value:byte
+launcher_balloon_show_picks:678 value:int
+launcher_theme_share_guide:679 click:byte
+launcher_search_trending:681 result:byte keyword:string url:string clktime:int ufrom:int64 target:int64
+launcher_hide_fixed_entry:682 clktime:int
+launcher_folder_animation_display:683 appname:string folder_name:byte
+launcher_folder_animation_setting:684 clktime:int
+launcher_folder_animation_open:685 folder_name:byte
+launcher_search_show_ad:686 value:short
+launcher_search_show_games:687 value:short
+launcher_search_show_news:688 value:short
+launcher_search_show_trending:689 value:short
+launcher_setting_notification:690 value:byte
+launcher_update_iconclick:691 vercode:int value:byte
+launcher_theme_push:692 install:byte pushid:string
+launcher_hide_guide_display:693 clktime:int value:byte
+launcher_wallpaper_pg_open:694 open:bit
+launcher_search_time5:696 times:int
+launcher_search_time4:697 times:int
+launcher_search_time3:698 times:int
+launcher_search_time2:699 times:int
+launcher_search_time1:700 times:int
+launcher_setting_theme_sound:701 value:bit
+launcher_wallpaper_pg_click:702 pgid:int openway:byte
+launcher_wallpaper_pg_download:703 download:byte
+launcher_wallpaper_pg_update:704 updatepg:byte
+launcher_setting_googlenow_fix_fail:705 value:byte name:string
+launcher_setting_googlenow_fail:706 name:string
+launcher_theme_santa_cartoon:707 action:byte inlet:byte
+launcher_theme_gift:708 action:byte inlet:byte
+launcher_wea_city:709 result:string previous:string reason:byte clktime:int
+launcher_startup:711 appname:string isdef:bit isact:bit islauncher:byte appver:string
+launcher_setting_default_generalfix_fail:712 name:string
+launcher_diy_download:713 source:byte diyid:string
+launcher_diy_club:714 clktime:int
+launcher_ad_request:716 class:byte
+launcher_club_postdiy:717 click:byte
+launcher_club_nickname:718 click:byte
+launcher_club_login:719 click:byte
+launcher_club_detail:720 click:byte diyid:string
+launcher_club_forum:721 fid:byte
+launcher_news_in:724 value:byte
+launcher_theme_locker_installguide:727 action:byte pkgname:string
+launcher_effects_setup_open:730 way:byte
+launcher_theme_using:731 pkgname:string wallpaper:byte
+launcher_news_sdk_data_illegal:733 newsid:int reason:byte
+launcher_news_sdk_list_fail:734 result:bit request:byte network:byte
+launcher_setting_googlenow:737 value:byte scene:byte
+launcher_service:738 stype:byte clktime:int has_main:bit
+launcher_club_recommend:739 position:byte
+launcher_club_banner:740 position:byte
+launcher_setting_default:743 value:byte
+launcher_club_dig:744 fid:byte position:byte page:byte
+launcher_setting_mode:745 value:bit
+launcher_wea_click:746 clktime:int source:byte area:byte mode:byte
+launcher_slip_screen_duration:747 stay:byte
+launcher_slip_screen_show:748 value:bit
+launcher_effects_setup_click:749 value:byte tab:byte
+launcher_effects_change:750 screen:byte folder:byte unfolding:byte
+launcher_app_uninst:751 appname:string class:int themeid:string
+launcher_theme_clickicon:752 action:bit themeid:string
+launcher_theme_pusherror:753 result:string
+launcher_theme_pushicon:754 installed:string
+launcher_diy_cus_done:757 num:int iswp:bit refer:byte sucess:bit
+launcher_diy_cus_post:758 class:byte sucess:bit
+launcher_diy_cus_apply:759 class:byte refer:byte
+launcher_themely_login:783 inlet:byte source:byte
+launcher_menu_adpic_time:784 value:int
+launcher_menu_addata_time:785 value:int
+launcher_wea_card_time:789 value:int64
+launcher_wea_cardpic_time:790 value:int64
+launcher_wea_carddata_time:791 value:int64
+launcher_wea_card_close:792 themeid:string
+launcher_wea_card_click:793 themeid:string
+launcher_wea_card_show:794 themeid:string
+launcher_allapps_add:795 themeid:string
+launcher_menu_card_close:796 value:byte themeid:string
+launcher_badge_click:797 value:byte
+launcher_badge_more:798 value:bit
+launcher_badge_mms:799 value:bit
+launcher_badge_dialer:800 value:bit
+launcher_badge:801 value:bit
+launcher_dock_name:802 value:bit class:bit
+launcher_themely_logout:805 provider:byte result:byte uid:string clktime:int
+launcher_themely_login_show:807 inlet:byte click:byte result:byte auto:bit uid:string
+launcher_themely:808 inlet:byte uid:string
+launcher_themely_personal:809 click:byte tab:byte result:byte uid:string tuid:string position:int
+launcher_themely_ucenter_set:810 click:byte uid:string result:byte
+launcher_themely_ucenter:811 click:byte primarytab:byte uid:string result:byte position:int
+launcher_themely_detail:812 click:byte result:byte diyid:string tuid:string uid:string
+launcher_themely_shareguide:813 click:byte diyid:string uid:string
+launcher_themely_diy:814 click:byte status:byte uid:string result:byte
+launcher_themely_report:815 click:byte uid:string tuid:string diyid:string status:byte result:byte
+launcher_themely_comment:817 click:byte status:byte uid:string tuid:string result:byte
+launcher_themely_follow:819 click:byte inlet:byte
+launcher_themely_share:820 click:byte uid:string diyid:string detailname:string
+launcher_themely_like:821 click:byte inlet:byte diyid:string
+launcher_themely_download:822 class:bit uid:string tuid:string diyid:string downloadcount:int status:byte
+launcher_themely_guide:824 click:byte uid:string
+launcher_themely_selfie1:825 click:byte primarytab:byte uid:string position:int
+launcher_themely_rule:826 class:byte result:byte uid:int
+launcher_themely_refresh:827 action:byte position:byte uid:string result:byte
+launcher_themely_apply_result:828 result:byte diyid:string
+launcher_diy_cus_back:830 class:byte op:byte stype:byte
+launcher_diy_cus_guide:831 class:byte isclk:bit
+launcher_diy_cus_ic_edit:833 class:byte sid:int num:int refer:byte
+launcher_diy_cus_ic_pre:834 class:byte name:string refer:byte
+launcher_diy_cus_contest:835 class:byte
+launcher_themely_download_result:837 result:byte diyid:string
+launcher_diy_mode:838 class:byte refer:byte
+launcher_diy_cus_wallpaper:839 class:byte refer:byte
+launcher_theme_iconout:840 action:byte
+launcher_menu_adcard_time:841 value:int name:byte
+launcher_app_check:842 result:byte
+launcher_app_checktime:843 ask:int local:int get:int analy:int arran:int sum:int
+launcher_push_show:844 pushid:int64 way:byte
+launcher_push_click:845 pushid:int64 way:byte
+launcher_push_disappear:846 pushid:int64 way:byte method:byte
+launcher_app_pushicon:847 iconid:int64 appname:string class:int
+launcher_setting_show_themes_gallery:848 value:byte
+launcher_menu_tarot_theme_click:849 value:byte
+launcher_menu_tarot_theme_display:850 value:byte
+launcher_menu_tarot_click:851 value:byte position:byte
+launcher_menu_tarot_show:852 value:byte
+launcher_menu_banner_show:853 value:byte number:byte
+launcher_menu_banner_display:856 value:byte number:byte
+launcher_cold_start_in:858 clktime:int
+launcher_cold_start_click:859 clktime:int value:bit
+launcher_menu_banner_click:862 value:byte themeid:string position:byte
+launcher_menu_tarot_theme_show:863 themeid:string
+launcher_menu_tarot_theme_preview:864 value:byte themeid:string
+launcher_theme_albums_in:865 name:string way:byte wayid:short showbanner:int xy:int action:byte
+launcher_theme_detail:866 click:byte pkgname:string open:byte inlet:byte clktime:int ufrom:int64 target:int64 recommendname:string
+launcher_charge_card:868 value:byte
+launcher_charge_promot:869 value:byte
+launcher_charge_ad_all:872 iscallback:byte adtype:byte
+launcher_setting_activate_screensaver:875 value:byte
+launcher_setting_screenlooping:876 value:bit
+launcher_wallpaper_big_click:877 click:byte tab:byte clktime:int wid:int done:byte themeid:string albumid:string
+launcher_livewp_using:879 pkgname:string
+launcher_balloon_search:887 display:byte click:byte
+launcher_balloon_keyword:888 value:byte title:string
+launcher_balloon_content_show:890 card_type:byte card_id:string
+launcher_balloon_content_click:891 card_type:byte
+launcher_boost_bigcard_click:896 click:int class:byte stay:short
+launcher_adSDK_GetAD:906 value:byte
+launcher_allapps_luckyjar_click:908 value:byte
+launcher_theme_search:912 begin:byte click:byte keyword:string back:byte result:int64
+launcher_setting_bottom:913 value:bit
+launcher_admob_stat:914 pos:byte event:byte
+launcher_setting_icon:917 value:bit
+launcher_screensaver_state:918 clktime:int cloud_state:bit local_state:bit
+launcher_boost_bigcard_show:919 class:byte way:bit name:string
+launcher_boost_bigcard_close:920 way:byte stay:short class:byte
+launcher_themepush_click:922 pushid:int themepn:string clktime:int
+launcher_themepush_remove:923 pushid:int themepn:string clktime:int
+launcher_setting_icon_size:925 value:byte
+launcher_crash:926 class:byte value:byte filename:string crashver:int process:string
+launcher_balloon_delete:927 value:byte class:string
+launcher_balloon_state:928 value:byte class:string
+launcher_balloon_display:929 value:byte class:string
+launcher_app_click:933 appname:string class:string screenid:byte position:byte clktime:int vercode:int value:bit
+launcher_themepush_show:935 pushid:int themepn:string clktime:int push_show:byte fail:byte has_main:byte
+launcher_themepush_get:936 pushid:int themepn:string filter:byte
+launcher_theme_dt:937 dtshow:byte themelist:string
+launcher_theme_dtclick:938 click:byte
+launcher_locker_popup_bug:939 class:byte
+launcher_screensaver_evaded:942 stage:bit product:string uptime2:int
+launcher_charge_popup:945 act_state:byte value:byte
+launcher_screensaver_refresh:951 cur_ver:int old_ver:int
+launcher_theme_kp:952 kpshow:bit click:byte
+launcher_lwp_rate_guide:953 click:byte
+launcher_allapps_luckyjar_show:954 class:byte
+launcher_allapps_recent:956 appname:string position:byte class:byte way:byte value:byte
+launcher_allapps_duration:957 stay:byte way:byte value:byte
+launcher_allapps_newapp:958 position:byte value:byte
+launcher_allapps_click:960 appname:string clktime:int vercode:int way:byte class:byte
+launcher_allapps_more:961 value:byte
+launcher_theme_applock:964 clicktab:byte showtheme:byte clicktheme:byte
+launcher_wallpaper_detail:965 event:byte
+launcher_setting_default_notification:966 value:byte class:bit
+launcher_locker_noticecard:967 notice_service:bit
+launcher_locker_state:971 cloud:bit local:bit notice:bit privacy:bit
+launcher_locker_disable:972 value:byte
+launcher_wallpaper_tab:973 tab:byte inlet:byte clktime:int ufrom:int64 target:int64
+launcher_theme_launch_click:975 themename:string clickxy:int clktime:int
+launcher_theme_launch_show:976 clktime:int showtype:byte
+launcher_news_guide:977 event:bit
+launcher_wallpaper_kp:978 kpshow:bit click:byte
+launcher_file_mobvista_ad:979 uptime2:int value:int preload:int adload:int preloadtime:int loadtime:int
+launcher_market_mobvista_ad:980 uptime2:int value:int preload:int adload:int preloadtime:int loadtime:int
+launcher_charge_show:982 ad_state:byte show_type:byte
+launcher_charge_return:983 failed:int64 ad_type:byte
+launcher_theme_adSDK_LoadAD:985 value:byte themeid:string
+launcher_theme_adSDK_ReturnAD:986 value:byte themeid:string result:byte loadtime:int
+launcher_theme_adSDK_showAD:987 class:byte value:byte themeid:string
+launcher_theme_adSDK_clickAD:988 click:byte class:byte themeid:string
+launcher_theme_installedguide:989 action:byte apptype:byte pkgname:string
+launcher_config_start:990 errorcode:string loadtime:int adtypename:string posid:string
+launcher_config_success:991 errorcode:string loadtime:int adtypename:string posid:string
+launcher_config_fail:992 errorcode:string loadtime:int adtypename:string posid:string
+launcher_load_start:993 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_get_config_null:994 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_load_start_fail:995 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_load_ad_start:996 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_load:998 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_loaded_from_cache:999 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_get_ad_success:1000 errorcode:string ad_index:string loadtime:int adtypename:string posid:string
+launcher_loaded:1001 errorcode:string is_preload:bit ad_index:string loadtime:int adtypename:string posid:string
+launcher_loadfail:1003 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_load_ad_success:1004 errorcode:string is_preload:bit ad_load_times:string loadtime:int adtypename:string posid:string
+launcher_load_ad_fail:1005 errorcode:string is_preload:bit loadtime:int adtypename:string posid:string
+launcher_charge_request:1009 class:byte
+launcher_onetap_ad:1013 uptime2:int ad_allowed:int show_result:int deny_reason:int fail_reason:int ad_type:int value:int
+launcher_wallpaper_pro:1015 value:byte
+launcher_pro_start:1016 value:byte
+launcher_setting_pro_moreapps:1017 open:byte class:byte
+launcher_setting_pro_aroundapps:1018 open:byte class:byte
+launcher_setting_updatepro:1019 click:byte
+launcher_menu_pro:1020 action:byte
+launcher_news_pro:1021 action:byte
+launcher_isslide_operate:1022 uptime2:int isslide:byte
+launcher_file_mobvista_native_ad:1024 uptime2:int value:int filetype:string pickscount:int mobcount:int result:int
+launcher_stop_over_time:1025 uptime2:int stop_over_time:int
+launcher_gamedate:1026 uptime2:int entrance:int finish_data:int
+launcher_gameError:1027 uptime2:int error_data:int
+launcher_charge_firstshow_info:1029 uptime2:int battery_info:int ad_info:int
+launcher_charge_ads_cache_info:1030 uptime2:int64 load_type:int scene:int isrequest:int fb_h:byte fb_l:byte picks:byte ab_h:byte ab_b:byte
+launcher_pro_desktop_gesture:1031 value:byte
+launcher_gesture_setup_open:1032 way:byte
+launcher_gesture_setup_click:1033 value:byte class:byte
+launcher_gesture_cmlchoose:1034 value:byte
+launcher_toast_ad:1036 uptime2:int ad_allowed:int show_result:int deny_reason:int fail_reason:int ad_type:int value:int
+launcher_allapps_longclick:1037 appname:string value:byte class:byte
+launcher_charge_video_details:1039 uptime2:int download_time:int is_download:bit video_size:int request_result:byte
+launcher_charge_video_ad_show:1040 uptime2:int show_time:short total_time:short is_done:bit resource:int is_click:bit end_type:int
+launcher_adSDK_clickAD:1045 click:byte title:string class:byte
+launcher_search_ad:1047 class:byte value:byte
+launcher_notice_resultpage_ads:1048 uptime2:int value:int adtype:int show_result:int fail_reason:int
+launcher_notice_mob_ads:1049 uptime2:int value:int preload:int
+launcher_pro_check:1050 class:byte
+launcher_is_pro:1051 pro:byte
+launcher_cmc_active:1053 cmc_action:byte ui_style:byte ui_change:byte total_duration:int source:byte s_touched:byte
+launcher_cmc_notification:1054 scenario:byte action_type:byte notify_num:byte
+launcher_cmc_avoid:1058 screensaver:byte lockerinstalled:byte cminstalled:byte kbdinstalled:byte cmsinstalled:byte disable:byte disable_time:int
+launcher_cmc_ogc_sdk_content_operation:1059 content_id:string category_id:int card_type:byte card_order:int operation:int user_label:byte keywords_pop:string copyright:byte version:byte click_edge:int
+launcher_cmc_ogc_sdk_list_operation:1060 operation:byte read_duration:int user_label:byte version:byte
+launcher_cmc_ogc_sdk_detail_operation:1061 result_way:short content_id:string operation:int read_duration:int user_label:byte related_news_source:string card_type:byte like_click:short related_news:byte category_id:int version:byte copyright:byte
+launcher_cmc_ogc_sdk_volleyerror:1062 interface:int error_code:byte network:byte ping:bit statuscode:int url:string server_ip:string extra:string
+launcher_cmc_ogc_sdk_netdetail:1063 optype:int url:string exec_time:int err_type:int err_code:int err_info:string net_name:string net_status:int
+launcher_cmc_ogc_sdk_load:1064 page_type:byte operation:byte result:byte
+launcher_noti_intercept:1065 pn:string action:byte pagetype:byte uptime2:int pnid:string pntag:string
+launcher_mob_files_adnew:1070 uptime2:int files_ad:int loadpicks:int loadmob:int timeout:int ad_num:int
+launcher_files_ad_click:1071 uptime2:int ad_num:int value:int
+launcher_isslide_operate_new:1072 uptime2:int isslide:string
+launcher_noti_switch:1073 source:byte action:byte enter_state:byte exit_state:byte abtest:byte enter_sd_state:byte exit_sd_state:byte uptime2:int
+launcher_start_def_open:1075 value:byte
+launcher_charge_act:1082 uptime2:int resorce:byte notice_service:byte locker_setting:bit charge_setting:bit charge_type:byte if_news:byte
+launcher_charge_cache:1083 cache_type:string expired:byte charge_type:byte
+launcher_charge_ads_request:1089 uptime2:int requesttype:byte requestresult:byte charge_type:byte
+launcher_adSDK_LoadAD:1091 value:byte
+launcher_charge_cache_passive:1092 uptime2:int cache_type:string expired:int charge_type:int
+launcher_adSDK_ReturnAD:1093 value:byte result:byte
+launcher_adsdk_showad:1094 class:byte value:byte title:string
+launcher_get_ad_fail:1095 errorcode:string loadtime:int adtypename:string posid:string
+launcher_get_ad:1096 errorcode:string loadtime:int adtypename:string posid:string
+launcher_wea_loc_reason:1098 value:byte
+launcher_newsapp_lan:1101 declared_lan:string sys_lan:string
+launcher_charge_ads_new:1103 uptime2:int ad_type:int ad_state:int resorce:int if_news:int charge_type:int resource1:byte
+launcher_charge_iab_info:1104 uptime2:int source:byte webview:byte delay_time:int
+launcher_screen_layout:1106 gridcount:byte origingrid:byte
+launcher_theme_keyboard:1109 clicktab:bit
+launcher_theme_keyboard_click:1110 appname:string
+launcher_locker_cache:1112 cache_type:string expired:byte value:byte
+launcher_locker_request_ads:1113 class:byte value:byte
+launcher_locker_show_ads:1114 ad_state:byte ad_type:byte value:byte
+launcher_block_locker:1115 isblock:byte
+launcher_charge_ads:1117 uptime2:int ad_type:byte ad_state:byte resorce:byte info_num:byte placementid:byte ad_showed:byte ad_priority:byte wait_time:int card_type:byte
+launcher_locker_display:1118 notice:bit notice_permission:bit locker_setting:bit charge_setting:bit way:bit
+launcher_locker_enter:1119 enter:byte enter_time:byte
+launcher_locker_out:1120 back:byte stay_time:int
+launcher_locker_wea:1121 act:byte
+launcher_locker_app:1122 act:byte name:string
+launcher_locker_wpp:1123 display:byte
+launcher_locker_wppin:1124 act:byte wppid:string
+launcher_locker_wpp_click:1125 wppid:string
+launcher_locker_news:1126 display:int
+launcher_locker_news_click:1127 click:byte title:string
+launcher_wea_request:1128 result:byte
+launcher_twc_logo_click:1129 click:byte
+launcher_locker_wea_show:1130 display:byte
+launcher_locker_app_show:1131 display:byte
+launcher_newsscreen_tab:1132 class:byte tab_name:string
+launcher_news_sdk_detail_stay:1133 position:byte value:int tab_name:byte
+launcher_news_sdk_flow_click:1134 class:byte position:byte info:byte tab_name:byte
+launcher_news_sdk_flow_show:1135 position:byte value:int news:short ads:short tab_name:byte
+launcher_news_sdk_info:1136 info:byte position:byte op:byte tab_name:byte
+launcher_news_sdk_start_stay:1137 position:byte value:int tab_name:byte
+launcher_newsscreen_display:1139 value:byte
+launcher_newsapp_click:1140 class:byte value:byte
+launcher_newsapp_tab:1141 class:byte tab_name:string
+launcher_charge_news:1142 display:int
+launcher_charge_news_click:1143 click:byte title:string
+launcher_charge_swipe_ads:1144 display:byte click:byte
+launcher_menu_card_click:1145 corder:byte
+launcher_menu_card_show:1146 num1:int num2:int
+launcher_menu_dismiss:1147 result:byte value:byte times:int
+launcher_menu_ad:1148 class:byte
+launcher_menu_card_pic_load:1149 result:bit
+launcher_wea_detail_click:1150 area:byte
+launcher_noti_authorize:1152 source:byte
+launcher_allapps_search_ads_click:1154 class:byte
+launcher_luckybox_page:1155 action:byte source:byte
+launcher_noti_guide_push:1156 action:byte
+launcher_noti_guide_page:1157 action:byte source:byte
+launcher_allapps_search_words_show:1158 value:byte num:byte source:byte
+launcher_allapps_search_ads_show:1160 value:byte class:byte num:byte
+launcher_allapps_search_words_click:1161 keyword:string value:byte color:byte position:byte
+launcher_newslist_ads_show:1162 class:byte value:byte source:string scene:byte
+launcher_noti_clean_card_show:1163 num:int
+launcher_noti_clean_card_click:1164 corder:int
+launcher_wea_ad_request:1167 success:bit
+launcher_wea_ad_card:1168 action:byte success:byte
+launcher_desktop_setwallpaper:1170 action:byte settime:string
+launcher_theme_kbkp_show:1171 show1:bit
+launcher_theme_kbkp_clk:1172 clktype:byte
+launcher_wallpaper_choice:1173 choice:byte
+launcher_wppre_enter_showad:1174 adshow:byte
+launcher_wppre_enter_clickad:1175 click:byte
+launcher_start_json_pull:1176 time_:string
+launcher_widget_3dclock:1177 click:byte display:byte
+launcher_notification_reminder:1179 apptype:byte
+launcher_locker_popup:1180 class:byte act:byte value:byte context:byte
+launcher_wallpaper_popup:1181 act:byte
+launcher_wallpaper:1183 inlet:byte pushid:string clktime:int
+launcher_allapps_search_webview:1186 click:byte
+launcher_diycenter_godiycenter_click:1187 click:byte
+launcher_diycenter_display:1188 display:byte
+launcher_diycenter_click:1189 click:byte
+launcher_diycenter_morediy_display:1190 display:byte
+launcher_diycenter_morediy_click:1191 click:byte
+launcher_diycenter_godiycenter_display:1192 display:byte
+launcher_themely_display:1193 display:byte
+launcher_themely_click:1194 click:byte
+launcher_games:1195 inlet:byte targettab:byte
+launcher_games_click:1196 tab:byte gameid:int name:string
+launcher_games_dismiss_ftab:1197 maxpage:int
+launcher_games_dismiss_ltab:1198 maxpage:int
+launcher_games_ad_action:1199 action:byte tab:byte
+launcher_ads_action:1200 posid:string ad_source:string ad_placementid:string ad_pkgname:string stay_days:short
+launcher_gcm_test:1201 regid:string
+launcher_locker_ads_info:1202 offer_name:string ad_type:byte
+launcher_charge_ads_info:1203 offer_name:string ad_type:byte
+launcher_theme_deeplink_display:1204 display:byte
+launcher_theme_deeplink_click:1205 click:byte
+launcher_market:1206 inlet:byte targettab:byte
+launcher_market_bigcard:1207 action:byte tab:byte
+launcher_market_smallcard_click:1208 tab:byte
+launcher_market_ad_request:1209 adtype:byte request:int response:int
+launcher_applock_enable:1210 cloud:bit value:bit class:bit
+launcher_applock_coexist:1211 value:bit
+launcher_applock_setting:1212 click:byte
+launcher_applock_display:1213 stay:byte app_name:string class:byte value:byte
+launcher_applock_forget_popup:1214 value:byte
+launcher_applock_start:1215 value:byte
+launcher_applock_permit_popup:1216 value:byte
+launcher_applock_enable_popup:1217 value:byte
+launcher_locker_data_popup:1219 act:byte
+launcher_locker_image:1220 display:byte num_view:byte num_total:byte stay:int act:byte result:byte
+launcher_locker_setting:1222 click:byte result:byte status:byte
+launcher_locker_img_request:1223 data_use:byte
+launcher_locker_act:1224 act:byte info_num:byte
+launcher_Resultpage_Notification_ad:1225 uptime2:int action:byte
+launcher_notification_fullscreen_result:1226 uptime2:int action:byte
+launcher_search_games_click:1227 gameid:int name:string
+launcher_search_games_close:1228 drug:byte
+launcher_search_games_adaction:1229 action:byte
+launcher__negativescreen_display:1230 value:byte action:byte
+launcher_negativescreen_guide:1231 event:byte
+launcher_negativescreen_tab:1232 event:byte
+launcher_resultpage_negativescreen:1233 display:byte
+launcher_resultpage_negativescreen_ad:1234 uptime2:int value:int adtype:int show_result:int fail_reason:int
+launcher_wifiboost_hide:1236 hide:byte
+launcher_wifiboost_click:1237 click:byte
+launcher_wifiboost_scan:1238 scan:byte
+launcher_wifiboost_boost:1239 boost:byte
+launcher_wifiboost_connect:1240 click:byte
+launcher_wifiboost_settings:1242 settings:byte
+launcher_wifiboost_ignored:1243 appname:string
+launcher_wifiboost_ig_remove:1244 appname:string
+launcher_wifiboost_apps_add:1245 appname:string
+launcher_setting_boost_ad:1246 click:int
+launcher_lock_boost_ad:1247 click:int
+launcher_date_usage:1248 intervalcnt:int m_reception:int total_reception:int m_send:int total_send:int
+launcher_wifiboost_con_state:1249 value:byte
+launcher_mem_info:1252 total_mem:int free_mem:int pross_name:byte process_pss:int process_javapss:int process_grappss:int
+launcher_3D_battery:1253 display:byte click:bit more:byte
+launcher_load_time:1254 fun_name:byte load_time:int
+launcher_luckybox_pull_theme:1255 pv:int action:byte
+launcher_luckybox_result:1256 display:byte click:byte
+launcher_YouTube_popup:1257 act:byte
+launcher_mem_new:1258 pross_name:byte maxheapmem:int64 availheapmem_start:int availheapmem_end:int totalheapmem_start:int totalheapmem_end:int dalvikpss_start:int dalvikpss_end:int nativepss_start:int nativepss_end:int otherpss_start:int otherpsss_end:int
+launcher_noti_act_svr:1259 first_act_time:string exist_days:byte act_type:byte
+launcher_noti_main:1260 source:byte action:byte
+launcher_state_times:1262 process_name:byte process_state:byte ss_time:byte
+launcher_locker_keep_alive:1263 act:byte emit_result:byte emit_state:byte emit_time:string
+launcher_locker_applock_limit:1264 formwork_limit:byte from_limit:byte
+launcher_locker_applock_select_app:1265 select_appname:string user_action:byte user_from:byte
+launcher_locker_applock_function:1266 select_function:byte user_action:byte user_from:byte
+launcher_locker_applock_pv:1267 applock_appname:string applock_pv:byte
+launcher_locker_applock_pv2:1268 appname:string staytime:short unblock:byte
+launcher_locker_applock_switch:1269 select_function:byte user_action:byte user_from:byte
+launcher_locker_auto_clean:1270 clean_number:byte
+launcher_locker_boost_jump:1271 behavior:byte secondary_click:byte set_password_page:byte
+launcher_locker_camera_switch:1272 action:byte is_from:byte
+launcher_locker_intruder_emailsucc:1273 failreason:byte isstatus:byte
+launcher_locker_intruder_photolist:1274 isfrom:byte photonumber:int
+launcher_locker_intruder_photolist_click:1275 clickposition:byte
+launcher_locker_intruder_rate_show:1276 intruder_rate_show:byte
+launcher_locker_intruder_selfie:1277 access:byte city:string country:string envelope_click:bit envelope_show:bit incorrect_time:byte is_mail:bit is_save:bit is_slide:bit lat:string lnt:string photo_num:short province:string user_action:byte
+launcher_locker_intruder_takephoto:1278 photo_type:byte take_time:short
+launcher_locker_lock_click:1279 all_lighten:short atuo_lighten:short camera_time:short music_time:short password:short slide_down:short slide_left:short tool_time:short unlock_time:short weather_tap:short
+launcher_locker_message_reply_new:1280 act:byte appname:string if_groupchat:byte if_replied:byte if_soundon:byte message_mode:byte message_num:byte noshowreason:byte replyfail_reason:byte replypage_staytime:string reply_text:byte screen_staytime:string send_time:string showtype:byte source:byte
+launcher_locker_music_click:1281 ad_cloud_ctrl:byte music_button_click:byte music_click:bit music_name:bit music_photosize:string music_picture:bit music_style:bit music_type:byte singer_name:bit uptime2:int
+launcher_locker_music_switch:1282 action:byte
+launcher_locker_negativescreen_new:1283 act:byte appname:string chargemaster:byte contact_num:byte message_mode:byte message_num:int message_sent:byte screen_staytime:string showcontact:byte
+launcher_locker_notice_app_userchoose:1284 app_ver:int c_type:byte pn:string uptime2:int
+launcher_locker_notice_custom_block:1285 appname:string click:byte
+launcher_locker_notice_custom_style:1286 color:byte transparency:byte updatetime:byte
+launcher_locker_notice_custom_tap:1287 action:byte appname:string
+launcher_locker_notice_special:1288 operate:byte showtime:int tye:byte
+launcher_locker_one_notice:1289 app_name:string default_show:bit head:bit is_guide_message:bit manual_show:bit notice_from:byte notice_num:short notice_number:byte notice_service:bit notice_time:int position_number:byte slide_click:byte sys_notice:byte
+launcher_locker_password_security:1290 act:byte questiontype:byte usertype:byte
+launcher_locker_password_set:1291 access:byte android5:bit click_tip:bit is_success:bit password_type:byte set_now:bit
+launcher_locker_pocket_status:1292 is_inout:byte screen_on:byte showtips:byte
+launcher_locker_Secondary_drive:1293 impressions:byte pull_click:byte pull_name:string
+launcher_locker_toolbox_notification:1294 is_from:byte permissions_check:byte
+launcher_locker_toolbox_wallpape:1295 image_action:byte image_id:int
+launcher_locker_toolplus:1296 appwall:byte bluetooth:int calculator:int camera:int clean:int data:int direction:int enable_music:int feedback:int flashlight:int handbright:int music_left:int music_midle:int music_name:int music_right:int night_shift:int switch_player:int system_set:int toolbox_set:int toolplus_type:byte volume:int wifi:int windmill:byte
+launcher_locker_tool_music:1297 player_enable:byte
+launcher_admob_popup:1298 act:byte
+launcher_locker_security_message:1299 message_jump:byte news_results:byte
+launcher_locker_security_find_function:1300 open_web:byte login:byte select_function:byte success_failure:byte response_time:int
+launcher_locker_mobvista_load:1303 adload:int loadtime:int page:byte uptime2:int
+launcher_locker_mobvista_show:1304 pv:int uptime2:int page:byte
+launcher_locker_state_new:1306 cloud:bit local:bit notice:bit privacy:bit cloud2:bit local2:bit
+launcher_locker_mobvista_installs:1307 install:int uptime2:int
+launcher_locker_ad_preload:1308 act:byte ad_seat:byte preload_start:string preload_time:string preload_type:byte cache_type:byte
+launcher_popup_channel:1309 channel:string act:byte
+launcher_cold_start_waiting:1310 intime:int outtime:int way:byte starttime:int
+launcher_contacts:1311 action:byte
+launcher_recents:1312 action:byte
+launcher_contacts_search:1313 inlet:byte
+launcher_contacts_details:1315 action:byte
+launcher_contacts_clean_done:1316 ctype:byte num:int
+launcher_recents_keypad:1317 action:byte
+launcher_contacts_theme:1318 inlet:byte action:byte
+launcher_contacts_theme_detail:1319 action:byte
+launcher_contacts_block:1320 action:byte
+launcher_settings_contacts:1321 isblocked:bit
+launcher_contacts_permissions:1322 ptype:byte
+launcher_contacts_switch:1323 action:byte
+launcher_contacts_new_dialog:1324 inlet:byte action:byte
+launcher_wallpaper_big:1325 class:byte wid:int tab:byte inlet:byte clktime:int albumid:string xy:int islwp:bit orientation:bit
+launcher_wallpaper_set:1326 result:bit wid:int value:int tab:byte clktime:int act:byte orientation:bit
+launcher_locker_set:1327 about_button_click:bit activate_click:bit all_wakescreen_apps:int autolocktime:byte autoscreenoff_on:byte autoscreenoff_show:byte auto_set:byte bg_name:string changebg:bit charging_effect_click:bit clean_app:byte close_lock:bit down_notibar:bit dual_time:bit fb_button_click:bit feedback_button_click:bit frist_click:bit frist_set_click:bit frist_wallpaper_click:byte fullscreen_click:bit g_button_click:bit home_location:bit home_locker_bg:bit individuation_button_click:bit is_intruder_open:bit is_mail_send:bit is_photo_save:bit is_tts:bit light_button_click:bit like_button_click:bit location_set:bit lock_button_click:bit lock_look:bit lock_mode_click:byte lock_shock:bit main_button_click:bit miui_button_click:bit miui_set:bit motion_click:bit new_user:bit notice_button_click:bit notice_click:bit notice_disable:byte notice_type:byte password_style:byte privacy_button_click:bit selected_wakescreen_apps:int share_button_click:bit sound_click:bit sys_lock:byte temperature_click:bit time_colour_set:byte time_formart_click:bit time_set:bit timing_set:bit traffic_click:bit trust_click:bit tts_disable:bit update_button_click:bit wallpaper_click:byte weather_button_click:bit weather_status_click:bit weather_unit:bit
+launcher_locker_set2:1328 app_lock_timing:byte autolocktime:byte auto_change_wallpaper:bit auto_change_wallpaper_new:byte balloon:byte battery_button_click:byte bg_name:string close_lock:bit current_search_engine:byte default_search_engine:byte down_notibar:bit dual_time:bit home_location:bit home_locker_bg:bit huawei_click:byte huawei_set:bit is_intruder_open:bit is_mail_send:bit is_new_user:int is_photo_save:bit is_tts:bit light_button_click:bit location_set:bit new_user:bit notice_button_click:bit notice_disable:byte notice_ver:byte password_style:byte privacy_button_click:bit search_bar:byte security_set:bit sys_lock:byte tts_disable:bit wallpaper_animation:bit weather_unit:bit
+launcher_locker_set3:1329 guide_click:bit guide_show:bit night_shift:byte night_shift_time_1:int night_shift_time_2:int report_type:byte topright_click:bit unlockmode_click:bit unlockmode_current:byte unlockmode_default:byte unlocksettings_click:bit
+launcher_locker_newset:1330 locker_enable:bit chargemaster_enable:bit action:byte
+launcher_contacts_create:1331 photo:bit phonenum:int custlable:bit
+launcher_gcm_show:1335 class:byte pushid:string clktime:int position:byte
+launcher_gcm_click:1336 class:byte pushid:string clktime:int position:byte
+launcher_locker_splash:1337 act:byte source:byte wallpaper_type:byte
+launcher_locker_enable_pop:1338 act:byte pop_time:byte pop_type:byte
+launcher_contacts_switch_dialog:1343 action:byte
+launcher_contacts_ui:1344 uitype:byte
+launcher_jiasuqiu:1348 newstyle:int isnew:int active:int
+launcher_start_locker_guide:1349 act:byte display:byte
+launcher_file_request:1352 uptime2:int load_status:byte
+launcher_file_active:1353 uptime2:int ad_active:byte isnew:byte
+launcher_locker_imitate_notfixs:1356 allinfo:string api:byte coincide:byte isacdata:byte isnew:byte isnotify:byte isrule:byte rominfo:string
+launcher_locker_imitate_repair:1357 auth_repall:byte cameraacc:byte dataacc:byte notifyacc:byte othertype:string rtime:int selfstart:byte syslockcls:byte windowacc:byte
+launcher_locker_repair_fixscode:1358 errcode:byte errinfo:string
+launcher_locker_repair_resourceid:1359 button1:string button2:string failtype:byte usecnt:short
+launcher_dump_time:1360 upload_time:int process_name:byte
+launcher_mem_leakcanary:1361 realleak:byte process_name:byte switch_value:short class_name:string max_heap_mem:int current_heap_mem:int dump_time:int
+launcher_locker_antitheft_click:1362 display_source:byte press_help:byte success_failure:byte user_action:byte
+launcher_locker_facebook_fitness:1363 email:byte login_status:byte public_profile:byte user_friends:byte
+launcher_locker_one_tap_protect:1364 access_permit:byte change_app:byte click_one_tap:byte fix_finish:byte other_applock:byte scan_time:short scan_upslide:byte screen_lock:byte set_password:byte set_password_click:byte shoot_rule:byte show_details:byte show_one_tap_btn:byte user_from:byte
+launcher_locker_one_tap_show:1365 reason:byte show_one_tap:byte
+launcher_locker_imitate_click:1367 auth_code:byte auth_errcode:int auth_failcode:byte auth_type:byte fixclick:byte fxitime:int
+launcher_locker_ad_new:1370 act:byte ad_priority:string ad_seat:byte ad_sort:byte ad_type:byte charging:byte clean_reason:byte client_time:int64 hour_time:byte loading_time:int64 newsad_type:byte notask_reason:int notshow_reason:int request_fail_reason:int request_time:int64 re_priority:byte total_time:int64
+launcher_onetap_test:1372 user_type:byte act:byte
+launcher_onetap_test2:1373 if_onetap:byte notfix_reason:int
+launcher_locker_sefile_mail_photos:1374 gps:bit p_size:short
+launcher_locker_sefile_mail_send:1375 gps:bit p_size:short
+launcher_upgrade_onetap_pop:1376 act:byte
+launcher_locker_second_pull_protect:1377 click_case:byte click_source:byte guide_type:byte use_from:byte
+launcher_new_enter:1380 action:byte uptime2:int
+launcher_default_state:1381 source:short uptime2:int defstate:byte
+launcher_locker_instruder_create:1384 reason:string act:byte
+launcher_file_ads:1385 uptime2:int isnew:byte filetype:byte res:byte active:byte
+launcher_mutil_launcher:1386 occur_time:byte
+launcher_autochange_wallpaper:1388 if_3d:bit if_locker:bit if_repair:bit act:byte load_time:int64
+launcher_cp_click:1389 ctype:byte
+launcher_cplist_empty:1390 etype:byte
+launcher_active:1391 gaid:string vga:string dpi:string cores:byte mem:short value:byte way:bit wallpaper:byte screen:string default_launcher:byte romname:string lockscreen:byte password:byte systemlock:byte
+launcher_locker_unlocktime:1392 unlocktime:string unlocktype:byte
+launcher_video_negative_cards:1393 isshow:byte click:byte list:byte
+launcher_video_negative_deckstop:1394 active:byte staytime:int isshow:byte
+launcher_gp_broadcast_time:1395 multidex_time:int gp_time:int
+launcher_negativescreen_performance:1398 action:byte
+launcher_negativescreen_contact:1399 display:byte action:byte
+launcher_negativescreen_calendar:1400 action:byte
+launcher_negativescreen_toolbar:1401 action:byte
+launcher_negativescreen_setting:1402 performance_center:byte favorite_contacts:byte calendar:byte toolbar:byte
+launcher_default_guide:1404 action:byte source:byte
+launcher_setting_default_for_oppo_result:1405 result:byte
+launcher_locker_location_gpadd:1406 getadd:byte getlatitude:string getlongitude:string gpadd:string ipinfo:string port_type:byte seradd:string
+launcher_locker_location_result:1407 firsttime:byte getlatitude:string getlongitude:string getresult:byte gettype:byte isgps:byte islocation:byte isservice:byte network:byte port_type:byte
+launcher_locker_weather_card:1408 action:byte card_type:byte flow_num:byte hours:byte lock_type:byte noti_access:byte port_type:byte source:byte uptime2:int
+launcher_locker_weather_content:1409 citycode:string contuptime:int fl:byte forecast:byte hourly_forecast:byte port_type:byte p_mb:byte rh:byte sr:byte ss:byte th:byte tl:byte tn:byte uptime2:int uvi:byte wc:byte wd:byte ws:byte
+launcher_locker_weather_enter:1410 enter_from:byte
+launcher_locker_weather_leave:1411 ad_prority:byte ad_show_count:int ad_show_statu:byte ad_type:byte fb_installed:byte isfrom:int network:byte port_type:byte staytime:short
+launcher_locker_weather_update:1412 failurereason:byte failurereturn:string firsttime:byte getcontent:byte port_type:byte updatestatus:byte uptime2:int
+launcher_locker_weather_upslide:1413 isaction:byte port_type:byte
+launcher_unlock_success:1414 unlock_success:byte
+launcher_if_locker:1415 if_locker_open:bit
+launcher_mlive_notification:1416 source:byte act:byte
+launcher_startpage:1417 action:byte stage:byte
+launcher_notice_clean_ad:1423 action:byte
+launcher_startpage_mediation_ad:1424 fail_reason:short
+launcher_notice_clean_mediation_ad:1425 fail_reason:short
+launcher_startpage_active:1426 status:byte usertype:byte
+launcher_startpage_action:1427 action:byte pagetype:byte showtime:string
+launcher_startpage_cardshow:1428 action:byte cardtype:byte showtime:string
+launcher_auto_battery_switch:1430 status:byte
+launcher_auto_battery_action:1431 action:byte function_type:byte show_type:byte
+launcher_auto_battery_active:1432 status:byte user_type:byte function_type:byte
+launcher_plug_mediation_ad:1434 fail_reason:short
+launcher_HDW_prepics:1437 action:byte display:byte click:byte whichpic:byte
+launcher_file_ads_show:1439 isshow:byte errorcode:byte
+launcher_folder_neitui:1440 open1:byte act:byte themepn:string
+launcher_startpage_request_mediation_ad:1441 request:byte result:byte
+launcher_theme_center_video_display:1445 display:byte
+launcher_theme_center_video:1446 click:byte theme_name:string enter_type:byte tid:string
+launcher_cortana_active:1447 active:byte
+launcher_cortana_in:1448 value:byte
+launcher_cortana_time:1449 stay:int
+launcher_cortana_terms:1450 terms:byte
+launcher_cortana_input:1452 value:byte content:string
+launcher_themes_ad_request:1455 uptime2:int ad_step:byte
+launcher_setdefault_dialogue:1456 dialoguetype:byte action:byte uptime2:int source:short
+launcher_themes_slide:1457 uptime2:int slide:byte
+launcher_themes_detail_active:1458 uptime2:int
+launcher_themes_detail_click:1459 uptime2:int click:byte xy:byte
+launcher_locker_dissystemlock:1460 action:byte password:bit showtype:byte clktime:string
+launcher_locker_dissmartlocker:1461 action:byte password:bit showtype:byte clktime:string
+launcher_locker_menuicon:1462 action:byte clktime:string
+launcher_locker_systemlock_action:1463 action:byte clktime:string
+launcher_themes_ad:1464 uptime2:int res:byte ad_active:byte ad_location:byte
+launcher_themes_detail_slide:1466 uptime2:int slide:byte
+launcher_locker_fingerprint_show:1467 action:byte clktime:string
+launcher_locker_fingerprint_enable:1468 action:byte clktime:string
+launcher_locker_display_new:1469 way:bit charge_setting:bit notice:bit notice_permission:bit display_type:bit password:bit security:bit systemlock:bit fingerprint:byte clktime:string locker_fingerprint:byte
+launcher_default_home_guide:1470 guidetype:byte
+launcher_negative_notes_display:1474 display:byte click:byte num:byte
+launcher_negative_notes_edit:1475 click:byte display:byte
+launcher_negative_notes_list:1476 click:byte num:byte display:byte
+launcher_plug_ad:1479 stage:byte action:byte user:byte
+launcher_startpage_ad2:1483 step:byte
+launcher_plug_ad2:1485 step:byte
+launcher_locker_camera:1486 action:byte appname:string
+launcher_earphone_insert:1487 action:byte
+launcher_syslock_block:1488 action:bit
+launcher_locker_disable_success:1489 action:bit clktime:string
+launcher_syslock_disable_success:1490 action:bit clktime:string
+launcher_menu_guide_display:1491 display:byte
+launcher_menu_guide_click:1492 click:byte
+launcher_locker_main:1493 customtipdisplay:byte lock_mode:byte notice_service:bit ratingdisplay:byte showgamebox:bit showmsgnotify:byte showmusicpannel:byte showwebsite:byte uptime2:int weather:bit wpstate:byte wstate:short unlock_type:byte
+launcher_notice_ad:1494 action:byte stage:byte
+launcher_notice:1495 action:byte stage:byte
+launcher_notice_ad2:1496 step:byte
+launcher_plug_clean:1497 stage:byte anim_time:short
+launcher_allapps_in:1498 way:byte class:byte value:byte default_launcher:byte
+launcher_negativescreen_new:1499 display:byte default_launcher:byte
+launcher_boost_mem_start:1500 num:string default_launcher:byte
+launcher_menu_open:1501 value:byte default_launcher:byte
+launcher_notice_display:1504 display:byte ctype:byte
+launcher_notcie_swi:1506 action:bit
+launcher_theme_set_result:1508 result:byte themeid:string inlet:byte theme_type:byte
+launcher_locker_act_svr2:1509 access_service:byte alarm_display:byte applock:short app_access_permission:byte autostart_service:byte auto_change_wallpaper:byte cm_app:string cube_value:int floatview_service:byte i:int install_time:int locker_checkbox_cloud:byte locker_fingerprint:byte locker_noticleaner_cloud:byte locker_password:byte locker_switch:byte newsmode_type:byte notification_permission:byte ogc_reason:byte ogc_show:byte other_applock:byte page_status:byte resolution:string screenlock:byte screensize:string screen_news:byte show_boostcharge_ad:byte show_music:byte show_notification:byte sys_fingerprint:byte sys_unlock_type:byte theme_id:string virtual_button:byte wallpaper_id:int theme_type:byte unlock_type:byte
+launcher_varietylocker_change_unlock:1510 action:byte themeid:string
+launcher_notice_action:1511 click:byte ctype:byte ctime:string stage:byte
+launcher_theme_ad:1512 action:byte stage:byte
+launcher_theme_ad2:1513 step:byte
+launcher_f1p_ad:1514 action:byte stage:byte
+launcher_f1p_ad2:1515 step:byte
+launcher_mover_support:1516 appname:string screennum:byte appnum:byte foldernum:byte widgetnum:byte homeappnum:byte dockappnum:byte appgrid:byte gridcount:byte
+launcher_home_wea_details:1518 click:byte
+launcher_locker_wea_detail:1519 click:byte
+launcher_startpage_config:1520 status:byte showtime:string
+launcher_startpage_wallpaper:1521 status:byte settype:byte wallpaperid:string
+launcher_startpage_switch:1522 status:byte cloud_locker:byte cloud_launcher:byte
+launcher_mover_collect:1523 appname:string value:byte screenid:string
+launcher_cortana_tutorial_show:1524 num_times:byte
+launcher_cortana_active_status:1525 status:byte source:byte
+launcher_cortana_logout:1526 action:byte
+launcher_cortana_settings:1527 action:byte
+launcher_cortana_noti_settings:1528 noti_status:bit
+launcher_cortana_intro:1529 page:byte action:byte
+launcher_cortana_account:1530 action:byte account:bit page:byte
+launcher_corana_negative_page_card_show:1531 card:byte
+launcher_corana_negative_page_card_click:1532 card:byte
+launcher_corana_result_page:1533 result:byte
+launcher_cortana_ready:1534 ready:bit
+launcher_cortana_tips:1535 tips:bit
+launcher_cortana_action:1536 action:byte
+launcher_cortana_call:1537 value:short
+launcher_cortana_call_no_contacts:1538 action:byte
+launcher_noticebar_ad2:1540 step:byte stage:byte
+launcher_noticebar:1541 action:byte stage:byte
+launcher_covergif:1542 display:byte click:byte tid:int64
+launcher_desksort_operate:1543 display:byte click:byte num:string
+launcher_foldersort_operate:1545 display:byte click:byte num:string f_num:string
+launcher_3d_pagescroll_show:1547 showtime:byte click:byte
+launcher_3d_pagescroll:1548 presstime:int64
+launcher_liveme_pushicon:1549 action:byte
+launcher_negativescreen_performance_reclick:1550 num1:int num2:int
+launcher_recents_delete:1551 action:byte num:int
+launcher_startpage_new:1553 source:byte show_type:byte start_time:string end_time:string show_time:string show_count:byte user_type:byte themeid:string
+launcher_sp_error:1554 reason_1:byte reason_2:string
+launcher_textone_entrance:1556 uptime2:int version:byte operation:byte source:byte
+launcher_textone_firstguide:1557 uptime2:int version:byte operation:byte
+launcher_textone_active:1558 version:byte rent_number:byte
+launcher_textone_active1:1559 version:byte rent_number:byte
+launcher_textone_number_receive:1560 uptime:int version:byte result_way:byte confirm:byte area:byte success:int
+launcher_textone_message:1561 uptime:int version:byte action:byte
+launcher_textone_message_send:1562 uptime:int version:byte sms_type:byte err_code:byte retry:byte receive_number:string send_number:string source:byte
+launcher_textone_message_receive:1563 uptime:int version:byte content_type:byte receive_number:string send_number:string source:byte
+launcher_cortana_card_error:1564 value:byte
+launcher_cortana_calendar_schedule:1565 source:byte action:byte
+launcher_cortana_calendar_item:1566 source:byte action:byte
+launcher_cortana_login:1567 login:byte value:byte
+launcher_versioncheck:1568 action:byte
+launcher_setting_about_versioncheck:1569 action:byte
+launcher_mover_readable:1570 appname:string provider:byte data:byte
+launcher_cortana_click_tips:1571 seq:byte cat:byte query:string
+launcher_negativescreen_editor:1572 dislpay:byte click:byte
+launcher_negativescreen_hide:1573 display:byte card_1:byte card_2:byte card_3:byte card_4:byte card_5:byte
+launcher_negativescreen_switch:1574 click:byte
+launcher_crash_reason:1575 crash_type:byte crash_reason:string
+launcher_cortana_pro_intro:1576 value:bit num:byte
+launcher_cortana_pro_intro_action:1577 action:byte
+launcher_locker_act2:1579 act:byte class:byte
+launcher_theme_lockscreen:1580 action:byte tid:int locate:string url:byte
+launcher_desksort_drag:1582 mov:byte num:int64 d_num:int64
+launcher_foldersort_drag:1583 mov:byte num:int64 checked:byte
+launcher_screen_lighttime1:1585 time_interval:int64 class:byte
+launcher_cortana_list:1586 data:byte
+launcher_negativescreen_array:1587 pos_1:byte pos_2:byte pos_3:byte pos_4:byte pos_5:byte pos_6:byte pos_7:byte pos_8:byte pos_9:byte pos_10:byte pos_11:byte pos_12:byte
+launcher_pet_tip_close:1593 value:byte
+launcher_desksort_guide:1594 dislpay:byte back:byte btime:string
+launcher_foldersort_guide:1595 display:byte back:byte click:byte btime:string
+launcher_foldersort_search:1596 display:byte click:byte num:int
+launcher_iconsort:1597 action:byte num:int
+launcher_negativescreen_cardhide:1598 pos_1:byte pos_2:byte pos_3:byte pos_4:byte pos_5:byte pos_6:byte pos_7:byte pos_8:byte pos_9:byte pos_10:byte pos_11:byte pos_12:byte
+launcher_pet_click:1599 scene:byte level:byte content:byte value:byte position:byte class:byte tactics:byte
+launcher_pet_show:1600 scene:byte level:byte value:byte position:byte class:byte tactics:byte
+launcher_pet_tip_click:1601 content:byte level:byte tactics:byte
+launcher_pet_tip_show:1602 content:byte level:byte tactics:byte
+launcher_mover_widgeticon_num:1603 num:byte
+launcher_mover_widgeticon:1604 name:string spanxy:byte positionxy:byte screenid:byte
+launcher_mover_widgeticon_click:1605 name:string value:byte
+launcher_mover_widgeticon_restore:1606 name:string namematch:byte iconsize:byte restoresize:byte
+launcher_mover_widgeticon_remove:1607 name:string value:byte
+launcher_popup_lockshow:1608 usertype:byte num:byte
+launcher_popup_lockclclick:1609 act:byte usertype:byte
+launcher_cortana_negative_page_newslistclick:1610 click:byte position:byte
+launcher_cortana_negative_page_newslistshow:1612 result:byte reason:int errorid:int status:byte num:byte
+launcher_theme_smartcard_click:1613 click_tid:string click:byte
+launcher_theme_smartcard_show:1614 view:string
+launcher_cortana_negative_page_newslistlength:1615 length:byte length_ad:byte
+launcher_startpage_ad:1616 result:byte action:byte stage:byte showtime:string
+launcher_mover_mainscreen:1617 appname:string findable:byte screenid:byte
+launcher_startpage_destory:1618 act:byte

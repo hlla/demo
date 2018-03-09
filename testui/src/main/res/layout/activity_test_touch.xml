@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="300dip"
         android:background="#0000ff"
-        android:src="@mipmap/ic_launcher_round"
-        android:visibility="gone"/>
+        android:src="@drawable/vector_drawable_lock"
+        android:visibility="visible"/>
 
     <example.com.testui.TestLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="#ff0000"
         android:clickable="false"
         android:orientation="vertical"
@@ -29,6 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/test_notify"
+            android:background="@drawable/ic_assignment_returned_black_24dp"
             />
 
         <Button
@@ -71,9 +72,9 @@
         android:id="@+id/touch_area"
         android:layout_width="match_parent"
         android:layout_height="300dip"
-        android:background="#ff0000"
+        android:background="#ff00ff"
         android:clickable="true"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/img"

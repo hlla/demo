@@ -17,10 +17,10 @@
         android:layout_height="wrap_content"
         android:text="test weak reference"/>
 
-    <Button
-        android:id="@+id/start_other_process"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="start other process"/>
+    <!--<Button-->
+        <!--android:id="@+id/start_other_process"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="start other process"/>-->
 
 </LinearLayout>

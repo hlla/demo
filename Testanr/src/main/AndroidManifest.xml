@@ -5,6 +5,18 @@
 
     <uses-sdk
         tools:overrideLibrary="example.com.testlib"/>
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.LOCATION"
+        android:required="true" />
+    <uses-feature
+        android:name="android.hardware.location.GPS"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
@@ -429,6 +441,16 @@
                 <action android:name="android.intent.action.MyStaticReceiverA"/>
 
                 <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_CHANGED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED"/>
+
+                <data android:scheme="package" >
+                </data>
             </intent-filter>
         </receiver>
         <receiver

@@ -9,6 +9,10 @@ android {
             storePassword '123456'
         }
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
     compileSdkVersion 23
     buildToolsVersion '26.0.2'
     defaultConfig {
@@ -26,7 +30,7 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'launcher.pro'
+            proguardFiles /*getDefaultProguardFile('proguard-android.txt'),*/ 'proguard-rules.pro'
             signingConfig signingConfigs.config
 
         }
@@ -40,8 +44,8 @@ android {
 
 dependencies {
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    provided files("libs/layoutlib.jar")
-    compile 'com.jakewharton:butterknife:8.6.0'
+    compileOnly files("libs/layoutlib.jar")
+    implementation 'com.jakewharton:butterknife:8.6.0'
     api  project(':TestLib')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
 }
