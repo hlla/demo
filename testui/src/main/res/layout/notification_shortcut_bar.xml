@@ -2,243 +2,243 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:weightSum="6.0"
-              android:background="#7f333333"
+              android:background="@drawable/vector_drawable_lock"
               android:gravity="center_vertical"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+              android:weightSum="6.0"
+    >
 
     <RelativeLayout
-            android:id="@+id/notification_tab1"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:background="@drawable/switch_grid_item_selector"
-            android:layout_height="match_parent">
+        android:id="@+id/notification_tab1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/switch_grid_item_selector"
+        android:paddingBottom="5dp">
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal"
-                android:textSize="11sp"
-                android:singleLine="true"
-                android:id="@+id/notification_text1"
-                android:text="@string/shortcutbar_entry1"/>
+            android:id="@+id/notification_text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/shortcutbar_entry1"
+            android:textSize="11sp"/>
 
         <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@id/notification_text1"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:id="@+id/notification_image1"
-                android:src="@drawable/shortcutbar_all"/>
+            android:id="@+id/notification_image1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/notification_text1"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="center"
+            android:src="@drawable/shortcutbar_all"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/notification_tab2"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:background="@drawable/switch_grid_item_selector"
-            android:layout_height="match_parent">
+        android:id="@+id/notification_tab2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/switch_grid_item_selector"
+        android:paddingBottom="5dp">
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal"
-                android:textSize="11sp"
-                android:singleLine="true"
-                android:id="@+id/notification_text2"
-                android:text="@string/shortcutbar_entry2"/>
+            android:id="@+id/notification_text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/shortcutbar_entry2"
+            android:textSize="11sp"/>
 
         <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@id/notification_text2"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:id="@+id/notification_image2"
-                android:src="@drawable/shortcutbar_torch"/>
+            android:id="@+id/notification_image2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/notification_text2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="center"
+            android:src="@drawable/shortcutbar_torch"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/notification_tab3"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:background="@drawable/switch_grid_item_selector"
-            android:layout_height="match_parent">
+        android:id="@+id/notification_tab3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/switch_grid_item_selector"
+        android:paddingBottom="5dp">
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal"
-                android:textSize="11sp"
-                android:singleLine="true"
-                android:id="@+id/notification_text3"
-                android:text="@string/shortcutbar_entry3"/>
+            android:id="@+id/notification_text3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/shortcutbar_entry3"
+            android:textSize="11sp"/>
 
         <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@id/notification_text3"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:id="@+id/notification_image3"
-                android:src="@drawable/shortcutbar_data"/>
+            android:id="@+id/notification_image3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/notification_text3"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="center"
+            android:src="@drawable/shortcutbar_data"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/notification_tab4"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:background="@drawable/switch_grid_item_selector"
-            android:layout_height="match_parent">
+        android:id="@+id/notification_tab4"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/switch_grid_item_selector"
+        android:paddingBottom="5dp">
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal"
-                android:textSize="11sp"
-                android:singleLine="true"
-                android:id="@+id/notification_text4"
-                android:text="@string/shortcutbar_entry4"/>
+            android:id="@+id/notification_text4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/shortcutbar_entry4"
+            android:textSize="11sp"/>
 
         <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@id/notification_text4"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:id="@+id/notification_image4"
-                android:src="@drawable/shortcutbar_wifi"/>
+            android:id="@+id/notification_image4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/notification_text4"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="center"
+            android:src="@drawable/shortcutbar_wifi"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/notification_tab5"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:background="@drawable/switch_grid_item_selector"
-            android:layout_height="match_parent">
+        android:id="@+id/notification_tab5"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/switch_grid_item_selector"
+        android:paddingBottom="5dp">
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal"
-                android:textSize="11sp"
-                android:singleLine="true"
-                android:id="@+id/notification_text5"
-                android:text="@string/shortcutbar_entry5"/>
+            android:id="@+id/notification_text5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/shortcutbar_entry5"
+            android:textSize="11sp"/>
 
         <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@id/notification_text5"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:id="@+id/notification_image5"
-                android:src="@drawable/shortcutbar_more"/>
+            android:id="@+id/notification_image5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/notification_text5"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="center"
+            android:src="@drawable/shortcutbar_more"/>
     </RelativeLayout>
 
 
     <RelativeLayout
         android:id="@+id/notification_tab7"
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingBottom="5dp"
         android:background="@drawable/switch_grid_item_selector"
-        android:layout_height="match_parent">
+        android:paddingBottom="5dp">
 
         <TextView
+            android:id="@+id/notification_text7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center_horizontal"
-            android:textSize="11sp"
             android:singleLine="true"
-            android:id="@+id/notification_text7"
-            android:text="@string/shortcutbar_entry7"/>
+            android:text="@string/shortcutbar_entry7"
+            android:textSize="11sp"/>
 
         <ImageView
+            android:id="@+id/notification_image7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_above="@id/notification_text7"
             android:layout_alignParentTop="true"
-            android:scaleType="center"
-            android:id="@+id/notification_image7"/>
+            android:layout_centerHorizontal="true"
+            android:scaleType="center"/>
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/notification_tab6"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:background="@drawable/switch_grid_item_selector"
-            android:layout_height="match_parent">
+        android:id="@+id/notification_tab6"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@drawable/switch_grid_item_selector"
+        android:paddingBottom="5dp">
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal"
-                android:textSize="11sp"
-                android:singleLine="true"
-                android:id="@+id/notification_text6"
-                android:text="@string/shortcutbar_entry6"/>
+            android:id="@+id/notification_text6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:singleLine="true"
+            android:text="@string/shortcutbar_entry6"
+            android:textSize="11sp"/>
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@id/notification_text6"
-                android:layout_alignParentTop="true"
-                android:scaleType="center"
-                android:id="@+id/notification_image6"/>
+            android:id="@+id/notification_image6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/notification_text6"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="center"/>
     </RelativeLayout>
 
 
     <RelativeLayout
         android:id="@+id/notification_cp_more_tab5"
         android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingBottom="5dp"
         android:background="@drawable/switch_grid_item_selector"
-        android:layout_height="match_parent">
+        android:paddingBottom="5dp">
 
         <TextView
+            android:id="@+id/notification_cp_more_text5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center_horizontal"
-            android:textSize="11sp"
             android:singleLine="true"
-            android:id="@+id/notification_cp_more_text5"
-            android:text="@string/shortcutbar_entry5"/>
+            android:text="@string/shortcutbar_entry5"
+            android:textSize="11sp"/>
 
         <ImageView
+            android:id="@+id/notification_cp_more_image5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_above="@id/notification_cp_more_text5"
             android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             android:scaleType="center"
-            android:id="@+id/notification_cp_more_image5"
             android:src="@drawable/shortcutbar_more"/>
     </RelativeLayout>
-
 
 
 </LinearLayout>

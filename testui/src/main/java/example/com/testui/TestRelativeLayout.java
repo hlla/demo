@@ -111,4 +111,10 @@ public class TestRelativeLayout extends RelativeLayout {
         Log.d(TAG, "TestRelativeLayout onInterceptTouchEvent handle = " + handle);
         return handle;
     }
+
+    @Override
+    public void onViewRemoved(View child) {
+        super.onViewRemoved(child);
+        Log.d(TAG, "onViewRemoved: child=" + child);
+    }
 }

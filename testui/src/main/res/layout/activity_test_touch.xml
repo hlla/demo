@@ -4,9 +4,9 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:layout_gravity="center"
+             android:background="#00ffff"
              android:orientation="horizontal"
-             android:paddingBottom="5dp"
-    android:background="#00ffff">
+             android:paddingBottom="5dp">
 
     <ImageView
         android:id="@+id/img0"
@@ -30,8 +30,8 @@
             android:id="@+id/test_notify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/test_notify"
             android:background="@drawable/ic_assignment_returned_black_24dp"
+            android:text="@string/test_notify"
             />
 
         <Button
@@ -65,42 +65,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ff0000"
-        android:clickable="false"
-        android:visibility="gone"
+        android:clickable="true"
         >
+
+        <example.com.testui.TestRelativeLayout
+            android:id="@+id/touch_area"
+            android:layout_width="match_parent"
+            android:layout_height="300dip"
+            android:clickable="true">
+
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible"
+                android:background="@drawable/vector_drawable_lock"
+                android:clickable="true"/>
+
+            <ImageView
+                android:id="@+id/img2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="#ff0000"/>
+
+            <example.com.testui.TestTextView
+                android:id="@+id/text"
+                android:layout_width="200dip"
+                android:layout_height="100dip"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/hello_world"
+                />
+        </example.com.testui.TestRelativeLayout>
     </example.com.testui.TestLinearLayout>
-
-    <example.com.testui.TestRelativeLayout
-        android:id="@+id/touch_area"
-        android:layout_width="match_parent"
-        android:layout_height="300dip"
-        android:clickable="true">
-
-        <ImageView
-            android:id="@+id/img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:visibility="visible"/>
-
-        <ImageView
-            android:id="@+id/img2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:background="#ff0000"
-            android:visibility="gone"/>
-
-        <example.com.testui.TestTextView
-            android:id="@+id/text"
-            android:layout_width="200dip"
-            android:layout_height="100dip"
-            android:layout_centerInParent="true"
-            android:clickable="true"
-            android:gravity="center"
-            android:text="@string/hello_world"
-            />
-    </example.com.testui.TestRelativeLayout>
 
 
 </FrameLayout>

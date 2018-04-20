@@ -1,6 +1,7 @@
 package com.example;
 
 import java.lang.reflect.Field;
+import java.math.BigInteger;
 
 /**
  * Created by chengjian on 17-11-23.
@@ -19,6 +20,9 @@ public class TestInteger {
 
     private static void swap(Integer num1, Integer num2) {
         try {
+            System.out.println(Integer.toHexString(-1));
+            System.out.println(Integer.toBinaryString(-33));
+            System.out.println(new BigInteger("11111111111111111111111111011111", 2));
             Field field = Integer.class.getDeclaredField("value");
             field.setAccessible(true);
             int temp1 = num1.intValue();

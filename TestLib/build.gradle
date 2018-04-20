@@ -2,8 +2,22 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 26
-
+    buildToolsVersion '26.0.2'
     defaultConfig {
+//        configurations. {
+//            vaa->
+//                println("dddddddd" + vaa)
+//        }
+        String taskStr = gradle.getStartParameter().getTaskRequests().toString()
+        println("taskStr:" + taskStr)
+        println("getStartParameter:" + gradle.getStartParameter())
+        def runTasks = gradle.startParameter.taskNames
+        runTasks.each { element ->
+            println("ddd" + element)
+        }
+        for (int i = 0; i < 3; i++) {
+            System.out.println("hello java i");
+        }
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
@@ -21,11 +35,32 @@ android {
     }
 
 }
+tasks.whenTaskAdded { task ->
+    println("task.name :" + task.name)
+}
+//def getCurrentFlavor() {
+//    Gradle gradle = getGradle()
+//    String taskStr = gradle.getStartParameter().getTaskRequests().toString()
+//    println("taskStr:" + taskStr)
+//    println()
+//    Pattern pattern;
+//    if (taskStr.contains("assemble")) {
+//        pattern = Pattern.compile("assemble(\\w+)(Release|Debug)")
+//    } else {
+//        pattern = Pattern.compile("generate(\\w+)(Release|Debug)")
+//    }
+//    Matcher matcher = pattern.matcher(taskStr)
+//    if (matcher.find()) {
+//        returnmatcher.group(1);
+//    }
+//    return ""
+//}
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+//    testCompile 'junit:junit:4.12'
+//    androidTestCompile 'com.android.support.test:runner:1.0.1'
+//    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
 }

@@ -37,7 +37,7 @@ public class TestProvider extends SQLiteContentProvider {
     /**
      * 打印log信息时传入的标志
      */
-    private static final String TAG = "TestProvider";
+    private static final String TAG = "TestComponent1_Provider";
 
     /**
      * URI匹配值: 帐号信息表URI
@@ -189,8 +189,12 @@ public class TestProvider extends SQLiteContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String orderBy) {
-        Log.i(TAG, "begin query...   uri==> " + uri);
-
+        Log.i(TAG, "begin query...   uri==> " + uri + " thread=" + Thread.currentThread().getName());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Cursor cursor = null;
 
         int match = URIMATCHER.match(uri);
@@ -208,7 +212,7 @@ public class TestProvider extends SQLiteContentProvider {
                         null);
                 break;
         }
-
+        Log.i(TAG, "end query...   uri==> " + uri);
         return cursor;
     }
 

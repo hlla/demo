@@ -96,4 +96,10 @@ public class TestLinearLayout extends LinearLayout {
                 "handle=" + handle);
         return handle;
     }
+
+    @Override
+    public void onViewRemoved(View child) {
+        super.onViewRemoved(child);
+        Log.d(TAG, "onViewRemoved: child=" + child);
+    }
 }

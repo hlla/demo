@@ -1,22 +1,25 @@
 package example.com.testui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.PorterDuff;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
@@ -29,6 +32,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -126,14 +131,15 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
                 .setSmallIcon(R.drawable.aa)
                 .setContentIntent(pendingIntent);
         RemoteViews remoteViews = new RemoteViews(getPackageName(),
-                R.layout.notification_shortcut_bar);
-        int requestCode = 0;
-        initBroadcastIntent(remoteViews, R.id.notification_tab2, requestCode++);
-        initBroadcastIntent(remoteViews, R.id.notification_tab3, requestCode++);
-        initBroadcastIntent(remoteViews, R.id.notification_tab4, requestCode++);
-        initBroadcastIntent(remoteViews, R.id.notification_tab6, requestCode++);
-        //初始化省电按钮点击事件
-        initBroadcastIntent(remoteViews, R.id.notification_tab7, requestCode++);
+                R.layout.activity_test_remoteview_one);
+        remoteViews.setImageViewResource(R.id.ic_close, R.drawable.ic_close);
+//        int requestCode = 0;
+//        initBroadcastIntent(remoteViews, R.id.notification_tab2, requestCode++);
+//        initBroadcastIntent(remoteViews, R.id.notification_tab3, requestCode++);
+//        initBroadcastIntent(remoteViews, R.id.notification_tab4, requestCode++);
+//        initBroadcastIntent(remoteViews, R.id.notification_tab6, requestCode++);
+//        //初始化省电按钮点击事件
+//        initBroadcastIntent(remoteViews, R.id.notification_tab7, requestCode++);
         builder.setContent(remoteViews);
         Notification notification = builder.build();
         mNotificationManager.notify(1000, notification);
@@ -147,13 +153,18 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         remoteViews.setOnClickPendingIntent(viewId, pendingIntent);
     }
 
+    public void test(@NotNull String aa) {
+
+    }
 
     @OnClick(R.id.touch_area1)
     public void onTouchArea1Clicked() {
+        test(null);
     }
 
     @OnClick(R.id.img)
     public void onImgClicked() {
+        touchArea.addView(img);
     }
 
     @OnClick(R.id.img2)
@@ -234,12 +245,31 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
             super.handleMessage(msg);
+            PowerManager pm = (PowerManager) reference.get().getSystemService(Context
+                    .POWER_SERVICE);
+//如果不是在Activity里面需要得到当时的上下文句柄 用context.getSystemService...
+            boolean isScreenOn = pm.isInteractive();
+            KeyguardManager mKeyguardManager = (KeyguardManager) reference.get().getSystemService
+                    (Context
+                            .KEYGUARD_SERVICE);
+            boolean flag = mKeyguardManager.inKeyguardRestrictedInputMode();
+            Log.d(TAG, "handleMessage: isScreenOn=" + isScreenOn + " flag=" + flag);
             Log.d(TAG, "handleMessage activity=" + reference.get());
         }
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context
+                .KEYGUARD_SERVICE);
+        boolean flag = mKeyguardManager.inKeyguardRestrictedInputMode();
+        Log.d(TAG, "onWindowFocusChanged: hasFocus=" + hasFocus + " flag=" + flag);
+    }
+
     private TestRelativeLayout mLinearLayout;
     private TestTextView mTextView;
+    MyHandler myHandler;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -252,7 +282,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         final Bitmap b = Bitmap.createBitmap(500, 500, Bitmap.Config.ARGB_8888);
         Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.aa);
 //        Drawable drawable = getResources().getDrawable(R.drawable.progress_btn_bg,null);
-        Drawable drawable = getResources().getDrawable(R.drawable.preview_background,null);
+        Drawable drawable = getResources().getDrawable(R.drawable.preview_background, null);
 //        drawable.setColorFilter(0x8F0000ff, PorterDuff.Mode.SRC_OVER);
 //        drawable.clearColorFilter();
         Canvas canvas = new Canvas();
@@ -266,7 +296,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //        canvas.clipRect(new Rect(0, 0, 100, 300));
 //        canvas.translate(50, 0);
 //        original.recycle();
-        canvas.drawBitmap(original, null, new RectF(0,0,180,180), null);
+        canvas.drawBitmap(original, null, new RectF(0, 0, 180, 180), null);
 //        drawable.draw(canvas);
 //        canvas.setBitmap(null);
         ((ImageView) findViewById(R.id.img)).setImageBitmap(b);
@@ -284,7 +314,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         // cv.setOnClickListener(this);
         // Button pv = (Button)findViewById(R.id.hide_pv);
         // pv.setOnClickListener(this);
-        MyHandler myHandler = new MyHandler(this);
+        myHandler = new MyHandler(this);
         myHandler.sendEmptyMessageDelayed(0, 5000);
         Random random = new Random(47);
         final PriorityBlockingQueue q = new PriorityBlockingQueue();
@@ -392,6 +422,28 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //        findViewById(R.id.img0).setOnLongClickListener(this);
         mNotificationManager = (NotificationManager) getSystemService(Context
                 .NOTIFICATION_SERVICE);
+        UnlockBroadcastReceiver unlockBroadcastReceiver = new UnlockBroadcastReceiver();
+        if (unlockBroadcastReceiver != null) {
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(Intent.ACTION_USER_PRESENT);
+            filter.addAction(Intent.ACTION_SCREEN_OFF);
+            filter.addAction(Intent.ACTION_SCREEN_ON);
+            registerReceiver(unlockBroadcastReceiver, filter);
+        }
+    }
+
+    class UnlockBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Log.d(TAG, "onReceive: action=" + action);
+            KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context
+                    .KEYGUARD_SERVICE);
+            boolean flag = mKeyguardManager.inKeyguardRestrictedInputMode();
+
+            Log.d(TAG, "onReceive: lock flag=" + flag);
+        }
     }
 
     @Override
@@ -428,6 +480,16 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     @Override
     protected void onResume() {
         super.onResume();
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+//如果不是在Activity里面需要得到当时的上下文句柄 用context.getSystemService...
+        boolean isScreenOn = pm.isInteractive();
+        KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context
+                .KEYGUARD_SERVICE);
+        boolean flag = mKeyguardManager.inKeyguardRestrictedInputMode();
+
+        Log.d(TAG, "onResume: isScreenOn=" + isScreenOn + " flag=" + flag);
+//        myHandler.sendEmptyMessageDelayed(1, 300);
+//        Log.d(TAG, "onResume: ");
         translateAnimation = new TranslateAnimation(200, 400, 100, 600);
         translateAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
@@ -436,6 +498,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         translateAnimation.setFillEnabled(true);
 //        translateAnimation.setFillBefore(true);
         translateAnimation.setFillBefore(true);
+        myHandler.sendEmptyMessage(0);
 //        translateAnimation.setFillAfter(true);
     }
 
@@ -547,6 +610,14 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     protected void onPause() {
         // TODO Auto-generated method stub
         super.onPause();
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+//如果不是在Activity里面需要得到当时的上下文句柄 用context.getSystemService...
+        boolean isScreenOn = pm.isScreenOn();
+        KeyguardManager mKeyguardManager = (KeyguardManager) getSystemService(Context
+                .KEYGUARD_SERVICE);
+        boolean flag = mKeyguardManager.inKeyguardRestrictedInputMode();
+        Log.d(TAG, "onPause: isScreenOn=" + isScreenOn + " flag=" + flag + " isScreenoffPause=" +
+                (flag || (!isScreenOn)));
         try {
             throw new MyException();
         } catch (MyException e) {
@@ -581,6 +652,24 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d(TAG, "onRestart: ");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent: ");
+    }
+
+    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         Log.d(TAG, "Activity dispatchTouchEvent action=" + ev.getAction());
         boolean handle = super.dispatchTouchEvent(ev);
@@ -590,6 +679,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //        Drawable drawable = new BitmapDrawable(original);
 //        drawable.clearColorFilter();
 //        ((ImageView) findViewById(R.id.img)).clearColorFilter();
+        new AlertDialog.Builder(this).setMessage("fdsdffdf")
+                .create().show();
         return handle;
     }
 

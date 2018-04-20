@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'AndResGuard'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 23
     buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "com.example.test"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
 

@@ -18,7 +18,6 @@ import android.graphics.BitmapFactory;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Debug;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
@@ -38,7 +37,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -511,10 +509,32 @@ public class MyActivity extends Activity {
 
     ActivityManager activityManager;
 
+//    public static class CustomInstrumentation extends Instrumentation {
+//        private Instrumentation base;
+//
+//        public CustomInstrumentation(Instrumentation base) {
+//            this.base = base;
+//        }
+//
+//        public Instrumentation.ActivityResult execStartActivity(Context who, IBinder
+//                contextThread, IBinder token, Activity target, Intent intent, int requestCode,
+//                                                                Bundle options) {
+//            return super.execStartActivity(who, contextThread, token, target, intent,
+//                    requestCode, options);
+//        }
+//    }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        TestAA testAA = new TestAA();
+//        ArrayList arrayList = new ArrayList();
+//        arrayList.add(this);
+//        arrayList.add(testAA);
+//        testAA.aa(testAA, this);
+//        testAA.aa(this, new Intent());
+        Log.d(TAG, "onCreate: pkg=" + getPackageName());
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager
                 .LayoutParams.FLAG_KEEP_SCREEN_ON);
         int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
@@ -547,7 +567,7 @@ public class MyActivity extends Activity {
         ButterKnife.bind(this);
         int resId = getResources().getIdentifier(getString(R.string.test_dump_hprof_4), "drawable",
                 getPackageName());
-        startBgService.setBackground(getDrawable(resId));
+//        startBgService.setBackground(getDrawable(resId));
         Intent intent = new Intent(ACTION);
         Log.d(TAG, "Testanr_MySR onCreate: ");
         StringBuilder ddd = new StringBuilder("sssss");
@@ -555,6 +575,11 @@ public class MyActivity extends Activity {
         Log.d(TAG, "ddddd" + getResources());
         Log.d(TAG, "" + getResources());
         ddd = null;
+//        ApplicationInfo appInfo = this.getPackageManager()
+//                .getApplicationInfo(getPackageName(),
+//                        PackageManager.GET_META_DATA);
+//        String mTag = appInfo.metaData.getString("mTag");
+
 //        intent.putExtra("abc", "ddddddd55666");
 //        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
 //                PendingIntent.FLAG_UPDATE_CURRENT);

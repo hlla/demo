@@ -1,7 +1,6 @@
 package letv.com.testanr;
 
-import android.app.Notification;
-import android.app.Service;
+import android.app.IntentService;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteCallbackList;
@@ -15,9 +14,23 @@ import java.util.List;
  * Created by chengjian on 17/5/31.
  */
 
-public class MyService extends Service {
+public class MyService extends IntentService {
     private static final String TAG = "Testanr_MyService";
     public static final int NOTIFICATION_ID = 11111;
+
+    MyService() {
+        super("dfdsfdfd");
+    }
+
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        Log.d(TAG, "onHandleIntent: intent=" + intent);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     private RemoteCallbackList<ICallback> mCallbacks = new RemoteCallbackList<ICallback>() {
         @Override
@@ -134,19 +147,19 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand 11: startId=" + startId + " intent=" + intent);
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
-//        Intent innerIntent = new Intent(this, GrayInnerService.class);
-//        startService(innerIntent);
-        startForeground(NOTIFICATION_ID, new Notification());
+//        Notification.Builder builder = new Notification.Builder(this);
+//        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
+////        Intent innerIntent = new Intent(this, GrayInnerService.class);
+////        startService(innerIntent);
+//        startForeground(NOTIFICATION_ID, new Notification());
 //        try {
 //            Thread.currentThread().sleep(22000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        int resultCode = super.onStartCommand(intent, flags, startId);
-        Log.d(TAG, "onStartCommand end: startId=" + startId + " resultCode=" + resultCode);
-        return START_REDELIVER_INTENT;
+//        int resultCode = super.onStartCommand(intent, flags, startId);
+//        Log.d(TAG, "onStartCommand end: startId=" + startId + " resultCode=" + resultCode);
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
