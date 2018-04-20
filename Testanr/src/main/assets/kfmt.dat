@@ -2,7 +2,7 @@ launcher_public:9 xaid:string mcc:short ver:string cn:string cn2:string cl:strin
 launcher_6_1_0:102 value:int
 launcher_sec_det_off:105 value:byte
 launcher_sec_det_close:107 value:string value1:string value2:binary
-launcher_sec_det_ignore:108 value:string value1:string value2:binary
+launcher_sec_det_ignore:108 value:string value1:string value2:binarydsfasffssafsfsfsfdsf
 launcher_wea_cf:111 value:string
 launcher_setting_default_select:112 value:byte
 launcher_setting_default_switch:113 value:bit

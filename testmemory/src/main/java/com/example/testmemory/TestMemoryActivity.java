@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -127,7 +129,7 @@ public class TestMemoryActivity extends Activity {
     }
 
     public class A {
-//        int a;
+        //        int a;
         byte b;
 //        double c;
 //        double e;
@@ -204,17 +206,22 @@ public class TestMemoryActivity extends Activity {
 //        Log.d(TAG, "onCreate is=" + is);
 //        bmp = BitmapFactory.decodeStream(is, null, options);
         options.inScaled = false;
-        options.inSampleSize = 5;
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.wb, options);
-        Log.d(TAG, "onCreate: byteCount=" + bmp.getByteCount() / 1024 + " allocate=" + bmp
-                .getAllocationByteCount() / 1024 + " height=" + bmp.getHeight() + "  width=" + bmp
-                .getWidth() + " options.outHeight=" + options
-                .outHeight + " onfig=" + options.inPreferredConfig + " dd=" + bmp.getConfig());
+//        options.inSampleSize = 2;
+//        options.outWidth = 80;
+//        options.outHeight = 90;
+//        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.wb, options);
+//        Log.d(TAG, "onCreate: byteCount=" + bmp.getByteCount() / 1024 + " allocate=" + bmp
+//                .getAllocationByteCount() / 1024 + " height=" + bmp.getHeight() + "  width=" + bmp
+//                .getWidth() + " options.outHeight=" + options
+//                .outHeight + " onfig=" + options.inPreferredConfig + " dd=" + bmp.getConfig());
 //////
         BitmapFactory.Options options1 = new BitmapFactory.Options();
         options1.inPreferredConfig = Bitmap.Config.RGB_565;
-        options1.inBitmap = bmp;
-        options1.inMutable = true;
+        options1.outHeight = 640;
+        options1.outWidth = 360;
+//        options1.inSampleSize = 7;
+//        options1.inBitmap = bmp;
+//        options1.inMutable = true;
 ////        options1.inPreferredConfig = Bitmap.Config.RGB_565;
 ////        options1.inPurgeable = true;//允许可清除
 ////        options1.inInputShareable = true;// 以上options的两个属性必须联合使用才会有效果
@@ -223,19 +230,20 @@ public class TestMemoryActivity extends Activity {
 //        options1.inDensity = 210;
 //        options1.inTargetDensity = 480;
 //        options1.inTargetDensity = 480;
-//        try {
-////            is1 = getResources().getAssets().open("wb.jpg");
+        InputStream is1 = null;
+        try {
+            is1 = getResources().getAssets().open("wb.jpg");
 //            is1 = new FileInputStream(new File(Environment.getExternalStorageDirectory() + "/" +
 //                    "wb.jpg"));
-//
-//            Log.d(TAG, "is1" + is1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        bmp1 = BitmapFactory.decodeStream(is1, null, options1);
+
+            Log.d(TAG, "is1" + is1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        bmp1 = BitmapFactory.decodeStream(is1, null, options1);
 //        setWallpaper(bmp1);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.wb, options1);
-//        Log.d(TAG, "onCreate bmp1=" + bmp1);
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.wb, options1);
+////        Log.d(TAG, "onCreate bmp1=" + bmp1);
         Log.d(TAG, "onCreate1111: byteCount=" + bmp1.getByteCount() / 1024 + " allocate=" + bmp1
                 .getAllocationByteCount() / 1024 + " height=" + bmp1.getHeight() + "  width=" +
                 bmp1.getWidth() + " options=" + options1

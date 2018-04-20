@@ -47,7 +47,6 @@ public class MyApp extends Application {
 
     public static class CustomInstrumentation extends Instrumentation {
         private Instrumentation base;
-
         public CustomInstrumentation(Instrumentation base) {
             this.base = base;
         }
