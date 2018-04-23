@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="example.com.testcomponent">
+          package="example.com.testcomponent"
+          android:sharedUserId="com.testcomponent">
 
     <application
         android:name=".MyApplication"
@@ -22,12 +23,14 @@
             android:name=".TestProvider"
             android:authorities="com.huawei.rcsbaseline.database.zone"
             android:exported="true"
+            android:multiprocess="true"
+            android:process=":remote"
             />
-        <provider
-            android:name=".TestProviderOne"
-            android:authorities="com.cleanmaster.mutiproconfig.dd"
-            android:exported="true"
-            />
+        <!--<provider-->
+        <!--android:name=".TestProviderOne"-->
+        <!--android:authorities="com.cleanmaster.mutiproconfig.dd"-->
+        <!--android:exported="true"-->
+        <!--/>-->
     </application>
 
 </manifest>

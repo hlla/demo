@@ -2,6 +2,7 @@ package example.com.testcomponent;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.database.ContentObserver;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -29,6 +30,12 @@ public class TestComponentActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.test_component);
         ButterKnife.bind(this);
+        getContentResolver().registerContentObserver(URIField.ACCOUNT_URI, true, new ContentObserver(null) {
+            @Override
+            public void onChange(boolean selfChange) {
+                Log.d(TAG, "onChange selfChange=" + selfChange);
+            }
+        });
     }
 
     @OnClick(R.id.query)
@@ -57,12 +64,17 @@ public class TestComponentActivity extends Activity {
         weakHashMap.put(new TestComponentActivity(), "bbbb");
     }
 
+    int i = 0;
+
     @OnClick(R.id.insert)
     public void onInsertClicked() {
+        i++;
         new Thread() {
             @Override
             public void run() {
-                getContentResolver().insert(URIField.ACCOUNT_URI, new ContentValues());
+                ContentValues contentValues = new ContentValues();
+                contentValues.put("login_account", "cj" + i);
+                getContentResolver().insert(URIField.ACCOUNT_URI, contentValues);
                 Iterator keys = weakHashMap.keySet().iterator();
                 while (keys.hasNext()) {
                     Log.d(TAG, "onInsertClicked: " + weakHashMap.get(keys.next()));

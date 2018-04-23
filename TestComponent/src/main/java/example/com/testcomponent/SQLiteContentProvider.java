@@ -11,11 +11,10 @@
  */
 package example.com.testcomponent;
 
-import java.util.ArrayList;
-
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
@@ -24,6 +23,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteTransactionListener;
 import android.net.Uri;
 import android.util.Log;
+
+import java.util.ArrayList;
 
 /**
  * ContentProvider的子类，抽象类主要负责协调各类操作的同步性<BR>
@@ -167,11 +168,11 @@ public abstract class SQLiteContentProvider extends ContentProvider implements
     public Uri insert(Uri uri, ContentValues values) {
         Log.i(TAG, "begin insert...   uri==> " + uri + " thread=" + Thread.currentThread()
                 .getName());
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Uri result = null;
         boolean applyingBatch = applyingBatch();
         if (!applyingBatch) {
@@ -198,8 +199,10 @@ public abstract class SQLiteContentProvider extends ContentProvider implements
             }
         }
         Log.i(TAG, "end insert...   uri==> " + uri);
-        throw new RuntimeException("asdassdfd");
-//        return result;
+//        throw new RuntimeException("asdassdfd");
+        ContentResolver contentResolver = getContext().getContentResolver();
+        contentResolver.notifyChange(uri, null);
+        return result;
     }
 
     /**

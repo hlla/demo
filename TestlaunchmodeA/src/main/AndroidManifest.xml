@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.testlaunchmodea">
+          package="com.example.testlaunchmodea"
+          android:sharedUserId="com.testcomponent">
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="action_main"/>
@@ -29,9 +30,9 @@
         </activity>
         <activity
             android:name=".ActivityB"
+            android:launchMode="singleTask"
             android:process=":locker1"
-            android:taskAffinity="ddd.ddd"
-            android:launchMode="singleTask">
+            android:taskAffinity="ddd.ddd">
             <intent-filter>
                 <action android:name="action_b"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -42,8 +43,8 @@
         <!--android:taskAffinity="ddd.ddd"-->
         <activity
             android:name=".ActivityC"
-            android:process=":locker3"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:process=":locker3">
             <intent-filter>
                 <action android:name="action_c"/>
                 <category android:name="android.intent.category.DEFAULT"/>

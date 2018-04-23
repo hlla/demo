@@ -6,11 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.database.ContentObserver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.RemoteException;
 import android.util.Log;
 import android.widget.Button;
 
@@ -41,11 +43,22 @@ public class MainActivity extends BaseActivity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            getLauncherForegroundApp(MainActivity.this);
-            Intent intent = new Intent();
-            intent.setComponent(new ComponentName("letv.com.testanr", "letv.com.testanr" +
-                    ".MyService"));
-            bindService(intent, new TestServiceConnection(), BIND_AUTO_CREATE);
+//            getLauncherForegroundApp(MainActivity.this);
+//            Intent intent = new Intent();
+//            intent.setComponent(new ComponentName("letv.com.testanr", "letv.com.testanr" +
+//                    ".MyService"));
+//            bindService(intent, new TestServiceConnection(), BIND_AUTO_CREATE);
+            Cursor cursor = getContentResolver().query(ACCOUNT_URI, null, null, null, null, null);
+            Log.d("TestComponent1_op", "handleMessage: start cursor=" + cursor);
+            if (null != cursor) {
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    String name = cursor.getString(cursor.getColumnIndex("login_account"));
+                    cursor.moveToNext();
+                    Log.d("TestComponent1_op", "handleMessage: name=" + name);
+                }
+            }
+            mHandler.sendEmptyMessageDelayed(0, 2000);
         }
     };
 
@@ -85,6 +98,7 @@ public class MainActivity extends BaseActivity {
         public void onServiceDisconnected(ComponentName name) {
             Log.d(TAG, "onServiceDisconnected =" + name);
         }
+
     }
 
     @Override
@@ -92,6 +106,12 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        getContentResolver().registerContentObserver(ACCOUNT_URI, true, new ContentObserver(null) {
+            @Override
+            public void onChange(boolean selfChange) {
+                Log.d("TestComponent1_op", "onChange selfChange=" + selfChange);
+            }
+        });
         mHandler.sendEmptyMessageDelayed(0, 5000);
     }
 
@@ -126,10 +146,15 @@ public class MainActivity extends BaseActivity {
         Log.d(TAG, "onDestroy: ");
     }
 
+    public static final Uri ACCOUNT_URI = Uri.parse("content://com.huawei.rcsbaseline.database" +
+            ".zone/Accout");
+
     @OnClick(R.id.start_modeA_main)
     public void onStartModeAMainClicked() {
-        startModeActivity("action_main", 0);
+//        startModeActivity("action_main", 0);
+        mHandler.sendEmptyMessageDelayed(0, 500);
     }
+
 
     @OnClick(R.id.start_a)
     public void onStartAClicked() {
