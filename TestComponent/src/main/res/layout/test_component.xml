@@ -36,5 +36,22 @@
         android:text="update"
         app:layout_constraintStart_toStartOf="@+id/insert"
         app:layout_constraintTop_toBottomOf="@+id/insert"/>
+    <Button
+        android:id="@+id/bindservice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="bind"
+        app:layout_constraintStart_toStartOf="@+id/update"
+        app:layout_constraintTop_toBottomOf="@+id/update"/>
+
+    <Button
+        android:id="@+id/broadcast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="broadcast"
+        app:layout_constraintStart_toStartOf="@+id/bindservice"
+        app:layout_constraintTop_toBottomOf="@+id/bindservice"/>
 
 </android.support.constraint.ConstraintLayout>
