@@ -71,7 +71,7 @@
         <example.com.testui.TestRelativeLayout
             android:id="@+id/touch_area"
             android:layout_width="match_parent"
-            android:layout_height="300dip"
+            android:layout_height="match_parent"
             android:clickable="true">
 
             <ImageView
@@ -92,12 +92,11 @@
 
             <example.com.testui.TestTextView
                 android:id="@+id/text"
-                android:layout_width="200dip"
-                android:layout_height="100dip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:clickable="true"
                 android:gravity="center"
-                android:text="@string/hello_world"
                 />
         </example.com.testui.TestRelativeLayout>
     </example.com.testui.TestLinearLayout>

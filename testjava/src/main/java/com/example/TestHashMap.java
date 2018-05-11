@@ -250,14 +250,14 @@ public class TestHashMap {
 //        for (MyTest myTest : myTests) {
 //            System.out.println("myTest11=" + myTest);
 //        }
-        ArrayList<MyTest> myTests11 = (ArrayList) myTests.clone();
-        myTests11.remove(myTests.get(0));
-        for (MyTest myTest : myTests11) {
-            System.out.println("myTest22=" + myTest);
-        }
+//        ArrayList<MyTest> myTests11 = (ArrayList) myTests.clone();
+//        myTests11.remove(myTests.get(0));
+//        for (MyTest myTest : myTests11) {
+//            System.out.println("myTest22=" + myTest);
+//        }
         final List<String> mHostThemeCallbackList = Collections.synchronizedList(new
                 ArrayList<String>());
-        mHostThemeCallbackList.add("a");
+        mHostThemeCallbackList.add("dd");
 //        mHostThemeCallbackList.add("b");
 //        mHostThemeCallbackList.add("c");
         String dd = null;
@@ -277,14 +277,11 @@ public class TestHashMap {
         new Thread() {
             @Override
             public void run() {
-                if (mHostThemeCallbackList.size() > 0) {
-                    try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    mHostThemeCallbackList.remove(0);
-                }
+                try {
+//                    if (mHostThemeCallbackList.size() > 0) {
+//                        Thread.sleep(1000);
+//                        mHostThemeCallbackList.remove(0);
+//                    }
 //                mSurfaceLock.lock();
 //                mSurfaceLock.lock();
 //                mSurfaceLock.lock();
@@ -300,9 +297,12 @@ public class TestHashMap {
 //                System.out.println("111111  =" + mSurfaceLock.getHoldCount());
 //                mSurfaceLock.unlock();
 //                System.out.println("111111  =" + mSurfaceLock.getHoldCount());
-//                mHostThemeCallbackList.add("a");
-//                mHostThemeCallbackList.add("b");
-//                mHostThemeCallbackList.add("c");
+                    mHostThemeCallbackList.add("a");
+                    Thread.sleep(1000);
+                    mHostThemeCallbackList.add("b");
+                    Thread.sleep(1000);
+                    mHostThemeCallbackList.add("c");
+                    Thread.sleep(1000);
 //                String dd = null;
 //                for (int i = 0; i < mHostThemeCallbackList.size(); i++) {
 //                    String name = mHostThemeCallbackList.get(i);
@@ -312,13 +312,32 @@ public class TestHashMap {
 //                        e.printStackTrace();
 //                    }
 //                }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
         new Thread() {
             @Override
             public void run() {
-                mHostThemeCallbackList.remove(0);
+//                mHostThemeCallbackList.remove(0);
 //                mSurfaceLock.lock();
+                for (String str : mHostThemeCallbackList) {
+                    System.out.println("str=" + str);
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+//                for (int i = 0; i < mHostThemeCallbackList.size(); i++) {
+//                    String name = mHostThemeCallbackList.get(i);
+//                    try {
+//                        Thread.sleep(100);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
 //                System.out.println("22222");
 //                mHostThemeCallbackList.add("c");
 //                mHostThemeCallbackList.add("e");
@@ -368,8 +387,8 @@ public class TestHashMap {
 //            }
 //        }
 //        System.out.println("all total=" + i);
-        RuntimeException exception1 = new RuntimeException("ssssss");
-        throw exception1;
+//        RuntimeException exception1 = new RuntimeException("ssssss");
+//        throw exception1;
     }
 
     private static String readString(String filePath) {

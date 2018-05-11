@@ -1,6 +1,5 @@
 package com.example.testlaunchmodea;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +39,11 @@ public class ActivityB extends BaseActivity {
 //        finish();
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        Log.d(TAG, "onNewIntent: ");
+    }
 
     @Override
     protected void onStart() {

@@ -1,7 +1,7 @@
--injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/butterknife-8.6.0.aar/6560f9ee1acef28448b5a57ab92bf6d5/jars/classes.jar(**.class)
--injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/543faf280eb4618c7a3c6142f4e7fb50/jars/classes.jar(**.class)
+-injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/butterknife-8.6.0.aar/57b05b9150ad7626a7fc7a6d3cd108fd/jars/classes.jar(**.class)
+-injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/multidex-1.0.2.aar/55ab47d578b8b1b4b5c6d4cfeac5eb15/jars/classes.jar(**.class)
 -injars /home/chengjian/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.6.0/48efa6f14074e1a6b16e02ac05eba3fc5c7c7ec8/butterknife-annotations-8.6.0.jar(**.class)
--injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/support-compat-25.1.0.aar/adce7969d8edcf4e84517f5ae1587f81/jars/classes.jar(**.class)
+-injars /home/chengjian/.gradle/caches/transforms-1/files-1.1/support-compat-25.1.0.aar/e3fda8fbe20a43dcb24e3d56991b9ffe/jars/classes.jar(**.class)
 -injars /home/chengjian/android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.0/support-annotations-25.1.0.jar(**.class)
 -injars /home/chengjian/workspace/AppDemo/TestLib/build/intermediates/intermediate-jars/release/classes.jar(**.class)
 -injars /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/classes/release(**.class)
@@ -9,138 +9,70 @@
 -outjars /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/transforms/proguard/release/0.jar
 
 -libraryjars /home/chengjian/workspace/AppDemo/Testanr/libs/layoutlib.jar(**.class)
--libraryjars /home/chengjian/android/sdk/platforms/android-23/android.jar
--libraryjars /home/chengjian/android/sdk/platforms/android-23/optional/org.apache.http.legacy.jar
+-libraryjars /home/chengjian/android/sdk/platforms/android-21/android.jar
 
 -forceprocessing
 -printusage /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/usage.txt
--dontoptimize
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 -printmapping /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/mapping.txt
 -obfuscationdictionary /home/chengjian/workspace/AppDemo/Testanr/obfuscationdictionary.txt
 -dontusemixedcaseclassnames
--keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod,Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses,SourceFile,LineNumberTable,Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses
+-keepattributes Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses,SourceFile,LineNumberTable,Signature,*Annotation*,JavascriptInterface,Exceptions,InnerClasses
 -renamesourcefileattribute adsourceFile
 -verbose
--dontnote com.android.vending.licensing.ILicensingService,com.google.vending.licensing.ILicensingService,com.google.android.vending.licensing.ILicensingService,android.support.**
--dontwarn android.support.**,com.letv.ads.**,com.letv.plugin.pluginloader.**,butterknife.internal.**,android.support.**,com.tencent.bugly.**
+-dontwarn com.letv.ads.**,com.letv.plugin.pluginloader.**,butterknife.internal.**,android.support.**,com.tencent.bugly.**
 -printconfiguration /home/chengjian/workspace/AppDemo/Testanr/print_config.txt
 -dump /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/dump.txt
 -printseeds /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/seeds.txt
 
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:205
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:232
 -keep class letv.com.testanr.GrayInnerService {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:164
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:181
 -keep class letv.com.testanr.LoadingActivity {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:209
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:236
 -keep class letv.com.testanr.MessengerService {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:154
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:171
 -keep class letv.com.testanr.MyActivity {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:147
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:160
 -keep class letv.com.testanr.MyApplication {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:213
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:240
 -keep class letv.com.testanr.MyJobService {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:197
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:224
 -keep class letv.com.testanr.MyService {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:173
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:190
 -keep class letv.com.testanr.MyStaticReceiverA {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:187
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:214
 -keep class letv.com.testanr.MyStaticReceiverB {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:219
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:246
 -keep class letv.com.testanr.component.TestProvider {
-    <init>(...);
-}
-
--keep public class com.google.vending.licensing.ILicensingService
-
--keep public class com.android.vending.licensing.ILicensingService
-
--keep public class com.google.android.vending.licensing.ILicensingService
-
-# For native methods, see http://proguard.sourceforge.net/manual/examples.html#native
--keepclasseswithmembers,allowshrinking class * {
-    native <methods>;
-}
-
-# Keep setters in Views so that animations can still work.
--keepclassmembers public class * extends android.view.View {
-    void set*(***);
-    *** get*();
-}
-
-# We want to keep methods in Activity that could be used in the XML attribute onClick.
--keepclassmembers class * extends android.app.Activity {
-    public void *(android.view.View);
-}
-
-# For enumeration classes, see http://proguard.sourceforge.net/manual/examples.html#enumerations
--keepclassmembers enum  * {
-    public static **[] values();
-    public static ** valueOf(java.lang.String);
-}
-
--keepclassmembers class * extends android.os.Parcelable {
-    public static final ** CREATOR;
-}
-
--keepclassmembers class **.R$* {
-    public static <fields>;
-}
-
-# Preserve annotated Javascript interface methods.
--keepclassmembers class * {
-    @android.webkit.JavascriptInterface
-    <methods>;
-}
-
-# Understand the @Keep support annotation.
--keep class android.support.annotation.Keep
-
--keep @android.support.annotation.Keep class * {
-    <fields>;
-    <methods>;
-}
-
--keepclasseswithmembers class * {
-    @android.support.annotation.Keep
-    <methods>;
-}
-
--keepclasseswithmembers class * {
-    @android.support.annotation.Keep
-    <fields>;
-}
-
--keepclasseswithmembers class * {
-    @android.support.annotation.Keep
     <init>(...);
 }
 

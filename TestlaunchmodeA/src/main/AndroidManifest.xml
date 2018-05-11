@@ -21,18 +21,36 @@
         </activity>
         <activity
             android:name=".ActivityA"
-            android:process=":locker"
-            android:taskAffinity="com.test">
+            android:clearTaskOnLaunch="true"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="adjustPan" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.MONKEY" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="action_a"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+        <!--<activity-->
+            <!--android:name=".ActivityA"-->
+            <!--android:launchMode="singleTask"-->
+            <!--&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="action_a"/>-->
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
         <activity
             android:name=".ActivityB"
-            android:launchMode="singleTask"
-            android:process=":locker1"
-            android:taskAffinity="ddd.ddd">
+            >
             <intent-filter>
                 <action android:name="action_b"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -43,8 +61,7 @@
         <!--android:taskAffinity="ddd.ddd"-->
         <activity
             android:name=".ActivityC"
-            android:launchMode="singleTask"
-            android:process=":locker3">
+            >
             <intent-filter>
                 <action android:name="action_c"/>
                 <category android:name="android.intent.category.DEFAULT"/>

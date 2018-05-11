@@ -1264,7 +1264,7 @@ public class MyActivity extends Activity {
     public void onStartBgBroadcastClicked() {
         Intent intent = new Intent(ACTION_DYNAMIC);
 //        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        sendOrderedBroadcast(intent, null);
+//        sendOrderedBroadcast(intent, null);
     }
 
     @OnClick(R.id.start_static_broadcast)

@@ -5,7 +5,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -155,14 +154,52 @@ public class MainActivity extends BaseActivity {
         mHandler.sendEmptyMessageDelayed(0, 500);
     }
 
+    private void launchLauncher() {
+        Intent localIntent = new Intent("android.intent.action.MAIN");
+        localIntent.addCategory("android.intent.category.HOME");
+
+        localIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        try {
+            localIntent.setPackage(getPackageName());
+            startActivity(localIntent);
+        } catch (Exception localException) {
+        } finally {
+            finish();
+        }
+    }
 
     @OnClick(R.id.start_a)
     public void onStartAClicked() {
-        SharedPreferences sp = getSharedPreferences("cj", Context.MODE_PRIVATE);
-        sp.edit().putString("name", "lj").apply();
-        Bundle bundle = new Bundle();
-        bundle.putString("name", "cj");
-        startModeActivityForResult("action_a", Intent.FLAG_ACTIVITY_NEW_DOCUMENT, bundle);
+//        SharedPreferences sp = getSharedPreferences("cj", Context.MODE_PRIVATE);
+//        sp.edit().putString("name", "lj").apply();
+//        Bundle bundle = new Bundle();
+//        bundle.putString("name", "cj");
+//        startModeActivity("action_a", 0, bundle);
+//        finish();
+        Intent intent = new Intent("test.service");
+        intent.setClassName("letv.com.testanr11", "letv.com.testanr.MyService");
+        boolean result = bindService(intent, new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+        }, BIND_AUTO_CREATE);
+        Log.d(TAG, "onBindServiceClicked: end result=" + result);
+//        launchLauncher();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("dgdsg", false);
     }
 
     @OnClick(R.id.start_b)

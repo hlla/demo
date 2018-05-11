@@ -25,6 +25,11 @@ public class MyApplication extends Application {
         boolean isLoadDexProcess = isLoadDexProcess();
         Log.d(TAG, "attachBaseContext isLoadDexProcess=" + isLoadDexProcess);
         boolean isFinished = false;
+        try {
+            Thread.sleep(500000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (isLoadDexProcess) {
 //            Intent intent = new Intent();
 //            ComponentName componentName = new

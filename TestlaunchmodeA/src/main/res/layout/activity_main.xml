@@ -7,9 +7,11 @@
     tools:context="com.example.testlaunchmodea.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/main_activity"
+        android:layout_width="20dp"
+        android:layout_height="50dp"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
+        android:text="dasfffffffffffffffffffffffffffffffsdgfedrghrwhrehrehreherhrehrthrthrthrtht"
         />
 
     <include

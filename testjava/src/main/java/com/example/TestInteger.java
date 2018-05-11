@@ -9,6 +9,10 @@ import java.math.BigInteger;
 
 public class TestInteger {
     public static void main(String[] args) {
+        int i = 0;
+        String[] aa = new String[1];
+        aa[i++] = "ssaf";
+        System.out.println("i=" + i + ",aa=" + aa[0]);
         Integer a = 1;
         Integer b = 2;
         swap(a, b);
@@ -21,7 +25,7 @@ public class TestInteger {
     private static void swap(Integer num1, Integer num2) {
         try {
             System.out.println(Integer.toHexString(-1));
-            System.out.println(33%10);
+            System.out.println(33 % 10);
             System.out.println(new BigInteger("11111111111111111111111111011111", 2));
             Field field = Integer.class.getDeclaredField("value");
             field.setAccessible(true);

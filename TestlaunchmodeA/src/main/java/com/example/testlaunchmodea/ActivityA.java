@@ -1,8 +1,6 @@
 package com.example.testlaunchmodea;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -43,9 +41,9 @@ public class ActivityA extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
         ButterKnife.bind(this);
-        SharedPreferences sp = getSharedPreferences("cj", Context.MODE_PRIVATE);
-        String name = sp.getString("name", "ddddd");
-        Log.d(TAG, "onCreate name=" + name);
+//        SharedPreferences sp = getSharedPreferences("cj", Context.MODE_PRIVATE);
+//        String name = sp.getString("name", "ddddd");
+//        Log.d(TAG, "onCreate name=" + name);
 //        Intent intent = getIntent();
 //        Bundle bundle = intent.getExtras();
 //        Log.d(TAG, "onCreate bundle=" + bundle);
@@ -107,12 +105,15 @@ public class ActivityA extends BaseActivity {
 
     @OnClick(R.id.start_a)
     public void onStartAClicked() {
-        startModeActivity("action_a", Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        Intent intent = new Intent("action_a");
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+//        startModeActivity("action_a", Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
     @OnClick(R.id.start_b)
     public void onStartBClicked() {
-        startModeActivity("action_b", 0);
+        startModeActivity("action_b", Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     @OnClick(R.id.start_c)

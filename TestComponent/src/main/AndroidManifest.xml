@@ -3,20 +3,53 @@
           package="example.com.testcomponent">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:testOnly="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".TestComponentActivity">
+        <activity
+            android:name=".TestComponentActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_round"
+            android:label="qqqqqqqqqqqqqqqqqqq">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+
+            <!--<category android:name="android.intent.category.HOME"/>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--<category android:name="android.intent.category.MONKEY"/>-->
+            <!--</intent-filter>-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--<activity-->
+        <!--android:name=".SplashActivity"-->
+        <!--android:icon="@mipmap/ic_launcher_round"-->
+        <!--android:label="asdsdsadsd">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN"/>-->
+        <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
 
+        <activity-alias
+            android:name=".MainAliasActivity"
+            android:icon="@mipmap/ic_launcher_round"
+            android:label="Samples Alias"
+            android:targetActivity=".TestComponentActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.MONKEY"/>
+            </intent-filter>
+        </activity-alias>
         <provider
             android:name=".TestProvider"
             android:authorities="com.huawei.rcsbaseline.database.zone"
@@ -29,6 +62,48 @@
         <!--android:authorities="com.cleanmaster.mutiproconfig.dd"-->
         <!--android:exported="true"-->
         <!--/>-->
+        <receiver
+            android:name=".MyStaticReceiverA"
+            >
+            <!--<intent-filter android:priority="5">-->
+            <!--<action android:name="android.intent.action.mystaticreceiver"/>-->
+
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
+            <intent-filter android:priority="5">
+                <action android:name="android.intent.action.receivera"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action
+                    android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data
+                    android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".MyProxyReceiver"
+            >
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.receivera"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+            <intent-filter
+                android:priority="1000">
+                <action
+                    android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action
+                    android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data
+                    android:scheme="package"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

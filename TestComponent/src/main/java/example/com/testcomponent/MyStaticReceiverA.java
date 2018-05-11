@@ -1,4 +1,4 @@
-package letv.com.testanr;
+package example.com.testcomponent;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.util.Log;
  */
 
 public class MyStaticReceiverA extends BroadcastReceiver {
-    private static final String TAG = "Testanr_MySRA";
+    private static final String TAG = "TestComponent1_ReceiA";
 
     @Override
     public void onReceive(Context context, Intent intent) {

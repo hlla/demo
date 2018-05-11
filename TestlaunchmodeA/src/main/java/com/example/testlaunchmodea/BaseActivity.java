@@ -3,6 +3,7 @@ package com.example.testlaunchmodea;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -63,6 +64,11 @@ public class BaseActivity extends Activity {
                 ".flag=" + Integer.toHexString(intent.getFlags()) + "  getIntent()=" + getIntent
                 () + "  intent=" +
                 intent);
+        boolean isFinish = intent.getBooleanExtra("finish", false);
+//        if(isFinish){
+            finish();
+            Process.killProcess(Process.myPid());
+//        }
     }
 
     @Override

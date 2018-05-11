@@ -78,8 +78,9 @@ public class ActivityC extends BaseActivity {
 
     @OnClick(R.id.start_a)
     public void onStartAClicked() {
-        startModeActivity("action_a", Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent
-                .FLAG_ACTIVITY_NEW_TASK);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("finish", true);
+        startModeActivity("action_a", Intent.FLAG_ACTIVITY_CLEAR_TOP, bundle);
 //        startModeActivityForResult("action_a", Intent.FLAG_ACTIVITY_MULTIPLE_TASK | Intent
 //                .FLAG_ACTIVITY_NEW_TASK, null);
     }

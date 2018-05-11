@@ -190,11 +190,11 @@ public class TestProvider extends SQLiteContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String orderBy) {
         Log.i(TAG, "begin query...   uri==> " + uri + " thread=" + Thread.currentThread().getName());
-//        try {
-//            Thread.sleep(3000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         Cursor cursor = null;
 
         int match = URIMATCHER.match(uri);

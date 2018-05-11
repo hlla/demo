@@ -1,7 +1,6 @@
 package example.com.testui;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -679,8 +678,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //        Drawable drawable = new BitmapDrawable(original);
 //        drawable.clearColorFilter();
 //        ((ImageView) findViewById(R.id.img)).clearColorFilter();
-        new AlertDialog.Builder(this).setMessage("fdsdffdf")
-                .create().show();
+//        new AlertDialog.Builder(this).setMessage("fdsdffdf")
+//                .create().show();
         return handle;
     }
 

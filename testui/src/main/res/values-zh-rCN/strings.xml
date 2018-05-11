@@ -15,7 +15,7 @@
     <string name="shortcutbar_entry5">More</string>
     <string name="shortcutbar_entry6">Booster</string>
     <string name="shortcutbar_entry7">Saver</string>
-    <string name="terms_of_use">Terms of Use</string>
-    <string name="privacy_text">Privacy Policy</string>
-    <string name="europe_policy_description">In order to provide you a better experience, CM Launcher needs to collect your personal information, including your Android ID, IP address, MAC address etc. You can learn more about how do we process user data by visiting our latest %1$s and %2$s</string>
+    <string name="terms_of_use">《使用条款》</string>
+    <string name="privacy_text">《隐私条例》</string>
+    <string name="europe_policy_description">为了给您提供更好的使用体验，猎豹3D桌面需要收集您的私人信息，包含安卓ID、IP地址、MAC地址等。这些信息会用于功能的完善与优化以及在线广告。 请放心我们不会将您的个人信息透露给任何其他第三方。您可以通过访问我们最新的%1$s和%2$s来了解我们对用户数据的处理详情。</string>
 </resources>
