@@ -69,6 +69,8 @@ public class ActivityC extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
+        Log.d("chengjian Activityc", "popupWindow testNotify: =" + startC.getWindowToken() + " ff=" +
+                getWindow().getDecorView().getWindowToken());
     }
 
     @OnClick(R.id.start_modeA_main)

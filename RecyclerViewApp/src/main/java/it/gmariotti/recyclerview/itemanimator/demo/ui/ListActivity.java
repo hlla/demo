@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,8 +35,8 @@ import it.gmariotti.recyclerview.itemanimator.SlideInOutLeftItemAnimator;
 import it.gmariotti.recyclerview.itemanimator.SlideInOutRightItemAnimator;
 import it.gmariotti.recyclerview.itemanimator.SlideInOutTopItemAnimator;
 import it.gmariotti.recyclerview.itemanimator.SlideScaleInOutRightItemAnimator;
-import it.gmariotti.recyclerview.itemanimator.demo.adapter.DividerItemDecoration;
 import it.gmariotti.recyclerview.itemanimator.demo.R;
+import it.gmariotti.recyclerview.itemanimator.demo.adapter.DividerItemDecoration;
 import it.gmariotti.recyclerview.itemanimator.demo.adapter.SimpleAdapter;
 
 
@@ -54,13 +55,60 @@ public class ListActivity extends AppCompatActivity {
 
         //Setup RecyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
-        //mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this,LinearLayoutManager.VERTICAL));
-        mAdapter = new SimpleAdapter(this,sCheeseStrings);
+        mRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        PolicyLayoutManager policyLayoutManager = new PolicyLayoutManager();
+        mRecyclerView.setLayoutManager(linearLayoutManager);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                // 当不滑动时
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    // 获取最后一个完全显示的itemPosition
+                    int lastItemPosition = manager.findLastCompletelyVisibleItemPosition();
+                    int itemCount = manager.getItemCount();
+                    Log.d(SimpleAdapter.TAG, "onScrollStateChanged: lastItemPosition=" +
+                            lastItemPosition);
+                }
+            }
+        });
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager
+                .VERTICAL));
+        mAdapter = new SimpleAdapter(this, sCheeseStrings);
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    static class PolicyLayoutManager extends RecyclerView.LayoutManager {
+
+        @Override
+        public RecyclerView.LayoutParams generateDefaultLayoutParams() {
+            return new RecyclerView.LayoutParams(RecyclerView.LayoutParams.WRAP_CONTENT,
+                    RecyclerView.LayoutParams.WRAP_CONTENT);
+        }
+
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            super.onLayoutChildren(recycler, state);
+            detachAndScrapAttachedViews(recycler);
+            int itemCount = getItemCount();
+            for (int i = 0; i < itemCount; i++) {
+                View view = recycler.getViewForPosition(i);
+                addView(view, 0);
+                measureChildWithMargins(view, 0, 0);
+                int widthSpace = getWidth() - getDecoratedMeasuredWidth(view);
+                int heightSpace = getHeight() - getDecoratedMeasuredHeight(view);
+                // 3、layout view
+                layoutDecorated(view,
+                        widthSpace / 2,
+                        heightSpace / 2,
+                        widthSpace / 2 + getDecoratedMeasuredWidth(view),
+                        heightSpace / 2 + getDecoratedMeasuredHeight(view));
+            }
+        }
+    }
 
     private void setupSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
@@ -74,25 +122,30 @@ public class ListActivity extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                switch (position){
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long
+                    l) {
+                switch (position) {
                     case 0:
-                        mRecyclerView.setItemAnimator(new SlideInOutLeftItemAnimator(mRecyclerView));
+                        mRecyclerView.setItemAnimator(new SlideInOutLeftItemAnimator
+                                (mRecyclerView));
                         break;
                     case 1:
-                        mRecyclerView.setItemAnimator(new SlideInOutRightItemAnimator(mRecyclerView));
+                        mRecyclerView.setItemAnimator(new SlideInOutRightItemAnimator
+                                (mRecyclerView));
                         break;
                     case 2:
                         mRecyclerView.setItemAnimator(new SlideInOutTopItemAnimator(mRecyclerView));
                         break;
                     case 3:
-                        mRecyclerView.setItemAnimator(new SlideInOutBottomItemAnimator(mRecyclerView));
+                        mRecyclerView.setItemAnimator(new SlideInOutBottomItemAnimator
+                                (mRecyclerView));
                         break;
                     case 4:
                         mRecyclerView.setItemAnimator(new ScaleInOutItemAnimator(mRecyclerView));
                         break;
                     case 5:
-                        mRecyclerView.setItemAnimator(new SlideScaleInOutRightItemAnimator(mRecyclerView));
+                        mRecyclerView.setItemAnimator(new SlideScaleInOutRightItemAnimator
+                                (mRecyclerView));
                         break;
                 }
             }
@@ -118,7 +171,7 @@ public class ListActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_add) {
-            mAdapter.add("New String",SimpleAdapter.LAST_POSITION);
+            mAdapter.add("New String", SimpleAdapter.LAST_POSITION);
             return true;
         }
         if (id == R.id.action_remove) {
@@ -129,5 +182,5 @@ public class ListActivity extends AppCompatActivity {
     }
 
     public static final String[] sCheeseStrings = {
-            "Abbaye de Belloc" , "Abbaye du Mont des Cats" };
+            "sdsd ", "oiuo", "Abbaye"};
 }

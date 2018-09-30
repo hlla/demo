@@ -100,14 +100,14 @@ public class TestWebViewActivity extends Activity implements
             // to prevent a memory leak (#75)
             // See https://developer.android.com/reference/android/webkit/WebView
             // .html#destroy()
-            ViewParent viewParent = myWebView.getParent();
-            if (null != viewParent && viewParent instanceof ViewGroup) {
-                ((ViewGroup) viewParent).removeView(myWebView);
-            }
-            myWebView.removeAllViews();
-            myWebView.setVisibility(View.GONE);
-            myWebView.destroy();
-            myWebView = null;
+//            ViewParent viewParent = myWebView.getParent();
+//            if (null != viewParent && viewParent instanceof ViewGroup) {
+//                ((ViewGroup) viewParent).removeView(myWebView);
+//            }
+//            myWebView.removeAllViews();
+//            myWebView.setVisibility(View.GONE);
+//            myWebView.destroy();
+//            myWebView = null;
         }
 //         myWebView.destroy();
         // android.widget.ZoomButtonsController
@@ -353,14 +353,14 @@ public class TestWebViewActivity extends Activity implements
         mLinear = (FrameLayout) findViewById(R.id.liner);
         // myWebView = new AdWebView(getApplicationContext());
         // // zoomView(247, 243, mLinear);
-        WebSettings webSettings = myWebView.getSettings();
+//        WebSettings webSettings = myWebView.getSettings();
         // myWebView.clearCache(false);
         // webSettings.setSupportZoom(true);
         // webSettings.setBuiltInZoomControls(true);
         // myWebView.setVerticalScrollBarEnabled(true);
         // myWebView.setHorizontalScrollBarEnabled(true);
         // 支持javascript
-        myWebView.getSettings().setJavaScriptEnabled(true);
+//        myWebView.getSettings().setJavaScriptEnabled(true);
         // 自适应屏幕
         // myWebView.getSettings().setLayoutAlgorithm(
         // LayoutAlgorithm.SINGLE_COLUMN);
@@ -371,13 +371,13 @@ public class TestWebViewActivity extends Activity implements
         myWebView.setWebViewClient(new LetvWebViewClient());
         myWebView.setWebChromeClient(new LetvWebViewChromeClient());
         // webSettings.setBlockNetworkLoads(true);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setSaveFormData(false);
-        // webSettings.setUseWideViewPort(true);
-
-        webSettings.setSupportZoom(true);
-        webSettings.setDisplayZoomControls(false);
-        webSettings.setBuiltInZoomControls(true);
+//        webSettings.setUseWideViewPort(true);
+//        webSettings.setSaveFormData(false);
+//        // webSettings.setUseWideViewPort(true);
+//
+//        webSettings.setSupportZoom(true);
+//        webSettings.setDisplayZoomControls(false);
+//        webSettings.setBuiltInZoomControls(true);
         // webSettings.setDomStorageEnabled(true);
         // webSettings.setBlockNetworkImage(true);
         // webSettings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
@@ -398,12 +398,12 @@ public class TestWebViewActivity extends Activity implements
         // .getAbsolutePath();
         String appCachePath = Environment.getExternalStorageDirectory()
                 .getPath() + "/web_cache/";
-        Log.d(TAG, "onCreate webSettings=" + webSettings);
-        Log.d(TAG, "onCreate getDatabasePath=" + webSettings.getDatabasePath());
-        // webSettings.setAllowFileAccess(true);
-        // webSettings.setAppCachePath(appCachePath);
-        Log.d(TAG, "onCreate DatabasePath=" + webSettings.getDatabasePath());
-        Log.d(TAG, "onCreate dir=" + dir);
+//        Log.d(TAG, "onCreate webSettings=" + webSettings);
+//        Log.d(TAG, "onCreate getDatabasePath=" + webSettings.getDatabasePath());
+//        // webSettings.setAllowFileAccess(true);
+//        // webSettings.setAppCachePath(appCachePath);
+//        Log.d(TAG, "onCreate DatabasePath=" + webSettings.getDatabasePath());
+//        Log.d(TAG, "onCreate dir=" + dir);
         // webSettings.setDefaultTextEncodingName("GBK");
 
         // Log.d(TAG, "onCreate url=" + myWebView.getSettings().getCacheMode());

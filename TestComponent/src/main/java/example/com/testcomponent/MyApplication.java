@@ -1,12 +1,12 @@
 package example.com.testcomponent;
 
-import android.app.Application;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.SystemProperties;
+import android.support.multidex.MultiDexApplication;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
@@ -14,7 +14,7 @@ import android.util.Log;
  * Created by chengjian on 18-4-19.
  */
 
-public class MyApplication extends Application {
+public class MyApplication extends MultiDexApplication {
     private static final String TAG = "TestComponent1_App";
 
     //    TestStaticA Te=new TestStaticA();

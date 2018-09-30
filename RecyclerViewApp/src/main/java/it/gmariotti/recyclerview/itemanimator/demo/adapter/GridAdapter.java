@@ -33,19 +33,22 @@ import it.gmariotti.recyclerview.itemanimator.demo.R;
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.SimpleViewHolder> {
-
-    public static final int LAST_POSITION = -1 ;
-    private static final int COUNT = 3;
+    public static final String[] sCheeseStrings = {
+            "Abbaye de Bellocasdasfsfdsg sfdsf dsgdgdsg dsfdhgfytry ry bvc wq mm wqwwer tryyrye " +
+                    "oiuo", "Abbaye du Mont des Cats ffm pp pprtewt ewtet 0tret gf fdgfh 43232 " +
+            "gdg"};
+    public static final int LAST_POSITION = -1;
+    private static final int COUNT = 2;
 
     private final Context mContext;
-    private final List<Integer> mItems;
+    private final List<String> mItems;
     private int mCurrentItemId = 0;
 
     public GridAdapter(Context context) {
         mContext = context;
-        mItems = new ArrayList<Integer>(COUNT);
+        mItems = new ArrayList<String>(2);
         for (int i = 0; i < COUNT; i++) {
-            addItem(i);
+            addItem(sCheeseStrings[i], i);
         }
     }
 
@@ -67,34 +70,34 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.SimpleViewHold
     public void onBindViewHolder(final SimpleViewHolder holder, final int position) {
         holder.title.setText(mItems.get(position).toString());
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int itemPosition = holder.getLayoutPosition();
-                addItem(itemPosition + 1);
-            }
-        });
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                int itemPosition = holder.getLayoutPosition();
-                removeItem(itemPosition);
-                return true;
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int itemPosition = holder.getLayoutPosition();
+//                addItem(itemPosition + 1);
+//            }
+//        });
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                int itemPosition = holder.getLayoutPosition();
+//                removeItem(itemPosition);
+//                return true;
+//            }
+//        });
     }
 
-    public void addItem(int position) {
-        final int id = mCurrentItemId++;
-        position = position == LAST_POSITION ? getItemCount()  : position;
-        mItems.add(position, id);
+    public void addItem(String str, int position) {
+//        final int id = mCurrentItemId++;
+        position = position == LAST_POSITION ? getItemCount() : position;
+        mItems.add(position, str);
         notifyItemInserted(position);
     }
 
     public void removeItem(int position) {
 
         if (position == LAST_POSITION && getItemCount() > 0)
-            position = getItemCount() -1 ;
+            position = getItemCount() - 1;
 
         if (position > LAST_POSITION && position < getItemCount()) {
             mItems.remove(position);

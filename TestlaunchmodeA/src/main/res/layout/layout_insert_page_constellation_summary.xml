@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#00ff00"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_centerVertical="true"
+                android:background="#ff0000"
+                android:layout_marginTop="100dp"/>
+
+            <ImageView
+                android:id="@+id/constellation_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitCenter"/>
+
+            <TextView
+                android:id="@+id/constellation_libra_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/constellation_image"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="GEMINI"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/constellation_libra_title_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/constellation_image"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="GEMINI"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/constellation_libra_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/constellation_libra_title_2"
+                android:layout_marginTop="1dp"
+                android:gravity="center"
+                android:text="(5/21-6/21)"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"/>
+
+            <!--<include-->
+                <!--android:id="@+id/list_linear"-->
+                <!--layout="@layout/layout_insert_page_constellation_list"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/constellation_libra_data"-->
+                <!--android:layout_marginLeft="12dp"-->
+                <!--android:layout_marginRight="12dp"-->
+                <!--android:layout_marginTop="12dp"-->
+                <!--/>-->
+
+            <!--<include-->
+                <!--android:id="@+id/list_linear_2"-->
+                <!--layout="@layout/layout_insert_page_constellation_list"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/list_linear"-->
+                <!--android:layout_marginLeft="12dp"-->
+                <!--android:layout_marginRight="12dp"-->
+                <!--android:layout_marginTop="12dp"-->
+                <!--/>-->
+
+            <!--<include-->
+                <!--android:id="@+id/lucky"-->
+                <!--layout="@layout/layout_insert_page_constellation_lucky"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/list_linear_2"-->
+                <!--android:layout_marginLeft="15dp"-->
+                <!--android:layout_marginRight="15dp"-->
+                <!--android:layout_marginTop="10dp"></include>-->
+
+            <Button
+                android:id="@+id/learn_more_bt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lucky"
+                android:layout_gravity="center"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="libra_learn_more"
+                android:textColor="#FFFFFFFF"
+                android:textSize="16sp"
+                />
+
+            <Button
+                android:id="@+id/tap_to_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/learn_more_bt"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="15dp"
+                android:paddingTop="15dp"
+                android:text="libra_tap_to_home"
+                android:textColor="#FFFFFFFF"
+                android:textSize="16sp"
+                />
+
+            <!--<include-->
+            <!--layout="@layout/layout_insert_page_constellation_libra_ideal_dialog"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_marginRight="5dp"/>-->
+
+            <TextView
+                android:id="@+id/layout_insert_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tap_to_home"
+                android:layout_marginTop="13dp"
+                android:fontFamily="sans-serif-light"
+                android:gravity="center"
+                android:textColor="#FFFFFFFF"
+                android:textSize="12sp"
+                />
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center">
+
+        <include
+            android:id="@+id/choose_constellation_pop"
+            layout="@layout/layout_insert_page_constellation_lucky"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+</FrameLayout>

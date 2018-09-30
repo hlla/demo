@@ -5,4 +5,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="default_style">
+        <item name="@android:windowEnterAnimation">@anim/enter_anim</item>
+        <item name="@android:windowExitAnimation">@anim/exit_anim</item>
+    </style>
+    <style name="default_style_image">
+        <item name="@android:windowEnterAnimation">@anim/enter_anim_image</item>
+        <item name="@android:windowExitAnimation">@anim/exit_anim</item>
+    </style>
 </resources>

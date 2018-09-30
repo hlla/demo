@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'AndResGuard'
 android {
-    compileSdkVersion 23
+    compileSdkVersion 25
     buildToolsVersion '26.0.2'
 
     defaultConfig {
@@ -62,10 +62,10 @@ andResGuard {
      finalApkBackupPath = "${project.rootDir}/final.apk"
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compileOnly files("libs/layoutlib.jar")
     testCompile 'junit:junit:4.12'
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'

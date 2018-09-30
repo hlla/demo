@@ -274,7 +274,6 @@ public class TestProvider extends SQLiteContentProvider {
                     break;
             }
         }
-
         return count;
     }
 

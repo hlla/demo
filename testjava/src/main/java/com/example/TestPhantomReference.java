@@ -6,14 +6,15 @@ import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 
-public class TestPhantomReference extends junit.framework.TestCase {
+public class TestPhantomReference /*extends junit.framework.TestCase*/ {
     public static boolean isRun = true;
 
     static class AA {
         @Override
         protected void finalize() throws Throwable {
             super.finalize();
-            System.out.println("finalize()");
+            System.out.println("AA finalize() time=" + System
+                    .currentTimeMillis() / 1000);
         }
     }
 
@@ -26,7 +27,7 @@ public class TestPhantomReference extends junit.framework.TestCase {
 
         @Override
         public T get() {
-            System.out.println("MyWeakReference get（） " + " time=" + System
+            System.out.println("MyWeakReference read（） " + " time=" + System
                     .currentTimeMillis() / 1000);
             return super.get();
         }
@@ -59,7 +60,7 @@ public class TestPhantomReference extends junit.framework.TestCase {
 
         @Override
         public T get() {
-            System.out.println("MyPhantomReference get（） " + " time=" + System
+            System.out.println("MyPhantomReference read（） " + " time=" + System
                     .currentTimeMillis() / 1000);
             return super.get();
         }

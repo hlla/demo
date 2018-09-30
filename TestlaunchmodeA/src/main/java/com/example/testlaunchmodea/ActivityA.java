@@ -41,6 +41,8 @@ public class ActivityA extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_a);
         ButterKnife.bind(this);
+        Log.d("chengjian ActivityA", "onCreate popupWindow testNotify: =" + startC.getWindowToken() + " ff=" +
+                getWindow().getDecorView().getWindowToken());
 //        SharedPreferences sp = getSharedPreferences("cj", Context.MODE_PRIVATE);
 //        String name = sp.getString("name", "ddddd");
 //        Log.d(TAG, "onCreate name=" + name);
@@ -96,6 +98,8 @@ public class ActivityA extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy: ");
+        Log.d("chengjian ActivityA", "onDestroy popupWindow testNotify: =" + startC.getWindowToken() + " ff=" +
+                getWindow().getDecorView().getWindowToken());
     }
 
     @OnClick(R.id.start_modeA_main)
@@ -106,7 +110,7 @@ public class ActivityA extends BaseActivity {
     @OnClick(R.id.start_a)
     public void onStartAClicked() {
         Intent intent = new Intent("action_a");
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 //        startModeActivity("action_a", Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }

@@ -53,10 +53,10 @@ public class TestReference {
         // a= null;
         System.gc();
         // ob.testObj();
-        // if (wr.get() == null)
+        // if (wr.read() == null)
         // System.out.println("obj 已经被清除了 ");
         // else
-        // System.out.println("obj 尚未被清除，其信息是 " + wr.get().toString());
+        // System.out.println("obj 尚未被清除，其信息是 " + wr.read().toString());
 
     }
 

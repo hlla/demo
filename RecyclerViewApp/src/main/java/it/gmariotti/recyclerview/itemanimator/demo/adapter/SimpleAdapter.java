@@ -41,7 +41,7 @@ import it.gmariotti.recyclerview.itemanimator.demo.R;
  * @author Gabriele Mariotti (gabri.mariotti@gmail.com)
  */
 public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleViewHolder> {
-    private static final String TAG = "Recycler_SimpleAdapter";
+    public static final String TAG = "Recycler_SimpleAdapter";
     public static final int LAST_POSITION = -1;
     private final Context mContext;
     private List<String> mData;
@@ -50,7 +50,7 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
 
     public void add(String s, int position) {
         position = position == LAST_POSITION ? getItemCount() : position;
-        mData.add(position, s);
+        mData.add(position, s + position);
         notifyItemInserted(position);
     }
 
@@ -136,15 +136,18 @@ public class SimpleAdapter extends RecyclerView.Adapter<SimpleAdapter.SimpleView
         if (null != mWeakReference) {
             Log.d(TAG, "onBindViewHolder: get()=" + mWeakReference.get());
         }
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         TestObject object = new TestObject();
         WeakReference weakReference = new WeakReference(object, mReferenceQueue);
         Log.d(TAG, "onBindViewHolder: holder.view=" + holder.view + "  position=" + position + " " +
                 "object=" + object + " weakReference=" + weakReference);
+        if (2 == position) {
+            holder.itemView.setVisibility(View.GONE);
+        }
         holder.title.setText(mData.get(position));
         holder.view.setTag(position);
         holder.title.setOnClickListener(new View.OnClickListener() {

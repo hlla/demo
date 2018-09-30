@@ -1,0 +1,41 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+
+
+
+    defaultConfig {
+        multiDexEnabled true
+        applicationId "example.com.testglview"
+        minSdkVersion 15
+        targetSdkVersion 21
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            postprocessing {
+                removeUnusedCode false
+                removeUnusedResources false
+                obfuscate false
+                optimizeCode false
+                proguardFile 'proguard-rules.pro'
+            }
+        }
+    }
+
+}
+
+dependencies {
+    compileOnly files("libs/layoutlib.jar")
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "com.cmcm.launcher:glview:5.1.25"
+    implementation "com.cmcm.launcher:EngineParser:5.1.25"
+    implementation "com.cmcm.launcher:o3d:5.1.25"
+}

@@ -1,11 +1,11 @@
 package com.example.testlaunchmodea;
 
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.database.ContentObserver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -105,13 +106,14 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        getContentResolver().registerContentObserver(ACCOUNT_URI, true, new ContentObserver(null) {
-            @Override
-            public void onChange(boolean selfChange) {
-                Log.d("TestComponent1_op", "onChange selfChange=" + selfChange);
-            }
-        });
-        mHandler.sendEmptyMessageDelayed(0, 5000);
+//        getContentResolver().registerContentObserver(ACCOUNT_URI, true, new ContentObserver
+// (null) {
+//            @Override
+//            public void onChange(boolean selfChange) {
+//                Log.d("TestComponent1_op", "onChange selfChange=" + selfChange);
+//            }
+//        });
+//        mHandler.sendEmptyMessageDelayed(0, 5000);
     }
 
 
@@ -178,21 +180,26 @@ public class MainActivity extends BaseActivity {
 //        Bundle bundle = new Bundle();
 //        bundle.putString("name", "cj");
 //        startModeActivity("action_a", 0, bundle);
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.layout_insert_page_constellation_summary);
+        dialog.show();
+        TextView textView = (TextView) dialog.findViewById(R.id.layout_insert_text);
+        textView.setText("hfghgh");
 //        finish();
-        Intent intent = new Intent("test.service");
-        intent.setClassName("letv.com.testanr11", "letv.com.testanr.MyService");
-        boolean result = bindService(intent, new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-
-            }
-        }, BIND_AUTO_CREATE);
-        Log.d(TAG, "onBindServiceClicked: end result=" + result);
+//        Intent intent = new Intent("test.service");
+//        intent.setClassName("letv.com.testanr11", "letv.com.testanr.MyService");
+//        boolean result = bindService(intent, new ServiceConnection() {
+//            @Override
+//            public void onServiceConnected(ComponentName name, IBinder service) {
+//
+//            }
+//
+//            @Override
+//            public void onServiceDisconnected(ComponentName name) {
+//
+//            }
+//        }, BIND_AUTO_CREATE);
+//        Log.d(TAG, "onBindServiceClicked: end result=" + result);
 //        launchLauncher();
     }
 

@@ -65,10 +65,10 @@ public class BaseActivity extends Activity {
                 () + "  intent=" +
                 intent);
         boolean isFinish = intent.getBooleanExtra("finish", false);
-//        if(isFinish){
+        if(isFinish){
             finish();
             Process.killProcess(Process.myPid());
-//        }
+        }
     }
 
     @Override

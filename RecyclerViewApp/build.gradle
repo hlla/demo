@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 24
     buildToolsVersion '26.0.2'
 
     defaultConfig {
         applicationId "it.gmariotti.recyclerview.itemanimator.demo"
-        minSdkVersion 14
+        minSdkVersion 23
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="example.com.testcomponent">
 
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -14,7 +20,8 @@
             android:name=".TestComponentActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_round"
-            android:label="qqqqqqqqqqqqqqqqqqq">
+            android:label="qqqqqqqqqqqqqqqqqqq"
+            >
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN"/>-->
 
@@ -39,24 +46,28 @@
 
         <activity-alias
             android:name=".MainAliasActivity"
+            android:excludeFromRecents="true"
             android:icon="@mipmap/ic_launcher_round"
             android:label="Samples Alias"
-            android:targetActivity=".TestComponentActivity">
+            android:targetActivity=".TestComponentActivity"
+            android:visibleToInstantApps="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.VIEW"/>
 
-                <category android:name="android.intent.category.HOME"/>
                 <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.MONKEY"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="details"
+                    android:scheme="market"/>
             </intent-filter>
         </activity-alias>
-        <provider
-            android:name=".TestProvider"
-            android:authorities="com.huawei.rcsbaseline.database.zone"
-            android:exported="true"
-            android:multiprocess="true"
-            android:process=":remote"
-            />
+        <!--<provider-->
+        <!--android:name=".TestProvider"-->
+        <!--android:authorities="com.huawei.rcsbaseline.database.zone"-->
+        <!--android:exported="true"-->
+        <!--android:process=":remote"-->
+        <!--/>-->
         <!--<provider-->
         <!--android:name=".TestProviderOne"-->
         <!--android:authorities="com.cleanmaster.mutiproconfig.dd"-->
@@ -65,11 +76,11 @@
         <receiver
             android:name=".MyStaticReceiverA"
             >
-            <!--<intent-filter android:priority="5">-->
-            <!--<action android:name="android.intent.action.mystaticreceiver"/>-->
+            <intent-filter android:priority="5">
+                <action android:name="android.intent.action.mystaticreceiver"/>
 
-            <!--<category android:name="android.intent.category.DEFAULT"/>-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
             <intent-filter android:priority="5">
                 <action android:name="android.intent.action.receivera"/>
 
@@ -104,6 +115,15 @@
                     android:scheme="package"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".AlarmBroadcastReceiver"
+            >
+        </receiver>
+
+        <service
+            android:name=".MyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE">
+        </service>
     </application>
 
 </manifest>

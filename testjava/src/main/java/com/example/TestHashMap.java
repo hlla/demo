@@ -105,6 +105,15 @@ public class TestHashMap {
                 ((tmp[offset] & 0xff) << 24);
     }
 
+    private static String getStackTraceInfo() {
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StringBuilder stacks = new StringBuilder();
+        for (StackTraceElement stackTraceElement : stackTrace) {
+            stacks.append(stackTraceElement.toString()).append("\r\n");
+        }
+        return stacks.toString();
+    }
+
     public static String getStackTraceInfo(final Throwable throwable) {
         String trace = "";
         try {
@@ -140,9 +149,34 @@ public class TestHashMap {
     }
 
     public static void main(String[] args) {
+        ArrayList<String> strings1133 = new ArrayList<>();
+        strings1133.add("ggfd");
+        strings1133.add("1232123");
+        strings1133.add("mmm");
+        strings1133.remove("mmm");
+        ArrayList<String> strings1133sdsad = new ArrayList<>(strings1133);
+//        strings1133sdsad.addAll(strings1133);
+        for (String ss : strings1133sdsad) {
+//            strings1133.remove("mmm");
+            System.out.println("maindsadsd ssssssssssssssssss=" + ss);
+        }
+//        for (String ss : strings1133) {
+        strings1133.remove("mmm");
+//        }
+        AA:
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println("main ii=" + i);
+//            for (int m = 0; m < 10; m++) {
+//                System.out.println("main mm=" + m);
+//                if (i == 5) {
+//                    break AA;
+//                }
+//            }
+//        }
+        System.out.println("TestHashMap");
         MyTestSub myTest1 = new TestHashMap().new MyTestSub();
-        System.out.println("myTest1=" + myTest1);
-        testCrash();
+//        System.out.println("myTest1=" + getThreadStackTrace());
+//        testCrash();
         MyTest myTest11 = new MyTest("a", 1, false);
         MyTest myTest2 = new MyTest("b", 2, false);
         MyTest myTest3 = new MyTest("c", 3, true);
@@ -251,7 +285,7 @@ public class TestHashMap {
 //            System.out.println("myTest11=" + myTest);
 //        }
 //        ArrayList<MyTest> myTests11 = (ArrayList) myTests.clone();
-//        myTests11.remove(myTests.get(0));
+//        myTests11.remove(myTests.read(0));
 //        for (MyTest myTest : myTests11) {
 //            System.out.println("myTest22=" + myTest);
 //        }
@@ -305,7 +339,7 @@ public class TestHashMap {
                     Thread.sleep(1000);
 //                String dd = null;
 //                for (int i = 0; i < mHostThemeCallbackList.size(); i++) {
-//                    String name = mHostThemeCallbackList.get(i);
+//                    String name = mHostThemeCallbackList.read(i);
 //                    try {
 //                        Thread.sleep(100);
 //                    } catch (InterruptedException e) {
@@ -331,7 +365,7 @@ public class TestHashMap {
                     }
                 }
 //                for (int i = 0; i < mHostThemeCallbackList.size(); i++) {
-//                    String name = mHostThemeCallbackList.get(i);
+//                    String name = mHostThemeCallbackList.read(i);
 //                    try {
 //                        Thread.sleep(100);
 //                    } catch (InterruptedException e) {

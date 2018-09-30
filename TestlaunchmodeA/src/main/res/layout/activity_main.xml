@@ -5,14 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.testlaunchmodea.MainActivity">
-
+    <!--<include-->
+        <!--layout="@layout/layout_insert_page_constellation_summary"/>-->
     <TextView
         android:layout_width="20dp"
         android:layout_height="50dp"
         android:fadeScrollbars="false"
         android:scrollbars="vertical"
         android:text="dasfffffffffffffffffffffffffffffffsdgfedrghrwhrehrehreherhrehrthrthrthrtht"
+        android:visibility="gone"
         />
+
 
     <include
         layout="@layout/common"/>

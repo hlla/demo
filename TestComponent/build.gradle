@@ -1,14 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '26.0.2'
-
+    compileSdkVersion 26
+    buildToolsVersion '28.0.2'
+    signingConfigs {
+        config {
+            keyAlias 'cj'
+            keyPassword '123456'
+            storeFile file('/home/chengjian/workspace/TestApp/test.ks')
+            storePassword '123456'
+        }
+    }
     defaultConfig {
         multiDexEnabled true
-        applicationId "example.com.testcomponent"
+        applicationId "example.com.testcomponent.dd"
         minSdkVersion 19
-        targetSdkVersion 19
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
@@ -20,6 +27,16 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    flavorDimensions "default"
+    productFlavors {
+        themeLauncher {
+            applicationId 'com.ksmobile.launcher.ff'
+        }
+        mainLauncher {
+            applicationId 'com.ksmobile.launcher.dd'
         }
     }
 
@@ -32,4 +49,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.6.0'
     implementation 'com.android.support:support-v4:25.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    //test
+//    implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.4.0'
+//    compile 'com.facebook.react:react-native:+'
+//    implementation "io.reactivex.rxjava2:rxjava:2.1.12"
+//    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 }

@@ -22,7 +22,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -54,7 +53,9 @@ public class GridActivity extends AppCompatActivity {
         //Setup RecyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.list);
         //mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 5));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
+//        gridLayoutManager.setOrientation(GridLayoutManager.HORIZONTAL);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
         mAdapter = new GridAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -98,7 +99,6 @@ public class GridActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }
@@ -110,21 +110,21 @@ public class GridActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_add) {
-            mAdapter.addItem(mAdapter.getItemCount() > 1 ? 1 : GridAdapter.LAST_POSITION);
-            return true;
-        }
-        if (id == R.id.action_remove) {
-            mAdapter.removeItem(mAdapter.getItemCount() >= 2 ? 1 : GridAdapter.LAST_POSITION);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//        if (id == R.id.action_add) {
+//            mAdapter.addItem(mAdapter.getItemCount() > 1 ? 1 : GridAdapter.LAST_POSITION);
+//            return true;
+//        }
+//        if (id == R.id.action_remove) {
+//            mAdapter.removeItem(mAdapter.getItemCount() >= 2 ? 1 : GridAdapter.LAST_POSITION);
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 }

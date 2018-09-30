@@ -26,8 +26,10 @@ package com.tencent.wstt.gt;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.stat.MtaSDkException;
@@ -59,256 +61,281 @@ import com.tencent.wstt.gt.plugin.smtools.SMToolsPluginItem;
 import com.tencent.wstt.gt.plugin.tcpdump.TcpdumpPluginItem;
 import com.tencent.wstt.gt.utils.GTUtils;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GTApp extends Application {
-	private static Context mContext;
-	private static boolean isAppRunned = false;
-	public static DaemonHandler daemonHandler;
+    private static Context mContext;
+    private static boolean isAppRunned = false;
+    public static DaemonHandler daemonHandler;
 
-	static Handler emptyHandler = new Handler();
-	public static ExecutorService sExecutor;
+    static Handler emptyHandler = new Handler();
+    public static ExecutorService sExecutor;
 
-	// 是否在GT的UI中
-	private static boolean isInGT = false;
+    // 是否在GT的UI中
+    private static boolean isInGT = false;
 
-	public static boolean isInGT() {
-		return isInGT;
-	}
+    public static boolean isInGT() {
+        return isInGT;
+    }
 
-	public static void setInGT(boolean inGT) {
-		isInGT = inGT;
-	}
+    public static void setInGT(boolean inGT) {
+        isInGT = inGT;
+    }
 
-	public static ExecutorService getsExecutor() {
-		return sExecutor;
-	}
+    public static ExecutorService getsExecutor() {
+        return sExecutor;
+    }
 
-	public GTApp() {
-		super();
-		if (null == daemonHandler) {
-			daemonHandler = new DaemonHandler();
-		}
-		if (!GTDaemonThreadManager.getInstance().contains(GTMemoryDaemonThread.key)) {
-			GTDaemonThreadManager.getInstance().put(GTMemoryDaemonThread.key, new GTMemoryDaemonThread());
-			GTDaemonThreadManager.getInstance().start(GTMemoryDaemonThread.key);
-		}
-	}
+    public GTApp() {
+        super();
+        if (null == daemonHandler) {
+            daemonHandler = new DaemonHandler();
+        }
+        if (!GTDaemonThreadManager.getInstance().contains(GTMemoryDaemonThread.key)) {
+            GTDaemonThreadManager.getInstance().put(GTMemoryDaemonThread.key, new
+                    GTMemoryDaemonThread());
+            GTDaemonThreadManager.getInstance().start(GTMemoryDaemonThread.key);
+        }
+    }
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		mContext = getApplicationContext();
+    /**
+     * Returns the size of the partition <a href="#partName">named</a> by this
+     * abstract pathname.
+     *
+     * @return The size, in bytes, of the partition or <tt>0L</tt> if this
+     * abstract pathname does not name a partition
+     * @throws SecurityException If a security manager has been installed and it denies
+     *                           {@link RuntimePermission}<tt>("getFileSystemAttributes")</tt>
+     *                           or its {@link SecurityManager#checkRead(String)} method denies
+     *                           read access to the file named by this abstract pathname
+     * @since 1.6
+     */
+    public long getTotalSpace() {
 
-		Env.init();
+        return 11;
+    }
 
-		// 设置主线程的未捕获异常记录
+    File file;
+    View view;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        file.getTotalSpace();
+        view.setBackgroundResource(0);
+        mContext = getApplicationContext();
+
+        Env.init();
+
+        // 设置主线程的未捕获异常记录
 //		GTUtils.setGTUncaughtExceptionHandler();
-		CrashReport.initCrashReport(mContext, "900010910", false);
+        CrashReport.initCrashReport(mContext, "900010910", false);
 
-		// 初始化适配Android4.x和5.x以上的ProcessUtils
-		ProcessUtils.init();
-		// App启动的时候，把该拷贝的资源文件拷贝了
-		propareResourceFile();
-		// 信号值获取的模块需要在这里初始化
-		SignalUtils.init();
-		// 网络流量在这里初始化，从GT开始启动时统计
-		NetUtils.initNetValue();
-		// 在GT启动时，把默认提供的出参注册了
-		registerGTDefaultOutParas();
+        // 初始化适配Android4.x和5.x以上的ProcessUtils
+        ProcessUtils.init();
+        // App启动的时候，把该拷贝的资源文件拷贝了
+        propareResourceFile();
+        // 信号值获取的模块需要在这里初始化
+        SignalUtils.init();
+        // 网络流量在这里初始化，从GT开始启动时统计
+        NetUtils.initNetValue();
+        // 在GT启动时，把默认提供的出参注册了
+        registerGTDefaultOutParas();
 
-		// 初始化全局客户端
-		ClientFactory cf = new SingleInstanceClientFactory();
-		cf.orderClient(ClientManager.GLOBAL_CLIENT, ClientManager.GLOBAL_CLIENT.hashCode(), null, null);
+        // 初始化全局客户端
+        ClientFactory cf = new SingleInstanceClientFactory();
+        cf.orderClient(ClientManager.GLOBAL_CLIENT, ClientManager.GLOBAL_CLIENT.hashCode(), null,
+                null);
 
-		// 加载插件，这句要在初始化全局客户端之后执行
-		loadPlugins();
+        // 加载插件，这句要在初始化全局客户端之后执行
+        loadPlugins();
 
-		loadEnvInfo();
+        loadEnvInfo();
 
-		// 使用MAT平台进行统计上报
-		// 第二个参数是null，标识读取manifest里配置的appKey
-		// 第三个参数必须为：com.tencent.stat.common.StatConstants.VERSION
-		StatConfig.setDebugEnable(false); // 不打印MTA类日志
-		// 是否WIFI网络下实时上报，如果是false，则在GT第二次启动上报
-		StatConfig.setEnableSmartReporting(true);
-		try {
-			StatService.startStatService(this, null, com.tencent.stat.common.StatConstants.VERSION);
-		} catch (MtaSDkException e) {
-			// MTA初始化失败
-			Log.e("gt_mta", "MTA start failed.");
-		}
+        // 使用MAT平台进行统计上报
+        // 第二个参数是null，标识读取manifest里配置的appKey
+        // 第三个参数必须为：com.tencent.stat.common.StatConstants.VERSION
+        StatConfig.setDebugEnable(false); // 不打印MTA类日志
+        // 是否WIFI网络下实时上报，如果是false，则在GT第二次启动上报
+        StatConfig.setEnableSmartReporting(true);
+        try {
+            StatService.startStatService(this, null, com.tencent.stat.common.StatConstants.VERSION);
+        } catch (MtaSDkException e) {
+            // MTA初始化失败
+            Log.e("gt_mta", "MTA start failed.");
+        }
 
-		sExecutor = Executors.newFixedThreadPool(4);
-	}
+        sExecutor = Executors.newFixedThreadPool(4);
+    }
 
-	private void loadEnvInfo() {
-		Env.CUR_APP_VER = DeviceUtils.getSDKVersion(); // Android版本名
-	}
+    private void loadEnvInfo() {
+        Env.CUR_APP_VER = DeviceUtils.getSDKVersion(); // Android版本名
+    }
 
-	private void loadPlugins() {
-		PluginManager pm = PluginManager.getInstance();
-		// 启动PluginService
-		Intent intent = new Intent(this, PluginService.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		this.startService(intent);
+    private void loadPlugins() {
+        PluginManager pm = PluginManager.getInstance();
+        // 启动PluginService
+        Intent intent = new Intent(this, PluginService.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startService(intent);
 
-		// 插件管理器初始化
-		pm.register(new BatteryPluginItem());
-		pm.register(new TcpdumpPluginItem());
-		pm.register(new ScreenlockPluginItem());
-		pm.register(new GTMemFillPluginItem());
-		pm.register(new SMToolsPluginItem());
-		pm.register(new GTGPSPluginItem());
-	}
+        // 插件管理器初始化
+        pm.register(new BatteryPluginItem());
+        pm.register(new TcpdumpPluginItem());
+        pm.register(new ScreenlockPluginItem());
+        pm.register(new GTMemFillPluginItem());
+        pm.register(new SMToolsPluginItem());
+        pm.register(new GTGPSPluginItem());
+    }
 
-	public static Context getContext() {
-		return mContext;
-	}
+    public static Context getContext() {
+        return mContext;
+    }
 
-	public static void setContext(Context context) {
-		mContext = context;
-	}
+    public static void setContext(Context context) {
+        mContext = context;
+    }
 
-	public static void setGTRunStatus(boolean runned) {
-		isAppRunned = runned;
-	}
+    public static void setGTRunStatus(boolean runned) {
+        isAppRunned = runned;
+    }
 
-	public static boolean getGTRunStatus() {
-		return isAppRunned;
-	}
+    public static boolean getGTRunStatus() {
+        return isAppRunned;
+    }
 
-	private void propareResourceFile() {
-		/*
-		 * 作为内置应用时， 第一次运行要拷贝so到data/data/com.tencent.wstt.gt/files下并加载
+    private void propareResourceFile() {
+        /*
+         * 作为内置应用时， 第一次运行要拷贝so到data/data/com.tencent.wstt.gt/files下并加载
 		 */
 //		GTUtils.copySoToDest(mContext);
 
-		GTUtils.copyTcpdump(mContext);
-		GTUtils.copyalarm(mContext);
-	}
+        GTUtils.copyTcpdump(mContext);
+        GTUtils.copyalarm(mContext);
+    }
 
-	/**
-	 * 注册GT提供的默认输出参数
-	 */
-	private void registerGTDefaultOutParas() {
+    /**
+     * 注册GT提供的默认输出参数
+     */
+    private void registerGTDefaultOutParas() {
 
-		DefaultParaRunEngine mDefaultParaRunEngine = new DefaultParaRunEngine();
-		mDefaultParaRunEngine.start();
-		ProcPerfParaRunEngine ppEngine = ProcPerfParaRunEngine.getInstance();
-		ppEngine.start();
-	}
+        DefaultParaRunEngine mDefaultParaRunEngine = new DefaultParaRunEngine();
+        mDefaultParaRunEngine.start();
+        ProcPerfParaRunEngine ppEngine = ProcPerfParaRunEngine.getInstance();
+        ppEngine.start();
+    }
 
-	/**
-	 * 关闭GT开启的service, 关闭GT应用
-	 */
-	public static void exitGT() {
-		// 将缓存中的日志信息保存到文件
-		GTLogInternal.endAllLog();
+    /**
+     * 关闭GT开启的service, 关闭GT应用
+     */
+    public static void exitGT() {
+        // 将缓存中的日志信息保存到文件
+        GTLogInternal.endAllLog();
 
-		// 如果有在模拟位置，要即时清理状态
-		GTGPSReplayEngine.getInstance().stopMockLocation();
+        // 如果有在模拟位置，要即时清理状态
+        GTGPSReplayEngine.getInstance().stopMockLocation();
 
-		sExecutor.shutdownNow();
+        sExecutor.shutdownNow();
 
-		// 这个一定要放在最后，因为里面有杀进程的动作
-		GTEntrance.GTclose(mContext);
-	}
+        // 这个一定要放在最后，因为里面有杀进程的动作
+        GTEntrance.GTclose(mContext);
+    }
 
-	// 控制AUT界面展示状态的Handler
-	private static WeakReference<Handler> autHandler;
+    // 控制AUT界面展示状态的Handler
+    private static WeakReference<Handler> autHandler;
 
-	public static void setAUTHandler(Handler handler) {
-		autHandler = new WeakReference<Handler>(handler);
-	}
+    public static void setAUTHandler(Handler handler) {
+        autHandler = new WeakReference<Handler>(handler);
+    }
 
-	public static Handler getAUTHandler() {
-		Handler result = null;
-		if (autHandler != null) {
-			result = autHandler.get();
-		}
+    public static Handler getAUTHandler() {
+        Handler result = null;
+        if (autHandler != null) {
+            result = autHandler.get();
+        }
 
-		if (result == null) {
-			result = emptyHandler;
-		}
-		return result;
-	}
+        if (result == null) {
+            result = emptyHandler;
+        }
+        return result;
+    }
 
-	// 控制出参界面展示状态的Handler
-	private static WeakReference<Handler> opHandler;
+    // 控制出参界面展示状态的Handler
+    private static WeakReference<Handler> opHandler;
 
-	public static void setOpHandler(Handler handler) {
-		opHandler = new WeakReference<Handler>(handler);
-	}
+    public static void setOpHandler(Handler handler) {
+        opHandler = new WeakReference<Handler>(handler);
+    }
 
-	public static Handler getOpHandler() {
-		Handler result = null;
-		if (opHandler != null) {
-			result = opHandler.get();
-		}
+    public static Handler getOpHandler() {
+        Handler result = null;
+        if (opHandler != null) {
+            result = opHandler.get();
+        }
 
-		if (result == null) {
-			result = emptyHandler;
-		}
-		return result;
-	}
+        if (result == null) {
+            result = emptyHandler;
+        }
+        return result;
+    }
 
-	// 控制出参编辑界面展示状态的Handler
-	private static WeakReference<Handler> opEditHandler;
+    // 控制出参编辑界面展示状态的Handler
+    private static WeakReference<Handler> opEditHandler;
 
-	public static void setOpEditHandler(Handler handler) {
-		opEditHandler = new WeakReference<Handler>(handler);
-	}
+    public static void setOpEditHandler(Handler handler) {
+        opEditHandler = new WeakReference<Handler>(handler);
+    }
 
-	public static Handler getOpEditHandler() {
-		Handler result = null;
-		if (opEditHandler != null) {
-			result = opEditHandler.get();
-		}
+    public static Handler getOpEditHandler() {
+        Handler result = null;
+        if (opEditHandler != null) {
+            result = opEditHandler.get();
+        }
 
-		if (result == null) {
-			result = emptyHandler;
-		}
-		return result;
-	}
+        if (result == null) {
+            result = emptyHandler;
+        }
+        return result;
+    }
 
-	// 控制入参界面展示状态的Handler
-	private static WeakReference<Handler> ipHandler;
+    // 控制入参界面展示状态的Handler
+    private static WeakReference<Handler> ipHandler;
 
-	public static void setIpHandler(Handler handler) {
-		ipHandler = new WeakReference<Handler>(handler);
-	}
+    public static void setIpHandler(Handler handler) {
+        ipHandler = new WeakReference<Handler>(handler);
+    }
 
-	public static Handler getIpHandler() {
-		Handler result = null;
-		if (ipHandler != null) {
-			result = ipHandler.get();
-		}
+    public static Handler getIpHandler() {
+        Handler result = null;
+        if (ipHandler != null) {
+            result = ipHandler.get();
+        }
 
-		if (result == null) {
-			result = emptyHandler;
-		}
-		return result;
-	}
+        if (result == null) {
+            result = emptyHandler;
+        }
+        return result;
+    }
 
-	// 控制入参编辑界面展示状态的Handler
-	private static WeakReference<Handler> ipEditHandler;
+    // 控制入参编辑界面展示状态的Handler
+    private static WeakReference<Handler> ipEditHandler;
 
-	public static void setIpEditHandler(Handler handler) {
-		ipEditHandler = new WeakReference<Handler>(handler);
-	}
+    public static void setIpEditHandler(Handler handler) {
+        ipEditHandler = new WeakReference<Handler>(handler);
+    }
 
-	public static Handler getIpEditHandler() {
-		Handler result = null;
-		if (ipEditHandler != null) {
-			result = ipEditHandler.get();
-		}
+    public static Handler getIpEditHandler() {
+        Handler result = null;
+        if (ipEditHandler != null) {
+            result = ipEditHandler.get();
+        }
 
-		if (result == null) {
-			result = emptyHandler;
-		}
-		return result;
-	}
+        if (result == null) {
+            result = emptyHandler;
+        }
+        return result;
+    }
 }
