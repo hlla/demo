@@ -1,6 +1,7 @@
 package letv.com.testanr;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteCallbackList;
@@ -18,7 +19,7 @@ public class MyService extends IntentService {
     private static final String TAG = "Testanr_MyService";
     public static final int NOTIFICATION_ID = 11111;
 
-    MyService() {
+    public MyService() {
         super("dfdsfdfd");
     }
 
@@ -30,6 +31,8 @@ public class MyService extends IntentService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+//        int pid = intent.getIntExtra("pid", -1);
+//        Process.killProcess(pid);
     }
 
     private RemoteCallbackList<ICallback> mCallbacks = new RemoteCallbackList<ICallback>() {
@@ -62,15 +65,15 @@ public class MyService extends IntentService {
 
         @Override
         public void testCall(List<School> ssss) throws RemoteException {
-            RuntimeException runtimeException = new RuntimeException("testCall");
+//            RuntimeException runtimeException = new RuntimeException("testCall");
             Log.d(MyService.TAG, "testCall: ");
-//            try {
-//                Thread.currentThread().sleep(5000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Log.d(MyService.TAG, "testCall: end");
-            throw runtimeException;
+//            throw runtimeException;
         }
 
         @Override
@@ -82,6 +85,12 @@ public class MyService extends IntentService {
         @Override
         public void testSchool(School sc) throws RemoteException {
             Log.d(MyService.TAG, "testSchool: ");
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Log.d(MyService.TAG, "testSchool: end");
         }
 
         @Override
@@ -124,15 +133,14 @@ public class MyService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d(TAG, "onCreate: ");
 //        try {
 //            Thread.sleep(5000);
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-//        Notification.Builder builder = new Notification.Builder(this);
-//        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
-//        startForeground(NOTIFICATION_ID, builder.build());
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
+        startForeground(NOTIFICATION_ID, new Notification());
 //        IntentFilter intentFilter = new IntentFilter(ACTION_DYNAMIC);
 //        MyDynamicReceiverB myDynamicReceiverB = new MyDynamicReceiverB();
 //        registerReceiver(myDynamicReceiverB, intentFilter);
@@ -171,9 +179,18 @@ public class MyService extends IntentService {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        Exception exception = new Exception("onBind");
-        Log.d(TAG, "onBind 11: intent=" + intent + " iTestbinder=" + iTestbinder, exception);
-        RuntimeException runtimeException = new RuntimeException("onBind");
+//        Log.d(TAG, "onCreate: ");
+//        Log.d(TAG, "onHandleIntent: intent=" + intent);
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        int pid = intent.getIntExtra("pid", -1);
+//        Process.killProcess(pid);
+//        Exception exception = new Exception("onBind");
+//        Log.d(TAG, "onBind 11: intent=" + intent + " iTestbinder=" + iTestbinder, exception);
+//        RuntimeException runtimeException = new RuntimeException("onBind");
 //        throw runtimeException;
         return iTestbinder;
     }

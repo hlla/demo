@@ -15,11 +15,15 @@ public class MyStaticReceiverB extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive:=" + intent.getStringExtra("abc"));
-        try {
-            Thread.sleep(12000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Log.d(TAG, "run: startService");
+        Intent intent1 = new Intent(context, MyService.class);
+        intent1.putExtra("abc", "cj");
+        context.startService(intent1);
+//        try {
+//            Thread.sleep(12000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 //        try {
 //            Thread.currentThread().sleep(5000);
 //        } catch (InterruptedException e) {

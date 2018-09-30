@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
  */
 public class TestRelativeLayout extends RelativeLayout {
     private static final String TAG = "Touch_TestRelative";
-
     /**
      * @param context
      * @param attrs

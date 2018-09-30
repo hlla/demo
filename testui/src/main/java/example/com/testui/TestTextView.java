@@ -81,6 +81,11 @@ public class TestTextView extends TextView {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
     public void onHoverChanged(boolean hovered) {
         super.onHoverChanged(hovered);
     }

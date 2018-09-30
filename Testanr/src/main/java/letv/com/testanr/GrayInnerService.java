@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.os.SystemProperties;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -17,10 +18,10 @@ import static letv.com.testanr.MyActivity.ACTION_DYNAMIC;
 public class GrayInnerService extends Service {
     private static final String TAG = "Testanr_GrayIS";
     public static final int NOTIFICATION_ID = 11111;
-
     @Override
     public void onCreate() {
         super.onCreate();
+        SystemProperties.get("gdfg");
         Log.d(TAG, "onCreate: ");
         IntentFilter intentFilter = new IntentFilter(ACTION_DYNAMIC);
         MyDynamicReceiverB myDynamicReceiverB = new MyDynamicReceiverB();

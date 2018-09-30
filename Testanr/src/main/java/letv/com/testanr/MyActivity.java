@@ -1,11 +1,13 @@
 package letv.com.testanr;
 
+import android.Manifest.permission;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.ProcessErrorStateInfo;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -13,13 +15,17 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
@@ -27,9 +33,14 @@ import android.os.Messenger;
 import android.os.PowerManager;
 import android.os.Process;
 import android.os.RemoteException;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -56,7 +67,8 @@ import static android.content.pm.PackageManager.GET_META_DATA;
 import static android.content.pm.PackageManager.GET_SHARED_LIBRARY_FILES;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends Activity implements ActivityCompat
+        .OnRequestPermissionsResultCallback {
     private static final String TAG = "Testanr_MyActivity";
     public static final String ACTION = "android.intent.action.mystaticreceiver";
     public static final String ACTION_DYNAMIC = "android.intent.action.mydynamicreceiver";
@@ -93,6 +105,8 @@ public class MyActivity extends Activity {
     Button jobService;
     @BindView(R.id.register_messager)
     Button registerMessager;
+    @BindView(R.id.test_notification)
+    Button testNotification;
     private final Object mLockObject = new Object();
     private final Object mWaitObject = new Object();
     @BindView(R.id.test_main_thread_consuming)
@@ -109,33 +123,40 @@ public class MyActivity extends Activity {
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            int what = msg.what;
-            switch (what) {
-                case 1: {
-                    PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
-                    wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager
-                                    .ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
-                            "WakeAndLock");
-//                    wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE))
-// .newWakeLock(PARTIAL_WAKE_LOCK, "cpu_lck");
-//                    wakeLock = pm.newWakeLock(PARTIAL_WAKE_LOCK, "WakeAndLock");
-                    Log.d(TAG, "handleMessage what-" + msg.what + " wakeLock=" + wakeLock.isHeld());
-                    wakeLock.acquire();
+            Log.d(TAG, "handleMessage: what=" + msg.what);
+//            try {
+//                Thread.sleep(200);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            int what = msg.what;
+//            switch (what) {
+//                case 1: {
+//                    PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
+//                    wakeLock = pm.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager
+//                                    .ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE,
+//                            "WakeAndLock");
+////                    wakeLock = ((PowerManager) getSystemService(Context.POWER_SERVICE))
+//// .newWakeLock(PARTIAL_WAKE_LOCK, "cpu_lck");
+////                    wakeLock = pm.newWakeLock(PARTIAL_WAKE_LOCK, "WakeAndLock");
+//                    Log.d(TAG, "handleMessage what-" + msg.what + " wakeLock=" + wakeLock
+// .isHeld());
 //                    wakeLock.acquire();
-//                    wakeLock.acquire();
-                    break;
-                }
-                case 2: {
-                    if (null != wakeLock) {
-                        Log.d(TAG, "handleMessage what-" + msg.what + " wakeLock=" + wakeLock
-                                .isHeld());
-                        if (wakeLock.isHeld()) {
-                            wakeLock.release();
-                        }
-                    }
-                    break;
-                }
-            }
+////                    wakeLock.acquire();
+////                    wakeLock.acquire();
+//                    break;
+//                }
+//                case 2: {
+//                    if (null != wakeLock) {
+//                        Log.d(TAG, "handleMessage what-" + msg.what + " wakeLock=" + wakeLock
+//                                .isHeld());
+//                        if (wakeLock.isHeld()) {
+//                            wakeLock.release();
+//                        }
+//                    }
+//                    break;
+//                }
+//            }
 
 //            wakeLock.release();
 //            try {
@@ -528,6 +549,13 @@ public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        boolean isShould = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest
+//                .permission.READ_EXTERNAL_STORAGE);
+//        Log.d(TAG, "onCreate: isShould=" + isShould);
+//        PermissionUtils.getExternalStoragePermissions(this, 11);
+        PermissionUtils.requestPerssions(this, 1, permission.READ_EXTERNAL_STORAGE, permission
+                .WRITE_EXTERNAL_STORAGE, permission
+                .READ_PHONE_STATE);
 //        TestAA testAA = new TestAA();
 //        ArrayList arrayList = new ArrayList();
 //        arrayList.add(this);
@@ -539,6 +567,11 @@ public class MyActivity extends Activity {
                 .LayoutParams.FLAG_KEEP_SCREEN_ON);
         int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
         Log.d(TAG, "onCreate: NUMBER_OF_CORES=" + NUMBER_OF_CORES);
+//        try {
+//            Thread.sleep(30000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 //        final Thread thread = new Thread(new Runnable() {
 //            @Override
 //            public void run() {
@@ -845,6 +878,9 @@ public class MyActivity extends Activity {
 //        }.start();
 //        Log.d(TAG, "aaaa");
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
+        IntentFilter intentFilter1 = new IntentFilter(ACTION);
+        registerReceiver(new MyStaticReceiverA(), intentFilter1);
+        allocMemory();
     }
 
     int i = 0;
@@ -857,6 +893,13 @@ public class MyActivity extends Activity {
     private void testCrash() {
         String ss = "fff";
         Integer.valueOf(ss);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
+//        PermissionUtils.requestPerssions(this, 2, permission.READ_CALENDAR);
     }
 
     @Override
@@ -918,7 +961,8 @@ public class MyActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Log.d(TAG, "onBackPressed: ");
+        Exception e = new Exception("onBackPressed");
+        Log.d(TAG, "onBackPressed: ", e);
         finish();
     }
 
@@ -1000,7 +1044,7 @@ public class MyActivity extends Activity {
                 " freeMemory=" + Runtime.getRuntime().freeMemory() / 1024 / 1024 + " " +
                 "totalMemory=" + Runtime
                 .getRuntime().totalMemory() / 1024 / 1024 + " max=" + Runtime.getRuntime()
-                .maxMemory());
+                .maxMemory()/1024/1024);
     }
 
     @OnClick(R.id.start_fg_service)
@@ -1218,30 +1262,79 @@ public class MyActivity extends Activity {
 
     @OnClick(R.id.start_bg_service)
     public void onStartBgServiceClicked() {
+        HandlerThread handlerThread = new HandlerThread("fsdf");
+        handlerThread.start();
+        final Handler handler = new Handler(handlerThread.getLooper());
         Log.d(TAG, "onStartFgServiceClicked: ");
-//        Intent intent = new Intent(this, MyService.class);
-//        intent.putExtra("abc", "cj");
-//        startService(intent);
+//        new Thread("ddddddd") {
+//            @Override
+//            public void run() {
+//                handler.post(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.d(TAG, "onStartFgServiceClicked: start");
+//                        for (int i = 0; i < 10000000; i++) {
+//                            mHandler.sendEmptyMessage(0);
+//                        }
+//                        Log.d(TAG, "onStartFgServiceClicked: end");
+//                    }
+//                });
+//            }
+//        }.start();
+
+//        new Thread(){
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "onStartFgServiceClicked: sssssss");
+//                onStartFgBroadcastClicked();
+//            }
+//        }.start();
+
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "run: start");
+//                for (int i = 0; i < 100; i++) {
+//                    mHandler.sendEmptyMessage(0);
+//                }
+//                Log.d(TAG, "run: end");
+//                onStartFgBroadcastClicked();
+////                mHandler.sendEmptyMessage(111);
+//            }
+//        }.start();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "run: startService");
+                Intent intent = new Intent(MyActivity.this, MyService.class);
+                intent.putExtra("abc", "cj");
+                startService(intent);
+            }
+        }, 10000);
     }
 
     public void pollServer() {
-        JobScheduler scheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        for (int i = 0; i < 40; i++) {
-            JobInfo jobInfo = new JobInfo.Builder(i, new ComponentName(getPackageName(),
-                    MyJobService.class.getName()))
-                    .setMinimumLatency(1000) // 5 seconds
-//                    .setOverrideDeadline(10000) // 60 seconds (for brevity in the sample)
-                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY) // WiFi or data connections
-                    .build();
-            scheduler.schedule(jobInfo);
-        }
+//        JobScheduler scheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+//        for (int i = 0; i < 40; i++) {
+//            JobInfo jobInfo = new JobInfo.Builder(i, new ComponentName(getPackageName(),
+//                    MyJobService.class.getName()))
+//                    .setMinimumLatency(1000) // 5 seconds
+////                    .setOverrideDeadline(10000) // 60 seconds (for brevity in the sample)
+//                    .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY) // WiFi or data connections
+//                    .build();
+//            scheduler.schedule(jobInfo);
+//        }
     }
 
     @OnClick(R.id.bind_service)
     public void onBindServiceClicked() {
+        Resources d = null;
+//        d.getString(R.string.FACEBOOK_APP_ID);
         Intent intent = new Intent(this, MyService.class);
         intent.putExtra("abc", "cj");
+        intent.putExtra("pid", Process.myPid());
         boolean result = bindService(intent, connection, BIND_AUTO_CREATE);
+        mHandler.sendEmptyMessage(11111);
         Log.d(TAG, "onBindServiceClicked: end result=" + result);
 //        Intent intent1 = new Intent(this, MessengerService.class);
 //        intent1.putExtra("abc", "cj");
@@ -1256,7 +1349,8 @@ public class MyActivity extends Activity {
     @OnClick(R.id.start_fg_broadcast)
     public void onStartFgBroadcastClicked() {
         Intent intent = new Intent(ACTION);
-        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+//        intent.setPackage("letv.com.testanr11");
+//        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         sendBroadcast(intent);
     }
 
@@ -1412,38 +1506,140 @@ public class MyActivity extends Activity {
 
     @OnClick(R.id.launch_loading)
     public void onLaunchLoadingClicked() {
-        Intent intent = new Intent(this, LoadingActivity.class);
-        intent.putExtra("abc", "cj");
-        startActivity(intent);
+//        Intent intent = new Intent(this, LoadingActivity.class);
+//        intent.putExtra("abc", "cj");
+//        startActivity(intent);
+        try {
+            File f = new File("/sdcard/_test_file_.txt");
+            FileInputStream fileInputStream = new FileInputStream(f);
+            fileInputStream.read();
+            Log.d(TAG, "onLaunchLoadingClicked: " + f.exists());
+        } catch (Exception e) {
+            Log.d(TAG, "onLaunchLoadingClicked: e=" + e);
+        }
     }
+
+    @OnClick(R.id.test_notification)
+    public void onTestNotificationClicked() {
+        Notification.Builder builder = new Notification.Builder(this);
+        builder.setContentText("this is Content");
+        builder.setContentTitle("this is Content title");
+//        builder.setPriority(Notification.);
+//        builder.setTicker("this is ticker");
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setPriority(Notification.PRIORITY_MAX);
+        final NotificationManager nm = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            //只在Android O之上需要渠道
+            NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
+                    "dd", NotificationManager.IMPORTANCE_DEFAULT);
+            builder.setChannelId("sdfdsfd");
+            notificationChannel.setDescription("this is test");
+            notificationChannel.setSound(null, null);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setLightColor(Color.RED);
+            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
+            //通知才能正常弹出
+            nm.createNotificationChannel(notificationChannel);
+        }
+//        builder.build().defaults |= Notification.DEFAULT_VIBRATE;
+//        builder.build().defaults |= Notification.DEFAULT_SOUND;
+//        builder.build().defaults |= Notification.DEFAULT_LIGHTS;
+        // 显示通知
+//        nm.notify(1, builder.build());
+        final WindowManager windowManager = (WindowManager) this.getApplicationContext()
+                .getSystemService(Context
+                .WINDOW_SERVICE);
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        params.type = -1;
+        final TextView view = new TextView(this);
+        view.setText("SYSTEM");
+        view.setBackgroundColor(Color.BLUE);
+        params.width = 1800;
+        params.height = 1800;
+        params.gravity = Gravity.CENTER_HORIZONTAL;
+        params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
+//        finish();
+        if (!Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, 100);
+            return;
+        }
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Log.d(TAG, "run: isni=" + MyActivity.this.isFinishing());
+                windowManager.addView(view, params);
+            }
+        }, 1000);
+    }
+
 
     @OnClick(R.id.test_anr)
     public void onTestAnrClicked() {
-        mHandler.sendEmptyMessage(0);
-        new Thread() {
-            @Override
-            public void run() {
-                long time = System.currentTimeMillis();
-                while (true) {
-                    try {
-                        Thread.currentThread().sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d(TAG, "anr anr anr");
-                }
-            }
-        }.start();
-        try {
-            Thread.currentThread().sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams params1 = new WindowManager.LayoutParams();
+        TextView view1 = new TextView(this);
+        params1.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
+                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
+        params1.type = WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL;
+        params1.width = 500;
+        params1.height = 500;
+        params1.gravity = Gravity.CENTER_HORIZONTAL;
+        view1.setText("Phone");
+        view1.setBackgroundColor(Color.YELLOW);
+        windowManager.addView(view1, params1);
+//        mHandler.sendEmptyMessage(0);
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                long time = System.currentTimeMillis();
+//                while (true) {
+//                    try {
+//                        Thread.currentThread().sleep(2000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Log.d(TAG, "anr anr anr");
+//                }
+//            }
+//        }.start();
+//        try {
+//            Thread.currentThread().sleep(15000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     public void onWindowAttributesChanged(WindowManager.LayoutParams params) {
         Log.d(TAG, "onWindowAttributesChanged: params=" + params);
         super.onWindowAttributesChanged(params);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+//        Log.d(TAG, "onRequestPermissionsResult: requestCode=" + requestCode + " dg=" +
+//                PermissionUtils.hasPermissons(this, permission.WRITE_EXTERNAL_STORAGE));
+//        if (!PermissionUtils.hasPermissons(this, permission.WRITE_EXTERNAL_STORAGE)) {
+//            PermissionUtils.requestPerssions(this, 5, permission
+//                    .WRITE_EXTERNAL_STORAGE);
+//        }
+//        int i = 0;
+//        for (String str : permissions) {
+//            Log.d(TAG, "onRequestPermissionsResult: str=" + str + " grantResults=" +
+//                    grantResults[i]);
+//            i++;
+//        }
     }
 }

@@ -5,6 +5,7 @@
 package example.com.testui;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -14,6 +15,12 @@ import android.widget.LinearLayout;
 
 public class TestLinearLayout extends LinearLayout {
     private static final String TAG = "Touch_TestLinear";
+
+    @Override
+    protected boolean fitSystemWindows(Rect insets) {
+        Log.d(TAG, "fitSystemWindows: insets=" + insets);
+        return super.fitSystemWindows(insets);
+    }
 
     /**
      * @param context
@@ -95,6 +102,11 @@ public class TestLinearLayout extends LinearLayout {
         Log.d(TAG, "TestLinearLayout onInterceptTouchEvent action=" + ev.getAction() + " " +
                 "handle=" + handle);
         return handle;
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override

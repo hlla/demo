@@ -246,11 +246,12 @@ public interface ITestbinder extends android.os.IInterface {
                     } else {
                         _data.writeInt(0);
                     }
-                    mRemote.transact(Stub.TRANSACTION_testSchool, _data, _reply, 0);
-                    _reply.readException();
-                    if ((0 != _reply.readInt())) {
-                        sc.readFromParcel(_reply);
-                    }
+                    mRemote.transact(Stub.TRANSACTION_testSchool, _data, _reply, android.os.IBinder
+                            .FLAG_ONEWAY);
+//                    _reply.readException();
+//                    if ((0 != _reply.readInt())) {
+//                        sc.readFromParcel(_reply);
+//                    }
                 } finally {
                     _reply.recycle();
                     _data.recycle();

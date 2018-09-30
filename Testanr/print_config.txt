@@ -9,7 +9,8 @@
 -outjars /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/transforms/proguard/release/0.jar
 
 -libraryjars /home/chengjian/workspace/AppDemo/Testanr/libs/layoutlib.jar(**.class)
--libraryjars /home/chengjian/android/sdk/platforms/android-21/android.jar
+-libraryjars /home/chengjian/android/sdk/platforms/android-26/android.jar
+-libraryjars /home/chengjian/android/sdk/platforms/android-26/optional/org.apache.http.legacy.jar
 
 -forceprocessing
 -printusage /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/usage.txt
@@ -26,7 +27,7 @@
 -printseeds /home/chengjian/workspace/AppDemo/Testanr/build/outputs/mapping/release/seeds.txt
 
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:232
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:234
 -keep class letv.com.testanr.GrayInnerService {
     <init>(...);
 }
@@ -36,7 +37,7 @@
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:236
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:238
 -keep class letv.com.testanr.MessengerService {
     <init>(...);
 }
@@ -51,12 +52,12 @@
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:240
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:242
 -keep class letv.com.testanr.MyJobService {
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:224
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:226
 -keep class letv.com.testanr.MyService {
     <init>(...);
 }
@@ -66,13 +67,8 @@
     <init>(...);
 }
 
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:214
+# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:215
 -keep class letv.com.testanr.MyStaticReceiverB {
-    <init>(...);
-}
-
-# Referenced at /home/chengjian/workspace/AppDemo/Testanr/build/intermediates/manifests/full/release/AndroidManifest.xml:246
--keep class letv.com.testanr.component.TestProvider {
     <init>(...);
 }
 

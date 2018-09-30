@@ -1,0 +1,15 @@
+<example.com.testui.TestRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/test_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:gravity="top"
+                    android:background="#00ffff"
+                    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/test_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:text="dfdsgdg"/>
+
+</example.com.testui.TestRelativeLayout>

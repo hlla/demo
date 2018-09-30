@@ -7,5 +7,28 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="default_style">
+        <item name="android:windowEnterAnimation">@anim/enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/exit_anim</item>
+    </style>
+    <style name="LauncherTheme" parent="@android:style/Theme.Wallpaper">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@null</item>
+        <item name="android:windowShowAnimation">@null</item>
+        <item name="android:windowHideAnimation">@null</item>
+        <item name="android:fadingEdge">none</item>
+        <item name="android:requiresFadingEdge">none</item>
+        <item name="colorPrimary">@color/primary_material_dark</item>
+    </style>
+    <style name="ImageTranslucentTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+    <!--<style name="default_style_image">-->
+        <!--<item name="android:windowEnterAnimation">@anim/enter_anim_image</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/exit_anim</item>-->
+    <!--</style>-->
 </resources>

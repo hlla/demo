@@ -1,6 +1,7 @@
 package example.com.testzip;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -67,6 +68,17 @@ public class ZipActivity extends Activity {
         }, BIND_AUTO_CREATE);
         Log.d(TAG, "onBindServiceClicked: end result=" + result);
 //        getDataPartitionAvailableSize();
+        ActivityManager.MemoryInfo info = new ActivityManager.MemoryInfo();
+        activityManager.getMemoryInfo(info);
+
+        Log.d(TAG, "largeMemoryClass = " + largeMemoryClass);
+        Log.d(TAG, "memoryClass = " + memoryClass / 1024 / 1024 + "   availMem=" + info.availMem
+                / 1024 / 1024 + " totalMem="
+                + info.totalMem / 1024 / 1024 + " threshold=" + info.threshold / 1024 / 1024 + " " +
+                " freeMemory=" + Runtime.getRuntime().freeMemory() / 1024 / 1024 + " " +
+                "totalMemory=" + Runtime
+                .getRuntime().totalMemory() / 1024 / 1024 + " max=" + Runtime.getRuntime()
+                .maxMemory());
     }
 
     @OnClick({R.id.source_zip, R.id.test_zip})
