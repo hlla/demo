@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/launcher_root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <example.com.testglview.LauncherViewFrameLayout
+        android:id="@+id/launcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0000ff"
+        >
+
+        <com.cmcm.gl.widget.GLFrameLayout
+            android:id="@+id/sub_launcher"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff0000"
+            >
+            <!--<com.cmcm.gl.widget.GLTextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="bottom"-->
+            <!--android:text="bbbbbbb"-->
+            <!--android:textColor="#000000"-->
+            <!--/>-->
+            <com.cmcm.gl.widget.GLEditText
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:text="bbbbbb"
+                android:textColor="#00ff00"
+                android:focusable="true"
+                />
+
+            <com.cmcm.gl.widget.GLTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="100dp"
+                android:gravity="top"
+                android:text="tttttt"
+                android:textColor="#000000"
+                />
+        </com.cmcm.gl.widget.GLFrameLayout>
+    </example.com.testglview.LauncherViewFrameLayout>
+</FrameLayout>
