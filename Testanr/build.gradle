@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     signingConfigs {
         config {
             keyAlias 'cj'
@@ -18,7 +22,7 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         multiDexEnabled true
-        applicationId "letv.com.testanr11"
+        applicationId "letv.com.testanr"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -61,6 +65,10 @@ android {
         flatDir {
             dirs 'libs' //this way we can find the .aar file in libs folder
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 dependencies {

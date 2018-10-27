@@ -5,21 +5,16 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.ProcessErrorStateInfo;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,11 +28,11 @@ import android.os.Messenger;
 import android.os.PowerManager;
 import android.os.Process;
 import android.os.RemoteException;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
@@ -73,8 +68,11 @@ public class MyActivity extends Activity implements ActivityCompat
     public static final String ACTION = "android.intent.action.mystaticreceiver";
     public static final String ACTION_DYNAMIC = "android.intent.action.mydynamicreceiver";
     public static final String mUrl = "http://10.60.214.2:8080/test_big_file.zip";
+    private static final int STATIC_BROADCAST = 10;
     @BindView(R.id.start_fg_service)
     Button startFgService;
+    @BindView(R.id.stop_fg_service)
+    Button stopFgService;
     @BindView(R.id.start_bg_service)
     Button startBgService;
     @BindView(R.id.start_fg_broadcast)
@@ -124,6 +122,18 @@ public class MyActivity extends Activity implements ActivityCompat
         @Override
         public void handleMessage(Message msg) {
             Log.d(TAG, "handleMessage: what=" + msg.what);
+            int what = msg.what;
+            switch (what) {
+                case STATIC_BROADCAST: {
+                    Intent intent = new Intent(ACTION);
+                    intent.setPackage(getPackageName());
+                    sendBroadcast(intent);
+//                    Intent intent1 = new Intent(MyActivity.this, MyService.class);
+//                    intent1.putExtra("abc", "cj");
+//                    MyActivity.this.startService(intent1);
+                    break;
+                }
+            }
 //            try {
 //                Thread.sleep(200);
 //            } catch (InterruptedException e) {
@@ -215,6 +225,9 @@ public class MyActivity extends Activity implements ActivityCompat
             }
         }
         Log.d(TAG, "onTestMainThreadConsumingClicked: m=" + m);
+        //todo 测试代码
+        int a = 10;
+        b = 10;
     }
 
     @OnClick(R.id.test_mul_work_thread_block)
@@ -376,13 +389,13 @@ public class MyActivity extends Activity implements ActivityCompat
 
     @OnClick(R.id.test_dump_hprof)
     public void onTestDumpHprof() {
-        getAdId.dispatchWindowVisibilityChanged(0);
+//        getAdId.dispatchWindowVisibilityChanged(0);
         Context context = null;
-        try {
-            context = createPackageContext("com.huawei.android.totemweather", 3);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            context = createPackageContext("com.huawei.android.totemweather", 3);
+//        } catch (PackageManager.NameNotFoundException e) {
+//            e.printStackTrace();
+//        }
         Class totemweather = null;
         Class view = null;
         Class ViewGroup = null;
@@ -596,7 +609,7 @@ public class MyActivity extends Activity implements ActivityCompat
 //            e.printStackTrace();
 //        }
 //        thread.interrupt();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main_ss);
         ButterKnife.bind(this);
         int resId = getResources().getIdentifier(getString(R.string.test_dump_hprof_4), "drawable",
                 getPackageName());
@@ -878,9 +891,10 @@ public class MyActivity extends Activity implements ActivityCompat
 //        }.start();
 //        Log.d(TAG, "aaaa");
         Thread.currentThread().setPriority(Thread.MIN_PRIORITY);
-        IntentFilter intentFilter1 = new IntentFilter(ACTION);
-        registerReceiver(new MyStaticReceiverA(), intentFilter1);
+//        IntentFilter intentFilter1 = new IntentFilter(ACTION);
+//        registerReceiver(new MyStaticReceiverA(), intentFilter1);
         allocMemory();
+        View view = findViewById(R.id.bind_service_dddd);
     }
 
     int i = 0;
@@ -1044,7 +1058,14 @@ public class MyActivity extends Activity implements ActivityCompat
                 " freeMemory=" + Runtime.getRuntime().freeMemory() / 1024 / 1024 + " " +
                 "totalMemory=" + Runtime
                 .getRuntime().totalMemory() / 1024 / 1024 + " max=" + Runtime.getRuntime()
-                .maxMemory()/1024/1024);
+                .maxMemory() / 1024 / 1024);
+    }
+
+    @OnClick(R.id.stop_fg_service)
+    public void onStopFgServiceClicked() {
+        Intent intent = new Intent(this, MyService
+                .class);
+        stopService(intent);
     }
 
     @OnClick(R.id.start_fg_service)
@@ -1146,7 +1167,7 @@ public class MyActivity extends Activity implements ActivityCompat
 //            int b2 = 2;
 //            int b3 = 2;
 //            int b4 = 2;
-//            int b5 = a + b0 + b1+b2+b3+b4;
+//            int b5 = a + b0 + bregisterReceiver1+b2+b3+b4;
 //        }
 
 //        Log.d(TAG, "onStartFgServiceClicked: b5=" + b5);
@@ -1228,10 +1249,13 @@ public class MyActivity extends Activity implements ActivityCompat
 //        mHandler.sendEmptyMessageDelayed(1, 3000);
         Intent intent = new Intent(this, MyService
                 .class);
-        intent.putExtra("abc", "cj");
+        num++;
+        intent.putExtra(MyService.KEY_IS_CONTENT, "cj" + num);
+        intent.putExtra(MyService.KEY_IS_FOREGROUND, true);
         startService(intent);
     }
 
+    private int num = 0;
 
     @OnClick(R.id.job_Service)
     public void onJobServiceClicked() {
@@ -1308,9 +1332,9 @@ public class MyActivity extends Activity implements ActivityCompat
                 Log.d(TAG, "run: startService");
                 Intent intent = new Intent(MyActivity.this, MyService.class);
                 intent.putExtra("abc", "cj");
-                startService(intent);
+                startForegroundService(intent);
             }
-        }, 10000);
+        }, 75000);
     }
 
     public void pollServer() {
@@ -1363,8 +1387,7 @@ public class MyActivity extends Activity implements ActivityCompat
 
     @OnClick(R.id.start_static_broadcast)
     public void onStartStaticBroadcast() {
-        Intent intent = new Intent(ACTION);
-        sendBroadcast(intent);
+        mHandler.sendEmptyMessageDelayed(STATIC_BROADCAST, 70000);
     }
 
     @OnClick(R.id.get_adId)
@@ -1521,69 +1544,70 @@ public class MyActivity extends Activity implements ActivityCompat
 
     @OnClick(R.id.test_notification)
     public void onTestNotificationClicked() {
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentText("this is Content");
-        builder.setContentTitle("this is Content title");
-//        builder.setPriority(Notification.);
-//        builder.setTicker("this is ticker");
-        builder.setSmallIcon(R.drawable.ic_launcher);
-        builder.setPriority(Notification.PRIORITY_MAX);
-        final NotificationManager nm = (NotificationManager) this
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            //只在Android O之上需要渠道
-            NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
-                    "dd", NotificationManager.IMPORTANCE_DEFAULT);
-            builder.setChannelId("sdfdsfd");
-            notificationChannel.setDescription("this is test");
-            notificationChannel.setSound(null, null);
-            notificationChannel.enableVibration(true);
-            notificationChannel.setLightColor(Color.RED);
-            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
-            //通知才能正常弹出
-            nm.createNotificationChannel(notificationChannel);
-        }
-//        builder.build().defaults |= Notification.DEFAULT_VIBRATE;
-//        builder.build().defaults |= Notification.DEFAULT_SOUND;
-//        builder.build().defaults |= Notification.DEFAULT_LIGHTS;
-        // 显示通知
-//        nm.notify(1, builder.build());
-        final WindowManager windowManager = (WindowManager) this.getApplicationContext()
-                .getSystemService(Context
-                .WINDOW_SERVICE);
-        final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.type = -1;
-        final TextView view = new TextView(this);
-        view.setText("SYSTEM");
-        view.setBackgroundColor(Color.BLUE);
-        params.width = 1800;
-        params.height = 1800;
-        params.gravity = Gravity.CENTER_HORIZONTAL;
-        params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
-//        finish();
-        if (!Settings.canDrawOverlays(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-            intent.setData(Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, 100);
-            return;
-        }
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Log.d(TAG, "run: isni=" + MyActivity.this.isFinishing());
-                windowManager.addView(view, params);
-            }
-        }, 1000);
+//        Notification.Builder builder = new Notification.Builder(this);
+//        builder.setContentText("this is Content");
+//        builder.setContentTitle("this is Content title");
+////        builder.setPriority(Notification.);
+////        builder.setTicker("this is ticker");
+//        builder.setSmallIcon(R.drawable.ic_launcher);
+//        builder.setPriority(Notification.PRIORITY_MAX);
+//        final NotificationManager nm = (NotificationManager) this
+//                .getSystemService(Context.NOTIFICATION_SERVICE);
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            //只在Android O之上需要渠道
+//            NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
+//                    "dd", NotificationManager.IMPORTANCE_DEFAULT);
+//            builder.setChannelId("sdfdsfd");
+//            notificationChannel.setDescription("this is test");
+//            notificationChannel.setSound(null, null);
+//            notificationChannel.enableVibration(true);
+//            notificationChannel.setLightColor(Color.RED);
+//            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
+//            //通知才能正常弹出
+//            nm.createNotificationChannel(notificationChannel);
+//        }
+////        builder.build().defaults |= Notification.DEFAULT_VIBRATE;
+////        builder.build().defaults |= Notification.DEFAULT_SOUND;
+////        builder.build().defaults |= Notification.DEFAULT_LIGHTS;
+//        // 显示通知
+////        nm.notify(1, builder.build());
+//        final WindowManager windowManager = (WindowManager) this.getApplicationContext()
+//                .getSystemService(Context
+//                        .WINDOW_SERVICE);
+//        final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+//        params.type = -1;
+//        final TextView view = new TextView(this);
+//        view.setText("SYSTEM");
+//        view.setBackgroundColor(Color.BLUE);
+//        params.width = 1800;
+//        params.height = 1800;
+//        params.gravity = Gravity.CENTER_HORIZONTAL;
+//        params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
+//                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+//                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+//                | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
+////        finish();
+////        if (!Settings.canDrawOverlays(this)) {
+////            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+////            intent.setData(Uri.parse("package:" + getPackageName()));
+////            startActivityForResult(intent, 100);
+////            return;
+////        }
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "run: isni=" + MyActivity.this.isFinishing());
+//                windowManager.addView(view, params);
+//            }
+//        }, 1000);
     }
 
 
     @OnClick(R.id.test_anr)
     public void onTestAnrClicked() {
         WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Log.e(TAG, "onTestAnrClicked: windowManager=" + windowManager);
         WindowManager.LayoutParams params1 = new WindowManager.LayoutParams();
         TextView view1 = new TextView(this);
         params1.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
@@ -1591,11 +1615,17 @@ public class MyActivity extends Activity implements ActivityCompat
                 | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
                 | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
                 | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
-        params1.type = WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL;
+        params1.type = WindowManager.LayoutParams.TYPE_TOAST;
         params1.width = 500;
         params1.height = 500;
         params1.gravity = Gravity.CENTER_HORIZONTAL;
         view1.setText("Phone");
+        view1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e(TAG, "onClick: dsfdfdff");
+            }
+        });
         view1.setBackgroundColor(Color.YELLOW);
         windowManager.addView(view1, params1);
 //        mHandler.sendEmptyMessage(0);

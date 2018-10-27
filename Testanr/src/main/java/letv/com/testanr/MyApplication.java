@@ -3,15 +3,12 @@ package letv.com.testanr;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Process;
 import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 import java.util.List;
 
@@ -159,19 +156,20 @@ public class MyApplication extends MultiDexApplication {
         final WindowManager windowManager = (WindowManager) this.getApplicationContext()
                 .getSystemService(Context
                         .WINDOW_SERVICE);
-        final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-        params.type = WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL;
-        final TextView view = new TextView(this.getApplicationContext());
-        view.setText("SYSTEM");
-        view.setBackgroundColor(Color.BLUE);
-        params.width = 100;
-        params.height = 100;
-        params.gravity = Gravity.CENTER_HORIZONTAL;
-        params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
-                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
+        Log.e(TAG, "app onTestAnrClicked: windowManager=" + windowManager);
+//        final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+//        params.type = WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL;
+//        final TextView view = new TextView(this.getApplicationContext());
+//        view.setText("SYSTEM");
+//        view.setBackgroundColor(Color.BLUE);
+//        params.width = 100;
+//        params.height = 100;
+//        params.gravity = Gravity.CENTER_HORIZONTAL;
+//        params.flags = WindowManager.LayoutParams.FLAG_FULLSCREEN
+//                | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+//                | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+//                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+//                | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
 //        mHandler.postDelayed(new Runnable() {
 //            @Override
 //            public void run() {

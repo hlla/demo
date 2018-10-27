@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
 import android.os.Environment;
-import android.os.FileUtils;
 import android.os.StatFs;
 import android.os.SystemClock;
 import android.util.Log;
@@ -83,11 +82,11 @@ public class SecondaryDexEx {
     private static boolean canWrite(File filesDir, int mode) {
         if (filesDir.canWrite())
             return true;
-        int setPer = FileUtils.setPermissions(filesDir.getAbsolutePath(), mode, -1, -1);
-        Log.e(TAG, "FileUtils.setPermissions(): filesDir:" + filesDir + "  return: " + setPer);
-
-        if (filesDir.canWrite())
-            return true;
+//        int setPer = FileUtils.setPermissions(filesDir.getAbsolutePath(), mode, -1, -1);
+//        Log.e(TAG, "FileUtils.setPermissions(): filesDir:" + filesDir + "  return: " + setPer);
+//
+//        if (filesDir.canWrite())
+//            return true;
         return false;
     }
 
@@ -217,18 +216,18 @@ public class SecondaryDexEx {
         String pkgDir = "/data/data/" + appInfo.packageName;
         File fpkgDir = new File(pkgDir);
 
-        if (fpkgDir.exists() && !fpkgDir.canWrite()) {
-            int retVal = FileUtils.setPermissions(fpkgDir.getAbsolutePath(), 0755, -1, -1);
-            // drwxr-xr-x
-
-            Log.e(TAG, "data/data/pkg can not write, setPermissions, return: " + retVal);
-        } else if (!fpkgDir.exists()) {
-            Log.e(TAG, "data/data/pkg is not exist, recreate");
-
-            fpkgDir.mkdirs();
-            if (fpkgDir.exists() && !fpkgDir.canWrite())
-                FileUtils.setPermissions(fpkgDir.getAbsolutePath(), 0755, -1, -1);    // drwxr-xr-x
-        }
+//        if (fpkgDir.exists() && !fpkgDir.canWrite()) {
+//            int retVal = FileUtils.setPermissions(fpkgDir.getAbsolutePath(), 0755, -1, -1);
+//            // drwxr-xr-x
+//
+//            Log.e(TAG, "data/data/pkg can not write, setPermissions, return: " + retVal);
+//        } else if (!fpkgDir.exists()) {
+//            Log.e(TAG, "data/data/pkg is not exist, recreate");
+//
+//            fpkgDir.mkdirs();
+//            if (fpkgDir.exists() && !fpkgDir.canWrite())
+//                FileUtils.setPermissions(fpkgDir.getAbsolutePath(), 0755, -1, -1);    // drwxr-xr-x
+//        }
 
         if (fpkgDir.exists() == false) {
 

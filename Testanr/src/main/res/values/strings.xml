@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TestANR</string>
     <string name="start_fg_service">start foreground service</string>
+    <string name="stop_fg_service">stop foreground service</string>
     <string name="start_bg_service">start background service</string>
     <string name="job_Service">job Service</string>
     <string name="bind_service">bind service</string>

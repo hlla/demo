@@ -1,7 +1,9 @@
 package example.com.testui;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
@@ -18,6 +20,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.RectF;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,7 +31,13 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.StrictMode;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.content.PermissionChecker;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ImageSpan;
+import android.text.style.TextAppearanceSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -95,6 +105,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
             + File.separator
             + "libhello-jni.so"; // data/data/com.letv.adlib.sdk/.sdkupd/libLetvAdSDK.so";
     private static final String TAG = "Touch_TouchActivity";
+    private static final int START_REQUEST_CODE = 10;
     @BindView(R.id.img0)
     ImageView img0;
     @BindView(R.id.test_notify)
@@ -105,8 +116,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     ImageView img;
     @BindView(R.id.img2)
     ImageView img2;
-    //    @BindView(R.id.text)
-//    TestTextView text;
+    @BindView(R.id.test_txt)
+    TextView textView;
     @BindView(R.id.text_id)
     TestTextView textId;
     @BindView(R.id.touch_area)
@@ -361,7 +372,13 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 
     @OnClick(R.id.test_notify)
     public void onTestNotifyClicked() {
-        addWindowManager();
+        int resultCheck = PermissionChecker.checkSelfPermission(this, Manifest.permission
+                .READ_CONTACTS);
+        int resultContext = ContextCompat.checkSelfPermission(this, Manifest.permission
+                .READ_CONTACTS);
+        Log.e(TAG, "onTestNotifyClicked: resultCheck=" + resultCheck + " resultContext=" +
+                resultContext);
+//        addWindowManager();
 //        root.setPadding(0, 0, 0, 0);
 //        showDialog(TestApp.getInstance());
 ////        showDialog(this);
@@ -455,7 +472,23 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 
     @OnClick(R.id.cancel_notify)
     public void onCancelNotify() {
-        addWindowManager();
+        Intent intent = new Intent(this, TestRtlActivity.class);
+//        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivityForResult(intent, START_REQUEST_CODE);
+        startActivity(intent);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.test_rtl);
+        dialog.show();
+//        new AlertDialog.Builder(TestTouchActivity.this).setMessage("fdsdffdf")
+//                .create().show();
+//        myHandler.sendEmptyMessageDelayed(2, 3000);
+//        addWindowManager();
 //        root.setBackground(new BitmapDrawable(mBitmap));
 //        Bitmap original = BitmapFactory.decodeResource(getResources(), R.drawable.biggest_1);
 //        Log.e(TAG, "onCancelNotify: dddddd=" + original);
@@ -520,34 +553,36 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         public void handleMessage(Message msg) {
             // TODO Auto-generated method stub
             super.handleMessage(msg);
-            PowerManager pm = (PowerManager) reference.get().getSystemService(Context
-                    .POWER_SERVICE);
-//如果不是在Activity里面需要得到当时的上下文句柄 用context.getSystemService...
-            boolean isScreenOn = pm.isInteractive();
-            KeyguardManager mKeyguardManager = (KeyguardManager) reference.get().getSystemService
-                    (Context
-                            .KEYGUARD_SERVICE);
-            boolean flag = mKeyguardManager.inKeyguardRestrictedInputMode();
-            Log.e(TAG, "handleMessage: isScreenOn=" + isScreenOn + " flag=" + flag);
-            Log.e(TAG, "handleMessage activity=" + reference.get());
-            if (msg.what == 1) {
-//                reference.get().finish();
-                Log.e(TAG, "handleMessage mDialog.isShowing()=" + mDialog.isShowing());
-                finish();
-                myHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        mDiaLog.eismiss();
-                        try {
-                            popupWindow.showAsDropDown(testNotify);
-                        } finally {
-                            Log.e(TAG, "handleMessage111 mDialog.isShowing()=" + mDialog
-                                    .isShowing());
-                        }
-                    }
-                }, 200);
-//                showDialog(TestTouchActivity.this);
-            }
+            new AlertDialog.Builder(TestTouchActivity.this).setMessage("fdsdffdf")
+                    .create().show();
+//            PowerManager pm = (PowerManager) reference.get().getSystemService(Context
+//                    .POWER_SERVICE);
+////如果不是在Activity里面需要得到当时的上下文句柄 用context.getSystemService...
+//            boolean isScreenOn = pm.isInteractive();
+//            KeyguardManager mKeyguardManager = (KeyguardManager) reference.get().getSystemService
+//                    (Context
+//                            .KEYGUARD_SERVICE);
+//            boolean flag = mKeyguardManager.inKeyguardRestrictedInputMode();
+//            Log.e(TAG, "handleMessage: isScreenOn=" + isScreenOn + " flag=" + flag);
+//            Log.e(TAG, "handleMessage activity=" + reference.get());
+//            if (msg.what == 1) {
+////                reference.get().finish();
+//                Log.e(TAG, "handleMessage mDialog.isShowing()=" + mDialog.isShowing());
+//                finish();
+//                myHandler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+////                        mDiaLog.eismiss();
+//                        try {
+//                            popupWindow.showAsDropDown(testNotify);
+//                        } finally {
+//                            Log.e(TAG, "handleMessage111 mDialog.isShowing()=" + mDialog
+//                                    .isShowing());
+//                        }
+//                    }
+//                }, 200);
+////                showDialog(TestTouchActivity.this);
+//            }
         }
     }
 
@@ -627,6 +662,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "onCreate: taskId=" + getTaskId());
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         requestWindowFeature(12);
         requestWindowFeature(13);
@@ -749,7 +785,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         // cv.setOnClickListener(this);
         // Button pv = (Button)findViewById(R.id.hide_pv);
         // pv.setOnClickListener(this);
-//        myHandler = new MyHandler(this);
+        myHandler = new MyHandler(this);
 //        myHandler.sendEmptyMessageDelayed(0, 5000);
         Random random = new Random(47);
         final PriorityBlockingQueue q = new PriorityBlockingQueue();
@@ -867,6 +903,53 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         }
         getContentResolver().registerContentObserver(Settings.System.getUriFor
                 ("navigationbar_is_min"), true, mNavigationStatusObserver);
+        String next = getResources().getString(R.string.on_next_page);
+        String select = getResources().getString(R.string.select);
+        String launcher = getResources().getString(R.string.cm_launcher);
+        String click = getResources().getString(R.string.click);
+        String always = getResources().getString(R.string.always);
+        StringBuilder sb = new StringBuilder(next).append("\r\n").append(select).append(" \"")
+                .append(" ")
+                .append(launcher)
+                .append("\"")
+                .append("\r\n")
+                .append(click).append(" \"").append(always).append("\"");
+        SpannableString content = new SpannableString(sb.toString());
+        CircleBackGroundColorSpan circleBackGroundColorSpan = new CircleBackGroundColorSpan
+                (Color.parseColor("#ff0000"), Color.parseColor("#FFFFFF"), 10);
+        Drawable drawable = getDrawable(R.drawable.icon_launcher);
+        drawable.setBounds(0, 0, 10, 10);
+        int indexOfSelect = sb.indexOf(select);
+        if (indexOfSelect >= 0) {
+            content.setSpan(circleBackGroundColorSpan, indexOfSelect, indexOfSelect + 1,
+                    Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+        }
+        CenterAlignImageSpan imageSpan = new CenterAlignImageSpan(drawable);
+        int indexOfLauncher = sb.indexOf(launcher);
+        if (indexOfLauncher >= 1) {
+            content.setSpan(imageSpan, indexOfLauncher - 1, indexOfLauncher, Spanned
+                    .SPAN_INCLUSIVE_INCLUSIVE);
+        }
+        int size = getResources().getDimensionPixelSize(R.dimen.text_size);
+        Log.e(TAG, "onCreate: size=" + size);
+        TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan(null, Typeface.BOLD, size,
+                null,
+                null);
+        int indexOfAlways = sb.indexOf(always);
+        content.setSpan(textAppearanceSpan, indexOfAlways, indexOfAlways + always.length(), Spanned
+                .SPAN_INCLUSIVE_INCLUSIVE);
+        textView.setText(content);
+        SpannableString sp = new SpannableString("图文混排测排测试图文混排测试图文混排测试图文混排测试图");
+
+        //居中对齐imageSpan
+//        CenterAlignImageSpan imageSpan = new CenterAlignImageSpan(drawable);
+//        sp.setSpan(imageSpan, 0, 1, ImageSpan.ALIGN_BASELINE);
+
+        //普通imageSpan 做对比
+        ImageSpan imageSpan2 = new ImageSpan(drawable);
+        sp.setSpan(imageSpan2, 3, 4, ImageSpan.ALIGN_BASELINE);
+        onCancelNotify();
+//        textView.setText(sp);
     }
 
     private ContentObserver mNavigationStatusObserver = new ContentObserver(new Handler()) {
@@ -964,6 +1047,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     @Override
     protected void onResume() {
         super.onResume();
+        Exception exception = new Exception("onResume()");
+        Log.e(TAG, "onResume: ", exception);
 //        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
 ////如果不是在Activity里面需要得到当时的上下文句柄 用context.getSystemService...
 //        boolean isScreenOn = pm.isInteractive();
@@ -1187,7 +1272,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
     public void onClick(View v) {
         Intent install = new Intent(Intent.ACTION_VIEW);
         install.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        File apkFile = new File(Environment.getExternalStorageDirectory() + "/Download/" + "app.apk");
+        File apkFile = new File(Environment.getExternalStorageDirectory() + "/Download/" + "app" +
+                ".apk");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             install.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -1260,4 +1346,10 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.e(TAG, "onActivityResult: requestCode=" + requestCode + " resultCode=" + resultCode +
+                "  data=" + data);
+    }
 }

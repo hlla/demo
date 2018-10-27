@@ -15,7 +15,7 @@ android {
         multiDexEnabled true
         applicationId "example.com.testcomponent.dd"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
 
@@ -31,20 +31,20 @@ android {
         }
     }
     flavorDimensions "default"
-    productFlavors {
-        themeLauncher {
-            applicationId 'com.ksmobile.launcher.ff'
-        }
-        mainLauncher {
-            applicationId 'com.ksmobile.launcher.dd'
-        }
-    }
+//    productFlavors {
+//        themeLauncher {
+//            applicationId 'com.ksmobile.launcher.ff'
+//        }
+//        mainLauncher {
+//            applicationId 'com.ksmobile.launcher.dd'
+//        }
+//    }
 
 }
 
 dependencies {
-    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
-
+//    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly files('libs/testlib.jar')
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.jakewharton:butterknife:8.6.0'
     implementation 'com.android.support:support-v4:25.1.0'

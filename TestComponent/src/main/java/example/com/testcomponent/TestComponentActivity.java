@@ -19,11 +19,14 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
+//import android.os.SystemProperties;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -32,6 +35,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
@@ -69,6 +73,8 @@ public class TestComponentActivity extends Activity {
     Button insert;
     @BindView(R.id.update)
     Button update;
+    @BindView(R.id.test_file_provider)
+    Button testFileProvider;
     public static TextView sContent;
     final String PKG_NAME = BuildConfig.APPLICATION_ID;
     public static final Uri TEST_URI = Uri.parse("content://com.huawei.rcsbaseline.database.zone");
@@ -98,6 +104,8 @@ public class TestComponentActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onChange: selfChange=" + PKG_NAME);
+//        String name = SystemProperties.get("fhgfh");
+        Log.e(TAG, "onCreate: name=" + name);
 //        getContentResolver().registerContentObserver(TEST_URI,
 //                true, new ContentObserver(null) {
 //                    @Override
@@ -418,6 +426,23 @@ public class TestComponentActivity extends Activity {
         animation.setDuration(5000);
         testAlarm.startAnimation(animation);
 //        testAlarm();
+    }
+
+    @OnClick(R.id.test_file_provider)
+    public void onTestFileProvider() {
+        File sourceFile = new File(Environment.getExternalStorageDirectory().getPath() + "/1.apk");
+        File targetFile = new File(getFilesDir() + "/1.apk");
+//        targetFile = new File(getExternalFilesDir(null) + "/1.apk");
+        FileUtils.copyFile(sourceFile.getPath(), targetFile.getPath());
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        String type = "application/vnd.android.package-archive";
+        Uri contentUri = FileProvider.getUriForFile(this,
+                BuildConfig.APPLICATION_ID + ".myprovider", targetFile);
+        contentUri = Uri.fromFile(targetFile);
+
+        intent.setDataAndType(contentUri, type);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(intent);
     }
 
     private void init(float[] ctrl_points) {

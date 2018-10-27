@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "example.com.testui"
         minSdkVersion 15
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 2
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true

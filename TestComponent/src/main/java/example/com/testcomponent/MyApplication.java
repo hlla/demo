@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.os.SystemProperties;
+//import android.os.SystemProperties;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -46,8 +46,8 @@ public class MyApplication extends MultiDexApplication {
         SharedPreferences sharedPreferences = getSharedPreferences("abc", 0);
         boolean isEuro = sharedPreferences.getBoolean("debug.test.euro", false);
         PackageManager pm = getPackageManager();
-        isEuro = SystemProperties.getBoolean("debug.test.euro", false);
-        if (isEuro) {
+//        isEuro = SystemProperties.getBoolean("debug.test.euro", false);
+        if (true) {
             pm.setComponentEnabledSetting(new ComponentName(this, "example.com.testcomponent" +
                             ".MyStaticReceiverA"),
                     PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);

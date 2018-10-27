@@ -1,5 +1,8 @@
 package test.example.com.testrx;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -182,6 +186,23 @@ public class TestRXActivity extends AppCompatActivity {
 
     @OnClick(R.id.test_rx_android)
     public void onTestRxAndroidClicked() {
+        try {
+            Context context = createPackageContext("example.com.testcomponent.dd",
+                    Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
+            File sourceFile = new File(context.getExternalFilesDir(null), "/1.apk");
+            Log.d(TAG, "onTestRxAndroidClicked: file.canRead=" + sourceFile.canRead() + " file" +
+                    ".canWrite=" +
+                    "()=" + sourceFile.canWrite());
+            Uri uri = Uri.fromFile(sourceFile);
+            File sourceFile1 = new File(uri.getPath());
+            Log.d(TAG, "onTestRxAndroidClicked: file.canRead=" + sourceFile1.canRead() + " file" +
+                    ".canWrite=" +
+                    "()=" + sourceFile1.canWrite());
+            File targetFile = new File(getExternalFilesDir(null) + "/1.apk");
+            FileUtils.copyFile(sourceFile.getPath(), targetFile.getPath());
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         ArrayList<String> strings = new ArrayList<>();
         strings.add("a1qq");
         strings.add("b1ad");
@@ -194,14 +215,14 @@ public class TestRXActivity extends AppCompatActivity {
                         Log.d(TAG, "flatMap call: str=" + s);
                         return io.reactivex.Observable.fromArray(s.split("1"));
                     }
-                }).subscribeOn(io.reactivex.schedulers.Schedulers.newThread())
+                }).subscribeOn(AndroidSchedulers.mainThread())
                 .filter(new Predicate<String>() {
                     @Override
                     public boolean test(String str) {
                         Log.d(TAG, "filter call: str=" + str);
                         return str.startsWith("a");
                     }
-                })
+                }).subscribeOn(io.reactivex.schedulers.Schedulers.newThread())
                 .map(new Function<String, String>() {
                     @Override
                     public String apply(String name) {

@@ -18,4 +18,9 @@
     <string name="terms_of_use">Terms of Use</string>
     <string name="privacy_text">Privacy Policy</string>
     <string name="europe_policy_description">In order to provide you a better experience, CM Launcher needs to collect your personal information, including your Android ID, IP address, MAC address etc. You can learn more about how do we process user data by visiting our latest %1$s and %2$s</string>
+    <string name="on_next_page">On Next page</string>
+    <string name="select">select </string>
+    <string name="cm_launcher">CM Launcher</string>
+    <string name="click">click</string>
+    <string name="always">always</string>
 </resources>

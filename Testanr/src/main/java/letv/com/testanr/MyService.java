@@ -1,8 +1,12 @@
 package letv.com.testanr;
 
-import android.app.IntentService;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.IBinder;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
@@ -15,25 +19,27 @@ import java.util.List;
  * Created by chengjian on 17/5/31.
  */
 
-public class MyService extends IntentService {
+public class MyService extends Service {
     private static final String TAG = "Testanr_MyService";
     public static final int NOTIFICATION_ID = 11111;
+    public static final String KEY_IS_FOREGROUND = "is_foreground";
+    public static final String KEY_IS_CONTENT = "content";
 
-    public MyService() {
-        super("dfdsfdfd");
-    }
+//    public MyService() {
+//        super("dfdsfdfd");
+//    }
 
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        Log.d(TAG, "onHandleIntent: intent=" + intent);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-//        int pid = intent.getIntExtra("pid", -1);
-//        Process.killProcess(pid);
-    }
+//    @Override
+//    protected void onHandleIntent(@Nullable Intent intent) {
+//        Log.d(TAG, "onHandleIntent: intent=" + intent);
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+////        int pid = intent.getIntExtra("pid", -1);
+////        Process.killProcess(pid);
+//    }
 
     private RemoteCallbackList<ICallback> mCallbacks = new RemoteCallbackList<ICallback>() {
         @Override
@@ -138,9 +144,9 @@ public class MyService extends IntentService {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
-        startForeground(NOTIFICATION_ID, new Notification());
+//        Notification.Builder builder = new Notification.Builder(this);
+//        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
+//        startForeground(NOTIFICATION_ID, new Notification());
 //        IntentFilter intentFilter = new IntentFilter(ACTION_DYNAMIC);
 //        MyDynamicReceiverB myDynamicReceiverB = new MyDynamicReceiverB();
 //        registerReceiver(myDynamicReceiverB, intentFilter);
@@ -155,11 +161,41 @@ public class MyService extends IntentService {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "onStartCommand 11: startId=" + startId + " intent=" + intent);
+//        builder.build().defaults |= Notification.DEFAULT_VIBRATE;
+//        builder.build().defaults |= Notification.DEFAULT_SOUND;
+//        builder.build().defaults |= Notification.DEFAULT_LIGHTS;
+        // 显示通知
+//        nm.notify(1, builder.build());
 //        Notification.Builder builder = new Notification.Builder(this);
 //        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
 ////        Intent innerIntent = new Intent(this, GrayInnerService.class);
 ////        startService(innerIntent);
-//        startForeground(NOTIFICATION_ID, new Notification());
+        if (intent.getBooleanExtra(KEY_IS_FOREGROUND, false)) {
+            Notification.Builder builder = new Notification.Builder(this);
+            String content = intent.getStringExtra(KEY_IS_CONTENT);
+            builder.setContentText(content);
+            builder.setContentTitle("this is Content title");
+//        builder.setPriority(Notification.);
+//        builder.setTicker("this is ticker");
+            builder.setSmallIcon(R.drawable.ic_launcher);
+            builder.setPriority(Notification.PRIORITY_MAX);
+            final NotificationManager nm = (NotificationManager) this
+                    .getSystemService(Context.NOTIFICATION_SERVICE);
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                //只在Android O之上需要渠道
+                NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
+                        "dd", NotificationManager.IMPORTANCE_DEFAULT);
+                builder.setChannelId("sdfdsfd");
+                notificationChannel.setDescription("this is test");
+                notificationChannel.setSound(null, null);
+                notificationChannel.enableVibration(true);
+                notificationChannel.setLightColor(Color.RED);
+                //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
+                //通知才能正常弹出
+                nm.createNotificationChannel(notificationChannel);
+            }
+            startForeground(NOTIFICATION_ID, builder.build());
+        }
 //        try {
 //            Thread.currentThread().sleep(22000);
 //        } catch (InterruptedException e) {

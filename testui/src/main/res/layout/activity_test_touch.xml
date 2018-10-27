@@ -7,6 +7,19 @@
                                    android:orientation="horizontal"
     >
 
+    <TextView
+        android:id="@+id/test_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_marginLeft="40dip"
+        android:background="#2f00ff00"
+        android:clickable="true"
+        android:gravity="left"
+        android:fontFamily="sans-serif-light"
+        android:textSize="@dimen/text_size"
+        />
+
     <ImageView
         android:id="@+id/img0"
         android:layout_width="wrap_content"

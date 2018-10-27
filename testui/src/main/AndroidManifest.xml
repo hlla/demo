@@ -412,6 +412,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TestRtlActivity"
+            android:taskAffinity="com.test.task">
+        </activity>
+
     </application>
 
 </manifest>

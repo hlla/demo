@@ -33,9 +33,9 @@ public class MyStaticReceiverA extends BroadcastReceiver {
 //                    e.printStackTrace();
 //                }
                 Log.d(TAG, "run: startService");
-                Intent intent1 = new Intent(context, MyService.class);
-                intent1.putExtra("abc", "cj");
-                context.startForegroundService(intent1);
+//                Intent intent1 = new Intent(context, MyService.class);
+//                intent1.putExtra("abc", "cj");
+//                context.startForegroundService(intent1);
             }
         }.start();
 //        mHandler.postDelayed(new Runnable() {
