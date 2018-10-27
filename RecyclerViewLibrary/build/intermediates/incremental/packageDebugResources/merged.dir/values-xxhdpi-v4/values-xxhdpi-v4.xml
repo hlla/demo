@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bubble_position_offset">2dp</dimen>
+    <dimen name="clock_widget_new_weather_image_size">30dp</dimen>
+</resources>

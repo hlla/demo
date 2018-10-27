@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="clock_date_text_height">18.6dp</dimen>
+    <dimen name="clock_widget_new_weather_image_size">10dp</dimen>
+    <dimen name="clock_widget_tomorrow_image_size">40dp</dimen>
+    <dimen name="weather_widget_today_layout_margin_left">7dp</dimen>
+    <dimen name="weather_widget_tomorrow_margin_right">18.8dp</dimen>
+</resources>

@@ -1,0 +1,78 @@
+"ReferenceQueueDaemon@4034" daemon prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	  at java.lang.Daemons$ReferenceQueueDaemon.enqueue(Daemons.java:160)
+	  at java.lang.Daemons$ReferenceQueueDaemon.run(Daemons.java:155)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"main@4189" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"Signal Catcher@4190" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 Incompatible thread state: thread not suspended
+
+"FinalizerDaemon@4191" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 Incompatible thread state: thread not suspended
+
+"FinalizerWatchdogDaemon@4192" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 Incompatible thread state: thread not suspended
+
+"HeapTaskDaemon@4031" daemon prio=5 waiting for monitor entry
+  java.lang.Thread.State: BLOCKED
+	 Incompatible thread state: thread not suspended
+
+"Binder_1@4193" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"Binder_2@4194" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"Binder_3@4195" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"Binder_4@4196" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"Binder_5@4197" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"Thread-867@4198" prio=5 sleeping
+  java.lang.Thread.State: TIMED_WAITING
+	 Incompatible thread state: thread not suspended
+
+"Studio:VmStats@4199" prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 Incompatible thread state: thread not suspended
+
+"Thread-870@4200" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"reference-pool-1-thread-2@4201" prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 Incompatible thread state: thread not suspended
+
+"reference-pool-1-thread-1@4202" prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 Incompatible thread state: thread not suspended
+
+"RenderThread@4203" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"hwuiTask1@4204" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"hwuiTask2@4205" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+

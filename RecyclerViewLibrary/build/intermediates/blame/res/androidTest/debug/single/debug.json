@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-hdpi-v4_ic_launcher.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-hdpi-v4/ic_launcher.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-mdpi-v4_ic_launcher_round.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-mdpi-v4/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-xhdpi-v4_ic_launcher_round.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-xhdpi-v4/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-xhdpi-v4_ic_launcher.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-xhdpi-v4/ic_launcher.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-mdpi-v4_ic_launcher.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-mdpi-v4/ic_launcher.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-xxxhdpi-v4_ic_launcher_round.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-xxxhdpi-v4/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-xxhdpi-v4_ic_launcher.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-xxhdpi-v4/ic_launcher.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/drawable_item_selector.xml.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/drawable/item_selector.xml"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-xxxhdpi-v4_ic_launcher.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-xxxhdpi-v4/ic_launcher.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-xxhdpi-v4_ic_launcher_round.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-xxhdpi-v4/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/mipmap-hdpi-v4_ic_launcher_round.png.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/mipmap-hdpi-v4/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/layout_test_layout.xml.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/layout/test_layout.xml"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/androidTest/debug/layout_activity_test_util.xml.flat",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/packaged_res/debug/layout/activity_test_util.xml"
+    }
+]

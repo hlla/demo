@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/release/values-hdpi-800x480-v4/values-hdpi-800x480-v4.xml",
+            "map": [
+                {
+                    "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/values-hdpi-800x480/dimens.xml",
+                    "from": {
+                        "startLines": "21,19,20,17,18",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "962,831,898,691,761",
+                        "endColumns": "55,66,63,69,69",
+                        "endOffsets": "1013,893,957,756,826"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,111,178,242,312",
+                        "endColumns": "55,66,63,69,69",
+                        "endOffsets": "106,173,237,307,377"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-hdpi-800x480-v4/values-hdpi-800x480-v4.xml",
+            "map": [
+                {
+                    "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/values-hdpi-800x480/dimens.xml",
+                    "from": {
+                        "startLines": "21,19,20,17,18",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "962,831,898,691,761",
+                        "endColumns": "55,66,63,69,69",
+                        "endOffsets": "1013,893,957,756,826"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,111,178,242,312",
+                        "endColumns": "55,66,63,69,69",
+                        "endOffsets": "106,173,237,307,377"
+                    }
+                }
+            ]
+        }
+    ]
+}

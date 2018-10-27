@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-xxxhdpi-v4/values-xxxhdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/values-xxxhdpi/dimens.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "57,111,179",
+                        "endColumns": "52,66,42",
+                        "endOffsets": "105,173,217"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,108,175",
+                        "endColumns": "52,66,42",
+                        "endOffsets": "103,170,213"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/release/values-xxxhdpi-v4/values-xxxhdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/values-xxxhdpi/dimens.xml",
+                    "from": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "57,111,179",
+                        "endColumns": "52,66,42",
+                        "endOffsets": "105,173,217"
+                    },
+                    "to": {
+                        "startLines": "2,3,4",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,108,175",
+                        "endColumns": "52,66,42",
+                        "endOffsets": "103,170,213"
+                    }
+                }
+            ]
+        }
+    ]
+}

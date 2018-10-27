@@ -1,0 +1,48 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/release/values-large-mdpi-v4/values-large-mdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/values-large-mdpi/dimens.xml",
+                    "from": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "716",
+                        "endColumns": "57",
+                        "endOffsets": "769"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "57",
+                        "endOffsets": "108"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-large-mdpi-v4/values-large-mdpi-v4.xml",
+            "map": [
+                {
+                    "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/values-large-mdpi/dimens.xml",
+                    "from": {
+                        "startLines": "19",
+                        "startColumns": "4",
+                        "startOffsets": "716",
+                        "endColumns": "57",
+                        "endOffsets": "769"
+                    },
+                    "to": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "57",
+                        "endOffsets": "108"
+                    }
+                }
+            ]
+        }
+    ]
+}

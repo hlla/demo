@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/release/layout/activity_test_util.xml",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/layout/activity_test_util.xml"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/release/layout/test_layout.xml",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/layout/test_layout.xml"
+    }
+]

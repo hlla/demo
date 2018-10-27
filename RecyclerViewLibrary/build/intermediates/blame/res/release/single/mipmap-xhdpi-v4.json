@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/release/mipmap-xhdpi-v4/ic_launcher_round.png",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/build/intermediates/res/merged/release/mipmap-xhdpi-v4/ic_launcher.png",
+        "source": "/home/chengjian/workspace/AppDemo/RecyclerViewLibrary/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    }
+]

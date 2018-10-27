@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_icon_size">48dp</dimen>
+    <dimen name="boost_icon_size">46dp</dimen>
+    <dimen name="boost_icon_size_small">41dp</dimen>
+    <dimen name="boost_text_size">17sp</dimen>
+    <dimen name="clock_time_text_hight">46dp</dimen>
+    <dimen name="clock_time_text_size">44sp</dimen>
+    <dimen name="dynamic_grid_text_icon_padding">2dp</dimen>
+    <dimen name="hotseat_icon_small_size">44dp</dimen>
+    <dimen name="mul_addapps_dialog_app_textsize">12sp</dimen>
+    <dimen name="mul_addapps_dialog_paddingBottom">75dp</dimen>
+    <dimen name="mul_addapps_dialog_paddingLeft">16dp</dimen>
+    <dimen name="mul_addapps_dialog_paddingRight">16dp</dimen>
+    <dimen name="mul_addapps_dialog_paddingTop">75dp</dimen>
+    <dimen name="overview_mode_page_offset">69dp</dimen>
+    <dimen name="sort_apps_dialog_paddingBottom">200dp</dimen>
+    <dimen name="sort_apps_dialog_paddingLeft">15dp</dimen>
+    <dimen name="sort_apps_dialog_paddingRight">15dp</dimen>
+    <dimen name="sort_apps_dialog_paddingTop">200dp</dimen>
+    <dimen name="weather_tomorrow_icon_hight">52dp</dimen>
+    <dimen name="workspace_cell_indicator_diff">10dp</dimen>
+</resources>
