@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 26
     buildToolsVersion '28.0.2'
@@ -14,7 +14,7 @@ android {
     defaultConfig {
         multiDexEnabled true
         applicationId "example.com.testcomponent.dd"
-        minSdkVersion 19
+        minSdkVersion 18
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -49,6 +49,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.6.0'
     implementation 'com.android.support:support-v4:25.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71'
     //test
 //    implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.4.0'
 //    compile 'com.facebook.react:react-native:+'

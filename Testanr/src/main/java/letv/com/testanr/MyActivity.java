@@ -28,6 +28,7 @@ import android.os.Messenger;
 import android.os.PowerManager;
 import android.os.Process;
 import android.os.RemoteException;
+import android.os.SystemProperties;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
@@ -55,6 +56,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import example.com.testlib.TestLib;
 import letv.com.testanr.reflect.FieldUtils;
 import letv.com.testanr.reflect.MethodUtils;
 
@@ -121,19 +123,30 @@ public class MyActivity extends Activity implements ActivityCompat
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Log.d(TAG, "handleMessage: what=" + msg.what);
+//            Log.d(TAG, "handleMessage: what=" + msg.what);
             int what = msg.what;
             switch (what) {
-                case STATIC_BROADCAST: {
-                    Intent intent = new Intent(ACTION);
-                    intent.setPackage(getPackageName());
-                    sendBroadcast(intent);
-//                    Intent intent1 = new Intent(MyActivity.this, MyService.class);
-//                    intent1.putExtra("abc", "cj");
-//                    MyActivity.this.startService(intent1);
+                case 100: {
+                    try {
+                        Thread.sleep(30 * 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 }
             }
+            Log.d(TAG, "after handleMessage: ");
+//            switch (what) {
+//                case STATIC_BROADCAST: {
+//                    Intent intent = new Intent(ACTION);
+//                    intent.setPackage(getPackageName());
+//                    sendBroadcast(intent);
+////                    Intent intent1 = new Intent(MyActivity.this, MyService.class);
+////                    intent1.putExtra("abc", "cj");
+////                    MyActivity.this.startService(intent1);
+//                    break;
+//                }
+//            }
 //            try {
 //                Thread.sleep(200);
 //            } catch (InterruptedException e) {
@@ -477,23 +490,23 @@ public class MyActivity extends Activity implements ActivityCompat
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            Exception exception = new Exception("onServiceConnected");
-
-            Log.d(TAG, "onServiceConnected =" + name + " service=" + service, exception);
-            iTestbinder = ITestbinder.Stub.asInterface(service);
-            Log.d(TAG, "onServiceConnected =" + name + " service=" + service + " iTestbinder=" +
-                    iTestbinder);
-            try {
-//                Trace.beginSection();
-                iTestbinder.asBinder().linkToDeath(new IBinder.DeathRecipient() {
-                    @Override
-                    public void binderDied() {
-                        Log.d(TAG, "binderDied tNanme=" + Thread.currentThread().getName());
-                    }
-                }, 0);
-            } catch (RemoteException e) {
-                e.printStackTrace();
-            }
+//            Exception exception = new Exception("onServiceConnected");
+//
+//            Log.d(TAG, "onServiceConnected =" + name + " service=" + service, exception);
+//            iTestbinder = ITestbinder.Stub.asInterface(service);
+//            Log.d(TAG, "onServiceConnected =" + name + " service=" + service + " iTestbinder=" +
+//                    iTestbinder);
+//            try {
+////                Trace.beginSection();
+//                iTestbinder.asBinder().linkToDeath(new IBinder.DeathRecipient() {
+//                    @Override
+//                    public void binderDied() {
+//                        Log.d(TAG, "binderDied tNanme=" + Thread.currentThread().getName());
+//                    }
+//                }, 0);
+//            } catch (RemoteException e) {
+//                e.printStackTrace();
+//            }
 //            try {
 //                Log.d(TAG, "onServiceConnected 1 ");
 //                iTestbinder.registerCallback(iCallback);
@@ -579,7 +592,8 @@ public class MyActivity extends Activity implements ActivityCompat
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager
                 .LayoutParams.FLAG_KEEP_SCREEN_ON);
         int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
-        Log.d(TAG, "onCreate: NUMBER_OF_CORES=" + NUMBER_OF_CORES);
+        String name = SystemProperties.get("name");
+        Log.d(TAG, "onCreate: NUMBER_OF_CORES=" + NUMBER_OF_CORES + " name=" + name);
 //        try {
 //            Thread.sleep(30000);
 //        } catch (InterruptedException e) {
@@ -609,7 +623,7 @@ public class MyActivity extends Activity implements ActivityCompat
 //            e.printStackTrace();
 //        }
 //        thread.interrupt();
-        setContentView(R.layout.activity_main_ss);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         int resId = getResources().getIdentifier(getString(R.string.test_dump_hprof_4), "drawable",
                 getPackageName());
@@ -1252,7 +1266,7 @@ public class MyActivity extends Activity implements ActivityCompat
         num++;
         intent.putExtra(MyService.KEY_IS_CONTENT, "cj" + num);
         intent.putExtra(MyService.KEY_IS_FOREGROUND, true);
-        startService(intent);
+        startForegroundService(intent);
     }
 
     private int num = 0;
@@ -1288,8 +1302,9 @@ public class MyActivity extends Activity implements ActivityCompat
     public void onStartBgServiceClicked() {
         HandlerThread handlerThread = new HandlerThread("fsdf");
         handlerThread.start();
+        String dd = SystemProperties.get("dgg");
         final Handler handler = new Handler(handlerThread.getLooper());
-        Log.d(TAG, "onStartFgServiceClicked: ");
+        Log.d(TAG, "onStartBgServiceClicked: ");
 //        new Thread("ddddddd") {
 //            @Override
 //            public void run() {
@@ -1326,15 +1341,34 @@ public class MyActivity extends Activity implements ActivityCompat
 ////                mHandler.sendEmptyMessage(111);
 //            }
 //        }.start();
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+        Log.d(TAG, "run: startService");
+        Intent intent = new Intent(MyActivity.this, MyService.class);
+        intent.putExtra("abc", "cj");
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.d(TAG, "run: startService");
-                Intent intent = new Intent(MyActivity.this, MyService.class);
-                intent.putExtra("abc", "cj");
-                startForegroundService(intent);
+//                startForegroundService(intent);
+//                stopService(intent);
             }
-        }, 75000);
+            //            @Override
+//            public void run() {
+//                Log.d(TAG, "run: isni=" + MyActivity.this.isFinishing());
+//                windowManager.addView(view, params);
+//            }
+        }, 1);
+//        bindService(intent, connection, BIND_AUTO_CREATE);
+//        for (int i = 0; i < 100; i++) {
+//            try {
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//            }
+//        }, 5000);
     }
 
     public void pollServer() {
@@ -1387,7 +1421,11 @@ public class MyActivity extends Activity implements ActivityCompat
 
     @OnClick(R.id.start_static_broadcast)
     public void onStartStaticBroadcast() {
-        mHandler.sendEmptyMessageDelayed(STATIC_BROADCAST, 70000);
+//        mHandler.sendEmptyMessageDelayed(STATIC_BROADCAST, 70000);
+        Intent intent = new Intent(ACTION);
+        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        intent.setPackage(getPackageName());
+        sendBroadcast(intent);
     }
 
     @OnClick(R.id.get_adId)
@@ -1474,6 +1512,23 @@ public class MyActivity extends Activity implements ActivityCompat
         }
     }
 
+    @OnClick(R.id.test_array)
+    public void onTestArrayClicked() {
+        if (null != iTestbinder) {
+            Log.d(TAG, "onTestArrayClicked: pid=" + Process.myPid() + " " +
+                    "tid=" + Thread.currentThread().getId() + " calllingpId=" +
+                    Binder
+                            .getCallingPid());
+            try {
+                iTestbinder.testArray(new School());
+            } catch (RemoteException e) {
+                e.printStackTrace();
+                Log.d(TAG, "onTestArrayClicked: e=" + e);
+            }
+            Log.d(TAG, "onTestArrayClicked: end");
+        }
+    }
+
     @OnClick(R.id.test_messager)
     public void onSendMessageClicked() {
         if (null != mServiceMessenger) {
@@ -1542,8 +1597,67 @@ public class MyActivity extends Activity implements ActivityCompat
         }
     }
 
+    @OnClick(R.id.test_handler_anr)
+    public void onTestHandlerAnrClicked() {
+        new TestLib().test();
+        Log.d(TAG, "onTestHandlerAnrClicked: 11");
+        Message message = Message.obtain();
+        final Object object = new Object();
+        for (int i = 0; i < 5; i++) {
+            new Thread("name" + i) {
+                @Override
+                public void run() {
+//                    for (int i = 0; i < 2; i++) {
+//                        synchronized (object) {
+//                            try {
+//                                object.wait();
+//                            } catch (InterruptedException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        mHandler.sendMessage(message);
+                    } catch (Exception e) {
+                    }
+//                    }
+                }
+            }.start();
+        }
+        mHandler.sendEmptyMessage(100);
+//        try {
+//            Thread.sleep(4000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        synchronized (object) {
+//            object.notifyAll();
+//        }
+//        for (int i = 0; i < 100; i++) {
+////            try {
+////                Thread.sleep(1);
+////            } catch (InterruptedException e) {
+////                e.printStackTrace();
+////            }
+//            try {
+//                mHandler.sendMessage(message);
+//            } catch (Exception e) {
+//            }
+//        }
+//        mHandler.sendEmptyMessageDelayed(0, 1000);
+        Log.d(TAG, "onTestHandlerAnrClicked: 22");
+    }
+
     @OnClick(R.id.test_notification)
     public void onTestNotificationClicked() {
+        Log.d(TAG, "onTestHandlerAnrClicked: 11");
+        Intent intent = new Intent(this, MyRemoteActivity.class);
+        startActivity(intent);
+//        mHandler.sendEmptyMessageDelayed(0, 1000);
 //        Notification.Builder builder = new Notification.Builder(this);
 //        builder.setContentText("this is Content");
 //        builder.setContentTitle("this is Content title");

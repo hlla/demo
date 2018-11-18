@@ -13,6 +13,7 @@
     <string name="register_callback">register callback</string>
     <string name="test_school">test school</string>
     <string name="test_call">test call</string>
+    <string name="test_array">test array</string>
     <string name="test_messager">test messager</string>
     <string name="register_messager">register messager</string>
     <string name="launch_loading">launch_loading</string>
@@ -23,6 +24,7 @@
     <string name="test_file_io_wait">test File IO Wait</string>
     <string name="test_network_io_wait">test network IO Wait</string>
     <string name="test_dump_hprof">dump Hprof Data</string>
+    <string name="test_handler_anr">test handler anr</string>
     <string name="test_dump_hprof_1">ccccc</string>
     <string name="test_dump_hprof_2">aaaa</string>
     <string name="test_dump_hprof_3">qqqqqqqq</string>

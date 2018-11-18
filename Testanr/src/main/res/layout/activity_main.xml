@@ -107,6 +107,12 @@
                 android:text="@string/test_call"/>
 
             <Button
+                android:id="@+id/test_array"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_array"/>
+
+            <Button
                 android:id="@+id/launch_loading"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,6 +157,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/test_dump_hprof"/>
+            <Button
+                android:id="@+id/test_handler_anr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_handler_anr"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

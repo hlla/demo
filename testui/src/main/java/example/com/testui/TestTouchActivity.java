@@ -1,6 +1,5 @@
 package example.com.testui;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,9 +30,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.StrictMode;
 import android.provider.Settings;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v4.content.PermissionChecker;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
@@ -372,12 +369,13 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 
     @OnClick(R.id.test_notify)
     public void onTestNotifyClicked() {
-        int resultCheck = PermissionChecker.checkSelfPermission(this, Manifest.permission
-                .READ_CONTACTS);
-        int resultContext = ContextCompat.checkSelfPermission(this, Manifest.permission
-                .READ_CONTACTS);
-        Log.e(TAG, "onTestNotifyClicked: resultCheck=" + resultCheck + " resultContext=" +
-                resultContext);
+        showDialog(this);
+//        int resultCheck = PermissionChecker.checkSelfPermission(this, Manifest.permission
+//                .READ_CONTACTS);
+//        int resultContext = ContextCompat.checkSelfPermission(this, Manifest.permission
+//                .READ_CONTACTS);
+//        Log.e(TAG, "onTestNotifyClicked: resultCheck=" + resultCheck + " resultContext=" +
+//                resultContext);
 //        addWindowManager();
 //        root.setPadding(0, 0, 0, 0);
 //        showDialog(TestApp.getInstance());

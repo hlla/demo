@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 public class DeserialTest {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        Person person = null;
+        PersonParent person = null;
         ArrayList<Person> persons = null;
         FileInputStream fis = new FileInputStream("Person.txt");
         ObjectInputStream ois = new ObjectInputStream(fis);
 //        persons = (ArrayList<Person>) ois.readObject();
-        person = (Person) ois.readObject();
+        person = (PersonParent) ois.readObject();
         ois.close();
-        System.out.println("Person Deserial=" + person);
+        System.out.println("Person Deserial=" + (PersonParent)person);
 //        System.out.println("Person persons=" + persons);
     }
 

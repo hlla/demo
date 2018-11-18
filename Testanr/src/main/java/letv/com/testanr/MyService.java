@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.IBinder;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.os.RemoteCallbackList;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
@@ -62,7 +64,7 @@ public class MyService extends Service {
             Log.d(MyService.TAG, "getAdId: ");
 //            notifyResult("ffff");
             try {
-                Thread.currentThread().sleep(15000);
+                Thread.currentThread().sleep(1500000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -74,7 +76,7 @@ public class MyService extends Service {
 //            RuntimeException runtimeException = new RuntimeException("testCall");
             Log.d(MyService.TAG, "testCall: ");
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1500000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -139,6 +141,31 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Notification.Builder builder = new Notification.Builder(this);
+//        String content = intent.getStringExtra(KEY_IS_CONTENT);
+        builder.setContentText("gfhgfhghgf");
+        builder.setContentTitle("this is Content title");
+//        builder.setPriority(Notification.);
+//        builder.setTicker("this is ticker");
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setPriority(Notification.PRIORITY_MAX);
+        final NotificationManager nm = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            //只在Android O之上需要渠道
+            NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
+                    "dd", NotificationManager.IMPORTANCE_DEFAULT);
+            builder.setChannelId("sdfdsfd");
+            notificationChannel.setDescription("this is test");
+            notificationChannel.setSound(null, null);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setLightColor(Color.RED);
+            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
+            //通知才能正常弹出
+            nm.createNotificationChannel(notificationChannel);
+        }
+        startForeground(NOTIFICATION_ID, builder.build());
+//        startForeground(NOTIFICATION_ID, new Notification());
 //        try {
 //            Thread.sleep(5000);
 //        } catch (InterruptedException e) {
@@ -160,7 +187,7 @@ public class MyService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand 11: startId=" + startId + " intent=" + intent);
+        Log.e(TAG, "onStartCommand 11: startId=" + startId + " intent=" + intent);
 //        builder.build().defaults |= Notification.DEFAULT_VIBRATE;
 //        builder.build().defaults |= Notification.DEFAULT_SOUND;
 //        builder.build().defaults |= Notification.DEFAULT_LIGHTS;
@@ -168,34 +195,44 @@ public class MyService extends Service {
 //        nm.notify(1, builder.build());
 //        Notification.Builder builder = new Notification.Builder(this);
 //        builder.setTicker("ffffff").setSmallIcon(R.mipmap.ic_launcher);
-////        Intent innerIntent = new Intent(this, GrayInnerService.class);
-////        startService(innerIntent);
-        if (intent.getBooleanExtra(KEY_IS_FOREGROUND, false)) {
-            Notification.Builder builder = new Notification.Builder(this);
-            String content = intent.getStringExtra(KEY_IS_CONTENT);
-            builder.setContentText(content);
-            builder.setContentTitle("this is Content title");
-//        builder.setPriority(Notification.);
-//        builder.setTicker("this is ticker");
-            builder.setSmallIcon(R.drawable.ic_launcher);
-            builder.setPriority(Notification.PRIORITY_MAX);
-            final NotificationManager nm = (NotificationManager) this
-                    .getSystemService(Context.NOTIFICATION_SERVICE);
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                //只在Android O之上需要渠道
-                NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
-                        "dd", NotificationManager.IMPORTANCE_DEFAULT);
-                builder.setChannelId("sdfdsfd");
-                notificationChannel.setDescription("this is test");
-                notificationChannel.setSound(null, null);
-                notificationChannel.enableVibration(true);
-                notificationChannel.setLightColor(Color.RED);
-                //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
-                //通知才能正常弹出
-                nm.createNotificationChannel(notificationChannel);
+//        Intent innerIntent = new Intent(this, GrayInnerService.class);
+//        startService(innerIntent);
+//        if (intent.getBooleanExtra(KEY_IS_FOREGROUND, false)) {
+//        Notification.Builder builder = new Notification.Builder(this);
+//        String content = intent.getStringExtra(KEY_IS_CONTENT);
+//        builder.setContentText(content);
+//        builder.setContentTitle("this is Content title");
+////        builder.setPriority(Notification.);
+////        builder.setTicker("this is ticker");
+//        builder.setSmallIcon(R.drawable.ic_launcher);
+//        builder.setPriority(Notification.PRIORITY_MAX);
+//        final NotificationManager nm = (NotificationManager) this
+//                .getSystemService(Context.NOTIFICATION_SERVICE);
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+//            //只在Android O之上需要渠道
+//            NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
+//                    "dd", NotificationManager.IMPORTANCE_DEFAULT);
+//            builder.setChannelId("sdfdsfd");
+//            notificationChannel.setDescription("this is test");
+//            notificationChannel.setSound(null, null);
+//            notificationChannel.enableVibration(true);
+//            notificationChannel.setLightColor(Color.RED);
+//            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
+//            //通知才能正常弹出
+//            nm.createNotificationChannel(notificationChannel);
+//        }
+////        startForeground(NOTIFICATION_ID, builder.build());
+////        startForeground(NOTIFICATION_ID, new Notification());
+//        stopForeground(true);
+//        stopSelf();
+        Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
+            @Override
+            public boolean queueIdle() {
+//                stopSelf();
+                return false;
             }
-            startForeground(NOTIFICATION_ID, builder.build());
-        }
+        });
+//        }
 //        try {
 //            Thread.currentThread().sleep(22000);
 //        } catch (InterruptedException e) {
@@ -215,7 +252,7 @@ public class MyService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-//        Log.d(TAG, "onCreate: ");
+        Log.d(TAG, "onBind: ");
 //        Log.d(TAG, "onHandleIntent: intent=" + intent);
 //        try {
 //            Thread.sleep(5000);
@@ -241,5 +278,6 @@ public class MyService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy ");
+//        System.exit(0);
     }
 }

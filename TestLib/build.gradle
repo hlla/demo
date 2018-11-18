@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 19
@@ -60,7 +61,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'io.reactivex:rxjava:1.2.5'
+//    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 //    testCompile 'junit:junit:4.12'
 //    androidTestCompile 'com.android.support.test:runner:1.0.1'
 //    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+repositories {
+    mavenCentral()
 }

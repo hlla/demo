@@ -24,14 +24,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.SystemClock;
-//import android.os.SystemProperties;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -48,6 +46,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import example.com.testcomponent.statics.TestStaticA;
+import example.com.testcomponent.statics.TestStaticD;
+
+//import android.os.SystemProperties;
 
 public class TestComponentActivity extends Activity {
     private static final int MSG_TIMER = 1;
@@ -105,7 +106,6 @@ public class TestComponentActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.e(TAG, "onChange: selfChange=" + PKG_NAME);
 //        String name = SystemProperties.get("fhgfh");
-        Log.e(TAG, "onCreate: name=" + name);
 //        getContentResolver().registerContentObserver(TEST_URI,
 //                true, new ContentObserver(null) {
 //                    @Override
@@ -263,12 +263,26 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.update)
     public void onUpdateClicked() {
+        Log.e(TAG, "onUpdateClicked b=" + TestStaticA.b);
 //        new TestLib().test();
-        try {
-            Log.e(TAG, "onUpdateClicked: b=" + new TestStaticA());
-        } catch (Throwable e) {
-            Log.e(TAG, "onUpdateClicked e=" + e, e);
-        }
+//        try {
+//        TestLib testLib = new TestLib();
+//        Log.e(TAG, "onUpdateClickedprovider=" + TestLib.class);
+//        TestProvider provider = new TestProvider();
+//        Log.e(TAG, "onUpdateClickedprovider=" + provider);
+
+//        Class classTest = null;
+//        try {
+//            classTest = getClassLoader().loadClass("example.com.testcomponent.statics" +
+//                    ".TestStaticA");
+////            classTest = getClassLoader().loadClass("fdsfdf.fdfdf.dsfdsf");
+//        } catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        classTest.getDeclaredMethods();
+//        } catch (Throwable e) {
+//            Log.e(TAG, "onUpdateClicked e=" + e, e);
+//        }
         String className = getIntent().getComponent().getClassName();
         SharedPreferences sharedPreferences = getSharedPreferences("abc", 0);
         boolean isEuro = sharedPreferences.getBoolean("debug.test.euro", false);
@@ -422,10 +436,12 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.test_alarm)
     public void onTestAlarmClicked() {
-        TranslateAnimation animation = new TranslateAnimation(0, 0, 50, 0);
-        animation.setDuration(5000);
-        testAlarm.startAnimation(animation);
+        new TestStaticD().testPub(null);
+//        TranslateAnimation animation = new TranslateAnimation(0, 0, 50, 0);
+//        animation.setDuration(5000);
+//        testAlarm.startAnimation(animation);
 //        testAlarm();
+//        Log.d(TAG, TestStaticA.b + "");
     }
 
     @OnClick(R.id.test_file_provider)
@@ -512,7 +528,12 @@ public class TestComponentActivity extends Activity {
         calendar.set(Calendar.MILLISECOND, 0);
 
         Intent intent = new Intent(this, AlarmBroadcastReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+        Intent serviceIntent = new Intent(this, MyService.class);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent,
+//                PendingIntent.FLAG_CANCEL_CURRENT);
+//        PendingIntent pendingIntent = PendingIntent.getService(this, 0, serviceIntent,
+//                PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getForegroundService(this, 0, serviceIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
 //        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, 5 * 1000 + System
 //                        .currentTimeMillis(),
@@ -539,7 +560,7 @@ public class TestComponentActivity extends Activity {
 //                new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
 //        alarmManager.setAlarmClock(info, operation);
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, System
-                .currentTimeMillis() - 60 * 1000, operation);
+                .currentTimeMillis() + 80 * 1000, pendingIntent);
     }
 
     public Intent createViewAlarmIntent() {

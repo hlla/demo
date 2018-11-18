@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileOptions {
@@ -79,13 +80,18 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:3.7.0'
     implementation 'com.github.bumptech.glide:volley-integration:1.4.0@aar'
 //    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compileOnly files("libs/layoutlib.jar")
 //    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.jakewharton:butterknife:8.6.0'
     implementation 'com.cmcm.launcher:glview:4.0.0.206111-SNAPSHOT'
     implementation project(':TestLib')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-//    compile(name: 'reward-debug', ext: 'aar') {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compileOnly files("libs/layoutlib.jar")
+//    compile(name: 'reward-debug', ex
+// t: 'aar') {
 //        exclude module: 'mnt_1.7.4'
 //    }
+}
+repositories {
+    mavenCentral()
 }
