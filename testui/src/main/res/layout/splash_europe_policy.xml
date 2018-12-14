@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="@dimen/splash_dialog_bottom">
+    <View
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#ff0000"/>
+
+    <RelativeLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#00ff00"
+        android:layout_marginTop="25dp">
+
+        <TextView
+            android:id="@+id/btn_disagree"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/splash_confirm_button_height"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/splash_button_width_margin"
+            android:layout_marginRight="@dimen/splash_button_width_margin"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:text="@string/quit_text"
+            android:textSize="@dimen/splash_policy_button_font"/>
+
+        <RelativeLayout
+            android:id="@+id/btn_agree_parent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/splash_confirm_button_height"
+            android:layout_above="@id/btn_disagree"
+            android:background="@drawable/splash_button_agree"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip">
+
+            <TextView
+                android:id="@+id/btn_agree"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/splash_confirm_button_height"
+                android:layout_marginLeft="@dimen/splash_button_width_margin"
+                android:layout_marginRight="@dimen/splash_button_width_margin"
+                android:gravity="center"
+                android:text="@string/start_text"
+                android:textColor="@color/splash_button_highlight_color"
+                android:textSize="@dimen/splash_policy_button_font"/>
+        </RelativeLayout>
+        <FrameLayout
+            android:layout_width="@dimen/splash_europe_policy_width"
+            android:layout_height="match_parent"
+            android:layout_above="@id/btn_agree_parent"
+            android:layout_centerHorizontal="true">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_europe_policy"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/splash_europe_policy_content_height"
+                android:layout_gravity="center_horizontal"/>
+
+            <LinearLayout
+                android:id="@+id/ll_snap"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/splash_policy_desc_page_indicator_height"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:orientation="horizontal"/>
+        </FrameLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/europe_start_continue_desc"
+        android:textColor="@color/splash_desc_highlight_color"
+        android:textSize="@dimen/splash_policy_bottom_font"/>
+</LinearLayout>
