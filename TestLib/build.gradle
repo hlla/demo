@@ -34,6 +34,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    publishNonDefault true
+    flavorDimensions "default"
+    productFlavors {
+        mainLauncher {
+            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
+            buildConfigField "int", "IS_PERFORMANCE", "11"
+        }
+        perfLauncher {
+            buildConfigField "boolean", "IS_PERFORMANCE_VERSION", "true"
+            buildConfigField "int", "IS_PERFORMANCE", "22"
+            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
+        }
+    }
 
 }
 tasks.whenTaskAdded { task ->
@@ -60,7 +73,8 @@ tasks.whenTaskAdded { task ->
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'io.reactivex:rxjava:1.2.5'
+//    sdk10Compile 'io.reactivex:rxjava:1.2.5'
+//    sdk11Compile 'io.reactivex:rxjava:1.2.5'
 //    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 //    testCompile 'junit:junit:4.12'
 //    androidTestCompile 'com.android.support.test:runner:1.0.1'

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
     buildToolsVersion '28.0.2'
     signingConfigs {
         config {
@@ -15,7 +15,7 @@ android {
         multiDexEnabled true
         applicationId "example.com.testcomponent.dd"
         minSdkVersion 18
-        targetSdkVersion 23
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 

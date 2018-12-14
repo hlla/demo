@@ -16,6 +16,7 @@ public class TestApp extends Application {
     public void onCreate() {
         super.onCreate();
         Log.d(TAG, "onCreate: ");
+        int angle = 10;
 //        VolleyImageLoader.getInstance().setAppContext(this);
 //        VolleyImageLoader.getInstance().setBitmapcacheSize(7 * 1024 * 1024);
     }

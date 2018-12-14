@@ -18,7 +18,7 @@ public class TestInterrupted {
             @Override
             public void run() {
                 try {
-                    // Take a request from the queue.
+                    // Take encodeImpl request from the queue.
                     System.out.println("hahhhhahh is=" + Thread.currentThread().isInterrupted());
                     Thread.currentThread().sleep(3000);
                     System.out.println("gggg ");

@@ -5,4 +5,16 @@
     <color name="colorAccent">#FF4081</color>
     <color name="switch_grid_item_highlight">#33d7d7d7</color>
     <color name="yellow">#ffff00</color>
+    <!--splash-->
+    <color name="splash_desc_highlight_color">#99ffffff</color>
+    <color name="policy_url_highlight_color">#4480F7</color>
+    <color name="splash_button_highlight_color">#ff4480f7</color>
+    <color name="splash_button_normal_color">#b2ffffff</color>
+    <color name="scroll_bar_indicator">#ccffffff</color>
+    <color name="splash_background_color">#ff043C90</color>
+    <color name="policy_normal_dot">#26000000</color>
+    <color name="policy_highlight_dot">#66000000</color>
+    <color name="policy_symbol">#44000000</color>
+    <color name="all_app_seperation_line_color">#14ffffff</color>
+    <color name="white">#ffffff</color>
 </resources>

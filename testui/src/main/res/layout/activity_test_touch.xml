@@ -6,7 +6,33 @@
                                    android:layout_gravity="center"
                                    android:orientation="horizontal"
     >
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="#0000ff"-->
+        <!--&gt;-->
 
+        <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#ff0000"/>-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_marginTop="25dp"-->
+            <!--android:layout_weight="2"-->
+            <!--android:background="#ffff00">-->
+        <!--</RelativeLayout>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:text="dsffdfsf"/>-->
+    <!--</LinearLayout>-->
     <TextView
         android:id="@+id/test_txt"
         android:layout_width="wrap_content"
@@ -15,9 +41,10 @@
         android:layout_marginLeft="40dip"
         android:background="#2f00ff00"
         android:clickable="true"
-        android:gravity="left"
         android:fontFamily="sans-serif-light"
+        android:gravity="left"
         android:textSize="@dimen/text_size"
+        android:visibility="gone"
         />
 
     <ImageView
@@ -124,6 +151,5 @@
             <!--/>-->
         </example.com.testui.TestRelativeLayout>
     </example.com.testui.TestLinearLayout>
-
 
 </example.com.testui.TestFrameLaout>

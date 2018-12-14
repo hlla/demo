@@ -17,21 +17,21 @@ public class TestRegular {
     private static final String REGEX_MEMBER = "<?\\b[A-Za-z0-9_$]+\\b>?";
     private static final String REGEX_ARGUMENTS = "(?:" + REGEX_TYPE + "(?:\\s*,\\s*" +
             REGEX_TYPE + ")*)?";
-    //    static String a = "(?:.*?\\bat\\s+(\\b(?:[A-Za-z0-9_$]+\\.)" +
+    //    static String encodeImpl = "(?:.*?\\bat\\s+(\\b(?:[A-Za-z0-9_$]+\\.)" +
 //            "*[A-Za-z0-9_$]+\\b)" +
 //            "\\.(<?\\b[A-Za-z0-9_$]+\\b>?)\\s*\\(.*?(?::(\\b[0-9]+\\b))?\\)\\s*)|(?:(?:" +
 //            ".*?[:\"]\\s+)?(\\b(?:[A-Za-z0-9_$]+\\.)*[A-Za-z0-9_$]+\\b)(?::.*)?)";
-    static String a = "(?:.*?\\b(?:at|references|(?:GC ROOT [a-z0-9A-Z]+))\\s+(\\b" +
+    static String a = "(?:.*?\\b(?:at|references|(?:GC ROOT [encodeImpl-z0-9A-Z]+))\\s+(\\b" +
             "(?:[A-Za-z0-9_$]+\\.)*[A-Za-z0-9_$]+\\b)\\." + "(<?\\b([A-Za-z0-9_$]+)\\b>?)\\s*)";
 
-    static String bb = "(?:.*?\\b(at|references|(GC ROOT [a-z0-9A-Z]+))\\s+(\\b" +
+    static String bb = "(?:.*?\\b(at|references|(GC ROOT [encodeImpl-z0-9A-Z]+))\\s+(\\b" +
             "(?:[A-Za-z0-9_$]+\\.)*[A-Za-z0-9_$]+\\b)\\.(<?\\b[A-Za-z0-9_$]+\\b>?)\\s*)" +
             "|(?:(?:.*?[:\"]\\s+)" +
             "?(\\b(?:[A-Za-z0-9_$]+\\.)*[A-Za-z0-9_$]+\\b)(?::.*)?)";
-    static String cc = "(?:.*?\\b(?:at|references|(?:GC ROOT [a-z0-9A-Z]+))\\s+(\\b" +
+    static String cc = "(?:.*?\\b(?:at|references|(?:GC ROOT [encodeImpl-z0-9A-Z]+))\\s+(\\b" +
             "(?:[A-Za-z0-9_$]+\\.)*[A-Za-z0-9_$]+\\b)\\." +
             "(<?\\b[A-Za-z0-9_$]+\\b>?)\\s*\\(.*?(?::(\\b[0-9]+\\b))?\\)\\s*)";
-    static String b = "(?:.*?\\b(GC ROOT [a-z0-9A-Z]+))\\s+aa";
+    static String b = "(?:.*?\\b(GC ROOT [encodeImpl-z0-9A-Z]+))\\s+aa";
 
     public static void main(String[] args) {
         String name = ManagementFactory.getRuntimeMXBean().getName();
@@ -54,7 +54,7 @@ public class TestRegular {
 ////                ".PhoneWindow$DecorView.mContext");
 ////        System.out.println("GC" + matcher1.matches());
 ////        Matcher matcher2 = pattern.matcher(" * references com.ksmobile.launcher.wizard" +
-////                ".ProRatingWizardManager.a");
+////                ".ProRatingWizardManager.encodeImpl");
 //        Matcher matcher2 = pattern.matcher("references letv.com.testanr.b.b.ab()");
 //        System.out.println("references5=" + matcher2.matches() + " num=" + matcher2.groupCount());
 //        for (int expressionTypeIndex = 0; expressionTypeIndex < matcher2.groupCount();
@@ -62,7 +62,7 @@ public class TestRegular {
 //            System.out.println("group=" + matcher2.group(expressionTypeIndex));
 //        }
 //        Matcher matcher5 = pattern.matcher("* references com.ksmobile.launcher.LauncherAppState
-// .a");
+// .encodeImpl");
 //        System.out.println("references5=" + matcher5.matches());
 //        Matcher matcher3 = pattern.matcher(" * GC ROOT static android.view.inputmethod" +
 //                ".InputMethodManager.sInstance");
@@ -71,16 +71,16 @@ public class TestRegular {
 //        System.out.println("at=" + matcher6.matches());
 //
 //        Pattern pattern1 = Pattern.compile(b);
-//        Matcher matcher4 = pattern1.matcher("* GC ROOT 1sssstad11atic11 a");
+//        Matcher matcher4 = pattern1.matcher("* GC ROOT 1sssstad11atic11 encodeImpl");
 //        System.out.println(matcher4.matches());
-////        Pattern pattern2 = Pattern.compile("industr(?:y|ies)+ddd\\s+a\\s+(\\b(w|a)\\s)+\\b
+////        Pattern pattern2 = Pattern.compile("industr(?:y|ies)+ddd\\s+encodeImpl\\s+(\\b(w|encodeImpl)\\s)+\\b
 /// (m|e)");
-//        Pattern pattern2 = Pattern.compile(a);
-////        Pattern pattern2 = Pattern.compile(" (?:\\b(?:at|references|(?:GC ROOT [a-z0-9A-Z]+)))
-//// +\\.+(([a-z0-9A-Z]+))");
-////        Matcher matcher11 = pattern2.matcher("industryddd a w ea");
+//        Pattern pattern2 = Pattern.compile(encodeImpl);
+////        Pattern pattern2 = Pattern.compile(" (?:\\b(?:at|references|(?:GC ROOT [encodeImpl-z0-9A-Z]+)))
+//// +\\.+(([encodeImpl-z0-9A-Z]+))");
+////        Matcher matcher11 = pattern2.matcher("industryddd encodeImpl w ea");
 //        Matcher matcher11 = pattern2.matcher("* GC ROOT static com.ksmobile.launcher.wizard" +
-//                ".ProRatingWizardManager$a.a");
+//                ".ProRatingWizardManager$encodeImpl.encodeImpl");
 ////        Matcher matcher11 = pattern2.matcher(" references.dsd");
 //        System.out.println("matcher11=" + matcher11.matches() + " matcher11.groupCount()=" +
 //                matcher11.groupCount());

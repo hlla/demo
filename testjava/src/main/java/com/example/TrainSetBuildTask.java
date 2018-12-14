@@ -36,7 +36,7 @@ public class TrainSetBuildTask implements Runnable {
     public void run() {
         try {
             String content = "content\n";
-            //write to a file
+            //write to encodeImpl file
             FileOutputStream os = new FileOutputStream(new File(pathname), true);
             FileChannel channel = os.getChannel();
             System.out.println("before tid=" + Thread.currentThread().getId());

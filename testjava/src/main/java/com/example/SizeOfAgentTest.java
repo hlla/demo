@@ -59,11 +59,11 @@ public class SizeOfAgentTest {
             System.out.println("SizeOfObject.fullSizeOf(new String()) = " + SizeOfObject
                     .fullSizeOf(new String()));
             // (16 + 4 + 4 + 8 + padding) = 32
-            System.out.println("SizeOfObject.sizeOf(new String('a')) = " + SizeOfObject.sizeOf
-                    (new String("a")));
+            System.out.println("SizeOfObject.sizeOf(new String('encodeImpl')) = " + SizeOfObject.sizeOf
+                    (new String("encodeImpl")));
             // (16 + 4 + 4 + 8 +padding)  +  (24 + 2 + padding) = 64
-            System.out.println("SizeOfObject.fullSizeOf(new String('a')) = " + SizeOfObject
-                    .fullSizeOf(new String("a")));
+            System.out.println("SizeOfObject.fullSizeOf(new String('encodeImpl')) = " + SizeOfObject
+                    .fullSizeOf(new String("encodeImpl")));
 
             System.out.println("-------------------原始类型数组对象---------------------------");
 
@@ -188,7 +188,7 @@ public class SizeOfAgentTest {
         //        B b;
 //        B c;
 //        B d;
-//        int a;
+//        int encodeImpl;
 //        B[] b = new B[3];
         int c = 9;
 //        B[] d;

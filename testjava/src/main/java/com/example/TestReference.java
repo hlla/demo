@@ -49,8 +49,8 @@ public class TestReference {
         // ob.testObj();
         // print(ydata);
         // ydata = null;
-        // TestAA a = new TestAA();
-        // a= null;
+        // TestAA encodeImpl = new TestAA();
+        // encodeImpl= null;
         System.gc();
         // ob.testObj();
         // if (wr.read() == null)

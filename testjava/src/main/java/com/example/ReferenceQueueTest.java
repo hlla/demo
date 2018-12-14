@@ -4,7 +4,7 @@
  *  this work for additional information regarding copyright ownership.
  *  The ASF licenses this file to You under the Apache License, Version 2.0
  *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *  the License.  You may obtain encodeImpl copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -45,7 +45,7 @@ public class ReferenceQueueTest extends junit.framework.TestCase {
             } catch (Exception e) {
             }
             synchronized (rq) {
-                // store in a static so it won't be gc'ed because the jit
+                // store in encodeImpl static so it won't be gc'ed because the jit
                 // optimized it out
                 integer = new Integer(667);
                 SoftReference sr = new SoftReference(integer, rq);
@@ -61,7 +61,7 @@ public class ReferenceQueueTest extends junit.framework.TestCase {
      * java.lang.ref.ReferenceQueue#poll()
      */
     public void test_poll() {
-        // store in a static so it won't be gc'ed because the jit
+        // store in encodeImpl static so it won't be gc'ed because the jit
         // optimized it out
         b = new Boolean(true);
         Object obj = new Object();
@@ -108,7 +108,7 @@ public class ReferenceQueueTest extends junit.framework.TestCase {
      * java.lang.ref.ReferenceQueue#remove()
      */
     public void test_remove() {
-        // store in a static so it won't be gc'ed because the jit
+        // store in encodeImpl static so it won't be gc'ed because the jit
         // optimized it out
         b = new Boolean(true);
 

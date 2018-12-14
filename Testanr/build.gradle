@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-
+def flavorType = ""
 android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -25,7 +25,7 @@ android {
         multiDexEnabled true
         applicationId "letv.com.testanr"
         minSdkVersion 15
-        targetSdkVersion 26
+        targetSdkVersion 20
         versionCode 1
         versionName "1.0"
 
@@ -51,15 +51,28 @@ android {
             float appid = 478486302299599f
             manifestPlaceholders = [fbMetaAppid: '478486302299599f', fbProviderAppid: "478486302299599"]
             resValue "string", "FACEBOOK_APP_ID", '47848630229959'
-
+            flavorType="release11111"
         }
         debug {
+            flavorType="debug11111"
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'launcher.pro'
             float appid = 478486302299599f
             manifestPlaceholders = [fbMetaAppid: '478486302299599f', fbProviderAppid: "478486302299599"]
             resValue "string", "FACEBOOK_APP_ID", '47848630229959'
+        }
+    }
+    productFlavors {
+        mainLauncher {
+//            applicationId 'com.ksmobile.launcher'
+            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
+        }
+        perfLauncher {
+            println "sfdfsdffsff gfdgfgfggfgg"
+//            applicationId 'com.ksmobile.launcher'
+            buildConfigField "boolean", "IS_PERFORMANCE_VERSION", "true"
+            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
         }
     }
     repositories {
@@ -73,24 +86,65 @@ android {
     }
 }
 dependencies {
-//    implementation files('libs/mnt_1.7.4.jar')
-    implementation 'com.android.support:appcompat-v7:26.+'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    implementation 'com.android.support:multidex:1.0.1'
-    implementation 'com.github.bumptech.glide:glide:3.7.0'
-    implementation 'com.github.bumptech.glide:volley-integration:1.4.0@aar'
-//    compile fileTree(include: ['*.jar'], dir: 'libs')
-//    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.jakewharton:butterknife:8.6.0'
-    implementation 'com.cmcm.launcher:glview:4.0.0.206111-SNAPSHOT'
-    implementation project(':TestLib')
+
+    //    compile files('libs/mnt_1.7.4.jar')
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:volley-integration:1.4.0@aar'
+
+    //    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    //    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.jakewharton:butterknife:8.6.0'
+    debugCompile 'com.cmcm.launcher:glview:4.0.0.206111-SNAPSHOT'
+    compile 'com.cmcm.launcher:glview:4.0.0.206111-SNAPSHOT'
+
+    //    mainLaunchercompile project(':TestLib')
+    implementation project(path: ':TestLib')
+
+    //    perfLaunchercompile project(path: ':TestLib', configuration: 'perfLauncher')
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compileOnly files("libs/layoutlib.jar")
-//    compile(name: 'reward-debug', ex
-// t: 'aar') {
-//        exclude module: 'mnt_1.7.4'
-//    }
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compileOnly files('libs/layoutlib.jar')
+
+    //    def flavorType = ""
+
+    //    gradle.startParameter.getTaskNames().each { task ->
+
+    //        println "sfdfsdffsff taskdasdd=" + task
+
+    //        if (task.contains("flavor1")) {
+
+    //            flavorType = "flavor1"
+
+    //        } else if (task.contains("flavor2")) {
+
+    //            flavorType = "flavor2"
+
+    //        } else {
+
+    //            flavorType = "flavor3"
+
+    //        }
+
+    //
+
+    //    }
+    println "sfdfsdffsff flavorType=" + flavorType
+    if (flavorType == 'flavor1' || flavorType == 'flavor2') {
+        compile 'com.android.support:support-v4:18.0.+'
+    }
+
+    //    compile(name: 'reward-debug', ex
+
+    // t: 'aar') {
+
+    //        exclude module: 'mnt_1.7.4'
+
+    //    }
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
 repositories {
     mavenCentral()

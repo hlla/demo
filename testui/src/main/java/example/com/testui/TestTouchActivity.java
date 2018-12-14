@@ -464,6 +464,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 
     @OnClick(R.id.test_content)
     public void onTestContentClicked() {
+        final SplashSurfaceViewHelper helper = new SplashSurfaceViewHelper(this);
+        helper.showEuropePlicyDialog();
     }
 
     private Bitmap mOriginal;
@@ -687,6 +689,9 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | 0x00001000);
         setContentView(R.layout.activity_test_touch);
         ButterKnife.bind(this);
+//        View europePolicyLayout = LayoutInflater.from(this)
+//                .inflate(R.layout.splash_europe_policy, null);
+//        setContentView(europePolicyLayout);
 
 
         View view = findViewById(R.id.test_content);
@@ -725,7 +730,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 //        hideBottomUIMenu();
 //        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        ButterKnife.bind(this);
+//        ButterKnife.bind(this);
         mWindowManager = (WindowManager) getSystemService
                 (Context.WINDOW_SERVICE);
 //        popupWindow = new PopupWindow(LayoutInflater.from(TestApp.getInstance()).inflate(R.layout
@@ -768,7 +773,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         canvas.drawBitmap(original, null, new RectF(0, 0, 148, 148), null);
 //        new BitmapDrawable(original).draw(canvas);
 //        canvas.setBitmap(null);
-        ((ImageView) findViewById(R.id.img)).setImageBitmap(b);
+//        ((ImageView) findViewById(R.id.img)).setImageBitmap(b);
 //        ((ImageView) findViewById(R.id.img)).setImageDrawable(drawable);
 //        final Bitmap bb = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
 //        canvas.setBitmap(bb);
@@ -915,39 +920,41 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         SpannableString content = new SpannableString(sb.toString());
         CircleBackGroundColorSpan circleBackGroundColorSpan = new CircleBackGroundColorSpan
                 (Color.parseColor("#ff0000"), Color.parseColor("#FFFFFF"), 10);
-        Drawable drawable = getDrawable(R.drawable.icon_launcher);
-        drawable.setBounds(0, 0, 10, 10);
-        int indexOfSelect = sb.indexOf(select);
-        if (indexOfSelect >= 0) {
-            content.setSpan(circleBackGroundColorSpan, indexOfSelect, indexOfSelect + 1,
-                    Spanned.SPAN_INCLUSIVE_INCLUSIVE);
-        }
-        CenterAlignImageSpan imageSpan = new CenterAlignImageSpan(drawable);
-        int indexOfLauncher = sb.indexOf(launcher);
-        if (indexOfLauncher >= 1) {
-            content.setSpan(imageSpan, indexOfLauncher - 1, indexOfLauncher, Spanned
-                    .SPAN_INCLUSIVE_INCLUSIVE);
-        }
-        int size = getResources().getDimensionPixelSize(R.dimen.text_size);
-        Log.e(TAG, "onCreate: size=" + size);
-        TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan(null, Typeface.BOLD, size,
-                null,
-                null);
-        int indexOfAlways = sb.indexOf(always);
-        content.setSpan(textAppearanceSpan, indexOfAlways, indexOfAlways + always.length(), Spanned
-                .SPAN_INCLUSIVE_INCLUSIVE);
-        textView.setText(content);
-        SpannableString sp = new SpannableString("图文混排测排测试图文混排测试图文混排测试图文混排测试图");
-
-        //居中对齐imageSpan
+//        Drawable drawable = getDrawable(R.drawable.icon_launcher);
+//        drawable.setBounds(0, 0, 10, 10);
+//        int indexOfSelect = sb.indexOf(select);
+//        if (indexOfSelect >= 0) {
+//            content.setSpan(circleBackGroundColorSpan, indexOfSelect, indexOfSelect + 1,
+//                    Spanned.SPAN_INCLUSIVE_INCLUSIVE);
+//        }
 //        CenterAlignImageSpan imageSpan = new CenterAlignImageSpan(drawable);
-//        sp.setSpan(imageSpan, 0, 1, ImageSpan.ALIGN_BASELINE);
-
-        //普通imageSpan 做对比
-        ImageSpan imageSpan2 = new ImageSpan(drawable);
-        sp.setSpan(imageSpan2, 3, 4, ImageSpan.ALIGN_BASELINE);
-        onCancelNotify();
+//        int indexOfLauncher = sb.indexOf(launcher);
+//        if (indexOfLauncher >= 1) {
+//            content.setSpan(imageSpan, indexOfLauncher - 1, indexOfLauncher, Spanned
+//                    .SPAN_INCLUSIVE_INCLUSIVE);
+//        }
+//        int size = getResources().getDimensionPixelSize(R.dimen.text_size);
+//        Log.e(TAG, "onCreate: size=" + size);
+//        TextAppearanceSpan textAppearanceSpan = new TextAppearanceSpan(null, Typeface.BOLD, size,
+//                null,
+//                null);
+//        int indexOfAlways = sb.indexOf(always);
+//        content.setSpan(textAppearanceSpan, indexOfAlways, indexOfAlways + always.length(), Spanned
+//                .SPAN_INCLUSIVE_INCLUSIVE);
+////        textView.setText(content);
+//        SpannableString sp = new SpannableString("图文混排测排测试图文混排测试图文混排测试图文混排测试图");
+//
+//        //居中对齐imageSpan
+////        CenterAlignImageSpan imageSpan = new CenterAlignImageSpan(drawable);
+////        sp.setSpan(imageSpan, 0, 1, ImageSpan.ALIGN_BASELINE);
+//
+//        //普通imageSpan 做对比
+//        ImageSpan imageSpan2 = new ImageSpan(drawable);
+//        sp.setSpan(imageSpan2, 3, 4, ImageSpan.ALIGN_BASELINE);
+//        onCancelNotify();
 //        textView.setText(sp);
+        final SplashSurfaceViewHelper helper = new SplashSurfaceViewHelper(this);
+        helper.showEuropePlicyDialog();
     }
 
     private ContentObserver mNavigationStatusObserver = new ContentObserver(new Handler()) {
@@ -988,7 +995,7 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WALLPAPER);
 //        setNaviAndStatusBackground(this);
 
-        setupTransparentSystemBarsForLollipop();
+//        setupTransparentSystemBarsForLollipop();
 //        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
 //                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
     }

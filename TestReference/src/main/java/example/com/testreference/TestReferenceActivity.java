@@ -7,6 +7,9 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Button;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.ref.PhantomReference;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
@@ -169,6 +172,12 @@ public class TestReferenceActivity extends Activity {
             return super.isEnqueued();
         }
 
+//        public boolean test() {
+//            Exception exception = new Exception("a");
+//            Log.d(TAG, "TestWeakReference isEnqueued()", exception);
+//            return super.isEnqueued();
+//        }
+
         @Override
         public void clear() {
             super.clear();
@@ -261,7 +270,19 @@ public class TestReferenceActivity extends Activity {
         });
 //
         singleThreadPool.shutdown();
-
+        int res = getResources().getIdentifier("ic_launcher_round_pp", "drawable", getPackageName
+                ());
+        Log.d(TAG, "onCreate: res-" + res);
+        try {
+            JSONObject jsonObject = new JSONObject("a");
+            String name = "";
+            if (jsonObject.has("c")) {
+                name = jsonObject.getString("e");
+            }
+            Log.d(TAG, "onCreate: name-" + name);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 

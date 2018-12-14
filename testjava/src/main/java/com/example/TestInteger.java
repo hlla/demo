@@ -31,7 +31,7 @@ public class TestInteger {
         Integer a = 1;
         Integer b = 2;
         swap(a, b);
-        System.out.println("a=" + a + " b=" + b);
+        System.out.println("encodeImpl=" + a + " b=" + b);
         Integer c = 1;
         Integer d = 2;
         System.out.println("c=" + c + " d=" + d);

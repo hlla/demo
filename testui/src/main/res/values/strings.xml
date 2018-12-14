@@ -15,6 +15,9 @@
     <string name="shortcutbar_entry5">More</string>
     <string name="shortcutbar_entry6">Booster</string>
     <string name="shortcutbar_entry7">Saver</string>
+    <string name="splash_agree_text">By tapping the button, you agree to our&#160;</string>
+    <string name="terms_of_service_text">Terms of Service</string>
+    <string name="cheetah_mobile_advertising_choices_text">Cheetah Mobile Advertising Choices</string>
     <string name="terms_of_use">Terms of Use</string>
     <string name="privacy_text">Privacy Policy</string>
     <string name="europe_policy_description">In order to provide you a better experience, CM Launcher needs to collect your personal information, including your Android ID, IP address, MAC address etc. You can learn more about how do we process user data by visiting our latest %1$s and %2$s</string>
@@ -23,4 +26,22 @@
     <string name="cm_launcher">CM Launcher</string>
     <string name="click">click</string>
     <string name="always">always</string>
+    <string name="europe_policy_page_first_head">We recently updated our %1$s and %2$s and encourage you to read them to understand how we process your personal data.\nWe have made the following changes to our Privacy Policy:</string>
+    <string name="europe_privacy_purpose_collection">Purpose of Collection: We’ve made it easier for you to understand the data we collect and how we use it.</string>
+    <string name="europe_privacy_third_sharing">Third Party Sharing: We describe the personal data we receive and share with third parties in greater details.</string>
+    <string name="europe_privacy_rights">Privacy Rights: For EEA users, we describe how we will honor your privacy rights under the GDPR.</string>
+    <string name="europe_policy_page_second_head">With your consent, we would like to keep providing you with interest-based ads based on your interactions and browsing habits on our app. Our offers are made possible by sharing such data with third-party partners.\nYou can withdraw your consent at any time by either:</string>
+    <string name="europe_policy_page_second_list">Downloading the AppChoices app@ %1$s</string>
+    <string name="europe_policy_page_second_revoke">Go to launcher Settings - tap About - tap Data collection - tap Revoke authorization.</string>
+    <string name="europe_policy_page_second_foot">To learn more, visit our updated %1$s, %2$s and %3$s.</string>
+    <string name="europe_ok_continue_desc">By tapping OK, you agree to the statement shown above.</string>
+    <string name="europe_start_continue_desc">By tapping START, you agree to the statement shown above.</string>
+    <string name="policy_confirm_again_text">Tap CONTINUE to agree to our terms to enjoy 30,000+ stylish themes.</string>
+    <string name="upgrade_policy_confirm_again_text">By DISAGREE, you will quit using CM Launcher. Tap CONTINUE below to agree.</string>
+    <string name="continue_text">CONTINUE</string>
+    <string name="ok_text">OK</string>
+    <string name="quit_text">QUIT</string>
+    <string name="start_text">START</string>
+    <string name="cm_launcher_terms_update">We protect your privacy</string>
+    <string name="free">Apply</string>
 </resources>

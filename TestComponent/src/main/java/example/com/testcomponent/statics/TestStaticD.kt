@@ -8,10 +8,10 @@ import android.util.Log
 
 class TestStaticD {
 
-    fun testPub(testStaticD: TestStaticD?): TestStaticD {
-        if (testStaticD != null) {
+    fun testPub(testStaticD: TestStaticD): TestStaticD {
+//        if (testStaticD != null) {
             testStaticD.testPri(testStaticD)
-        }
+//        }
         return this
     }
 
@@ -21,6 +21,7 @@ class TestStaticD {
 
     protected fun testpro(testStaticD: TestStaticD) {
         testStaticD.testPri(testStaticD)
+//        testStaticD.testPub(null)
     }
 
     companion object {

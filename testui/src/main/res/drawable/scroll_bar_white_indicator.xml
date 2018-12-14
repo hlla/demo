@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <solid
+        android:color="@color/scroll_bar_indicator"/>
+    <corners android:radius="50dp"/>
+    <size
+        android:width="6dip"
+        android:height="@dimen/splash_policy_desc_page_dot_height"/>
+</shape>

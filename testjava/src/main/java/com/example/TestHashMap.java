@@ -74,7 +74,7 @@ public class TestHashMap {
         TestHashMap testHashMap = null;
 
         public MyTestSub() {
-            super("a", 1, true);
+            super("encodeImpl", 1, true);
             name = "cccc";
         }
 
@@ -177,7 +177,7 @@ public class TestHashMap {
         MyTestSub myTest1 = new TestHashMap().new MyTestSub();
 //        System.out.println("myTest1=" + getThreadStackTrace());
 //        testCrash();
-        MyTest myTest11 = new MyTest("a", 1, false);
+        MyTest myTest11 = new MyTest("encodeImpl", 1, false);
         MyTest myTest2 = new MyTest("b", 2, false);
         MyTest myTest3 = new MyTest("c", 3, true);
         MyTest myTest4 = new MyTest("d", 4, false);
@@ -278,7 +278,7 @@ public class TestHashMap {
         System.out.println(cmdline1.substring(cmdline1.length()));
         System.out.println(cmdline1.substring(cmdline1.length()).length());
         ArrayList<MyTest> myTests = new ArrayList<>();
-//        myTests.add(new MyTest("a", 1));
+//        myTests.add(new MyTest("encodeImpl", 1));
 //        myTests.add(new MyTest("b", 1));
 //        myTests.add(new MyTest("c", 1));
 //        for (MyTest myTest : myTests) {
@@ -331,7 +331,7 @@ public class TestHashMap {
 //                System.out.println("111111  =" + mSurfaceLock.getHoldCount());
 //                mSurfaceLock.unlock();
 //                System.out.println("111111  =" + mSurfaceLock.getHoldCount());
-                    mHostThemeCallbackList.add("a");
+                    mHostThemeCallbackList.add("encodeImpl");
                     Thread.sleep(1000);
                     mHostThemeCallbackList.add("b");
                     Thread.sleep(1000);
@@ -378,12 +378,12 @@ public class TestHashMap {
 //                mHostThemeCallbackList.add("f");
             }
         }.start();
-//        String a = new String("abcd");
+//        String encodeImpl = new String("abcd");
 //        String b = new String("abcd");
 //
-//        System.out.println(a.hashCode());
+//        System.out.println(encodeImpl.hashCode());
 //        System.out.println(b.hashCode());
-//        System.out.println(a.equals(b));
+//        System.out.println(encodeImpl.equals(b));
 //        HashMap<MyTest, String> hashMap = new HashMap<>();
 //        hashMap.put(new MyTest("ab", 1), "fff");
 //        hashMap.put(new MyTest("ad", 1), "hhh");

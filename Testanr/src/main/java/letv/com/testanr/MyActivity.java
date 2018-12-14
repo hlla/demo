@@ -31,12 +31,17 @@ import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.util.ArrayMap;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -56,6 +61,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import example.com.testlib.BuildConfig;
 import example.com.testlib.TestLib;
 import letv.com.testanr.reflect.FieldUtils;
 import letv.com.testanr.reflect.MethodUtils;
@@ -120,6 +126,57 @@ public class MyActivity extends Activity implements ActivityCompat
     @BindView(R.id.test_dump_hprof)
     Button testDumpHprof;
     private ArrayList<byte[]> mLeakyContainer = new ArrayList<>();
+    private String content = "{\n" +
+            "\t\t\"sceneID\": 1,\n" +
+            "\t\t\"updatetime\": 1542680153,\n" +
+            "\t\t\"configStr\": [\n" +
+            "\t\t\t\"{\\\"coolingtime\\\": \\\"1542680153\\\",\\\"starttime\\\": " +
+            "\\\"1542680153\\\"}\",\n" +
+            "\t\t\t\"{\\\"coolingtime\\\": \\\"8888\\\",\\\"starttime\\\": \\\"222222\\\"}\"\n" +
+            "\t\t],\n" +
+            "\t\t\"datas\": [{\n" +
+            "\t\t\t\t\"id\": 1,\n" +
+            "\t\t\t\t\"title\": \"sky\",\n" +
+            "\t\t\t\t\"type\": 0,\n" +
+            "\t\t\t\t\"plaqueAdID\": \"\",\n" +
+            "\t\t\t\t\"videoAdID\": \"\",\n" +
+            "\t\t\t\t\"jumpurl\": \"http://wwww.xxxx.com\",\n" +
+            "\t\t\t\t\"intentAction\": \"\",\n" +
+            "\t\t\t\t\"desc\": \"hahhha\",\n" +
+            "\t\t\t\t\"thumburl\": [\n" +
+            "\t\t\t\t\t\"http://img.xxx.net\",\n" +
+            "\t\t\t\t\t\"http://img.xxx.net\"\n" +
+            "\t\t\t\t],\n" +
+            "\t\t\t\t\"coverurl\": [\n" +
+            "\t\t\t\t\t\"http://img.xxx.net\",\n" +
+            "\t\t\t\t\t\"http://img.xxx.net\"\n" +
+            "\t\t\t\t],\n" +
+            "\t\t\t\t\"pkgname\": \"com.ksmobile.xxx\",\n" +
+            "\t\t\t\t\"subposid\": \"\",\n" +
+            "\t\t\t\t\"weight\": 200,\n" +
+            "\t\t\t\t\"extendStr\": \"{\\\"key1\\\": \\\"value\\\",\\\"key2\\\": " +
+            "\\\"value\\\"}\"\n" +
+            "\t\t\t},\n" +
+            "\t\t\t{\n" +
+            "\t\t\t\t\"id\": 1,\n" +
+            "\t\t\t\t\"title\": \"sky\",\n" +
+            "\t\t\t\t\"type\": 0,\n" +
+            "\t\t\t\t\"plaqueAdID\": \"\",\n" +
+            "\t\t\t\t\"videoAdID\": \"\",\n" +
+            "\t\t\t\t\"jumpurl\": \"http://wwww.xxxx.com\",\n" +
+            "\t\t\t\t\"intentAction\": \"\",\n" +
+            "\t\t\t\t\"coverurl\": [\n" +
+            "\t\t\t\t\t\"http://img.xxx.net\",\n" +
+            "\t\t\t\t\t\"http://img.xxx.net\"\n" +
+            "\t\t\t\t],\n" +
+            "\t\t\t\t\"pkgname\": \"com.ksmobile.xxx\",\n" +
+            "\t\t\t\t\"subposid\": \"\",\n" +
+            "\t\t\t\t\"weight\": 200,\n" +
+            "\t\t\t\t\"extendStr\": \"{\\\"key1\\\": \\\"value\\\",\\\"key2\\\": " +
+            "\\\"value\\\"}\"\n" +
+            "\t\t\t}\n" +
+            "\t\t]\n" +
+            "\t}";
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -135,7 +192,7 @@ public class MyActivity extends Activity implements ActivityCompat
                     break;
                 }
             }
-            Log.d(TAG, "after handleMessage: ");
+            Log.d(TAG, "after handleMessage: " + BuildConfig.IS_PERFORMANCE);
 //            switch (what) {
 //                case STATIC_BROADCAST: {
 //                    Intent intent = new Intent(ACTION);
@@ -575,6 +632,10 @@ public class MyActivity extends Activity implements ActivityCompat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        GameCenterBean gameCenterBean = new GameCenterBean();
+        gameCenterBean.setLeftData(null);
+        gameCenterBean.setRightData(null);
+        Log.d(TAG, "onCreate: " + gameCenterBean.getRightData().intern());
 //        boolean isShould = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest
 //                .permission.READ_EXTERNAL_STORAGE);
 //        Log.d(TAG, "onCreate: isShould=" + isShould);
@@ -593,7 +654,10 @@ public class MyActivity extends Activity implements ActivityCompat
                 .LayoutParams.FLAG_KEEP_SCREEN_ON);
         int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors();
         String name = SystemProperties.get("name");
-        Log.d(TAG, "onCreate: NUMBER_OF_CORES=" + NUMBER_OF_CORES + " name=" + name);
+        final TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String mcc_mnc = tm.getSimOperator();
+        Log.d(TAG, "onCreate: NUMBER_OF_CORES=" + NUMBER_OF_CORES + " name=" + name + " mcc_mnc="
+                + mcc_mnc);
 //        try {
 //            Thread.sleep(30000);
 //        } catch (InterruptedException e) {
@@ -909,6 +973,20 @@ public class MyActivity extends Activity implements ActivityCompat
 //        registerReceiver(new MyStaticReceiverA(), intentFilter1);
         allocMemory();
         View view = findViewById(R.id.bind_service_dddd);
+        testSchool.setOnClickListener(v -> Log.d(TAG, "onClick: 1111"));
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: ");
+            }
+        });
+        final View.OnClickListener clickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: clickListener=" + clickListener);
+            }
+        };
     }
 
     int i = 0;
@@ -1084,10 +1162,40 @@ public class MyActivity extends Activity implements ActivityCompat
 
     @OnClick(R.id.start_fg_service)
     public void onStartFgServiceClicked() {
+        File file = new File(Environment.getExternalStorageDirectory() + "/test.txt");
+        try {
+            FileInputStream inputStream = new FileInputStream(file);
+            int len = inputStream.available();
+            if (len <= 0)
+                return;
+
+            byte[] buffer = new byte[len];
+            inputStream.read(buffer);
+
+            String str = new String(buffer);
+            Gson gson = new Gson();
+            TestBean bean = gson.fromJson(str, TestBean.class);
+//            ArrayList<ArrayMap<String, String>> configs = new ArrayList<ArrayMap<String,
+//                    String>>();
+            if (!TextUtils.isEmpty(bean.getConfigStr())) {
+                Gson gson1 = new Gson();
+                bean.config = gson1.fromJson(bean.getConfigStr(), ArrayMap.class);
+            }
+//            JSONObject rootJsonObj = new JSONObject(str);
+            Log.d(TAG, "onCreate: bean=" + bean);
+//            Gson gson2 = new Gson();
+//            ArrayList aa = gson2.fromJson(rootJsonObj.getJSONArray("configStr").toString(),
+//                    configs.getClass());
+
+            Log.d(TAG, "onCreate: aa=" + aa);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.d(TAG, "onCreate: e=" + e);
+        }
 //        allocMemory();
         Log.d(TAG, "onStartFgServiceClicked start");
-        final File file = new File(Environment.getExternalStorageDirectory() + "/1.dat");
-        Log.d(TAG, "onStartFgServiceClicked start exist=" + file.exists());
+        final File file1 = new File(Environment.getExternalStorageDirectory() + "/1.dat");
+        Log.d(TAG, "onStartFgServiceClicked start exist=" + file1.exists());
 //        Executors.newScheduledThreadPool()
         final byte[] conent = new byte[1];
 //        new Thread() {
@@ -1264,9 +1372,9 @@ public class MyActivity extends Activity implements ActivityCompat
         Intent intent = new Intent(this, MyService
                 .class);
         num++;
-        intent.putExtra(MyService.KEY_IS_CONTENT, "cj" + num);
-        intent.putExtra(MyService.KEY_IS_FOREGROUND, true);
-        startForegroundService(intent);
+//        intent.putExtra(MyService.KEY_IS_CONTENT, "cj" + num);
+//        intent.putExtra(MyService.KEY_IS_FOREGROUND, true);
+//        startForegroundService(intent);
     }
 
     private int num = 0;
