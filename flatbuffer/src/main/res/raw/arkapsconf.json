@@ -1,0 +1,8 @@
+{
+  "VERSION": "10",
+  "APPTYPE": "27",
+  "APPNAME": "ldLeJian",
+  "ARK_KEYS": "c_h_1,1137;c_h_2,1138;c_h_11,1140;c_h_x,1139;c_h_4,1157;c_h_5,1158;c_h_9,1159;c_h_16,1160;c_h_0,1161;c_h_hot,1163;c_h_news,1162;c_h_csl,1165;",
+  "libName": "ldLeJianAdSDK",
+  "clickHandle": "00000010"
+}

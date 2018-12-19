@@ -27,7 +27,10 @@ import com.squareup.leakcanary.RefWatcher;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -206,130 +209,130 @@ public class TestMemoryActivity extends Activity {
 //                readWriteLock.readLock().lock();
             }
         };
-//        s.start();
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        new Thread() {
-//            @Override
-//            public void run() {
-//                while (true) {
-//                    try {
-//                        Thread.sleep(1000);
-////                        Log.d(TAG, "run: 111111");
-////                        sleep(20000);
-////                        Log.d(TAG, "run: 22222");
-////                        ArrayList<String> strings = new ArrayList<>();
-////                        for (int i = 0; i < 500000; i++) {
-////                            strings.add(i + "fghfdhfhfhgfhghhhgdhgf");
-////                        }
-////                        Log.d(TAG, "run: 33333");
-////                        sleep(20000);
-////                        Log.d(TAG, "run: 444444");
-//                    } catch (Exception e) {
-//
-//                    }
+        s.start();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(1000);
+//                        Log.d(TAG, "run: 111111");
+//                        sleep(20000);
+//                        Log.d(TAG, "run: 22222");
+//                        ArrayList<String> strings = new ArrayList<>();
+//                        for (int i = 0; i < 500000; i++) {
+//                            strings.add(i + "fghfdhfhfhgfhghhhgdhgf");
+//                        }
+//                        Log.d(TAG, "run: 33333");
+//                        sleep(20000);
+//                        Log.d(TAG, "run: 444444");
+                    } catch (Exception e) {
+
+                    }
+                }
+
+//                Log.d(TAG, "5555");
+//                readWriteLock.writeLock().lock();
+////                reentrantLock.lock();
+//                Log.d(TAG, "6666");
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
 //                }
-//
-////                Log.d(TAG, "5555");
-////                readWriteLock.writeLock().lock();
-//////                reentrantLock.lock();
-////                Log.d(TAG, "6666");
-////                try {
-////                    Thread.sleep(1000);
-////                } catch (InterruptedException e) {
-////                    e.printStackTrace();
-////                }
-////                Log.d(TAG, "777777");
-////                readWriteLock.writeLock().unlock();
-////                reentrantLock.unlock();
-//            }
-//        }.start();
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//        s.interrupt();
-//        Drawable drawable = getDrawable(R.drawable.biggest_1);
-//        showDialog(this, drawable);
-//        InputStream is1 = null;
-//        try {
-//            is1 = getResources().getAssets().open("wb.jpg");
-//            is1 = new FileInputStream(new File(Environment.getExternalStorageDirectory() + "/" +
-//                    "wb.jpg"));
-//
-//            Log.d(TAG, "is1" + is1);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.ALPHA_8;
-//        options.outWidth = 100;
-//        options.outHeight = 100;
-//        options.inDensity = 1;
-//        options.inTargetDensity = 1;
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.a,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_type_phone,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_default_cheetah,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_pet_tip_cheetah,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: cheetah_pet_tip_cheetah height=" + options.outHeight +
-//                " width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.t,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: t height=" + options.outHeight + " width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.a22,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: a22 height=" + options.outHeight + " width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_life_tips,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: cheetah_life_tips height=" + options.outHeight + " " +
-//                "width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_type_app,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: cheetcare_type_app height=" + options.outHeight + " " +
-//                "width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher,
-//                options);
-//        testImage.setImageBitmap(bmp1);
-//        Log.d(TAG, "onTestDrawableClicked: ic_launcher height=" + options.outHeight + " " +
-//                "width=" + options
-//                .outWidth + " byte=" +
-//                bmp1.getByteCount() + " type=" + options.outMimeType);
-//        sBitmaps.add(bmp1);
+//                Log.d(TAG, "777777");
+//                readWriteLock.writeLock().unlock();
+//                reentrantLock.unlock();
+            }
+        }.start();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        s.interrupt();
+        Drawable drawable = getDrawable(R.drawable.biggest_1);
+        showDialog(this, drawable);
+        InputStream is1 = null;
+        try {
+            is1 = getResources().getAssets().open("wb.jpg");
+            is1 = new FileInputStream(new File(Environment.getExternalStorageDirectory() + "/" +
+                    "wb.jpg"));
+
+            Log.d(TAG, "is1" + is1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ALPHA_8;
+        options.outWidth = 100;
+        options.outHeight = 100;
+        options.inDensity = 1;
+        options.inTargetDensity = 1;
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.a,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_type_phone,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_default_cheetah,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_pet_tip_cheetah,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: cheetah_pet_tip_cheetah height=" + options.outHeight +
+                " width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.t,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: t height=" + options.outHeight + " width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.a22,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: a22 height=" + options.outHeight + " width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_life_tips,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: cheetah_life_tips height=" + options.outHeight + " " +
+                "width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_type_app,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: cheetcare_type_app height=" + options.outHeight + " " +
+                "width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher,
+                options);
+        testImage.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: ic_launcher height=" + options.outHeight + " " +
+                "width=" + options
+                .outWidth + " byte=" +
+                bmp1.getByteCount() + " type=" + options.outMimeType);
+        sBitmaps.add(bmp1);
     }
 
     @OnClick(R.id.test_file)
