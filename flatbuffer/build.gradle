@@ -51,10 +51,11 @@ android {
 }
 
 dependencies {
-    compile(name: 'crashreport-1.2.9', ext: 'aar')
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.google.code.gson:gson:2.3.1'
+    implementation(name: 'crashreport-1.2.9', ext: 'aar')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:23.3.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
 //    compile 'com.alibaba:fastjson:1.2.15'
-    compile 'com.alibaba:fastjson:1.1.54.android'
+    implementation 'com.alibaba:fastjson:1.2.54'
+    implementation 'com.alibaba:fastjson:1.1.70.android'
 }

@@ -16,8 +16,17 @@
 
 package com.flatbuffer.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PeopleListJson {
-    public ArrayList<PeopleJson> peoples;
+
+    public List<?> peoples;
+
+//    public List<?> getPeoples() {
+//        return peoples;
+//    }
+//
+//    public void setPeoples(List<?> peoples) {
+//        this.peoples = peoples;
+//    }
 }

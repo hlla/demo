@@ -27,5 +27,4 @@ public class PeopleJson {
     public String company;
     public String email;
     public ArrayList<FriendJson> friends;
-
 }
