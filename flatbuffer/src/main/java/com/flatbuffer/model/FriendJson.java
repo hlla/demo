@@ -17,27 +17,31 @@
 package com.flatbuffer.model;
 
 public class FriendJson {
-    /**
-     * id : 0
-     * name : Simon Pollard
-     */
+    private int id;
+    private String name;
 
-    public int id;
-    public String name;
+    @Override
+    public String toString() {
+        return "FriendJson{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

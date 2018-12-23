@@ -27,4 +27,18 @@ public class PeopleJson {
     public String company;
     public String email;
     public ArrayList<FriendJson> friends;
+
+    @Override
+    public String toString() {
+        return "PeopleJson{" +
+                "id='" + id + '\'' +
+                ", index=" + index +
+                ", guid='" + guid + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", company='" + company + '\'' +
+                ", email='" + email + '\'' +
+                ", friends=" + friends +
+                '}';
+    }
 }

@@ -16,17 +16,28 @@
 
 package com.flatbuffer.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PeopleListJson {
+    public int count() {
+        return null != peoples ? peoples.size() : 0;
+    }
 
-    public List<?> peoples;
+    @Override
+    public String toString() {
+        return "PeopleListJson{" +
+                "peoples=" + peoples +
+                '}';
+    }
 
-//    public List<?> getPeoples() {
-//        return peoples;
-//    }
-//
-//    public void setPeoples(List<?> peoples) {
-//        this.peoples = peoples;
-//    }
+    private List<PeopleJson> peoples = new ArrayList<>();
+
+    public List<PeopleJson> getPeoples() {
+        return peoples;
+    }
+
+    public void setPeoples(List<PeopleJson> peoples) {
+        this.peoples = peoples;
+    }
 }

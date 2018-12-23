@@ -19,5 +19,16 @@ package com.flatbuffer.jsonmodel;
 import java.util.ArrayList;
 
 public class PeopleListJson {
+    public int count() {
+        return null != peoples ? peoples.size() : 0;
+    }
+
     public ArrayList<PeopleJson> peoples;
+
+    @Override
+    public String toString() {
+        return "PeopleListJson{" +
+                "peoples=" + peoples +
+                '}';
+    }
 }

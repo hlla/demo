@@ -68,6 +68,30 @@ public class JsonActivity extends AppCompatActivity {
         Log.d(TAG, "loadFromFlatBuffer " + logText + " length=" + peopleList.peoplesLength());
     }
 
+    public void loadFromGson(View view) {
+        textViewJson.setText("");
+        Log.d(TAG, "loadFromJson 1");
+//        String jsonText = new String(Utils.readRawResource(getApplication(), R.raw.sample_json));
+        Log.d(TAG, "loadFromJson 2 ");
+        if (TextUtils.isEmpty(mJson)) {
+            return;
+        }
+        long startTime = System.currentTimeMillis();
+        com.flatbuffer.jsonmodel.PeopleListJson peopleList = null;
+        int m = 1;
+        for (int i = 0; i < m; i++) {
+            peopleList = new Gson().fromJson(mJson, com.flatbuffer.jsonmodel.PeopleListJson.class);
+        }
+        long timeTaken = (System.currentTimeMillis() - startTime) / m;
+        String logText = "loadFromGson : " + timeTaken + "ms";
+        Log.d(TAG, "loadFromGson " + logText + " peopleList=" + peopleList);
+        int count = 0;
+        if (null != peopleList) {
+            count = peopleList.count();
+        }
+        textViewJson.setText(logText + "  count.=" + count);
+    }
+
     public void loadFromGsonGet(View view) {
         textViewJson.setText("");
         Log.d(TAG, "loadFromJson 1");
@@ -78,43 +102,17 @@ public class JsonActivity extends AppCompatActivity {
         }
         long startTime = System.currentTimeMillis();
         PeopleListJson peopleList = null;
-        int m = 0;
-//        for (; m < 10; m++) {
-        peopleList = new Gson().fromJson(mJson, PeopleListJson.class);
-//        }
-        long timeTaken = (System.currentTimeMillis() - startTime);
+        int m = 1;
+        for (int i = 0; i < m; i++) {
+            peopleList = new Gson().fromJson(mJson, PeopleListJson.class);
+        }
+        long timeTaken = (System.currentTimeMillis() - startTime) / m;
         String logText = "Json : " + timeTaken + "ms";
-        Log.d(TAG, "loadFromGsonGet " + logText);
+        Log.d(TAG, "loadFromGsonGet " + logText + " peopleList=" + peopleList);
         int count = 0;
-//        if (null != peopleList && null != peopleList.getPeoples()) {
-//            count = peopleList.getPeoples().size();
-//        }
-        Log.d(TAG, "loadFromGsonGet count =" + count);
-        textViewJson.setText(logText + "  count.=" + count);
-    }
-
-    public void loadFromGson(View view) {
-        textViewJson.setText("");
-        Log.d(TAG, "loadFromJson 1");
-//        String jsonText = new String(Utils.readRawResource(getApplication(), R.raw.sample_json));
-        Log.d(TAG, "loadFromJson 2 ");
-        if (TextUtils.isEmpty(mJson)) {
-            return;
+        if (null != peopleList) {
+            count = peopleList.count();
         }
-        long startTime = System.currentTimeMillis();
-        com.flatbuffer.jsonmodel.PeopleListJson  peopleList = null;
-        int m = 0;
-//        for (; m < 10; m++) {
-        peopleList = new Gson().fromJson(mJson, com.flatbuffer.jsonmodel.PeopleListJson.class);
-//        }
-        long timeTaken = (System.currentTimeMillis() - startTime);
-        String logText = "loadFromGson : " + timeTaken + "ms";
-        Log.d(TAG, "loadFromGson " + logText);
-        int count = 0;
-        if (null != peopleList && null != peopleList.peoples) {
-            count = peopleList.peoples.size();
-        }
-        Log.d(TAG, "loadFromGson count =" + count);
         textViewJson.setText(logText + "  count.=" + count);
     }
 
@@ -134,7 +132,6 @@ public class JsonActivity extends AppCompatActivity {
 //        JSONReader reader = new JSONReader(new BufferedReader(new InputStreamReader(Utils
 //                .readRawResourceStream(getApplication(), R.raw.sample_json))));
 //        reader.startArray();
-        int i = 0;
 //        while(reader.hasNext()) {
 //            i++;
 //            PeopleJson peopleJson = reader.readObject(PeopleJson.class);
@@ -142,13 +139,14 @@ public class JsonActivity extends AppCompatActivity {
 //        reader.endArray();
 //        reader.close();
         PeopleListJson peopleList = null;
-//        for (; m < 10; m++) {
+        int m = 1;
+        for (int i = 0; i < m; i++) {
 //            peopleList = JSON.parseObject(mJson, PeopleListJson
 //                    .class, Feature.DisableCircularReferenceDetect);
-//        }
-        peopleList = JSON.parseObject(mJson, PeopleListJson.class);
+            peopleList = JSON.parseObject(mJson, PeopleListJson.class);
+        }
 //        AdConfigBean adConfigBean = JSON.parseObject(mJson, AdConfigBean.class);
-        long timeTaken = (System.currentTimeMillis() - startTime);
+        long timeTaken = (System.currentTimeMillis() - startTime) / m;
         String logText = "FastJson : " + timeTaken + "ms";
 //        textViewFastJson.setText(logText);
 //        Log.d(TAG, "loadFromFastJson " + logText + "  value=" + Integer.parseInt(adConfigBean
@@ -158,9 +156,9 @@ public class JsonActivity extends AppCompatActivity {
 //            i++;
 //        }
         int count = 0;
-//        if (null != peopleList && null != peopleList.getPeoples()) {
-//            count = peopleList.getPeoples().size();
-//        }
+        if (null != peopleList) {
+            count = peopleList.count();
+        }
         Log.d(TAG, "loadFromFastJson count =" + count);
         textViewFastJson.setText(logText + "  count=" + count);
     }
@@ -173,14 +171,16 @@ public class JsonActivity extends AppCompatActivity {
         }
         Log.d(TAG, "loadFromFastJson 2");
         long startTime = System.currentTimeMillis();
-        int i = 0;
         com.flatbuffer.jsonmodel.PeopleListJson peopleList = null;
-        peopleList = JSON.parseObject(mJson, com.flatbuffer.jsonmodel.PeopleListJson.class);
-        long timeTaken = (System.currentTimeMillis() - startTime);
+        int m = 1;
+        for (int i = 0; i < m; i++) {
+            peopleList = JSON.parseObject(mJson, com.flatbuffer.jsonmodel.PeopleListJson.class);
+        }
+        long timeTaken = (System.currentTimeMillis() - startTime) / m;
         String logText = "FastJson : " + timeTaken + "ms";
         int count = 0;
-        if (null != peopleList && null != peopleList.peoples) {
-            count = peopleList.peoples.size();
+        if (null != peopleList) {
+            count = peopleList.count();
         }
         Log.d(TAG, "loadFromFastJsonGet count =" + count);
         textViewFastJson.setText(logText + "  count=" + count);

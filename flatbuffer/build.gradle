@@ -57,5 +57,5 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 //    compile 'com.alibaba:fastjson:1.2.15'
     implementation 'com.alibaba:fastjson:1.2.54'
-    implementation 'com.alibaba:fastjson:1.1.70.android'
+    implementation 'com.alibaba:fastjson:1.2.54.android'
 }
