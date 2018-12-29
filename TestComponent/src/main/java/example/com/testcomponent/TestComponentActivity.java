@@ -5,7 +5,6 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.WallpaperManager;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -15,7 +14,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,8 +37,11 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Locale;
 import java.util.WeakHashMap;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -149,60 +150,106 @@ public class TestComponentActivity extends Activity {
         content.setOnTouchListener(touchListener);
     }
 
+    private static final String DEX_PREFIX = "classes";
+    private static final String DEX_SUFFIX = ".dex";
+
     @OnClick(R.id.query)
     public void onQueryClicked() {
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    Class cr = getClassLoader().loadClass("android.content.ContentResolver");
-                    Method method = cr.getMethod("acquireProvider", Uri.class);
-                    Object transport = method.invoke(getContentResolver(), URIField
-                            .ACCOUNT_URI);
-                    Log.e(TAG, "onQueryClicked: " + transport + "  class=" + transport.getClass());
-                    Class tsCl = transport.getClass();
-                    Method get = tsCl.getDeclaredMethod("getContentProvider");
-                    get.setAccessible(true);
-                    Log.e(TAG, "onQueryClicked: get" + get.invoke(transport));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.e(TAG, "onQueryClicked: e" + e);
-                }
-                ContentProviderClient providerClient = null;
-                try {
-                    providerClient = getContentResolver().acquireContentProviderClient(URIField
-                            .ACCOUNT_URI);
-//                    providerClient.setDetectNotResponding(3000);
-                    providerClient.query
-                            (URIField.ACCOUNT_URI, null, null, null, null, null);
-//                    getContentResolver().query
-//                            (URIField.ACCOUNT_URI, null, null, null, null, null);
-                } catch (Exception e) {
-                } finally {
-                    boolean isResult = providerClient.release();
-                    Log.e(TAG, "run: isResult=" + isResult);
-                }
-                weakHashMap.put(TestComponentActivity.this, "aaaa");
+        int secondaryCount = 0;
+        int secondaryNumber = 2;
+        File file = new File(Environment.getExternalStorageDirectory() + "/1.apk");
+        long time = 0;
+        try {
+            time = System.currentTimeMillis();
+            Log.d(TAG, "onQueryClicked: start");
+            final ZipFile apk = new ZipFile(file);
+            Log.d(TAG, "onQueryClicked: start 1 duration=" + (System.currentTimeMillis() - time));
+            ZipEntry dexFile = apk.getEntry(DEX_PREFIX + secondaryNumber + DEX_SUFFIX);
+            while (dexFile != null) {
+                secondaryCount++;
+                secondaryNumber++;
+                dexFile = apk.getEntry(DEX_PREFIX + secondaryNumber + DEX_SUFFIX);
             }
-        }.start();
-        weakHashMap.put(new TestComponentActivity(), "bbbb");
+        } catch (Exception e) {
+
+        }
+        Log.d(TAG, "onQueryClicked: end secondaryCount=" + secondaryCount + " duration=" +
+                (System.currentTimeMillis() - time));
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Class cr = getClassLoader().loadClass("android.content.ContentResolver");
+//                    Method method = cr.getMethod("acquireProvider", Uri.class);
+//                    Object transport = method.invoke(getContentResolver(), URIField
+//                            .ACCOUNT_URI);
+//                    Log.e(TAG, "onQueryClicked: " + transport + "  class=" + transport.getClass
+// ());
+//                    Class tsCl = transport.getClass();
+//                    Method get = tsCl.getDeclaredMethod("getContentProvider");
+//                    get.setAccessible(true);
+//                    Log.e(TAG, "onQueryClicked: get" + get.invoke(transport));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    Log.e(TAG, "onQueryClicked: e" + e);
+//                }
+//                ContentProviderClient providerClient = null;
+//                try {
+//                    providerClient = getContentResolver().acquireContentProviderClient(URIField
+//                            .ACCOUNT_URI);
+////                    providerClient.setDetectNotResponding(3000);
+//                    providerClient.query
+//                            (URIField.ACCOUNT_URI, null, null, null, null, null);
+////                    getContentResolver().query
+////                            (URIField.ACCOUNT_URI, null, null, null, null, null);
+//                } catch (Exception e) {
+//                } finally {
+//                    boolean isResult = providerClient.release();
+//                    Log.e(TAG, "run: isResult=" + isResult);
+//                }
+//                weakHashMap.put(TestComponentActivity.this, "aaaa");
+//            }
+//        }.start();
+//        weakHashMap.put(new TestComponentActivity(), "bbbb");
     }
 
     int i = 0;
 
     @OnClick(R.id.insert)
     public void onInsertClicked() {
+        Log.d(TAG, "onInsertClicked: start");
+        int secondaryCount = 0;
+        File file = new File(Environment.getExternalStorageDirectory() + "/1.apk");
+        long time = 0;
         try {
-            WallpaperManager wpm = (WallpaperManager) getSystemService(
-                    Context.WALLPAPER_SERVICE);
-
-            if (wpm != null) {
-                wpm.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.aa));
-                Log.e(TAG, "wallpaper not null");
+            time = System.currentTimeMillis();
+            final ZipFile apk = new ZipFile(file);
+            Log.d(TAG, "onInsertClicked: start duration=" + (System.currentTimeMillis() - time));
+            Enumeration sd = apk.entries();
+            while (sd.hasMoreElements()) {
+                ZipEntry zipEntry = (ZipEntry) sd.nextElement();
+                if (null != zipEntry) {
+                    if (zipEntry.getName().contains("classes")) {
+                        secondaryCount++;
+                    }
+                }
             }
         } catch (IOException e) {
-            Log.e(TAG, "Failed to set wallpaper: " + e);
+            e.printStackTrace();
         }
+        Log.d(TAG, "onInsertClicked: secondaryCount=" + secondaryCount + "  duration=" + (System
+                .currentTimeMillis() - time));
+//        try {
+//            WallpaperManager wpm = (WallpaperManager) getSystemService(
+//                    Context.WALLPAPER_SERVICE);
+//
+//            if (wpm != null) {
+//                wpm.setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.aa));
+//                Log.e(TAG, "wallpaper not null");
+//            }
+//        } catch (IOException e) {
+//            Log.e(TAG, "Failed to set wallpaper: " + e);
+//        }
 
 //        mHandler.sendEmptyMessageDelayed(MSG_TIMER, 0);
 //        getContentResolver().notifyChange(TEST_URI,
@@ -263,7 +310,14 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.update)
     public void onUpdateClicked() {
+        try {
+            getClassLoader().loadClass("example.com.testcomponent.statics.TestStaticE");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         Log.e(TAG, "onUpdateClicked b=" + TestStaticA.b);
+//        TestStaticA.class.getDeclaredMethods();
+//        Log.e(TAG, "onUpdateClicked b=" + TestStaticA.getTest());
 //        new TestLib().test();
 //        try {
 //        TestLib testLib = new TestLib();

@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 23
     buildToolsVersion '26.0.2'
     defaultConfig {
 //        configurations. {
@@ -34,19 +34,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    publishNonDefault true
+//    publishNonDefault true
     flavorDimensions "default"
-    productFlavors {
-        mainLauncher {
-            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
-            buildConfigField "int", "IS_PERFORMANCE", "11"
-        }
-        perfLauncher {
-            buildConfigField "boolean", "IS_PERFORMANCE_VERSION", "true"
-            buildConfigField "int", "IS_PERFORMANCE", "22"
-            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
-        }
-    }
+//    productFlavors {
+//        mainLauncher {
+//            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
+//            buildConfigField "int", "IS_PERFORMANCE", "11"
+//        }
+//        perfLauncher {
+//            buildConfigField "boolean", "IS_PERFORMANCE_VERSION", "true"
+//            buildConfigField "int", "IS_PERFORMANCE", "22"
+//            manifestPlaceholders = [fbMetaAppid: "fb478486302299599"]
+//        }
+//    }
 
 }
 tasks.whenTaskAdded { task ->

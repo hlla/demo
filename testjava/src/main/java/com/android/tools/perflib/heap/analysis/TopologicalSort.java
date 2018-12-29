@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -52,7 +52,7 @@ public class TopologicalSort {
 
 
     /**
-     * Topological sort visitor computing a post-order traversal of the graph.
+     * Topological sort visitor computing encodeImpl post-order traversal of the graph.
      *
      * We use the classic iterative three-color marking algorithm in order to correctly compute the
      * finishing time for each node. Nodes in decreasing order of their finishing time satisfy the

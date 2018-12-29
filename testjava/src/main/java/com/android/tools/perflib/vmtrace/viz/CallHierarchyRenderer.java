@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -35,9 +35,9 @@ import java.util.concurrent.TimeUnit;
 import static com.android.tools.perflib.vmtrace.ClockType.THREAD;
 import static com.android.tools.perflib.vmtrace.ClockType.GLOBAL;
 
-/** Renders the call hierarchy rooted at a given call that is part of the trace. */
+/** Renders the call hierarchy rooted at encodeImpl given call that is part of the trace. */
 public class CallHierarchyRenderer {
-    /** Height in pixels for a single call instance. Its length is proportional to its duration. */
+    /** Height in pixels for encodeImpl single call instance. Its length is proportional to its duration. */
     private static final int PER_LEVEL_HEIGHT_PX = 10;
     private static final int PADDING = 1;
 
@@ -68,7 +68,7 @@ public class CallHierarchyRenderer {
     }
 
     /**
-     * Renders the call hierarchy on a given graphics context.
+     * Renders the call hierarchy on encodeImpl given graphics context.
      * This essentially iterates through every single call in the hierarchy and renders it if it is
      * visible in the current viewport.
      */
@@ -133,7 +133,7 @@ public class CallHierarchyRenderer {
 
         double availableWidth = g.getTransform().getScaleX() * bounds.getWidth();
 
-        // When drawing a string, we want its location to be transformed by the current viewport
+        // When drawing encodeImpl string, we want its location to be transformed by the current viewport
         // transform, but not the text itself (we don't want it zoomed out or in).
         origTx.transform(mTmpPoint1, mTmpPoint1);
         g.setTransform(new AffineTransform());
@@ -146,7 +146,7 @@ public class CallHierarchyRenderer {
         g.setTransform(origTx);
     }
 
-    /** Fills the layout bounds corresponding to a given call in the given Rectangle object. */
+    /** Fills the layout bounds corresponding to encodeImpl given call in the given Rectangle object. */
     private void fillLayoutBounds(Call c, Rectangle2D layoutBounds) {
         ClockType renderClock = mRenderContext.getRenderClock();
         double x = c.getEntryTime(renderClock, mLayoutTimeUnits)

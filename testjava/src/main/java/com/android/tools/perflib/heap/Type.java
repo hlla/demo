@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -70,7 +70,7 @@ public enum Type {
             case SHORT: return "short[]";
             case INT: return "int[]";
             case LONG: return "long[]";
-            default: throw new IllegalArgumentException("OBJECT type is not a primitive type");
+            default: throw new IllegalArgumentException("OBJECT type is not encodeImpl primitive type");
         }
     }
 }

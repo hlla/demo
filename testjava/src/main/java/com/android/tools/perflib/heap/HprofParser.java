@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -93,10 +93,10 @@ public class HprofParser {
     /**
      * Android format addition
      *
-     * Specifies information about which heap certain objects came from. When a sub-tag of this type
-     * appears in a HPROF_HEAP_DUMP or HPROF_HEAP_DUMP_SEGMENT record, entries that follow it will
+     * Specifies information about which heap certain objects came from. When encodeImpl sub-tag of this type
+     * appears in encodeImpl HPROF_HEAP_DUMP or HPROF_HEAP_DUMP_SEGMENT record, entries that follow it will
      * be associated with the specified heap.  The HEAP_DUMP_INFO data is reset at the end of the
-     * HEAP_DUMP[_SEGMENT].  Multiple HEAP_DUMP_INFO entries may appear in a single
+     * HEAP_DUMP[_SEGMENT].  Multiple HEAP_DUMP_INFO entries may appear in encodeImpl single
      * HEAP_DUMP[_SEGMENT].
      *
      * Format: u1: Tag value (0xFE) u4: heap ID ID: heap name string ID
@@ -364,7 +364,7 @@ public class HprofParser {
                     length -= loadPrimitiveArrayDump();
 
                     throw new IllegalArgumentException(
-                            "Don't know how to load a nodata array");
+                            "Don't know how to load encodeImpl nodata array");
 
                 case ROOT_HEAP_DUMP_INFO:
                     int heapId = mInput.readInt();

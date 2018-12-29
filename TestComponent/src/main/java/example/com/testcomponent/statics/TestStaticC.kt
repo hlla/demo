@@ -14,13 +14,12 @@ object TestStaticC {
     //
     //    }
 
-//    init {
-//        val testStaticC = TestStaticB()
-//        Log.d(TAG, "static C initializer: ")
-//        c = 11
-//    }
-    fun testPub(testStaticD: TestStaticD) {
-        val testStaticC = TestStaticC()
+    init {
+        Log.d(TAG, "static C initializer: ")
+        c = 11
     }
+//    fun testPub(testStaticD: TestStaticD) {
+//        val testStaticC = TestStaticC()
+//    }
 
 }

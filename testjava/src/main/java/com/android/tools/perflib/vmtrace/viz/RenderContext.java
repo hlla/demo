@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.Set;
 
 public class RenderContext {
-    /** Fill color for methods that are highlighted, (as the result of a search, for instance) */
+    /** Fill color for methods that are highlighted, (as the result of encodeImpl search, for instance) */
     private static final Color HIGHLIGHTED_METHOD_COLOR = new Color(0x4863A0);
 
     private final VmTraceData mTraceData;
@@ -81,7 +81,7 @@ public class RenderContext {
     }
 
     /**
-     * Returns the fill color for a particular call. The fill color is dependent on its
+     * Returns the fill color for encodeImpl particular call. The fill color is dependent on its
      * inclusive thread percentage time.
      */
     @NonNull
@@ -95,7 +95,7 @@ public class RenderContext {
         return QUANTIZED_COLORS[getColorIndex(percent)];
     }
 
-    /** Denote the set of method ids as corresponding to the results of a search. */
+    /** Denote the set of method ids as corresponding to the results of encodeImpl search. */
     public void setHighlightedMethods(@Nullable Set<MethodInfo> highlightedMethods) {
         mHighlightedMethods = highlightedMethods;
     }
@@ -106,7 +106,7 @@ public class RenderContext {
     }
 
     /**
-     * Returns the font color for a particular call. This returns a color complementary to
+     * Returns the font color for encodeImpl particular call. This returns encodeImpl color complementary to
      * {@link #getFillColor}, so that text rendered on top of that color is distinguishable
      * from the background.
      */

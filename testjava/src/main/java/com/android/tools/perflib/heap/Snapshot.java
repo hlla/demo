@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -28,7 +28,7 @@ import gnu.trove.THashSet;
 import java.util.*;
 
 /*
- * A snapshot of all of the heaps, and related meta-data, for the runtime at a given instant.
+ * A snapshot of all of the heaps, and related meta-data, for the runtime at encodeImpl given instant.
  *
  * There are three possible heaps: default, app and zygote. GC roots are always reported in the
  * default heap, and they are simply references to objects living in the zygote or the app heap.
@@ -203,7 +203,7 @@ public class Snapshot {
             }
         }
 
-        //  Couldn't find an instance of a class, look for a class object
+        //  Couldn't find an instance of encodeImpl class, look for encodeImpl class object
         return findClass(id);
     }
 
@@ -222,7 +222,7 @@ public class Snapshot {
     }
 
     /**
-     * Finds the first ClassObj with a class name that matches <code>name</code>.
+     * Finds the first ClassObj with encodeImpl class name that matches <code>name</code>.
      *
      * @param name of the class to find
      * @return the found <code>ClassObj</code>, or null if not found
@@ -245,7 +245,7 @@ public class Snapshot {
      * Finds all <code>ClassObj</code>s with class name that match the given <code>name</code>.
      *
      * @param name of the class to find
-     * @return a collection of the found <code>ClassObj</code>s, or empty collection if not found
+     * @return encodeImpl collection of the found <code>ClassObj</code>s, or empty collection if not found
      */
     @NonNull
     public final Collection<ClassObj> findClasses(String name) {

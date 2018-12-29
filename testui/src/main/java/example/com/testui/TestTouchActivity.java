@@ -687,11 +687,11 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
         // getResources().getDrawable(R.drawable.ad_pause_del);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION |
 //                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS | 0x00001000);
-        setContentView(R.layout.activity_test_touch);
-        ButterKnife.bind(this);
-//        View europePolicyLayout = LayoutInflater.from(this)
-//                .inflate(R.layout.splash_europe_policy, null);
-//        setContentView(europePolicyLayout);
+//        setContentView(R.layout.activity_test_touch);
+//        ButterKnife.bind(this);
+        View europePolicyLayout = LayoutInflater.from(this)
+                .inflate(R.layout.splash_europe_policy, null);
+        setContentView(europePolicyLayout);
 
 
         View view = findViewById(R.id.test_content);
@@ -939,7 +939,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //                null,
 //                null);
 //        int indexOfAlways = sb.indexOf(always);
-//        content.setSpan(textAppearanceSpan, indexOfAlways, indexOfAlways + always.length(), Spanned
+//        content.setSpan(textAppearanceSpan, indexOfAlways, indexOfAlways + always.length(),
+// Spanned
 //                .SPAN_INCLUSIVE_INCLUSIVE);
 ////        textView.setText(content);
 //        SpannableString sp = new SpannableString("图文混排测排测试图文混排测试图文混排测试图文混排测试图");
@@ -953,8 +954,8 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //        sp.setSpan(imageSpan2, 3, 4, ImageSpan.ALIGN_BASELINE);
 //        onCancelNotify();
 //        textView.setText(sp);
-        final SplashSurfaceViewHelper helper = new SplashSurfaceViewHelper(this);
-        helper.showEuropePlicyDialog();
+//        final SplashSurfaceViewHelper helper = new SplashSurfaceViewHelper(this);
+//        helper.showEuropePlicyDialog();
     }
 
     private ContentObserver mNavigationStatusObserver = new ContentObserver(new Handler()) {
@@ -1255,6 +1256,10 @@ public class TestTouchActivity extends Activity implements OnClickListener, View
 //        ((ImageView) findViewById(R.id.img)).clearColorFilter();
 //        new AlertDialog.Builder(this).setMessage("fdsdffdf")
 //                .create().show();
+        if (MotionEvent.ACTION_UP == ev.getAction()) {
+            final SplashSurfaceViewHelper helper = new SplashSurfaceViewHelper(this);
+            helper.showEuropePlicyDialog();
+        }
         return handle;
     }
 

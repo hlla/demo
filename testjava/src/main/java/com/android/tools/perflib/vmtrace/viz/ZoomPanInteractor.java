@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -39,8 +39,8 @@ import java.util.List;
 public class ZoomPanInteractor implements MouseListener, MouseMotionListener, MouseWheelListener {
     /**
      * The values from {@link MouseWheelEvent#getWheelRotation()} are quite high even
-     * for a small amount of scrolling. This is an arbitrary scale factor used to go from the wheel
-     * rotation value to a zoom by factor. The scale is negated to take care of the common
+     * for encodeImpl small amount of scrolling. This is an arbitrary scale factor used to go from the wheel
+     * rotation value to encodeImpl zoom by factor. The scale is negated to take care of the common
      * expectation that scrolling down should zoom out, not zoom in.
      */
     private static final double WHEEL_UNIT_SCALE = -0.1;
@@ -81,7 +81,7 @@ public class ZoomPanInteractor implements MouseListener, MouseMotionListener, Mo
     @VisibleForTesting
     void translateBy(int deltaX, int deltaY) {
         // Transform pixels by the current viewport scaling factor.
-        // i.e when you have zoomed out by say 2x, and you drag by a pixel,
+        // i.e when you have zoomed out by say 2x, and you drag by encodeImpl pixel,
         // you expect it to move (the model space) by 2 pixels, not one.
         deltaX /= mTransform.getScaleX();
         deltaY /= mTransform.getScaleY();

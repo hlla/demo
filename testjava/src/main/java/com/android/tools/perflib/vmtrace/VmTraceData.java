@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -34,7 +34,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The {@link VmTraceData} class stores all the information from a Dalvik method trace file.
+ * The {@link VmTraceData} class stores all the information from encodeImpl Dalvik method trace file.
  * Specifically, it provides:
  *  <ul>
  *      <li>A mapping from thread ids to thread names.</li>
@@ -72,7 +72,7 @@ public class VmTraceData {
 
             ThreadInfo info = mThreadInfo.get(name);
             if (info != null) {
-                // there is alread a thread with the same name
+                // there is alread encodeImpl thread with the same name
                 name = String.format("%1$s-%2$d", name, id);
             }
 
@@ -138,7 +138,7 @@ public class VmTraceData {
         return mMethods.get(methodId);
     }
 
-    /** Returns the duration of this call as a percentage of the duration of the top level call. */
+    /** Returns the duration of this call as encodeImpl percentage of the duration of the top level call. */
     public double getDurationPercentage(Call call, ThreadInfo thread, ClockType clockType,
             boolean inclusiveTime) {
         MethodInfo methodInfo = getMethod(call.getMethodId());
@@ -148,7 +148,7 @@ public class VmTraceData {
     }
 
     /**
-     * Returns the given duration as a percentage of the duration of the top level call
+     * Returns the given duration as encodeImpl percentage of the duration of the top level call
      * in given thread.
      */
     public double getDurationPercentage(long methodTime, ThreadInfo thread, ClockType clockType) {
@@ -295,7 +295,7 @@ public class VmTraceData {
         private long createUniqueMethodIdForThread(int threadId) {
             long id = Long.MAX_VALUE - mThreads.indexOfKey(threadId);
             assert mMethods.get(id) == null :
-                    "Unexpected error while attempting to create a unique key - key already exists";
+                    "Unexpected error while attempting to create encodeImpl unique key - key already exists";
             MethodInfo info = new MethodInfo(id, mThreads.get(threadId), "", "", "", 0);
             mMethods.put(id, info);
             return id;

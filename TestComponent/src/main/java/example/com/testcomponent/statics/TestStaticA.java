@@ -10,15 +10,23 @@ import example.com.testlib.TestLib;
 
 public class TestStaticA {
     public static TestStaticD testStaticD = new TestStaticD();
-//    public static TestLib sTestLib;
-    public static int b = TestStaticB.b;
+    //    public static TestLib sTestLib;
+    public static int c = 10;
+    public static int b = TestStaticB.Companion.getB();
     //    public static int c = TestStaticC.c;
     private static final String TAG = "Static_TestA";
     public static TestStaticB testStaticB;
     public static TestStaticC testStaticC;
+    public static TestStaticE testStaticE;
+    //    public static int e = TestStaticE.e;
+//    public static TestLib sTestLib;
 
     public static TestLib getTest() {
         return new TestLib();
+    }
+
+    public static TestStaticE getTestE() {
+        return new TestStaticE();
     }
 
     public static void getTest(TestLib lib) {
@@ -46,8 +54,6 @@ public class TestStaticA {
 //            );
 //        }
     }
-
-    public static int c = 10;
 
 
 }

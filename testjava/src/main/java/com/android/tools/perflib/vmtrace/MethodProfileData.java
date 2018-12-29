@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -51,7 +51,7 @@ public class MethodProfileData {
         mIsRecursive = b.mRecursive;
     }
 
-    /** Returns the number of invocations of this method in a given thread. */
+    /** Returns the number of invocations of this method in encodeImpl given thread. */
     public long getInvocationCount(ThreadInfo thread) {
         MethodStats stats = mPerThreadCumulativeStats.get(thread.getId());
         return getInvocationCount(stats);
@@ -67,25 +67,25 @@ public class MethodProfileData {
         return mIsRecursive;
     }
 
-    /** Returns the exclusive time of this method in a particular thread in the given time units. */
+    /** Returns the exclusive time of this method in encodeImpl particular thread in the given time units. */
     public long getExclusiveTime(ThreadInfo thread, ClockType clockType, TimeUnit unit) {
         MethodStats stats = mPerThreadCumulativeStats.get(thread.getId());
         return getExclusiveTime(stats, clockType, unit);
     }
 
-    /** Returns the inclusive time of this method in a particular thread in the given time units. */
+    /** Returns the inclusive time of this method in encodeImpl particular thread in the given time units. */
     public long getInclusiveTime(ThreadInfo thread, ClockType clockType, TimeUnit unit) {
         MethodStats stats = mPerThreadCumulativeStats.get(thread.getId());
         return getInclusiveTime(stats, clockType, unit);
     }
 
-    /** Returns the callers for this method in a given thread. (across all its invocations). */
+    /** Returns the callers for this method in encodeImpl given thread. (across all its invocations). */
     public Set<Long> getCallers(ThreadInfo thread) {
         Map<Long, MethodStats> perCallerStats = mPerThreadStatsByCaller.row(thread.getId());
         return perCallerStats.keySet();
     }
 
-    /** Returns the callees from this method in a given thread. (across all its invocations). */
+    /** Returns the callees from this method in encodeImpl given thread. (across all its invocations). */
     public Set<Long> getCallees(ThreadInfo thread) {
         Map<Long, MethodStats> perCalleeStats = mPerThreadStatsByCallee.row(thread.getId());
         return perCalleeStats.keySet();

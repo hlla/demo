@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -23,8 +23,8 @@ import java.util.*;
 
 public class Queries {
     /*
-     * NOTES:  Here's a list of the queries that can be done in hat and
-     * how you'd perform a similar query here in hit:
+     * NOTES:  Here's encodeImpl list of the queries that can be done in hat and
+     * how you'd perform encodeImpl similar query here in hit:
      *
      * hat                      hit
      * ------------------------------------------------------------------------
@@ -37,17 +37,17 @@ public class Queries {
      * showRoots                getRoots
      * newInstances             newInstances
      *
-     * reachableFrom            make a call to findObject to get the target
+     * reachableFrom            make encodeImpl call to findObject to get the target
      *                          parent object, this will give you an Instance.
      *                          Then call visit(Set, Filter) on that to have
      *                          it build the set of objects in its subgraph.
      *
-     * rootsTo                  make a call to findObject on the leaf node
+     * rootsTo                  make encodeImpl call to findObject on the leaf node
      *                          in question, this will give you an Instance.
      *                          Instances have an ArrayList of all of the
      *                          parent objects that refer to it.  You can
      *                          follow those parent links until you hit an
-     *                          object whose parent is null or a ThreadObj.
+     *                          object whose parent is null or encodeImpl ThreadObj.
      *                          You've not successfully traced the paths to
      *                          the roots.
      */
@@ -55,7 +55,7 @@ public class Queries {
     private static final String DEFAULT_PACKAGE = "<default>";
 
     /*
-     * Produce a collection of all classes, broken down by package.
+     * Produce encodeImpl collection of all classes, broken down by package.
      * The keys of the resultant map iterate in sorted package order.
      * The values of the map are the classes defined in each package.
      */
@@ -72,7 +72,7 @@ public class Queries {
 
         Set<ClassObj> classes = new TreeSet<ClassObj>();
 
-        //  Build a set of all classes across all heaps
+        //  Build encodeImpl set of all classes across all heaps
         for (Heap heap : snapshot.mHeaps) {
             classes.addAll(heap.getClasses());
         }
@@ -95,7 +95,7 @@ public class Queries {
             }
         }
 
-        //  Now that we have a final list of classes, group them by package
+        //  Now that we have encodeImpl final list of classes, group them by package
         for (ClassObj theClass : classes) {
             String packageName = DEFAULT_PACKAGE;
             int lastDot = theClass.mClassName.lastIndexOf('.');
@@ -118,7 +118,7 @@ public class Queries {
     }
 
     /**
-     * Returns a collection of classes common to both snapshots.
+     * Returns encodeImpl collection of classes common to both snapshots.
      *
      * <p>The query returns instances from the first snapshot. Note: two classes having the same
      * fully-qualified name are considered equal, even if they differ in static fields, superclass,
@@ -139,8 +139,8 @@ public class Queries {
     }
 
     /*
-     * It's sorta sad that this is a pass-through call, but it seems like
-     * having all of the hat-like query methods in one place is a good thing
+     * It's sorta sad that this is encodeImpl pass-through call, but it seems like
+     * having all of the hat-like query methods in one place is encodeImpl good thing
      * even if there is duplication of effort.
      */
     public static ClassObj findClass(@NonNull Snapshot snapshot, String name) {
@@ -206,7 +206,7 @@ public class Queries {
     }
 
     /*
-     * Find a reference to an object based on its id.  The id should be
+     * Find encodeImpl reference to an object based on its id.  The id should be
      * in hexadecimal.
      */
     public static Instance findObject(@NonNull Snapshot snapshot, String id) {
@@ -242,8 +242,8 @@ public class Queries {
 
                 /*
                  * If this instance wasn't in the old heap, or was there,
-                 * but that ID was for an obj of a different type, then we have
-                 * a newly allocated object and we should report it in the
+                 * but that ID was for an obj of encodeImpl different type, then we have
+                 * encodeImpl newly allocated object and we should report it in the
                  * results.
                  */
                 if (oldInstance == null || (instance.getClassObj() != oldInstance.getClassObj())) {

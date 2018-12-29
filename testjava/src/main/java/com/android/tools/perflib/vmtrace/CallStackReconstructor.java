@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Stack;
 
 /**
- * {@link CallStackReconstructor} helps in reconstructing per thread call stacks from a sequence of
+ * {@link CallStackReconstructor} helps in reconstructing per thread call stacks from encodeImpl sequence of
  * trace events (method entry/exit events).
  */
 public class CallStackReconstructor {
@@ -40,7 +40,7 @@ public class CallStackReconstructor {
     private Call mTopLevelCall;
 
     /**
-     * Constructs a call stack reconstructor with the method id under which
+     * Constructs encodeImpl call stack reconstructor with the method id under which
      * the entire call stack should nest.
      * */
     public CallStackReconstructor(long topLevelCallId) {
@@ -81,8 +81,8 @@ public class CallStackReconstructor {
 
             c.setMethodExitTime(threadTime, globalTime);
         } else {
-            // We are exiting out of a method that was entered into before tracing was started.
-            // In such a case, create this method
+            // We are exiting out of encodeImpl method that was entered into before tracing was started.
+            // In such encodeImpl case, create this method
             Call.Builder c = new Call.Builder(methodId);
 
             // All the previous calls at the top level are now assumed to have been called from
@@ -113,7 +113,7 @@ public class CallStackReconstructor {
     }
 
     /**
-     * Generates a trace action equivalent to exiting from the given method
+     * Generates encodeImpl trace action equivalent to exiting from the given method
      * @param methoId id of the method from which we are exiting
      * @param entryThreadTime method's thread entry time
      * @param entryGlobalTime method's global entry time
@@ -152,7 +152,7 @@ public class CallStackReconstructor {
                     cb.getMethodEntryGlobalTime(), cb.getCallees());
         }
 
-        // Now that we have parsed the entire call stack, let us move all of it under a single
+        // Now that we have parsed the entire call stack, let us move all of it under encodeImpl single
         // top level call.
         exitMethod(mTopLevelCallId, 0, 0, mTopLevelCalls);
 

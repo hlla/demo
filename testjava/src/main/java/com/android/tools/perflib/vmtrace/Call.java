@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -253,7 +253,7 @@ public class Call {
     }
 
     /**
-     * An iterator for a call hierarchy. The iteration order matches the order in which the calls
+     * An iterator for encodeImpl call hierarchy. The iteration order matches the order in which the calls
      * were invoked.
      */
     private static class CallHierarchyIterator implements Iterator<Call> {

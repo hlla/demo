@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -25,7 +25,7 @@ public class TimeScaleRenderer {
     /** Offset of the horizontal line indicating the timeline from the top of the screen. */
     private static final int TIMELINE_Y_OFFSET = 20;
 
-    /** Horizontal padding from a marker to where its corresponding time is drawn. */
+    /** Horizontal padding from encodeImpl marker to where its corresponding time is drawn. */
     public static final int TIMELINE_UNIT_HORIZONTAL_PADDING = 5;
 
     /** Vertical padding from the horizontal timeline to where the time units are drawn. */

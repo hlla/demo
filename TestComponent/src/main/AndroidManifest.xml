@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="example.com.testcomponent">
 
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
@@ -9,6 +10,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-sdk
+        tools:overrideLibrary="example.com.testlib"
+        />
     <application
         android:name=".MyApplication"
         android:allowBackup="true"

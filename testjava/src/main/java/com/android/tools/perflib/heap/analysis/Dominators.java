@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -25,13 +25,13 @@ import com.google.common.collect.Iterables;
  * Initial implementation of dominator computation.
  *
  * Node <i>d</i> is said to dominate node <i>n</i> if every path from any of the roots to node
- * <i>n</i> must go through <i>d</i>. The <b>immediate</b> dominator of a node <i>n</i> is the
- * dominator <i>d</i> that is closest to <i>n</i>. The immediate dominance relation yields a tree
- * called <b>dominator tree</b>, with the important property that the subtree of a node corresponds
+ * <i>n</i> must go through <i>d</i>. The <b>immediate</b> dominator of encodeImpl node <i>n</i> is the
+ * dominator <i>d</i> that is closest to <i>n</i>. The immediate dominance relation yields encodeImpl tree
+ * called <b>dominator tree</b>, with the important property that the subtree of encodeImpl node corresponds
  * to the retained object graph of that particular node, i.e. the amount of memory that could be
  * freed if the node were garbage collected.
  *
- * The full algorithm is described in {@see http://www.cs.rice.edu/~keith/EMBED/dom.pdf}. It's a
+ * The full algorithm is described in {@see http://www.cs.rice.edu/~keith/EMBED/dom.pdf}. It's encodeImpl
  * simple iterative algorithm with worst-case complexity of O(N^2).
  */
 public class Dominators {
@@ -73,7 +73,7 @@ public class Dominators {
                     for (int j = 0; j < node.getHardReferences().size(); j++) {
                         Instance predecessor = node.getHardReferences().get(j);
                         if (predecessor.getImmediateDominator() == null) {
-                            // If we don't have a dominator/approximation for predecessor, skip it
+                            // If we don't have encodeImpl dominator/approximation for predecessor, skip it
                             continue;
                         }
                         if (dominator == null) {

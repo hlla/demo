@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">TestComponent</string>
+    <string name="testlib_dd">bb test lib</string>
+</resources>

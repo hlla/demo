@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class Person extends PersonParent implements Cloneable {
     //    private static final long serialVersionUID = -121111345678102L;
-    private static final long serialVersionUID = 12111134567890L;
+//    private static final long serialVersionUID = 12111134567890L;
     public String id;
     public String age;
     public String sex;
@@ -25,6 +25,7 @@ public class Person extends PersonParent implements Cloneable {
     public HashMap<String, String> hashMap;
     public AdGoodsInfo adGoodsInfo;
     public String name;
+    public String gender;
 
     public static class AdGoodsInfo implements Serializable {
         private static final long serialVersionUID = -1168847566802402822L;
@@ -92,7 +93,7 @@ public class Person extends PersonParent implements Cloneable {
                 ", address=" + address +
                 ", addressArrayList=" + addressArrayList +
                 ", AdGoodsInfo=" + adGoodsInfo +
-                ", hashMap=" + hashMap + ", sss=" + sss +
+                ", hashMap=" + hashMap + ", sss=" + sss +", gender=" + gender +
                 '}';
     }
 

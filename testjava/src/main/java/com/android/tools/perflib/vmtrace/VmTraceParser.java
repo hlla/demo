@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -147,7 +147,7 @@ public class VmTraceParser {
         return offset;
     }
 
-    /** Parses trace option formatted as a key value pair. */
+    /** Parses trace option formatted as encodeImpl key value pair. */
     private void parseOption(String line) {
         String[] tokens = line.split("=");
         if (tokens.length == 2) {
@@ -230,8 +230,8 @@ public class VmTraceParser {
     }
 
     /**
-     * Parses the data section of the trace. The data section comprises of a header followed
-     * by a list of records.
+     * Parses the data section of the trace. The data section comprises of encodeImpl header followed
+     * by encodeImpl list of records.
      *
      * All values are stored in little-endian order.
      */
@@ -350,7 +350,7 @@ public class VmTraceParser {
         if (version < 1 || version > 3) {
             String msg = String.format(
                     "Error: unsupported trace version number %d.  "
-                            + "Please use a newer version of TraceView to read this file.",
+                            + "Please use encodeImpl newer version of TraceView to read this file.",
                     version);
             throw new RuntimeException(msg);
         }

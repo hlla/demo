@@ -1,16 +1,11 @@
 package example.com.testui;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Build;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.util.DisplayMetrics;
+import android.app.AlertDialog;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,39 +32,40 @@ public class SplashSurfaceViewHelper {
         if (dialog == null) {
             View europePolicyLayout = LayoutInflater.from(context)
                     .inflate(R.layout.splash_europe_policy, null);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                View topView = europePolicyLayout.findViewById(R.id.top_container);
-                LinearLayout.LayoutParams topParams = (LinearLayout.LayoutParams) topView
-                        .getLayoutParams();
-                topParams.weight = 1;
-                View bottomView = europePolicyLayout.findViewById(R.id.bottom_container);
-                LinearLayout.LayoutParams bottomParams = (LinearLayout.LayoutParams) bottomView
-                        .getLayoutParams();
-                bottomParams.weight = 2;
-            }
-            DisplayMetrics dm = context.getResources().getDisplayMetrics();
-            int deviceWidth = dm.widthPixels;
-            int deviceHeight = dm.heightPixels;
-            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(deviceWidth, deviceHeight);
-            europePolicyLayout.setLayoutParams(lp);
-            initRecyclerView(europePolicyLayout);
-            initAgreeView(europePolicyLayout);
-            initDisAgreeView(europePolicyLayout);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                View topView = europePolicyLayout.findViewById(R.id.top_container);
+//                LinearLayout.LayoutParams topParams = (LinearLayout.LayoutParams) topView
+//                        .getLayoutParams();
+//                topParams.weight = 1;
+//                View bottomView = europePolicyLayout.findViewById(R.id.bottom_container);
+//                LinearLayout.LayoutParams bottomParams = (LinearLayout.LayoutParams) bottomView
+//                        .getLayoutParams();
+//                bottomParams.weight = 2;
+//            }
+//            DisplayMetrics dm = context.getResources().getDisplayMetrics();
+//            int deviceWidth = dm.widthPixels;
+//            int deviceHeight = dm.heightPixels;
+//            ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(deviceWidth, deviceHeight);
+//            europePolicyLayout.setLayoutParams(lp);
+//            initRecyclerView(europePolicyLayout);
+//            initAgreeView(europePolicyLayout);
+//            initDisAgreeView(europePolicyLayout);
             dialog = new AlertDialog.Builder(context, R.style.DialerSmartDialogStyle).create();
+            dialog = new AlertDialog.Builder(context).create();
             dialog.setView(europePolicyLayout);
             dialog.show();
-            dialog.setCanceledOnTouchOutside(false);
-            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
-
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-                        return true;
-                    }
-                    return false;
-                }
-            });
-            adjustDialogLayout(deviceWidth, deviceHeight);
+//            dialog.setCanceledOnTouchOutside(false);
+//            dialog.setOnKeyListener(new DialogInterface.OnKeyListener() {
+//
+//                @Override
+//                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+//                    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+//                        return true;
+//                    }
+//                    return false;
+//                }
+//            });
+//            adjustDialogLayout(deviceWidth, deviceHeight);
         } else {
             if (!dialog.isShowing()) {
                 dialog.show();

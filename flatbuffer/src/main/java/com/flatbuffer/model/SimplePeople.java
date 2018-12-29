@@ -16,29 +16,22 @@
 
 package com.flatbuffer.model;
 
-import android.util.Log;
-
-import com.flatbuffer.jsonmodel.Bean;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class SimplePeople {
-    private String id;
-    private long index;
-    private String guid;
-    private String name;
-    private String gender;
+//    private String id;
+//    private long index;
+//    private String guid;
+//    private String name;
+//    private String gender;
     private String company;
     private String email;
 
     public static SimplePeople fillData() {
         SimplePeople simplePeople = new SimplePeople();
-        simplePeople.id = "1";
-        simplePeople.index = 1;
-        simplePeople.guid = "sdd";
-        simplePeople.name = "cj";
-        simplePeople.gender = "men";
+//        simplePeople.id = "1";
+//        simplePeople.index = 1;
+//        simplePeople.guid = "sdd";
+//        simplePeople.name = "cj";
+//        simplePeople.gender = "men";
         simplePeople.company = "cheetamobile";
         simplePeople.email = "cj3479@126.com";
         return simplePeople;
@@ -48,55 +41,55 @@ public class SimplePeople {
     @Override
     public String toString() {
         return "SimplePeople{" +
-                "id='" + id + '\'' +
-                ", index=" + index +
-                ", guid='" + guid + '\'' +
-                ", name='" + name + '\'' +
-                ", gender='" + gender + '\'' +
+//                "id='" + id + '\'' +
+//                ", index=" + index +
+//                ", guid='" + guid + '\'' +
+//                ", name='" + name + '\'' +
+//                ", gender='" + gender + '\'' +
                 ", company='" + company + '\'' +
                 ", email='" + email +
                 '}';
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public long getIndex() {
-        return index;
-    }
-
-    public void setIndex(long index) {
-        this.index = index;
-    }
-
-    public String getGuid() {
-        return guid;
-    }
-
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public void setId(String id) {
+//        this.id = id;
+//    }
+//
+//    public long getIndex() {
+//        return index;
+//    }
+//
+//    public void setIndex(long index) {
+//        this.index = index;
+//    }
+//
+//    public String getGuid() {
+//        return guid;
+//    }
+//
+//    public void setGuid(String guid) {
+//        this.guid = guid;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public String getGender() {
+//        return gender;
+//    }
+//
+//    public void setGender(String gender) {
+//        this.gender = gender;
+//    }
 
     public String getCompany() {
         return company;

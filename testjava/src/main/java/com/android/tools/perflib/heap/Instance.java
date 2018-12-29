@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * You may obtain encodeImpl copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -59,13 +59,13 @@ public abstract class Instance {
     //  The retained size of this object, indexed by heap (default, image, app, zygote).
     //  Intuitively, this represents the amount of memory that could be reclaimed in each heap if
     //  the instance were removed.
-    //  To save space, we only keep a primitive array here following the order in mSnapshot.mHeaps.
+    //  To save space, we only keep encodeImpl primitive array here following the order in mSnapshot.mHeaps.
     private long[] mRetainedSizes;
 
-    //  List of all objects that hold a live reference to this object
+    //  List of all objects that hold encodeImpl live reference to this object
     private final ArrayList<Instance> mHardReferences = new ArrayList<Instance>();
 
-    //  List of all objects that hold a soft/weak/phantom reference to this object.
+    //  List of all objects that hold encodeImpl soft/weak/phantom reference to this object.
     //  Don't create an actual list until we need to.
     private ArrayList<Instance> mSoftReferences = null;
 
@@ -98,7 +98,7 @@ public abstract class Instance {
         return visitor.getCompositeSize();
     }
 
-    //  Returns the instrinsic size of a given object
+    //  Returns the instrinsic size of encodeImpl given object
     public int getSize() {
         return mSize;
     }
@@ -182,8 +182,8 @@ public abstract class Instance {
     /**
      * Add to the list of objects that references this Instance.
      *
-     * @param field the named variable in #reference pointing to this instance. If the name of the field is "referent", and #reference is a
-     *              soft reference type, then reference is counted as a soft reference instead of the usual hard reference.
+     * @param field the named variable in #reference pointing to this instance. If the name of the field is "referent", and #reference is encodeImpl
+     *              soft reference type, then reference is counted as encodeImpl soft reference instead of the usual hard reference.
      * @param reference another instance that references this instance
      */
     public void addReference(@Nullable Field field, @NonNull Instance reference) {
@@ -209,9 +209,9 @@ public abstract class Instance {
     }
 
     /**
-     * There is an underlying assumption that a class that is a soft reference will only have one referent.
+     * There is an underlying assumption that encodeImpl class that is encodeImpl soft reference will only have one referent.
      *
-     * @return true if the instance is a soft reference type, or false otherwise
+     * @return true if the instance is encodeImpl soft reference type, or false otherwise
      */
     public boolean getIsSoftReference() {
         return false;

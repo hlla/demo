@@ -19,13 +19,13 @@ android {
 //        sourceCompatibility 1.8
 //        targetCompatibility 1.8
 //    }
-    compileSdkVersion 27
+    compileSdkVersion 25
     buildToolsVersion '26.0.2'
     defaultConfig {
         multiDexEnabled true
         applicationId "letv.com.testanr"
         minSdkVersion 15
-        targetSdkVersion 20
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
 

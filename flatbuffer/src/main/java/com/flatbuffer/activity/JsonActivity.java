@@ -17,7 +17,6 @@
 package com.flatbuffer.activity;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,8 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.parser.Feature;
 import com.flatbuffer.R;
 import com.flatbuffer.flatmodel.PeopleList;
@@ -38,9 +35,6 @@ import com.flatbuffer.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-
-import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +48,7 @@ public class JsonActivity extends AppCompatActivity {
     private TextView textViewAndroidJson;
     private static ImageView sImageView;
     private String mJson;
+    private String mJsonData = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +59,8 @@ public class JsonActivity extends AppCompatActivity {
         textViewFastJson = (TextView) findViewById(R.id.textViewFastJson);
         textViewAndroidJson = (TextView) findViewById(R.id.textViewAndroidJson);
         sImageView = new ImageView(this);
-        mJson = Utils.fileToString(Environment.getExternalStorageDirectory() + "/sample_json.json");
+//        mJson = Utils.fileToString(Environment.getExternalStorageDirectory() + "/sample_json
+// .json");
     }
 
     public void loadFromFlatBuffer(View view) {
@@ -80,27 +76,37 @@ public class JsonActivity extends AppCompatActivity {
     }
 
     public void loadFromGson(View view) {
-        textViewJson.setText("");
-        Log.d(TAG, "loadFromJson 1");
-//        String jsonText = new String(Utils.readRawResource(getApplication(), R.raw.sample_json));
-        Log.d(TAG, "loadFromJson 2 ");
-        if (TextUtils.isEmpty(mJson)) {
-            return;
-        }
-        long startTime = System.currentTimeMillis();
-        com.flatbuffer.jsonmodel.PeopleListJson peopleList = null;
-        int m = 1;
+//        textViewJson.setText("");
+//        Log.d(TAG, "loadFromJson 1");
+////        String jsonText = new String(Utils.readRawResource(getApplication(), R.raw
+// .sample_json));
+//        Log.d(TAG, "loadFromJson 2 ");
+//        if (TextUtils.isEmpty(mJson)) {
+//            return;
+//        }
+//        long startTime = System.currentTimeMillis();
+//        com.flatbuffer.jsonmodel.PeopleListJson peopleList = null;
+//        int m = 1;
+//        for (int i = 0; i < m; i++) {
+//            peopleList = new Gson().fromJson(mJson, com.flatbuffer.jsonmodel.PeopleListJson
+// .class);
+//        }
+//        long timeTaken = (System.currentTimeMillis() - startTime) / m;
+//        String logText = "loadFromGson : " + timeTaken + "ms";
+//        Log.d(TAG, "loadFromGson " + logText + " peopleList=" + peopleList);
+//        int count = 0;
+//        if (null != peopleList) {
+//            count = peopleList.count();
+//        }
+//        textViewJson.setText(logText + "  count.=" + count);
+        List<SimplePeople> peoples = new ArrayList<>();
+        int m = 50000;
         for (int i = 0; i < m; i++) {
-            peopleList = new Gson().fromJson(mJson, com.flatbuffer.jsonmodel.PeopleListJson.class);
+            SimplePeople people = SimplePeople.fillData();
+            peoples.add(people);
+
         }
-        long timeTaken = (System.currentTimeMillis() - startTime) / m;
-        String logText = "loadFromGson : " + timeTaken + "ms";
-        Log.d(TAG, "loadFromGson " + logText + " peopleList=" + peopleList);
-        int count = 0;
-        if (null != peopleList) {
-            count = peopleList.count();
-        }
-        textViewJson.setText(logText + "  count.=" + count);
+        mJsonData = JSON.toJSONString(peoples);
     }
 
     public void loadFromGsonGet(View view) {
@@ -128,30 +134,31 @@ public class JsonActivity extends AppCompatActivity {
     }
 
     public void loadFromGsonGetSimpleObject(View view) {
-        textViewJson.setText("");
-        long startTime = System.currentTimeMillis();
-        PeopleListJson peopleList = null;
+//        textViewJson.setText("");
+//        long startTime = System.currentTimeMillis();
+//        PeopleListJson peopleList = null;
         List peoples = new ArrayList<SimplePeople>();
-        String jsonData = "";
-        int m = 500;
-        for (int i = 0; i < m; i++) {
-            SimplePeople people = SimplePeople.fillData();
-            peoples.add(people);
-
-        }
-        jsonData = new Gson().toJson(peoples);
-        long timeTaken = (System.currentTimeMillis() - startTime);
-        startTime = System.currentTimeMillis();
-        StringBuffer logText = new StringBuffer("gson SO 序列化 : " + timeTaken + "ms");
+//        String jsonData = "";
+//        int m = 50000;
+//        for (int i = 0; i < m; i++) {
+//            SimplePeople people = SimplePeople.fillData();
+//            peoples.add(people);
+//
+//        }
+//        jsonData = new Gson().toJson(peoples);
+//        long timeTaken = (System.currentTimeMillis() - startTime);
+        long startTime = System.currentTimeMillis();
+        StringBuffer logText = new StringBuffer();
+//        StringBuffer logText = new StringBuffer("gson SO 序列化 : " + timeTaken + "ms");
         int count = 0;
-        peoples = new Gson().fromJson(jsonData, new TypeToken<List<SimplePeople>>() {
+        peoples = new Gson().fromJson(mJsonData, new TypeToken<List<SimplePeople>>() {
         }.getType());
         if (null != peoples) {
             count = peoples.size();
         }
-        timeTaken = (System.currentTimeMillis() - startTime);
+        long timeTaken = (System.currentTimeMillis() - startTime);
         logText.append(",").append("gson SO 反序列化 : " + timeTaken + "ms");
-        textViewJson.setText(logText + "  count.=" + count + " length=" + jsonData.length());
+        textViewJson.setText(logText + "  count.=" + count);
         Log.d(TAG, "loadFromGsonGet " + logText + " peoples=" + peoples.get(0));
     }
 
@@ -228,74 +235,75 @@ public class JsonActivity extends AppCompatActivity {
 
     public void loadFromFastJsonSimpleObject(View view) {
         textViewJson.setText("");
-        long startTime = System.currentTimeMillis();
-        PeopleListJson peopleList = null;
+//        long startTime = System.currentTimeMillis();
+//        PeopleListJson peopleList = null;
         List peoples = new ArrayList<SimplePeople>();
-        String jsonData = "";
-        int m = 500;
-        for (int i = 0; i < m; i++) {
-            SimplePeople people = SimplePeople.fillData();
-            peoples.add(people);
-
-        }
-        jsonData = JSON.toJSONString(peoples);
-        long timeTaken = (System.currentTimeMillis() - startTime);
-        startTime = System.currentTimeMillis();
-        StringBuffer logText = new StringBuffer("fastjson SO 序列化 : " + timeTaken + "ms");
+//        String jsonData = "";
+//        int m = 50000;
+//        for (int i = 0; i < m; i++) {
+//            SimplePeople people = SimplePeople.fillData();
+//            peoples.add(people);
+//
+//        }
+//        jsonData = JSON.toJSONString(peoples);
+//        long timeTaken = (System.currentTimeMillis() - startTime);
+        long startTime = System.currentTimeMillis();
+        StringBuffer logText = new StringBuffer();
+//        StringBuffer logText = new StringBuffer("fastjson SO 序列化 : " + timeTaken + "ms");
         int count = 0;
-        peoples = JSON.parseArray(jsonData, SimplePeople.class);
+        peoples = JSON.parseArray(mJsonData, SimplePeople.class);
         if (null != peoples) {
             count = peoples.size();
         }
-        timeTaken = (System.currentTimeMillis() - startTime);
+        long timeTaken = (System.currentTimeMillis() - startTime);
         logText.append(",").append("fastjson SO 反序列化 : " + timeTaken + "ms");
-        textViewJson.setText(logText + "  count.=" + count + " length=" + jsonData.length());
+        textViewJson.setText(logText + "  count.=" + count);
         Log.d(TAG, "loadFromFastJsonSimpleObject " + logText + " peoples=" + peoples.get(0));
     }
 
-    public void loadFromAndroidJsonSO(View view) {
-        textViewJson.setText("");
-        long startTime = System.currentTimeMillis();
-        PeopleListJson peopleList = null;
-        List peoples = new ArrayList<SimplePeople>();
-        String jsonData = "";
-        int m = 500;
-        for (int i = 0; i < m; i++) {
-            SimplePeople people = SimplePeople.fillData();
-            peoples.add(people);
-
-        }
-        jsonData = toJsonString(peoples);
-        peoples.clear();
-        long timeTaken = (System.currentTimeMillis() - startTime);
-        startTime = System.currentTimeMillis();
-        StringBuffer logText = new StringBuffer("org json SO 序列化 : " + timeTaken + "ms");
-        int count = 0;
-        try {
-            org.json.JSONArray jsonArray = new org.json.JSONArray(jsonData);
-            int length = jsonArray.length();
-            for (int i = 0; i < length; i++) {
-                SimplePeople people = new SimplePeople();
-                org.json.JSONObject peopleJson = jsonArray.getJSONObject(i);
-                people.setCompany(peopleJson.optString("company"));
-                people.setId(peopleJson.optString("id"));
-                people.setIndex(peopleJson.optInt("index"));
-                people.setGuid(peopleJson.optString("guid"));
-//                people.setName(peopleJson.optString("name"));
-                people.setEmail(peopleJson.optString("email"));
-                peoples.add(people);
-            }
-        } catch (Exception e) {
-
-        }
-        if (null != peoples) {
-            count = peoples.size();
-        }
-        timeTaken = (System.currentTimeMillis() - startTime);
-        logText.append(",").append("org json SO 反序列化 : " + timeTaken + "ms");
-        textViewJson.setText(logText + "  count.=" + count + " length=" + jsonData.length());
-        Log.d(TAG, "loadFromAndroidJsonSO " + logText + " peoples=" + peoples.get(0));
-    }
+//    public void loadFromAndroidJsonSO(View view) {
+//        textViewJson.setText("");
+//        long startTime = System.currentTimeMillis();
+//        PeopleListJson peopleList = null;
+//        List peoples = new ArrayList<SimplePeople>();
+//        String jsonData = "";
+//        int m = 50000;
+//        for (int i = 0; i < m; i++) {
+//            SimplePeople people = SimplePeople.fillData();
+//            peoples.add(people);
+//
+//        }
+//        jsonData = toJsonString(peoples);
+//        peoples.clear();
+//        long timeTaken = (System.currentTimeMillis() - startTime);
+//        startTime = System.currentTimeMillis();
+//        StringBuffer logText = new StringBuffer("org json SO 序列化 : " + timeTaken + "ms");
+//        int count = 0;
+////        try {
+////            org.json.JSONArray jsonArray = new org.json.JSONArray(jsonData);
+////            int length = jsonArray.length();
+////            for (int i = 0; i < length; i++) {
+////                SimplePeople people = new SimplePeople();
+////                org.json.JSONObject peopleJson = jsonArray.getJSONObject(i);
+////                people.setCompany(peopleJson.optString("company"));
+////                people.setId(peopleJson.optString("id"));
+////                people.setIndex(peopleJson.optInt("index"));
+////                people.setGuid(peopleJson.optString("guid"));
+//////                people.setName(peopleJson.optString("name"));
+////                people.setEmail(peopleJson.optString("email"));
+////                peoples.add(people);
+////            }
+////        } catch (Exception e) {
+////
+////        }
+//        if (null != peoples) {
+//            count = peoples.size();
+//        }
+//        timeTaken = (System.currentTimeMillis() - startTime);
+//        logText.append(",").append("org json SO 反序列化 : " + timeTaken + "ms");
+//        textViewJson.setText(logText + "  count.=" + count + " length=" + jsonData.length());
+//        Log.d(TAG, "loadFromAndroidJsonSO " + logText + " peoples=" + peoples.get(0));
+//    }
 
     private void test() {
         String a = "{\"key\":\"123\", \"title\":\"asd\", \"values\":[\"a\", \"b\", \"c\", \"d\"]," +
@@ -304,12 +312,12 @@ public class JsonActivity extends AppCompatActivity {
         Gson Gson = new Gson();
         Bean testBean = Gson.fromJson(a, Bean.class);
         long now = System.currentTimeMillis();
-        for (int i = 0; i < 500; ++i) {
+        for (int i = 0; i < 50000; ++i) {
             Bean.fromJsonString(a);
         }
         Log.d(TAG, "jsonobject parse use time=" + (System.currentTimeMillis() - now));
         now = System.currentTimeMillis();
-        for (int i = 0; i < 500; ++i) {
+        for (int i = 0; i < 50000; ++i) {
             peoples.add(Gson.fromJson(a, Bean.class));
         }
         Log.d(TAG, "Gson parse use time=" + (System.currentTimeMillis() - now) + " people=" +
@@ -317,12 +325,12 @@ public class JsonActivity extends AppCompatActivity {
 
 
         now = System.currentTimeMillis();
-        for (int i = 0; i < 500; ++i) {
+        for (int i = 0; i < 50000; ++i) {
             Bean.toJsonString(testBean);
         }
         Log.d(TAG, "jsonobject tojson use time=" + (System.currentTimeMillis() - now));
         now = System.currentTimeMillis();
-        for (int i = 0; i < 500; ++i) {
+        for (int i = 0; i < 50000; ++i) {
             Gson.toJson(testBean);
         }
         Log.d(TAG, "Gson tojson use time=" + (System.currentTimeMillis() - now));
@@ -402,21 +410,21 @@ public class JsonActivity extends AppCompatActivity {
         org.json.JSONArray jsonArray = new org.json.JSONArray();
         org.json.JSONObject jsonObject = new org.json.JSONObject();
         int length = peopleList.size();
-        for (int i = 0; i < length; i++) {
-            SimplePeople people = peopleList.get(i);
-            try {
-                jsonObject.put("id", people.getId());
-                jsonObject.put("index", people.getIndex());
-                jsonObject.put("email", people.getEmail());
-                jsonObject.put("company", people.getCompany());
-                jsonObject.put("guid", people.getGuid());
-                jsonObject.put("gender", people.getGender());
-                jsonObject.put("name", people.getName());
-                jsonArray.put(jsonObject);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+//        for (int i = 0; i < length; i++) {
+//            SimplePeople people = peopleList.get(i);
+//            try {
+//                jsonObject.put("id", people.getId());
+//                jsonObject.put("index", people.getIndex());
+//                jsonObject.put("email", people.getEmail());
+//                jsonObject.put("company", people.getCompany());
+//                jsonObject.put("guid", people.getGuid());
+//                jsonObject.put("gender", people.getGender());
+//                jsonObject.put("name", people.getName());
+//                jsonArray.put(jsonObject);
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//        }
 
         return jsonArray.toString();
     }
