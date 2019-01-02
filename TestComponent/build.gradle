@@ -1,72 +1,208 @@
+import java.util.zip.ZipEntry
+import java.util.zip.ZipFile
+import groovy.transform.Field
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+File apkPath
+String aaptPath
+@Field dexCountFileName = 'dex.txt'
 android {
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+//        println "chengv names=" + names
+    }
+    def outputPathName = "/Users/user/Downloads/test.apk"
+    applicationVariants.all { variants ->
+//        gradle.startParameter.getTaskNames().each { task ->
+//
+//            println "chengv variants=" + task + " d=" + android.
+// () + " dd=" + gradle.startParameter.buildFile
+//        }
+
+        String tskReqStr = getCurrentTask();
+        println "chengv tskReqStr=" + android.getSdkDirectory()/* + " variants=" + variants.androidBuilder.getTargetInfo().getBuildTools()*/
+//        println "chengv variants=" + android.prod + " dd=" + buildToolsVersion
+        variants.outputs.each { outputs ->
+            //开始输出
+//            output.outputFile = new File(outputPathName)
+            println "chengvariants buildType=" + variants.buildType.name + " variants=" + variants.flavorName
+            if (tskReqStr.toLowerCase().contains(variants.flavorName.toLowerCase())
+                    && tskReqStr.toLowerCase().contains(variants.buildType.name.toLowerCase())) {
+                apkPath = outputs.outputFile
+                Class clazz = Class.forName('com.android.sdklib.BuildToolInfo$PathId')
+                aaptPath = variants.androidBuilder.getTargetInfo().getBuildTools().getPath(Enum.valueOf(clazz, "AAPT"));
+                println "chengv aapt=" + aaptPath + " clazz=" + clazz
+                println "chengv apkPath=" + apkPath
+            }
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     signingConfigs {
-        release {
+        config {
+//            keyAlias 'cj'
+//            keyPassword '123456'
+//            storeFile file('/home/chengjian/workspace/TestApp/test.ks')
+//            storePassword '123456'
             keyAlias 'cj'
             keyPassword '123456'
-            storeFile file('/home/chengjian/workspace/TestApp/test.ks')
+            storeFile file('/Users/chengjian/keystore/as.keystore')
             storePassword '123456'
         }
     }
     defaultConfig {
         multiDexEnabled true
         applicationId "example.com.testcomponent.dd"
-        minSdkVersion 16
-        targetSdkVersion 23
+        minSdkVersion 18
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
-    lintOptions {
-        abortOnError false
-    }
+
     buildTypes {
         release {
-            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.config
         }
     }
-//    buildTypes {
-//        release {
-//            signingConfig signingConfigs.release
-//            minifyEnabled true
-//            shrinkResources true
-//        }
-//        debug {
-//            signingConfig signingConfigs.release
-//            buildConfigField "boolean", "IS_PERFORMANCE_ENABLE", "true"
-//        }
-//    }
     flavorDimensions "default"
-//    productFlavors {
-//        themeLauncher {
+    productFlavors {
+        themeLauncher {
 //            applicationId 'com.ksmobile.launcher.ff'
-//        }
-//        mainLauncher {
+        }
+        mainLauncher {
 //            applicationId 'com.ksmobile.launcher.dd'
-//        }
-//    }
-    gradle.taskGraph.afterTask { task ->
-        println "aaaaaaaaaa=" + task + " out=" + projects.outputs.
-
+        }
     }
-//    tasks.getByName("assembleDebug") {
-//        it.doLast {
-//            println "aaaaaaaaaa=" + tasks.getByName("assemble")
-////        copyOutput(true)  //copyOutput 是 utils.gradle 输出的 closure
-//        }
-//    }
+
 }
 
+def getCurrentTask() {
+    gradle.startParameter.getTaskNames().each { task ->
+        if (!task.isEmpty()) {
+            return task
+        } else {
+            return ""
+        }
+    }
+}
+
+def getDexNum(File apkFile) {
+    String DEX_PREFIX = "classes"
+    String DEX_SUFFIX = ".dex"
+    final ZipFile apk = new ZipFile(apkFile)
+    int dexCount = 0
+    try {
+
+        int secondaryNumber = 2
+
+        ZipEntry dexFile = apk.getEntry(DEX_PREFIX + secondaryNumber + DEX_SUFFIX)
+        while (dexFile != null) {
+            dexCount++
+            secondaryNumber++
+            dexFile = apk.getEntry(DEX_PREFIX + secondaryNumber + DEX_SUFFIX)
+        }
+    } finally {
+        try {
+            apk.close()
+        } catch (IOException e) {
+        }
+    }
+    return dexCount
+}
+
+def saveDexNum(File apkFile, String aaptPath) {
+    int dexCount = getDexNum(apkFile)
+    println "saveDexNum dexCount=" + dexCount
+    File dir = new File(projects.project.projectDir, "assets")
+    dir.mkdir()
+    File ouputFile = new File(dir, dexCountFileName)
+    ouputFile.delete()
+    FileOutputStream fileOutputStream = new FileOutputStream(ouputFile)
+    fileOutputStream.write(String.valueOf(dexCount).getBytes(), 0, 1)
+    fileOutputStream.close()
+    println "saveDexNum ouputFile=" + dexCountFileName + " exist=" + ouputFile.exists() + " sss=" + projects.project.projectDir
+    exec {
+        commandLine aaptPath, "add", apkFile.getPath(), "assets/" + ouputFile.getName()
+        //修改命令输出的地方，默认为控制台
+//        standardOutput = out
+    }
+    ouputFile.delete()
+
+}
+//task stopTomcat(type:Exec) {
+//    workingDir '../tomcat/bin'
+//
+//    //on windows:
+//    commandLine 'cmd', '/c', 'stop.bat'
+//
+//    //on linux
+//    commandLine './stop.sh'
+//
+//    //store the output instead of printing to the console:
+//    standardOutput = new ByteArrayOutputStream()
+//
+//    //extension method stopTomcat.output() can be used to obtain the output:
+//    ext.output = {
+//        return standardOutput.toString()
+//    }
+//}
+gradle.taskGraph.afterTask { task ->
+//    StringBuffer taskDetails = new StringBuffer()
+//    taskDetails << """"-------------
+//name:$task.name group:$task.group : $task.description
+//conv:$task.convention.plugins
+//inputs:
+//"""
+//    task.inputs.files.each { it ->
+//        taskDetails << " ${it.absolutePath}\n"
+//    }
+//    taskDetails << "outputs:\n"
+//    task.outputs.files.each { it ->
+//        taskDetails << " ${it.absolutePath}\n"
+//    }
+//
+//    taskDetails << "-------------"
+    println "chengTask=" + task.path
+}
+tasks.whenTaskAdded { task ->
+//    println 'cheng =============assembl=============' + task.name
+    if (task.name.contains("assemble")) {
+        //task.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+        println 'cheng =============assembleDebug=============' + task.name + " fff="
+        task.doLast {
+            println "cheng  doLast task" + task.name + " apkPath=" + apkPath + " exist=" + apkPath.exists()
+            saveDexNum(apkPath, aaptPath)
+        }.doFirst {
+            println "cheng  doFirst task" + task.name
+        }
+    } else if (task.name == 'assembleRelease') {
+        //task.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+//        println 'cheng =============assembleRelease============='
+    }
+}
+//assembleDebug.doLast {
+//    println "cheng assembleRelease doLast"
+//}.doFirst {
+//    println "cheng assembleRelease doFirst"
+//}
+afterEvaluate {
+    assembleDebug.doLast {
+        println "cheng afterEvaluate doLast " + assembleDebug.name
+    }.doFirst {
+        println "cheng afterEvaluate doFirst" + assembleDebug.name
+    }
+    assembleRelease.doLast {
+        println "cheng afterEvaluate doLast " + assembleRelease.name
+    }.doFirst {
+        println "cheng afterEvaluate doFirst" + assembleRelease.name
+    }
+}
 dependencies {
 //    compileOnly fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly files('libs/testlib.jar')
@@ -75,7 +211,6 @@ dependencies {
     implementation 'com.android.support:support-v4:25.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71'
-    implementation project(':TestLib')
     //test
 //    implementation group: 'com.github.bumptech.glide', name: 'glide', version: '4.4.0'
 //    compile 'com.facebook.react:react-native:+'
