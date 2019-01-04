@@ -238,18 +238,18 @@ public class JsonActivity extends AppCompatActivity {
 //        long startTime = System.currentTimeMillis();
 //        PeopleListJson peopleList = null;
         List peoples = new ArrayList<SimplePeople>();
-//        String jsonData = "";
-//        int m = 50000;
-//        for (int i = 0; i < m; i++) {
-//            SimplePeople people = SimplePeople.fillData();
-//            peoples.add(people);
-//
-//        }
-//        jsonData = JSON.toJSONString(peoples);
-//        long timeTaken = (System.currentTimeMillis() - startTime);
+        String jsonData = "";
+        int m = 50000;
+        for (int i = 0; i < m; i++) {
+            SimplePeople people = SimplePeople.fillData();
+            peoples.add(people);
+
+        }
+        jsonData = JSON.toJSONString(peoples);
+        long timeTaken = (System.currentTimeMillis() - startTime);
         long startTime = System.currentTimeMillis();
-        StringBuffer logText = new StringBuffer();
-//        StringBuffer logText = new StringBuffer("fastjson SO 序列化 : " + timeTaken + "ms");
+//        StringBuffer logText = new StringBuffer();
+        StringBuffer logText = new StringBuffer("fastjson SO 序列化 : " + timeTaken + "ms");
         int count = 0;
         peoples = JSON.parseArray(mJsonData, SimplePeople.class);
         if (null != peoples) {

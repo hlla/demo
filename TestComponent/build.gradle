@@ -1,6 +1,12 @@
+import com.android.build.gradle.internal.api.ApplicationVariantImpl
+import com.android.build.gradle.internal.variant.ApkVariantData
+import groovy.transform.Field
+import org.apache.commons.io.monitor.FileAlterationListener
+import org.apache.commons.io.monitor.FileAlterationMonitor
+import org.apache.commons.io.monitor.FileAlterationObserver
+
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
-import groovy.transform.Field
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -20,8 +26,8 @@ android {
 // () + " dd=" + gradle.startParameter.buildFile
 //        }
 
-        String tskReqStr = getCurrentTask();
-        println "chengv tskReqStr=" + android.getSdkDirectory()/* + " variants=" + variants.androidBuilder.getTargetInfo().getBuildTools()*/
+        String tskReqStr = getCurrentTask()
+        println "chengv tskReqStr=" + tskReqStr/* + " variants=" + variants.androidBuilder.getTargetInfo().getBuildTools()*/
 //        println "chengv variants=" + android.prod + " dd=" + buildToolsVersion
         variants.outputs.each { outputs ->
             //开始输出
@@ -30,15 +36,16 @@ android {
             if (tskReqStr.toLowerCase().contains(variants.flavorName.toLowerCase())
                     && tskReqStr.toLowerCase().contains(variants.buildType.name.toLowerCase())) {
                 apkPath = outputs.outputFile
+//                apkPath = new File("/home/chengjian/workspace/AppDemo/TestComponent/build/outputs/apk/mainLauncher/release/TestComponent-mainLauncher-release-unsigned.apk")
                 Class clazz = Class.forName('com.android.sdklib.BuildToolInfo$PathId')
                 aaptPath = variants.androidBuilder.getTargetInfo().getBuildTools().getPath(Enum.valueOf(clazz, "AAPT"));
                 println "chengv aapt=" + aaptPath + " clazz=" + clazz
-                println "chengv apkPath=" + apkPath
+                println "chengv apkPath=" + apkPath + " outputs=" + outputs
             }
         }
     }
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '26.1.3'
     signingConfigs {
         config {
 //            keyAlias 'cj'
@@ -47,7 +54,7 @@ android {
 //            storePassword '123456'
             keyAlias 'cj'
             keyPassword '123456'
-            storeFile file('/Users/chengjian/keystore/as.keystore')
+            storeFile file('/home/chengjian/keystore/as.keystore')
             storePassword '123456'
         }
     }
@@ -152,7 +159,69 @@ def saveDexNum(File apkFile, String aaptPath) {
 //        return standardOutput.toString()
 //    }
 //}
-gradle.taskGraph.afterTask { task ->
+gradle.taskGraph.beforeTask { task ->
+    println 'cheng =============assembl=============' + task.name
+    if (task.name.toLowerCase().contains("package")) {
+//        Thread.sleep(20000)
+        FileAlterationObserver observer1 = new FileAlterationObserver(apkPath.getParent(), new FileFilter() {
+            @Override
+            boolean accept(File pathname) {
+//                println "chengfile  accept pathname=" + pathname.getPath() + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis()/1000
+                return pathname.getPath().endsWith(".apk")
+            }
+        })
+        observer1.addListener(new FileAlterationListener() {
+            @Override
+            void onStart(FileAlterationObserver observer) {
+                println "chengfile  onStart observer=" + observer + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000
+            }
+
+            @Override
+            void onDirectoryCreate(File directory) {
+                println "chengfile  onDirectoryCreate directory=" + directory.getPath() + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000
+            }
+
+            @Override
+            void onDirectoryChange(File directory) {
+                println "chengfile  onDirectoryChange directory=" + directory.getPath() + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000
+            }
+
+            @Override
+            void onDirectoryDelete(File directory) {
+                println "chengfile  onDirectoryDelete directory=" + directory.getPath() + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000
+            }
+
+            @Override
+            void onFileCreate(File file) {
+                println "chengfile  onFileCreate file=" + file.getPath() + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000 + " size=" + file.length()
+            }
+
+            @Override
+            void onFileChange(File file) {
+//                Thread.sleep(30000)
+                println "chengfile  onFileChange file=" + file.getPath() + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000 + " size=" + file.length()
+//                saveDexNum(file, aaptPath)
+            }
+
+            @Override
+            void onFileDelete(File file) {
+                println "chengfile  onFileDelete file=" + file.getPath() + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000
+            }
+
+            @Override
+            void onStop(FileAlterationObserver observer) {
+                println "chengfile  onStop observer=" + observer + " tid=" + Thread.currentThread().getId() + " time=" + System.currentTimeMillis() / 1000
+            }
+        })
+        observer1.initialize()
+        FileAlterationMonitor monitor = new FileAlterationMonitor(100)
+        monitor.addObserver(observer1)
+        monitor.start()
+//        monitor.stop()
+//        fileObserver.startWatching()
+        println "cheng  beforeTask task" + task.name + " apkPath=" + apkPath + " exist=" + apkPath.exists()
+//        saveDexNum(apkPath, aaptPath)
+    }
 //    StringBuffer taskDetails = new StringBuffer()
 //    taskDetails << """"-------------
 //name:$task.name group:$task.group : $task.description
@@ -172,19 +241,19 @@ gradle.taskGraph.afterTask { task ->
 }
 tasks.whenTaskAdded { task ->
 //    println 'cheng =============assembl=============' + task.name
-    if (task.name.contains("assemble")) {
-        //task.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
-        println 'cheng =============assembleDebug=============' + task.name + " fff="
-        task.doLast {
-            println "cheng  doLast task" + task.name + " apkPath=" + apkPath + " exist=" + apkPath.exists()
-            saveDexNum(apkPath, aaptPath)
-        }.doFirst {
-            println "cheng  doFirst task" + task.name
-        }
-    } else if (task.name == 'assembleRelease') {
-        //task.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
-//        println 'cheng =============assembleRelease============='
-    }
+//    if (task.name.contains("assemble")) {
+//        //task.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+//        println 'cheng =============assembleDebug=============' + task.name + " fff="
+//        task.doLast {
+//            println "cheng  doLast task" + task.name + " apkPath=" + apkPath + " exist=" + apkPath.exists()
+//            saveDexNum(apkPath, aaptPath)
+//        }.doFirst {
+//            println "cheng  doFirst task" + task.name
+//        }
+//    } else if (task.name == 'assembleRelease') {
+//        //task.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
+////        println 'cheng =============assembleRelease============='
+//    }
 }
 //assembleDebug.doLast {
 //    println "cheng assembleRelease doLast"
@@ -217,3 +286,22 @@ dependencies {
 //    implementation "io.reactivex.rxjava2:rxjava:2.1.12"
 //    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
 }
+//apply plugin: DebuggerPlugin
+
+//class DebuggerPlugin implements Plugin<Project> {
+//    void apply(Project project) {
+//        project.afterEvaluate {
+//            if (project.plugins.hasPlugin("com.android.application")) {
+//                def android = project.extensions.getByName("android")
+//                android.applicationVariants.all { ApplicationVariantImpl variant ->
+//                    project.logger.error "DebuggerPlugin:${variant}"
+//                    ApkVariantData apkVariantData = variant.variantData
+//                    println "apkVariantData=" + apkVariantData
+////                    ApplicationVariantData variantData = variant.getVariantData()
+////                    TestVariant testVariant = variant.getTestVariant()
+////                    UnitTestVariant unitTestVariant = variant.getUnitTestVariant()
+//                }
+//            }
+//        }
+//    }
+//}
