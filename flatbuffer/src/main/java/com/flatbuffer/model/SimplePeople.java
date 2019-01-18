@@ -16,13 +16,16 @@
 
 package com.flatbuffer.model;
 
-public class SimplePeople {
-//    private String id;
+import java.io.Serializable;
+
+public class SimplePeople implements Serializable {
+    private static final long serialVersionUID = -5091230928570026268L;
+    //    private String id;
 //    private long index;
 //    private String guid;
 //    private String name;
 //    private String gender;
-    private String company;
+    private String name;
     private String email;
 
     public static SimplePeople fillData() {
@@ -32,7 +35,7 @@ public class SimplePeople {
 //        simplePeople.guid = "sdd";
 //        simplePeople.name = "cj";
 //        simplePeople.gender = "men";
-        simplePeople.company = "cheetamobile";
+        simplePeople.name = "cheetamobile";
         simplePeople.email = "cj3479@126.com";
         return simplePeople;
     }
@@ -46,7 +49,7 @@ public class SimplePeople {
 //                ", guid='" + guid + '\'' +
 //                ", name='" + name + '\'' +
 //                ", gender='" + gender + '\'' +
-                ", company='" + company + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email +
                 '}';
     }
@@ -91,12 +94,12 @@ public class SimplePeople {
 //        this.gender = gender;
 //    }
 
-    public String getCompany() {
-        return company;
+    public String getName() {
+        return name;
     }
 
-    public void setCompany(String company) {
-        this.company = company;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

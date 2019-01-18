@@ -8,7 +8,7 @@ table People {
     guid : string;
     name : string;
 	gender : string;
-	company : string;
+	name : string;
 	email : string;
 	friends : [Friend];
 }

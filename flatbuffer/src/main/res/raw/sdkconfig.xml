@@ -37,7 +37,7 @@
         </preplaytimeout>
     </ark>
     <companies>
-        <company>
+        <name>
             <name>admaster</name>
             <dsp>6</dsp>
             <domain>
@@ -237,8 +237,8 @@
             <separator>,</separator>
             <equalizer/>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>reachmax</name>
             <dsp>14</dsp>
             <domain>
@@ -305,8 +305,8 @@
             <rseparator>&amp;</rseparator>
             <requalizer>=</requalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>hpg</name>
             <domain>
                 <url>.hpg.cn.miaozhen.com</url>
@@ -380,8 +380,8 @@
             </config>
             <rseparator>&amp;</rseparator>
             <requalizer>=</requalizer>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>miaozhen</name>
             <dsp>4</dsp>
             <domain>
@@ -574,8 +574,8 @@
             <equalizer>=</equalizer>
             <requalizer>=</requalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>double click</name>
             <dsp>7</dsp>
             <domain>
@@ -614,8 +614,8 @@
             <separator>;</separator>
             <equalizer>=</equalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>imrworldwide</name>
             <dsp>8</dsp>
             <domain>
@@ -701,8 +701,8 @@
             <separator>&amp;</separator>
             <equalizer>=</equalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>trafficjam</name>
             <dsp>13</dsp>
             <domain>
@@ -844,8 +844,8 @@
             <separator>&amp;</separator>
             <equalizer>=</equalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>nielsen</name>
             <dsp>9</dsp>
             <domain>
@@ -992,8 +992,8 @@
             <separator>&amp;</separator>
             <equalizer>=</equalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>wendax</name>
             <dsp>10</dsp>
             <domain>
@@ -1078,8 +1078,8 @@
             <separator>&amp;</separator>
             <equalizer>=</equalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>fw4.me</name>
             <dsp>11</dsp>
             <domain>
@@ -1199,8 +1199,8 @@
             <separator>,</separator>
             <equalizer/>
             <timeStampUseSecond>true</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>iresearch</name>
             <dsp>12</dsp>
             <domain>
@@ -1347,8 +1347,8 @@
             <separator>&amp;</separator>
             <equalizer>=</equalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>taobao</name>
             <dsp>13</dsp>
             <domain>
@@ -1482,8 +1482,8 @@
             <equalizer>=</equalizer>
             <requalizer>=</requalizer>
             <timeStampUseSecond>false</timeStampUseSecond>
-        </company>
-        <company>
+        </name>
+        <name>
             <name>o2</name>
             <domain>
                 <url>ac.o2.qq.com</url>
@@ -1509,7 +1509,7 @@
             </config>
             <rseparator>&amp;</rseparator>
             <requalizer>=</requalizer>
-        </company>
+        </name>
     </companies>
     <placeholder/>
 </config>

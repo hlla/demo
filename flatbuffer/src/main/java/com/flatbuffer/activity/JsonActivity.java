@@ -16,7 +16,9 @@
 
 package com.flatbuffer.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -26,17 +28,27 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.Feature;
+import com.example.tutorial.AddressBookProtos;
+import com.flatbuffer.AddressBookProtobuf;
 import com.flatbuffer.R;
 import com.flatbuffer.flatmodel.PeopleList;
 import com.flatbuffer.jsonmodel.Bean;
+import com.flatbuffer.model.AddressBook;
 import com.flatbuffer.model.PeopleListJson;
 import com.flatbuffer.model.SimplePeople;
 import com.flatbuffer.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class JsonActivity extends AppCompatActivity {
@@ -49,6 +61,8 @@ public class JsonActivity extends AppCompatActivity {
     private static ImageView sImageView;
     private String mJson;
     private String mJsonData = "";
+    private String[] mNames = null;
+    private SharedPreferences mSP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +75,7 @@ public class JsonActivity extends AppCompatActivity {
         sImageView = new ImageView(this);
 //        mJson = Utils.fileToString(Environment.getExternalStorageDirectory() + "/sample_json
 // .json");
+        mSP = getSharedPreferences("abc", 0);
     }
 
     public void loadFromFlatBuffer(View view) {
@@ -101,9 +116,11 @@ public class JsonActivity extends AppCompatActivity {
 //        textViewJson.setText(logText + "  count.=" + count);
         List<SimplePeople> peoples = new ArrayList<>();
         int m = 50000;
+        mNames = new String[m];
         for (int i = 0; i < m; i++) {
             SimplePeople people = SimplePeople.fillData();
             peoples.add(people);
+            mNames[i] = String.valueOf("i");
 
         }
         mJsonData = JSON.toJSONString(peoples);
@@ -135,30 +152,43 @@ public class JsonActivity extends AppCompatActivity {
 
     public void loadFromGsonGetSimpleObject(View view) {
 //        textViewJson.setText("");
-//        long startTime = System.currentTimeMillis();
 //        PeopleListJson peopleList = null;
-        List peoples = new ArrayList<SimplePeople>();
-//        String jsonData = "";
-//        int m = 50000;
-//        for (int i = 0; i < m; i++) {
-//            SimplePeople people = SimplePeople.fillData();
-//            peoples.add(people);
-//
-//        }
-//        jsonData = new Gson().toJson(peoples);
-//        long timeTaken = (System.currentTimeMillis() - startTime);
-        long startTime = System.currentTimeMillis();
         StringBuffer logText = new StringBuffer();
-//        StringBuffer logText = new StringBuffer("gson SO 序列化 : " + timeTaken + "ms");
+        long timeTaken = 0;
+        long startTime = 0;
+        List peoples = new ArrayList<SimplePeople>();
+        String jsonData = "";
+        int m = 50000;
+        for (int i = 0; i < m; i++) {
+            SimplePeople people = SimplePeople.fillData();
+            peoples.add(people);
+
+        }
+        startTime = System.currentTimeMillis();
+        jsonData = new Gson().toJson(peoples);
+        byte[] datas = jsonData.getBytes();
+        try {
+            File dir = Environment.getExternalStorageDirectory();
+            File file = new File(dir, "gsonjson");
+            FileOutputStream fos = new FileOutputStream(file.getPath());
+            fos.write(datas);
+            fos.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        timeTaken = (System.currentTimeMillis() - startTime);
+        logText = new StringBuffer("gson SO 序列化 : " + timeTaken + "ms");
         int count = 0;
-        peoples = new Gson().fromJson(mJsonData, new TypeToken<List<SimplePeople>>() {
+        startTime = System.currentTimeMillis();
+        peoples = new Gson().fromJson(jsonData, new TypeToken<List<SimplePeople>>() {
         }.getType());
         if (null != peoples) {
             count = peoples.size();
         }
-        long timeTaken = (System.currentTimeMillis() - startTime);
+        timeTaken = (System.currentTimeMillis() - startTime);
         logText.append(",").append("gson SO 反序列化 : " + timeTaken + "ms");
-        textViewJson.setText(logText + "  count.=" + count);
+        textViewJson.setText(logText + "  count.=" + count + " length=" + datas.length);
         Log.d(TAG, "loadFromGsonGet " + logText + " peoples=" + peoples.get(0));
     }
 
@@ -211,26 +241,27 @@ public class JsonActivity extends AppCompatActivity {
     }
 
     public void loadFromFastJsonGet(View view) {
-        textViewFastJson.setText("");
-        Log.d(TAG, "loadFromFastJson 1 ");
-        if (TextUtils.isEmpty(mJson)) {
-            return;
-        }
-        Log.d(TAG, "loadFromFastJson 2");
-        long startTime = System.currentTimeMillis();
-        com.flatbuffer.jsonmodel.PeopleListJson peopleList = null;
-        int m = 1;
-        for (int i = 0; i < m; i++) {
-            peopleList = JSON.parseObject(mJson, com.flatbuffer.jsonmodel.PeopleListJson.class);
-        }
-        long timeTaken = (System.currentTimeMillis() - startTime) / m;
-        String logText = "FastJson : " + timeTaken + "ms";
-        int count = 0;
-        if (null != peopleList) {
-            count = peopleList.count();
-        }
-        Log.d(TAG, "loadFromFastJsonGet count =" + count);
-        textViewFastJson.setText(logText + "  count=" + count);
+
+//        textViewFastJson.setText("");
+//        Log.d(TAG, "loadFromFastJson 1 ");
+//        if (TextUtils.isEmpty(mJson)) {
+//            return;
+//        }
+//        Log.d(TAG, "loadFromFastJson 2");
+//        long startTime = System.currentTimeMillis();
+//        com.flatbuffer.jsonmodel.PeopleListJson peopleList = null;
+//        int m = 1;
+//        for (int i = 0; i < m; i++) {
+//            peopleList = JSON.parseObject(mJson, com.flatbuffer.jsonmodel.PeopleListJson.class);
+//        }
+//        long timeTaken = (System.currentTimeMillis() - startTime) / m;
+//        String logText = "FastJson : " + timeTaken + "ms";
+//        int count = 0;
+//        if (null != peopleList) {
+//            count = peopleList.count();
+//        }
+//        Log.d(TAG, "loadFromFastJsonGet count =" + count);
+//        textViewFastJson.setText(logText + "  count=" + count);
     }
 
     public void loadFromFastJsonSimpleObject(View view) {
@@ -245,65 +276,91 @@ public class JsonActivity extends AppCompatActivity {
             peoples.add(people);
 
         }
-        jsonData = JSON.toJSONString(peoples);
-        long timeTaken = (System.currentTimeMillis() - startTime);
         long startTime = System.currentTimeMillis();
+        jsonData = JSON.toJSONString(peoples);
+        byte[] datas = jsonData.getBytes();
+        try {
+            File dir = Environment.getExternalStorageDirectory();
+            File file = new File(dir, "fastjson");
+            FileOutputStream fos = new FileOutputStream(file.getPath());
+            fos.write(datas);
+            fos.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        long timeTaken = (System.currentTimeMillis() - startTime);
 //        StringBuffer logText = new StringBuffer();
         StringBuffer logText = new StringBuffer("fastjson SO 序列化 : " + timeTaken + "ms");
         int count = 0;
-        peoples = JSON.parseArray(mJsonData, SimplePeople.class);
+        startTime = System.currentTimeMillis();
+        peoples = JSON.parseArray(jsonData, SimplePeople.class);
         if (null != peoples) {
             count = peoples.size();
         }
-        long timeTaken = (System.currentTimeMillis() - startTime);
+
+        timeTaken = (System.currentTimeMillis() - startTime);
         logText.append(",").append("fastjson SO 反序列化 : " + timeTaken + "ms");
-        textViewJson.setText(logText + "  count.=" + count);
+        textViewJson.setText(logText + "  count.=" + count + " length=" + datas.length);
         Log.d(TAG, "loadFromFastJsonSimpleObject " + logText + " peoples=" + peoples.get(0));
     }
 
-//    public void loadFromAndroidJsonSO(View view) {
-//        textViewJson.setText("");
-//        long startTime = System.currentTimeMillis();
-//        PeopleListJson peopleList = null;
-//        List peoples = new ArrayList<SimplePeople>();
-//        String jsonData = "";
-//        int m = 50000;
-//        for (int i = 0; i < m; i++) {
-//            SimplePeople people = SimplePeople.fillData();
-//            peoples.add(people);
-//
-//        }
-//        jsonData = toJsonString(peoples);
-//        peoples.clear();
-//        long timeTaken = (System.currentTimeMillis() - startTime);
-//        startTime = System.currentTimeMillis();
-//        StringBuffer logText = new StringBuffer("org json SO 序列化 : " + timeTaken + "ms");
-//        int count = 0;
-////        try {
-////            org.json.JSONArray jsonArray = new org.json.JSONArray(jsonData);
-////            int length = jsonArray.length();
-////            for (int i = 0; i < length; i++) {
-////                SimplePeople people = new SimplePeople();
-////                org.json.JSONObject peopleJson = jsonArray.getJSONObject(i);
-////                people.setCompany(peopleJson.optString("company"));
-////                people.setId(peopleJson.optString("id"));
-////                people.setIndex(peopleJson.optInt("index"));
-////                people.setGuid(peopleJson.optString("guid"));
-//////                people.setName(peopleJson.optString("name"));
-////                people.setEmail(peopleJson.optString("email"));
-////                peoples.add(people);
-////            }
-////        } catch (Exception e) {
-////
-////        }
-//        if (null != peoples) {
-//            count = peoples.size();
-//        }
-//        timeTaken = (System.currentTimeMillis() - startTime);
-//        logText.append(",").append("org json SO 反序列化 : " + timeTaken + "ms");
-//        textViewJson.setText(logText + "  count.=" + count + " length=" + jsonData.length());
-//        Log.d(TAG, "loadFromAndroidJsonSO " + logText + " peoples=" + peoples.get(0));
-//    }
+    public void loadFromAndroidJsonSO(View view) {
+        textViewJson.setText("");
+        long startTime = System.currentTimeMillis();
+        PeopleListJson peopleList = null;
+        ArrayList peoples = new ArrayList<SimplePeople>();
+        String jsonData = "";
+        int m = 50000;
+        for (int i = 0; i < m; i++) {
+            SimplePeople people = SimplePeople.fillData();
+            peoples.add(people);
+
+        }
+        jsonData = toJsonString(peoples);
+        byte[] datas = jsonData.getBytes();
+        try {
+            File dir = Environment.getExternalStorageDirectory();
+            File file = new File(dir, "android_json");
+            FileOutputStream fos = new FileOutputStream(file.getPath());
+            fos.write(datas);
+            fos.close();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        long timeTaken = (System.currentTimeMillis() - startTime);
+        startTime = System.currentTimeMillis();
+        StringBuffer logText = new StringBuffer("org json SO 序列化 : " + timeTaken + "ms");
+        int count = 0;
+        peoples.clear();
+        try {
+            org.json.JSONObject jsonObject = new org.json.JSONObject(jsonData);
+            org.json.JSONArray jsonArray = jsonObject.getJSONArray("simplePeoples");
+            int length = jsonArray.length();
+            for (int i = 0; i < length; i++) {
+                SimplePeople people = new SimplePeople();
+                org.json.JSONObject peopleJson = jsonArray.getJSONObject(i);
+                people.setName(peopleJson.optString("name"));
+//                people.setId(peopleJson.optString("id"));
+//                people.setIndex(peopleJson.optInt("index"));
+//                people.setGuid(peopleJson.optString("guid"));
+////                people.setName(peopleJson.optString("name"));
+                people.setEmail(peopleJson.optString("email"));
+                peoples.add(people);
+            }
+        } catch (Exception e) {
+
+        }
+        if (null != peoples) {
+            count = peoples.size();
+        }
+        timeTaken = (System.currentTimeMillis() - startTime);
+        logText.append(",").append("org json SO 反序列化 : " + timeTaken + "ms");
+        textViewJson.setText(logText + "  count.=" + count + " length=" + jsonData.length() + " " +
+                "datas=" + datas.length);
+        Log.d(TAG, "loadFromAndroidJsonSO " + logText + " peoples=" + peoples.get(0));
+    }
 
     private void test() {
         String a = "{\"key\":\"123\", \"title\":\"asd\", \"values\":[\"a\", \"b\", \"c\", \"d\"]," +
@@ -337,9 +394,10 @@ public class JsonActivity extends AppCompatActivity {
     }
 
     public void loadFromAndroidJson(View view) {
-        textViewAndroidJson.setText("");
-        Log.d(TAG, "loadFromAndroidJson 1 ");
-        test();
+
+//        textViewAndroidJson.setText("");
+//        Log.d(TAG, "loadFromAndroidJson 1 ");
+//        test();
 //        mJson = Utils.fileToString(Environment.getExternalStorageDirectory() + "/sample_json
 // .json");
 //        mJson = Utils.fileToString(Environment.getExternalStorageDirectory() + "/arkapsconf
@@ -363,7 +421,7 @@ public class JsonActivity extends AppCompatActivity {
 //            for (int i = 0; i < length; i++) {
 //                JSONObject peopleJson = elements.getJSONObject(i);
 //                PeopleJson people = new PeopleJson();
-//                people.setCompany(peopleJson.optString("company"));
+//                people.setName(peopleJson.optString("company"));
 //                people.setId(peopleJson.optString("id"));
 //                people.setIndex(peopleJson.optInt("index"));
 //                people.setGuid(peopleJson.optString("guid"));
@@ -403,29 +461,137 @@ public class JsonActivity extends AppCompatActivity {
 //        textViewAndroidJson.setText(logText + "  count=" + count);
     }
 
-    public static String toJsonString(List<SimplePeople> peopleList) {
+    public void loadFromPBSO(View view) {
+        StringBuffer logText = new StringBuffer();
+        long startTime = System.currentTimeMillis();
+        long timeTaken = 0;
+        File file = AddressBookProtobuf.encodeTest(50000);
+        timeTaken = (System.currentTimeMillis() - startTime);
+        logText.append("protobuf SO 序列化 : " + timeTaken + "ms");
+        startTime = System.currentTimeMillis();
+        AddressBookProtos.AddressBook addressBook = AddressBookProtobuf.decodeTest();
+        timeTaken = (System.currentTimeMillis() - startTime);
+        logText.append(",").append("pb SO 反序列化 : " + timeTaken + "ms");
+//        Log.d(TAG, "loadFromFastJson " + logText + "  value=" + Integer.parseInt(adConfigBean
+//                .getClickHandle(), 16));
+        textViewAndroidJson.setText(logText + "  count=" + addressBook.getPersonList().size() + "" +
+                " size=" + file.length());
+    }
+
+    public void serializeSO(View view) {
+        StringBuffer logText = new StringBuffer();
+        long timeTaken = 0;
+        AddressBook addressBook = new AddressBook();
+        ArrayList<SimplePeople> peoples = new ArrayList<SimplePeople>();
+        int m = 50000;
+        for (int i = 0; i < m; i++) {
+            SimplePeople people = SimplePeople.fillData();
+            peoples.add(people);
+
+        }
+        long startTime = System.currentTimeMillis();
+        File dir = Environment.getExternalStorageDirectory();
+        File file = new File(dir, "serialize");
+        addressBook.simplePeoples = peoples;
+        try {
+            FileOutputStream outputStream = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(outputStream);
+            oos.writeObject(addressBook);
+            oos.close();
+            outputStream.close();
+        } catch (IOException e) {
+        }
+        timeTaken = (System.currentTimeMillis() - startTime);
+        logText.append("serialize SO 序列化 : " + timeTaken + "ms");
+        addressBook = null;
+        startTime = System.currentTimeMillis();
+        try {
+            FileInputStream fileInputStream = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fileInputStream);
+            addressBook = (AddressBook) ois.readObject();
+            ois.close();
+            fileInputStream.close();
+        } catch (Exception e) {
+        }
+        timeTaken = (System.currentTimeMillis() - startTime);
+        logText.append(",").append("serialize SO 反序列化 : " + timeTaken + "ms");
+//        Log.d(TAG, "loadFromFastJson " + logText + "  value=" + Integer.parseInt(adConfigBean
+//                .getClickHandle(), 16));
+        textViewAndroidJson.setText(logText + "  count=" + addressBook.simplePeoples.size() + "" +
+                " size=" + file.length());
+    }
+
+    public void testsp(View view) {
+        StringBuffer logText = new StringBuffer();
+        long startTime;
+        startTime = System.currentTimeMillis();
+        int count = 1;
+        for (int i = 0; i < count; i++) {
+            String key = "name" + i;
+            String value = "value" + i;
+            mSP.edit().putString(key, value).commit();
+        }
+        long cost = System.currentTimeMillis() - startTime;
+        logText.append("插入sp的个数:").append(count).append(" 花费时间:").append(cost);
+        textViewAndroidJson.setText(logText);
+    }
+
+    public void testInitSp(View view) {
+        HashMap<String, String> map = new HashMap<>();
+        long startTime;
+        startTime = System.currentTimeMillis();
+        for (int i = 0; i < 2500; i++) {
+            map.put("name_test_abcde_fdsfdsggfdg" + i, "value_kk_fdsfdggfdg" + i);
+            mSP.edit().putString("name_test_abcde_fdsfdsggfdg" + i, "value_kk_fdsfdggfdg" + i)
+                    .apply();
+        }
+        StringBuffer logText = new StringBuffer();
+//        File file = new File(getCacheDir(), "test.xml");
+//        FileOutputStream str = null;
+//        try {
+//            str = new FileOutputStream(file);
+//            XmlUtils.writeMapXml(map, str);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        try {
+//            str.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        long cost = System.currentTimeMillis() - startTime;
+        logText.append("初始化sp的花费时间:").append(cost);
+        textViewAndroidJson.setText(logText);
+    }
+
+    public static String toJsonString(ArrayList<SimplePeople> peopleList) {
         if (peopleList == null) {
             return null;
         }
-        org.json.JSONArray jsonArray = new org.json.JSONArray();
-        org.json.JSONObject jsonObject = new org.json.JSONObject();
-        int length = peopleList.size();
+        AddressBook addressBook = new AddressBook();
+        addressBook.simplePeoples = peopleList;
+//        org.json.JSONArray jsonArray = new org.json.JSONArray();
+//        org.json.JSONObject jsonObject = new org.json.JSONObject();
+//        int length = peopleList.size();
 //        for (int i = 0; i < length; i++) {
 //            SimplePeople people = peopleList.get(i);
 //            try {
-//                jsonObject.put("id", people.getId());
-//                jsonObject.put("index", people.getIndex());
+////                jsonObject.put("id", people.getId());
+////                jsonObject.put("index", people.getIndex());
+////                jsonObject.put("email", people.getEmail());
+////                jsonObject.put("company", people.getName());
+////                jsonObject.put("guid", people.getGuid());
+////                jsonObject.put("gender", people.getGender());
+////                jsonObject.put("name", people.getName());
+//                jsonObject.put("company", people.getName());
 //                jsonObject.put("email", people.getEmail());
-//                jsonObject.put("company", people.getCompany());
-//                jsonObject.put("guid", people.getGuid());
-//                jsonObject.put("gender", people.getGender());
-//                jsonObject.put("name", people.getName());
 //                jsonArray.put(jsonObject);
 //            } catch (JSONException e) {
 //                e.printStackTrace();
 //            }
 //        }
 
-        return jsonArray.toString();
+//        return jsonArray.toString();
+        return JSON.toJSONString(addressBook);
     }
 }
