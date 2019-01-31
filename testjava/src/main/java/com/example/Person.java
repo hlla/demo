@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Person extends PersonParent implements Cloneable {
-    //    private static final long serialVersionUID = -121111345678102L;
-//    private static final long serialVersionUID = 12111134567890L;
+    private static final long serialVersionUID = -121111345678102L;
+    //    private static final long serialVersionUID = 12111134567890L;
     public String id;
     public String age;
     public String sex;
@@ -93,7 +93,7 @@ public class Person extends PersonParent implements Cloneable {
                 ", address=" + address +
                 ", addressArrayList=" + addressArrayList +
                 ", AdGoodsInfo=" + adGoodsInfo +
-                ", hashMap=" + hashMap + ", sss=" + sss +", gender=" + gender +
+                ", hashMap=" + hashMap + ", sss=" + sss + ", gender=" + gender +
                 '}';
     }
 

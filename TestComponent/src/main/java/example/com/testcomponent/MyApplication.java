@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-//import android.os.SystemProperties;
 import android.support.multidex.MultiDexApplication;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+
+//import android.os.SystemProperties;
 
 /**
  * Created by chengjian on 18-4-19.
@@ -48,15 +48,17 @@ public class MyApplication extends MultiDexApplication {
         PackageManager pm = getPackageManager();
 //        isEuro = SystemProperties.getBoolean("debug.test.euro", false);
         if (true) {
-            pm.setComponentEnabledSetting(new ComponentName(this, "example.com.testcomponent" +
-                            ".MyStaticReceiverA"),
-                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+//            pm.setComponentEnabledSetting(new ComponentName(this, "example.com.testcomponent" +
+//                            ".MyStaticReceiverA"),
+//                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED);
             intentFilter.addAction(Intent.ACTION_PACKAGE_REMOVED);
-            LocalBroadcastManager.getInstance(this).registerReceiver(
-                    new MyStaticReceiverA(), intentFilter
-            );
+            intentFilter.addAction(TestComponentActivity.MAIN_PROCESS_ACTION);
+//            LocalBroadcastManager.getInstance(this).registerReceiver(
+//                    new MyStaticReceiverA(), intentFilter
+//            );
+            registerReceiver(new MyStaticReceiverA(),intentFilter);
         } else {
             pm.setComponentEnabledSetting(new ComponentName(this, "example.com.testcomponent" +
                             ".MyStaticReceiverA"),

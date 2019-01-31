@@ -815,7 +815,7 @@ launcher_locker_repair_resourceid:1359 button1:string button2:string failtype:by
 launcher_dump_time:1360 upload_time:int process_name:byte
 launcher_mem_leakcanary:1361 realleak:byte process_name:byte switch_value:short class_name:string max_heap_mem:int current_heap_mem:int dump_time:int
 launcher_locker_antitheft_click:1362 display_source:byte press_help:byte success_failure:byte user_action:byte
-launcher_locker_facebook_fitness:1363 email:byte login_status:byte public_profile:byte user_friends:byte
+launcher_locker_facebook_fitness:1363 email0:byte login_status:byte public_profile:byte user_friends:byte
 launcher_locker_one_tap_protect:1364 access_permit:byte change_app:byte click_one_tap:byte fix_finish:byte other_applock:byte scan_time:short scan_upslide:byte screen_lock:byte set_password:byte set_password_click:byte shoot_rule:byte show_details:byte show_one_tap_btn:byte user_from:byte
 launcher_locker_one_tap_show:1365 reason:byte show_one_tap:byte
 launcher_locker_imitate_click:1367 auth_code:byte auth_errcode:int auth_failcode:byte auth_type:byte fixclick:byte fxitime:int

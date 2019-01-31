@@ -18,8 +18,7 @@ public class AddressBookProtobuf {
                 .newBuilder();
 
         for (int i = 0; i < count; ++i) {
-            addressBook.addPerson(AddressBookProtos.Person.newBuilder().setName("cheetamobile")
-                    .setEmail("cj3479@126.com"));
+            addressBook.addPerson(AddressBookProtos.Person.newBuilder().setName("cheetamobile"));
         }
         AddressBookProtos.AddressBook book = addressBook.build();
         try {

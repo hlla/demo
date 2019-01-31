@@ -109,8 +109,7 @@
                 android:text="loadFromGsonFromGet"
                 android:textAllCaps="false"
                 android:textColor="@android:color/black"
-                android:textSize="13dp"
-                android:visibility="gone"/>
+                android:textSize="13dp"/>
 
             <Button
                 android:layout_width="match_parent"

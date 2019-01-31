@@ -9,7 +9,7 @@ table People {
     name : string;
 	gender : string;
 	name : string;
-	email : string;
+	email0 : string;
 	friends : [Friend];
 }
 

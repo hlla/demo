@@ -81,11 +81,11 @@
         <receiver
             android:name=".MyStaticReceiverA"
             >
-            <intent-filter android:priority="5">
-                <action android:name="android.intent.action.mystaticreceiver"/>
+            <!--<intent-filter android:priority="5">-->
+                <!--<action android:name="android.intent.action.mystaticreceiver"/>-->
 
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--</intent-filter>-->
             <intent-filter android:priority="5">
                 <action android:name="android.intent.action.receivera"/>
 

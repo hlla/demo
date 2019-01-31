@@ -392,6 +392,7 @@ public class TestComponentActivity extends Activity {
         Intent intent = new Intent(MAIN_PROCESS_ACTION);
 //        Intent intent = new Intent(Intent.ACTION_PACKAGE_ADDED);
 //        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+//        intent.setPackage(getPackageName());
         sendBroadcast(intent);
 //        pollServer();
 //        testAlarm();
@@ -476,7 +477,7 @@ public class TestComponentActivity extends Activity {
         builder1.build().defaults |= Notification.DEFAULT_SOUND;
         builder1.build().defaults |= Notification.DEFAULT_LIGHTS;
         id++;
-        nm.notify(id, builder1.build());
+//        nm.notify(id, builder1.build());
     }
 
     @OnClick(R.id.content)

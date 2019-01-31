@@ -61,7 +61,8 @@ public class MainActivity extends ListActivity implements View.OnClickListener {
 //    private static final String URL = "https://ws.ksmobile" +
 //            ".net/api/GetCloudMsgAdv?version=2&lan=zh_CN&apkversion=5.36.1&channelid=null" +
 //            "&osversion=6.0&mcc=null&pkg=com.ksmobile.launcher&aid=ww71j1q7221611d3&ft=0";
-    private static final String URL = "http://horoscope.cmcm.com/daily/20180712.json";
+//    private static final String URL = "http://horoscope.cmcm.com/daily/20180712.json";
+    private static final String URL = "https://www.processonsss.com/diagrams";
     //    private static final String URL_1=
     // private static final String URL =
     // "http://10.150.160.136:8889/?os=0&cpu=00&apptype=0&pcode=010110000&mma=0&osvs=5.1&term
@@ -146,7 +147,7 @@ public class MainActivity extends ListActivity implements View.OnClickListener {
         params1.gravity = Gravity.CENTER_HORIZONTAL;
         view1.setText("Phone");
         view1.setBackgroundColor(Color.YELLOW);
-        windowManager.addView(view1, params1);
+//        windowManager.addView(view1, params1);
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.SYSTEM_ALERT_WINDOW},1);
         SharedPreferences sp = getSharedPreferences("abc",

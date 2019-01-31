@@ -18,10 +18,15 @@ public class TrainSetBuildTask implements Runnable {
         TrainSetBuildTask task2 = new TrainSetBuildTask(pathname);
         Thread t2 = new Thread(task2);
         t1.start();
+//        try {
+//            t1.join();
+//        } catch (Exception e) {
+//
+//        }
         try {
-            t1.join();
-        } catch (Exception e) {
-
+            Thread.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         t2.start();
     }
@@ -39,24 +44,29 @@ public class TrainSetBuildTask implements Runnable {
             //write to encodeImpl file
             FileOutputStream os = new FileOutputStream(new File(pathname), true);
             FileChannel channel = os.getChannel();
-            System.out.println("before tid=" + Thread.currentThread().getId());
+            System.out.println("before tid=" + Thread.currentThread().getId() + " time=" + System
+                    .currentTimeMillis());
             FileLock lock = channel.lock();
-            System.out.println("mid tid=" + Thread.currentThread().getId());
+            lock.release();
+            System.out.println("mid111 tid=" + Thread.currentThread().getId() + " time=" + System
+                    .currentTimeMillis());
 //            if (lock != null) {
 //                ByteBuffer bytes = ByteBuffer.wrap(content.getBytes());
 //                channel.write(bytes);
 //                lock.release();
 //            }
-            try {
-                Thread.sleep(10000000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            channel.close();
-            os.close();
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            lock.release();
+//            channel.close();
+//            os.close();
             System.out.println("after tid=" + Thread.currentThread().getId());
         } catch (IOException e) {
             e.printStackTrace();
+//            System.out.println("e=" + e);
         }
     }
 }

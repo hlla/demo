@@ -16,7 +16,10 @@
 
 package com.flatbuffer.model;
 
-public class FriendJson {
+import java.io.Serializable;
+
+public class FriendJson implements Serializable {
+    private static final long serialVersionUID = -9057330824966890086L;
     private int id;
     private String name;
 
