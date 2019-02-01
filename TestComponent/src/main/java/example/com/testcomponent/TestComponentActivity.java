@@ -8,12 +8,13 @@ import android.app.PendingIntent;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
-import android.content.ContentProviderClient;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,13 +34,13 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.WeakHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -214,9 +215,25 @@ public class TestComponentActivity extends Activity {
     }
 
     int i = 0;
+    private AtomicInteger integer = new AtomicInteger(1);
 
     @OnClick(R.id.insert)
     public void onInsertClicked() {
+        for (int m = 0; m < 200; m++) {
+            new Thread() {
+                @Override
+                public void run() {
+                    DatabaseHelper helper = new DatabaseHelper(TestComponentActivity.this,
+                            "hizone.db");
+                    SQLiteDatabase database = helper.getWritableDatabase();
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put("login_account", "cj" + integer.getAndIncrement());
+                    database.insert(DatabaseHelper.Tables.ACCOUNT, null, contentValues);
+                    database.close();
+                }
+            }.start();
+
+        }
         Log.d(TAG, "onInsertClicked: start");
         int secondaryCount = 0;
         File file = new File(Environment.getExternalStorageDirectory() + "/1.apk");

@@ -24,7 +24,7 @@ public class TrainSetBuildTask implements Runnable {
 //
 //        }
         try {
-            Thread.sleep(2);
+            Thread.sleep(10);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

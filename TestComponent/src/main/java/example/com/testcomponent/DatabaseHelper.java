@@ -54,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      *
      * @param context 上下文
      */
-    private DatabaseHelper(Context context, String databaseName) {
+    public DatabaseHelper(Context context, String databaseName) {
         super(context, databaseName, null, DATABASE_VERSION);
         Log.i(TAG, "init DatabaseHelper()");
     }
