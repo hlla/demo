@@ -64,13 +64,22 @@
             app:layout_constraintTop_toBottomOf="@+id/update"/>
 
         <Button
+            android:id="@+id/unBindservice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="unBind"
+            app:layout_constraintStart_toStartOf="@+id/update"
+            app:layout_constraintTop_toBottomOf="@+id/bindservice"/>
+
+        <Button
             android:id="@+id/main_broadcast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="main broadcast"
-            app:layout_constraintStart_toStartOf="@+id/bindservice"
-            app:layout_constraintTop_toBottomOf="@+id/bindservice"/>
+            app:layout_constraintStart_toStartOf="@+id/update"
+            app:layout_constraintTop_toBottomOf="@+id/unBindservice"/>
 
         <Button
             android:id="@+id/loading_broadcast"

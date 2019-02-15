@@ -59,16 +59,22 @@ public class TestComponentActivity extends Activity {
     private static class SingletonHolder {
         private static final TestComponentActivity INSTANCE = new TestComponentActivity();
     }
-    private TestComponentActivity (){}
+
+    private TestComponentActivity() {
+    }
+
     public static final TestComponentActivity getInstance() {
         return SingletonHolder.INSTANCE;
     }
+
     private static final int MSG_TIMER = 1;
     private static final String TAG = "TestComponent1_Activity";
     public static final String MAIN_PROCESS_ACTION = "android.intent.action.mystaticreceiver";
     public static final String LOADING_PROCESS_ACTION = "android.intent.action.MyStaticReceiverA";
     @BindView(R.id.bindservice)
     Button bindservice;
+    @BindView(R.id.unBindservice)
+    Button unBindservice;
     @BindView(R.id.main_broadcast)
     Button mainBroadcast;
     @BindView(R.id.loading_broadcast)
@@ -447,6 +453,29 @@ public class TestComponentActivity extends Activity {
     }
 
     private IMyAidlInterface mIMyAidlInterface;
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.e(TAG, "onServiceConnected: name=" + name + " service=" + service);
+            mIMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.e(TAG, "onServiceDisconnected: name=" + name);
+        }
+
+        @Override
+        public void onBindingDied(ComponentName name) {
+            Log.e(TAG, "onBindingDied: name=" + name);
+        }
+    };
+
+    @OnClick(R.id.unBindservice)
+    public void onUnBindserviceClicked() {
+        unbindService(mServiceConnection);
+    }
 
     @OnClick(R.id.bindservice)
     public void onBindserviceClicked() {
@@ -455,21 +484,8 @@ public class TestComponentActivity extends Activity {
         Intent intent = new Intent();
 //        intent.setClassName("letv.com.testanr11", "letv.com.testanr.MyService");
         intent.setClassName("example.com.testcomponent.dd", "example.com.testcomponent.MyService");
-        boolean result = bindService(intent, new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.e(TAG, "onServiceConnected: name=" + name + " service=" + service);
-                mIMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
-
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                Log.e(TAG, "onServiceDisconnected: name=" + name);
-
-            }
-        }, BIND_AUTO_CREATE);
-        new Thread(){
+        boolean result = bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+        new Thread() {
             @Override
             public void run() {
                 if (null != mIMyAidlInterface) {
