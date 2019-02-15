@@ -19,12 +19,12 @@ public class MyProxyReceiver extends BroadcastReceiver {
         new Thread() {
             @Override
             public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+//                try {
+//                    Thread.sleep(3000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
         };
 //        abortBroadcast();

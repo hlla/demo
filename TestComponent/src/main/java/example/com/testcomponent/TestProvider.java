@@ -146,7 +146,7 @@ public class TestProvider extends SQLiteContentProvider {
      */
     @Override
     public boolean onCreate() {
-        Log.d(TAG, "TestProvider--->onCreate()");
+        Log.d(TAG, "TestProvider--->onCreate() this="+this);
 
         super.onCreate();
         try {
@@ -155,7 +155,6 @@ public class TestProvider extends SQLiteContentProvider {
             Log.e(TAG, "TestProvider--->onCreate() exception:", e);
             return false;
         }
-
     }
 
     /**

@@ -6,10 +6,15 @@ import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Created by chengjian on 17/5/31.
@@ -20,11 +25,33 @@ public class MyService extends Service {
     public static final int NOTIFICATION_ID = 11111;
     public static final String KEY_IS_FOREGROUND = "is_foreground";
     public static final String KEY_IS_CONTENT = "content";
+    private SharedPreferences mSp;
+    private IMyAidlInterface.Stub iMyAidlInterface = new IMyAidlInterface.Stub() {
+        @Override
+        public void test(int a) throws RemoteException {
+            try {
+                Thread.sleep(20000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            HashMap<String, ?> values = (HashMap) mSp.getAll();
+            Random random = new Random();
+            int next = random.nextInt(100);
+            Log.d(TAG, "test: values=" + values + " next=" + next);
+            mSp.edit().putLong("haha", next).apply();
 
+        }
+
+        @Override
+        public IBinder asBinder() {
+            return null;
+        }
+    };
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mSp = getSharedPreferences("cj_file", MODE_MULTI_PROCESS);
 //        try {
 //            Thread.sleep(5000);
 //        } catch (InterruptedException e) {
@@ -116,6 +143,7 @@ public class MyService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        Log.d(TAG, "onBind intent=" + intent);
+        return iMyAidlInterface;
     }
 }

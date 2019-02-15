@@ -174,30 +174,30 @@ public abstract class SQLiteContentProvider extends ContentProvider implements
 //            e.printStackTrace();
 //        }
         Uri result = null;
-        boolean applyingBatch = applyingBatch();
-        if (!applyingBatch) {
-            mDb = mOpenHelper.getWritableDatabase();
-            mDb.beginTransactionWithListener(this);
-            try {
-                result = insertInTransaction(uri, values);
-                // 操作成功标记有数据改动
-                if (result != null) {
-                    mNotifyChange = true;
-                }
-                mDb.setTransactionSuccessful();
-            } finally {
-                mDb.endTransaction();
-            }
-            onEndTransaction();
-        }
-        // 有批处理在执行时不需要另外开启事物
-        else {
+//        boolean applyingBatch = applyingBatch();
+//        if (!applyingBatch) {
+//            mDb = mOpenHelper.getWritableDatabase();
+//            mDb.beginTransactionWithListener(this);
+//            try {
+//                result = insertInTransaction(uri, values);
+//                // 操作成功标记有数据改动
+//                if (result != null) {
+//                    mNotifyChange = true;
+//                }
+//                mDb.setTransactionSuccessful();
+//            } finally {
+//                mDb.endTransaction();
+//            }
+//            onEndTransaction();
+//        }
+//        // 有批处理在执行时不需要另外开启事物
+//        else {
             result = insertInTransaction(uri, values);
             // 操作成功标记有数据改动
             if (result != null) {
                 mNotifyChange = true;
             }
-        }
+//        }
         Log.i(TAG, "end insert...   uri==> " + uri);
 //        throw new RuntimeException("asdassdfd");
         ContentResolver contentResolver = getContext().getContentResolver();

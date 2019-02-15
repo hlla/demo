@@ -22,6 +22,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.RemoteException;
 import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
@@ -38,7 +39,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Random;
 import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
@@ -53,6 +56,13 @@ import example.com.testcomponent.statics.TestStaticD;
 //import android.os.SystemProperties;
 
 public class TestComponentActivity extends Activity {
+    private static class SingletonHolder {
+        private static final TestComponentActivity INSTANCE = new TestComponentActivity();
+    }
+    private TestComponentActivity (){}
+    public static final TestComponentActivity getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
     private static final int MSG_TIMER = 1;
     private static final String TAG = "TestComponent1_Activity";
     public static final String MAIN_PROCESS_ACTION = "android.intent.action.mystaticreceiver";
@@ -219,22 +229,44 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.insert)
     public void onInsertClicked() {
-        for (int m = 0; m < 200; m++) {
+        Intent intent1 = new Intent(LOADING_PROCESS_ACTION);
+//        intent1.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+        sendBroadcast(intent1);
+        Log.d(TAG, "onInsertClicked: start 0");
+//        final DatabaseHelper helper = new DatabaseHelper(TestComponentActivity.this,
+//                "hizone.db");
+        for (int m = 0; m < 500; m++) {
             new Thread() {
                 @Override
                 public void run() {
-                    DatabaseHelper helper = new DatabaseHelper(TestComponentActivity.this,
-                            "hizone.db");
-                    SQLiteDatabase database = helper.getWritableDatabase();
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put("login_account", "cj" + integer.getAndIncrement());
-                    database.insert(DatabaseHelper.Tables.ACCOUNT, null, contentValues);
-                    database.close();
+                    synchronized (TestComponentActivity.this) {
+                        try {
+                            sleep(1);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        //                    DatabaseHelper helper = new DatabaseHelper
+                        // (TestComponentActivity.this,
+//                            "hizone.db");
+//                    SQLiteDatabase database = helper.getReadableDatabase();
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put("login_account", "cj" + integer.getAndIncrement());
+//                    ContentValues contentValues = new ContentValues();
+                        contentValues.put("login_account", "cj" + i);
+                        getContentResolver().insert(URIField.ACCOUNT_URI, contentValues);
+//                    if (integer.get() % 2 == 0) {
+//                    database.insert(DatabaseHelper.Tables.ACCOUNT, null, contentValues);
+//                    } else {
+//                        database.query(DatabaseHelper.Tables.ACCOUNT, null, null, null, null,
+// null,
+//                                null);
+//                    }
+//                    database.close();
+                    }
                 }
             }.start();
-
         }
-        Log.d(TAG, "onInsertClicked: start");
+        Log.d(TAG, "onInsertClicked: start 1");
         int secondaryCount = 0;
         File file = new File(Environment.getExternalStorageDirectory() + "/1.apk");
         long time = 0;
@@ -325,8 +357,40 @@ public class TestComponentActivity extends Activity {
         }
     };
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause: ");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop: ");
+    }
+
     @OnClick(R.id.update)
     public void onUpdateClicked() {
+        final SharedPreferences sp = getSharedPreferences("cj_file", MODE_MULTI_PROCESS);
+        HashMap<String, ?> values = (HashMap) sp.getAll();
+        Random random = new Random();
+        int next = random.nextInt(100);
+        final StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < 5l; i++) {
+            sb.append(i);
+        }
+//        Log.d(TAG, "test: values=" + values + " next=" + next);
+        Log.d(TAG, "onUpdateClicked");
+        new Thread() {
+            @Override
+            public void run() {
+                Log.d(TAG, "onUpdateClicked 11");
+                for (int m = 0; i < 10000l; i++) {
+                    sp.edit().putString(String.valueOf(i), sb.toString()).apply();
+                }
+            }
+        }.start();
+//        sp.edit().putLong("aaa", next).putInt("ss", next).apply();
         try {
             getClassLoader().loadClass("example.com.testcomponent.statics.TestStaticE");
         } catch (ClassNotFoundException e) {
@@ -382,24 +446,41 @@ public class TestComponentActivity extends Activity {
 //        }.start();
     }
 
+    private IMyAidlInterface mIMyAidlInterface;
+
     @OnClick(R.id.bindservice)
     public void onBindserviceClicked() {
 //        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 //        manager.killBackgroundProcesses("example.com.testcomponent");
         Intent intent = new Intent();
-        intent.setClassName("letv.com.testanr11", "letv.com.testanr.MyService");
+//        intent.setClassName("letv.com.testanr11", "letv.com.testanr.MyService");
+        intent.setClassName("example.com.testcomponent.dd", "example.com.testcomponent.MyService");
         boolean result = bindService(intent, new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.e(TAG, "onServiceConnected: ");
+                Log.e(TAG, "onServiceConnected: name=" + name + " service=" + service);
+                mIMyAidlInterface = IMyAidlInterface.Stub.asInterface(service);
+
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                Log.e(TAG, "onServiceDisconnected: ");
+                Log.e(TAG, "onServiceDisconnected: name=" + name);
 
             }
         }, BIND_AUTO_CREATE);
+        new Thread(){
+            @Override
+            public void run() {
+                if (null != mIMyAidlInterface) {
+                    try {
+                        mIMyAidlInterface.test(1);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
         Log.e(TAG, "onBindServiceClicked: end result=" + result);
     }
 
