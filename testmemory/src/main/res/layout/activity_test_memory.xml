@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:orientation="vertical"
     tools:context="com.example.testmemory.TestMemoryActivity"
     >
 
-    <Button
-        android:id="@+id/test_drawable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test drawable"
-        android:filterTouchesWhenObscured="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/test_file"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="test file"/>
+        <Button
+            android:id="@+id/test_drawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:filterTouchesWhenObscured="true"
+            android:text="test drawable"/>
 
-    <com.example.testmemory.MyButton
-        android:id="@+id/test_webview"
-        android:layout_width="300dip"
-        android:layout_height="300dip"
-        android:text="@string/test_webview"
-        />
+        <Button
+            android:id="@+id/test_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test file"/>
 
-    <com.example.testmemory.MyImageView
-        android:id="@+id/test_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        <com.example.testmemory.MyButton
+            android:id="@+id/test_webview"
+            android:layout_width="300dip"
+            android:layout_height="300dip"
+            android:text="@string/test_webview"
+            />
 
-    <Button
-        android:id="@+id/test_smooth"
-        android:layout_width="300dip"
-        android:layout_height="300dip"
-        android:text="@string/test_smooth"
-        />
+        <com.example.testmemory.MyImageView
+            android:id="@+id/test_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="100dip"
-        android:layout_height="100dip"
-        android:layout_marginTop="20dip"
-        android:background="#3fffffff"
-        android:visibility="gone"
-        />
-</LinearLayout>
+        <com.example.testmemory.MyImageView
+            android:id="@+id/test_image_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:id="@+id/test_smooth"
+            android:layout_width="300dip"
+            android:layout_height="300dip"
+            android:text="@string/test_smooth"
+            />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:layout_marginTop="20dip"
+            android:background="#3fffffff"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+</ScrollView>

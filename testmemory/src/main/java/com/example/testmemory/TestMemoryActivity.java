@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -26,12 +27,10 @@ import android.widget.TextView;
 import com.squareup.leakcanary.RefWatcher;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.concurrent.locks.ReentrantLock;
@@ -52,7 +51,7 @@ public class TestMemoryActivity extends Activity {
     private static final String TAG = "TestMemoryActivity";
     private static ArrayList<Bitmap> sBitmaps = new ArrayList<>();
     //    private static ArrayList<AppCompatActivity> sActivities = new ArrayList<>();
-    private static ImageView sImageView;
+    private ImageView sImageView;
     //    @BindView(R.id.test_webview)
     Button testWebview;
     @BindView(R.id.test_drawable)
@@ -61,6 +60,8 @@ public class TestMemoryActivity extends Activity {
     Button testFile;
     @BindView(R.id.test_image)
     MyImageView testImage;
+    @BindView(R.id.test_image_1)
+    MyImageView testImage1;
     @BindView(R.id.test_smooth)
     Button testSmooth;
     @BindView(R.id.view)
@@ -72,7 +73,7 @@ public class TestMemoryActivity extends Activity {
     static int add(int a, int b) {
         int sum = a;
 
-	/*直到进位的结果为0*/
+        /*直到进位的结果为0*/
         while (b != 0) {
             sum = a ^ b; /*不考虑进位的和*/
             b = (a & b) << 1; /*只考虑进位的产生值*/
@@ -164,179 +165,193 @@ public class TestMemoryActivity extends Activity {
     @OnClick(R.id.test_drawable)
     public void onTestDrawableClicked() {
         TestBean bean = new TestBean();
-        File file = new File(getFilesDir(), "/test.txt");
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream);
-            oos.writeObject(bean);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Thread s = new Thread() {
-            @Override
-            public void run() {
-                Log.d(TAG, "1111111111");
-                readWriteLock.readLock().lock();
-//                reentrantLock.lock();
-                try {
-                    Thread.sleep(1500);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-//                reentrantLock.unlock();
-                readWriteLock.readLock().unlock();
-                Log.d(TAG, "2222222222");
-                Log.d(TAG, "2222222222");
-                Log.d(TAG, "2222222222");
-                Log.d(TAG, "2222222222");
-                Log.d(TAG, "2222222222");
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                readWriteLock.writeLock().lock();
-//                reentrantLock.lock();
-                Log.d(TAG, "333333");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                Log.d(TAG, "444444");
-                readWriteLock.writeLock().unlock();
-//                reentrantLock.unlock();
+//        File file = new File(getFilesDir(), "/test.txt");
+//        try {
+//            FileOutputStream fileOutputStream = new FileOutputStream(file);
+//            ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream);
+//            oos.writeObject(bean);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        Thread s = new Thread() {
+//            @Override
+//            public void run() {
+//                Log.d(TAG, "1111111111");
 //                readWriteLock.readLock().lock();
-            }
-        };
-        s.start();
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        new Thread() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(1000);
-//                        Log.d(TAG, "run: 111111");
-//                        sleep(20000);
-//                        Log.d(TAG, "run: 22222");
-//                        ArrayList<String> strings = new ArrayList<>();
-//                        for (int i = 0; i < 500000; i++) {
-//                            strings.add(i + "fghfdhfhfhgfhghhhgdhgf");
-//                        }
-//                        Log.d(TAG, "run: 33333");
-//                        sleep(20000);
-//                        Log.d(TAG, "run: 444444");
-                    } catch (Exception e) {
-
-                    }
-                }
-
-//                Log.d(TAG, "5555");
+////                reentrantLock.lock();
+//                try {
+//                    Thread.sleep(1500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+////                reentrantLock.unlock();
+//                readWriteLock.readLock().unlock();
+//                Log.d(TAG, "2222222222");
+//                Log.d(TAG, "2222222222");
+//                Log.d(TAG, "2222222222");
+//                Log.d(TAG, "2222222222");
+//                Log.d(TAG, "2222222222");
+//                try {
+//                    Thread.sleep(10000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
 //                readWriteLock.writeLock().lock();
 ////                reentrantLock.lock();
-//                Log.d(TAG, "6666");
+//                Log.d(TAG, "333333");
 //                try {
 //                    Thread.sleep(1000);
 //                } catch (InterruptedException e) {
 //                    e.printStackTrace();
 //                }
-//                Log.d(TAG, "777777");
+//                Log.d(TAG, "444444");
 //                readWriteLock.writeLock().unlock();
-//                reentrantLock.unlock();
-            }
-        }.start();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        s.interrupt();
-        Drawable drawable = getDrawable(R.drawable.biggest_1);
-        showDialog(this, drawable);
+////                reentrantLock.unlock();
+////                readWriteLock.readLock().lock();
+//            }
+//        };
+//        s.start();
+//        try {
+//            Thread.sleep(500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        Thread.sleep(1000);
+////                        Log.d(TAG, "run: 111111");
+////                        sleep(20000);
+////                        Log.d(TAG, "run: 22222");
+////                        ArrayList<String> strings = new ArrayList<>();
+////                        for (int i = 0; i < 500000; i++) {
+////                            strings.add(i + "fghfdhfhfhgfhghhhgdhgf");
+////                        }
+////                        Log.d(TAG, "run: 33333");
+////                        sleep(20000);
+////                        Log.d(TAG, "run: 444444");
+//                    } catch (Exception e) {
+//
+//                    }
+//                }
+//
+////                Log.d(TAG, "5555");
+////                readWriteLock.writeLock().lock();
+//////                reentrantLock.lock();
+////                Log.d(TAG, "6666");
+////                try {
+////                    Thread.sleep(1000);
+////                } catch (InterruptedException e) {
+////                    e.printStackTrace();
+////                }
+////                Log.d(TAG, "777777");
+////                readWriteLock.writeLock().unlock();
+////                reentrantLock.unlock();
+//            }
+//        }.start();
+//        try {
+//            Thread.sleep(5000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        s.interrupt();
+//        Drawable drawable = getDrawable(R.drawable.biggest_1);
+//        showDialog(this, drawable);
         InputStream is1 = null;
         try {
             is1 = getResources().getAssets().open("wb.jpg");
-            is1 = new FileInputStream(new File(Environment.getExternalStorageDirectory() + "/" +
-                    "wb.jpg"));
+//            is1 = new FileInputStream(new File(Environment.getExternalStorageDirectory() + "/" +
+//                    "wb.jpg"));
 
             Log.d(TAG, "is1" + is1);
         } catch (IOException e) {
             e.printStackTrace();
         }
         BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ALPHA_8;
-        options.outWidth = 100;
-        options.outHeight = 100;
-        options.inDensity = 1;
-        options.inTargetDensity = 1;
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.a,
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inMutable = true;
+//        options.outWidth = 100;
+//        options.outHeight = 100;
+//        options.inDensity = 1;
+//        options.inTargetDensity = 1;
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.a22,
                 options);
-        testImage.setImageBitmap(bmp1);
         Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
+                .outWidth + " byte=" + bmp.getByteCount() + " type=" + options.outMimeType + " b" +
+                ".h=" + bmp.getHeight() + " b.w=" + bmp.getWidth() + " inMutable=" + bmp
+                .isMutable());
+//        testImage.setImageBitmap(bmp);
+        BitmapFactory.Options options1 = new BitmapFactory.Options();
+        options1.inPreferredConfig = Bitmap.Config.RGB_565;
+//        options1.inMutable = true;
+        options1.inBitmap = bmp;
+        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.welcome_bg,
+                options1);
+//        testImage1.setImageBitmap(bmp1);
+        Log.d(TAG, "onTestDrawableClicked: height=" + options1.outHeight + " width=" + options1
                 .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_type_phone,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_default_cheetah,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_pet_tip_cheetah,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: cheetah_pet_tip_cheetah height=" + options.outHeight +
-                " width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.t,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: t height=" + options.outHeight + " width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.a22,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: a22 height=" + options.outHeight + " width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_life_tips,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: cheetah_life_tips height=" + options.outHeight + " " +
-                "width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_type_app,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: cheetcare_type_app height=" + options.outHeight + " " +
-                "width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher,
-                options);
-        testImage.setImageBitmap(bmp1);
-        Log.d(TAG, "onTestDrawableClicked: ic_launcher height=" + options.outHeight + " " +
-                "width=" + options
-                .outWidth + " byte=" +
-                bmp1.getByteCount() + " type=" + options.outMimeType);
-        sBitmaps.add(bmp1);
+                bmp1.getByteCount() + " type=" + options.outMimeType + " b" +
+                ".h=" + bmp1.getHeight() + " b.w=" + bmp1.getWidth() + " inMutable=" + bmp1
+                .isMutable());
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_default_cheetah,
+//                options);
+//        testImage.setImageBitmap(bmp1);
+//        Log.d(TAG, "onTestDrawableClicked: height=" + options.outHeight + " width=" + options
+//                .outWidth + " byte=" +
+//                bmp1.getByteCount() + " type=" + options.outMimeType);
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_pet_tip_cheetah,
+//                options);
+//        testImage.setImageBitmap(bmp1);
+//        Log.d(TAG, "onTestDrawableClicked: cheetah_pet_tip_cheetah height=" + options.outHeight +
+//                " width=" + options
+//                .outWidth + " byte=" +
+//                bmp1.getByteCount() + " type=" + options.outMimeType);
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.t,
+//                options);
+//        testImage.setImageBitmap(bmp1);
+//        Log.d(TAG, "onTestDrawableClicked: t height=" + options.outHeight + " width=" + options
+//                .outWidth + " byte=" +
+//                bmp1.getByteCount() + " type=" + options.outMimeType);
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.a22,
+//                options);
+//        testImage.setImageBitmap(bmp1);
+//        Log.d(TAG, "onTestDrawableClicked: a22 height=" + options.outHeight + " width=" + options
+//                .outWidth + " byte=" +
+//                bmp1.getByteCount() + " type=" + options.outMimeType);
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetah_life_tips,
+//                options);
+//        testImage.setImageBitmap(bmp1);
+//        Log.d(TAG, "onTestDrawableClicked: cheetah_life_tips height=" + options.outHeight + " " +
+//                "width=" + options
+//                .outWidth + " byte=" +
+//                bmp1.getByteCount() + " type=" + options.outMimeType);
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.cheetcare_type_app,
+//                options);
+//        testImage.setImageBitmap(bmp1);
+//        Log.d(TAG, "onTestDrawableClicked: cheetcare_type_app height=" + options.outHeight + " " +
+//                "width=" + options
+//                .outWidth + " byte=" +
+//                bmp1.getByteCount() + " type=" + options.outMimeType);
+//        bmp1 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher,
+//                options);
+//        testImage.setImageBitmap(bmp1);
+//        Log.d(TAG, "onTestDrawableClicked: ic_launcher height=" + options.outHeight + " " +
+//                "width=" + options
+//                .outWidth + " byte=" +
+//                bmp1.getByteCount() + " type=" + options.outMimeType);
+//        sBitmaps.add(bmp1);
     }
 
     @OnClick(R.id.test_file)
     public void onTestFileClicked() {
+        if (null != bmp) {
+            bmp.recycle();
+        }
+        if (null != bmp1) {
+            bmp1.recycle();
+        }
     }
 
     @OnClick(R.id.test_image)
@@ -432,8 +447,8 @@ public class TestMemoryActivity extends Activity {
         sImageView = new ImageView(this);
         Log.d(TAG, "onCreate: sImageView=" + sImageView);
 //        sActivities.add(this);
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.RGB_565;
+//        BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inPreferredConfig = Bitmap.Config.RGB_565;
 //        options.inPurgeable = true;//允许可清除
 //        options.inInputShareable = true;// 以上options的两个属性必须联合使用才会有效果
 //        options.inDensity = 210;
@@ -503,7 +518,8 @@ public class TestMemoryActivity extends Activity {
 //        Log.d(TAG, "onCreate: size2=" + out.size() / 1024);
 //        bmp1.compress(Bitmap.CompressFormat.WEBP, 100, out);
 //        Log.d(TAG, "onCreate: size3=" + out.size() / 1024);
-        Trace.endSection();
+//        Trace.endSection();
+
     }
 
     public void setWallpaper(Bitmap bitmap) {
@@ -693,12 +709,12 @@ public class TestMemoryActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mHandler.sendEmptyMessageDelayed(0, 6000);
+//        mHandler.sendEmptyMessageDelayed(0, 6000);
 //        clearPreloadedDrawables();
 //        bmp.recycle();
 //        bmp1.recycle();
-        RefWatcher refWatcher = MyApplication.getRefWatcher(this);
-        refWatcher.watch(sBitmaps);
+//        RefWatcher refWatcher = MyApplication.getRefWatcher(this);
+//        refWatcher.watch(sBitmaps);
     }
 
     //    @OnClick(R.id.test_webview)
