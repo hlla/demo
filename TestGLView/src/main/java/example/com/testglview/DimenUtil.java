@@ -1,4 +1,4 @@
-package example.com.testglview;
+package example.com.testchengjianview;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

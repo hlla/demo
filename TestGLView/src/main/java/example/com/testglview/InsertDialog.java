@@ -1,4 +1,4 @@
-package example.com.testglview;
+package example.com.testchengjianview;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
@@ -27,7 +27,7 @@ import java.util.concurrent.Future;
 public class InsertDialog extends SmartDialog implements View.OnClickListener {
 
     public static final int SOURCE_LAUNCHER = 1;
-    private static final String TAG = "glview_Insert";
+    private static final String TAG = "chengjianview_Insert";
     private static final int FUNC_TYPE_INSERT_DIALOG_HOME = 9;
     private static final String SECTION_HOME = "startpage_homeclick";
     private static final String KEY_HOME = "click_tohome";

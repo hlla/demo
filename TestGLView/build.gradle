@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         multiDexEnabled true
-        applicationId "example.com.glview"
+        applicationId "example.com.chengjianview"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 1
@@ -46,7 +46,7 @@ dependencies {
     compileOnly files("libs/layoutlib.jar")
     compileOnly fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:multidex:1.0.1'
-    implementation "com.cmcm.launcher:glview:5.1.25"
-    implementation "com.cmcm.launcher:EngineParser:5.1.25"
-    implementation "com.cmcm.launcher:o3d:5.1.25"
+    implementation "com.chengjian.launcher:chengjianview:5.1.25"
+    implementation "com.chengjian.launcher:EngineParser:5.1.25"
+    implementation "com.chengjian.launcher:o3d:5.1.25"
 }

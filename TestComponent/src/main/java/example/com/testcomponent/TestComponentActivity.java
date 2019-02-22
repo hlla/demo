@@ -641,8 +641,8 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.test_handler)
     public void onTestHandlerClicked() {
-//        String ff = null;
-//        ff.equalsIgnoreCase("kjh");
+        String ff = null;
+        ff.equalsIgnoreCase("kjh");
 //        mHandler.sendEmptyMessage(MSG_TIMER);
     }
 

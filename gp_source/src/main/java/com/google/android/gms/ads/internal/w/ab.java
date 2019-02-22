@@ -518,7 +518,7 @@ public final class ab
                 }
                 catch (InterruptedException localInterruptedException) {}
               }
-              GLES20.glViewport(0, 0, this.B, this.h);
+              GLES20.chengjianviewport(0, 0, this.B, this.h);
               a("viewport");
               i1 = GLES20.glGetUniformLocation(this.u, "uFOVx");
               i2 = GLES20.glGetUniformLocation(this.u, "uFOVy");

@@ -5,27 +5,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <example.com.testglview.LauncherViewFrameLayout
+    <example.com.testchengjianview.LauncherViewFrameLayout
         android:id="@+id/launcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#0000ff"
         >
 
-        <com.cmcm.gl.widget.GLFrameLayout
+        <com.chengjian.gl.widget.GLFrameLayout
             android:id="@+id/sub_launcher"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#ff0000"
             >
-            <!--<com.cmcm.gl.widget.GLTextView-->
+            <!--<com.chengjian.gl.widget.GLTextView-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="match_parent"-->
             <!--android:gravity="bottom"-->
             <!--android:text="bbbbbbb"-->
             <!--android:textColor="#000000"-->
             <!--/>-->
-            <com.cmcm.gl.widget.GLEditText
+            <com.chengjian.gl.widget.GLEditText
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="bottom"
@@ -34,7 +34,7 @@
                 android:focusable="true"
                 />
 
-            <com.cmcm.gl.widget.GLTextView
+            <com.chengjian.gl.widget.GLTextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="100dp"
@@ -42,6 +42,6 @@
                 android:text="tttttt"
                 android:textColor="#000000"
                 />
-        </com.cmcm.gl.widget.GLFrameLayout>
-    </example.com.testglview.LauncherViewFrameLayout>
+        </com.chengjian.gl.widget.GLFrameLayout>
+    </example.com.testchengjianview.LauncherViewFrameLayout>
 </FrameLayout>

@@ -15,7 +15,7 @@
         </trust-anchors>
     </domain-config>
     <domain-config cleartextTrafficPermitted="false">
-        <domain includeSubdomains="true">horoscope.cmcm.com</domain>
+        <domain includeSubdomains="true">horoscope.chengjian.com</domain>
     </domain-config>
 </network-security-config>
     <!--<network-security-config>-->

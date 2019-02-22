@@ -6,7 +6,7 @@
  * @since 1.0.0.0
  */
 
-package example.com.testglview;
+package example.com.testchengjianview;
 
 import android.annotation.TargetApi;
 import android.app.NotificationManager;

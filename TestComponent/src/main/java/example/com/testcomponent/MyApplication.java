@@ -44,15 +44,15 @@ public class MyApplication extends MultiDexApplication {
     @Override
     public void onCreate() {
         super.onCreate();
+        try {
+            Thread.sleep(2500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         if (FixDexUtil.isGoingToFix(this)) {
             FixDexUtil.loadFixedDex(this, Environment.getExternalStorageDirectory());
         }
         Log.d(TAG, "application: onCreate()");
-//        try {
-//            Thread.sleep(1500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll()
                     .build();

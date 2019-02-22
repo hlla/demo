@@ -1,4 +1,4 @@
-package example.com.testglview;
+package example.com.testchengjianview;
 
 
 import android.util.ArrayMap;

@@ -1,4 +1,4 @@
-package example.com.testglview;
+package example.com.testchengjianview;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,17 +18,17 @@ import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.cmcm.gl.engine.Engine;
-import com.cmcm.gl.view.GLView;
+import com.chengjian.gl.engine.Engine;
+import com.chengjian.gl.view.chengjianview;
 
 import java.lang.reflect.Method;
 
 public class MainActivity extends Activity {
-    private static final String TAG = "glview_test";
-    private com.cmcm.gl.view.LayoutInflater mGLInflater;
+    private static final String TAG = "chengjianview_test";
+    private com.chengjian.gl.view.LayoutInflater mGLInflater;
     private LayoutInflater mInflater;
     private ViewGroup mRootView;
-    private GLView mRootGLView;
+    private chengjianview mRootchengjianview;
     private Engine mEngine;
     private LauncherViewFrameLayout mLauncherView;
     private InsertDialog mInsertDialog;
@@ -153,9 +153,9 @@ public class MainActivity extends Activity {
                 "StatusBarHeight=" + SystemUtils.getStatusBarHeight(this));
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 //        initEngine();
-//        mGLInflater = com.cmcm.gl.view.LayoutInflater.from(this);
+//        mGLInflater = com.chengjian.gl.view.LayoutInflater.from(this);
         mInflater = LayoutInflater.from(this);
-//        mRootGLView = mGLInflater.inflate(R.layout.activity_main_gl, null);
+//        mRootchengjianview = mGLInflater.inflate(R.layout.activity_main_gl, null);
 //        mRootView = mEngine.getRootView();
         mRootView = new TestFrameLayout(this);
         mRootView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams
@@ -193,17 +193,17 @@ public class MainActivity extends Activity {
             systemTop = SystemUtils.getStatusBarHeight(this);
             systemBottom = SystemUtils.getNavigationBarHeight(this);
         }
-//        mRootGLView.setFitsSystemWindows(true);
-//        mEngine.setContentView(mRootGLView);
+//        mRootchengjianview.setFitsSystemWindows(true);
+//        mEngine.setContentView(mRootchengjianview);
         setContentView(mRootView);
 //        final View view = mInflater.inflate(R.layout.activity_main, null);
 //        mRootView.addView(view);
 //        view.setVisibility(View.GONE);
-//        mLauncherView = (LauncherViewFrameLayout) mRootGLView.findViewById(R.id.launcher);
+//        mLauncherView = (LauncherViewFrameLayout) mRootchengjianview.findViewById(R.id.launcher);
         mRootView.findViewById(R.id.launcher_first).setOnClickListener(new View.OnClickListener
                 () {
             @Override
-            public void onClick(View glView) {
+            public void onClick(View chengjianview) {
                 if (null == mInsertDialog) {
                     mInsertDialog = new InsertDialog(MainActivity.this);
                 }
@@ -222,11 +222,11 @@ public class MainActivity extends Activity {
 //                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
 //                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View
 //                        .SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-//        mRootGLView.findViewById(R.id.launcher).setSystemUiVisibility(
+//        mRootchengjianview.findViewById(R.id.launcher).setSystemUiVisibility(
 //                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
 //                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View
 //                        .SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-//        mRootGLView.findViewById(R.id.sub_launcher).setSystemUiVisibility(
+//        mRootchengjianview.findViewById(R.id.sub_launcher).setSystemUiVisibility(
 //                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
 //                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View
 //                        .SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
@@ -239,7 +239,7 @@ public class MainActivity extends Activity {
     boolean mVisible = true;
 
     private void toggle() {
-        Log.e("glview_test", "toggle: mVisible=" + mVisible);
+        Log.e("chengjianview_test", "toggle: mVisible=" + mVisible);
         if (mVisible) {
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_LOW_PROFILE

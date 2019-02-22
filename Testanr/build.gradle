@@ -98,8 +98,8 @@ dependencies {
 
     //    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.jakewharton:butterknife:8.6.0'
-    debugCompile 'com.cmcm.launcher:glview:4.0.0.206111-SNAPSHOT'
-    compile 'com.cmcm.launcher:glview:4.0.0.206111-SNAPSHOT'
+    debugCompile 'com.chengjian.launcher:chengjianview:4.0.0.206111-SNAPSHOT'
+    compile 'com.chengjian.launcher:chengjianview:4.0.0.206111-SNAPSHOT'
 
     //    mainLaunchercompile project(':TestLib')
 //    implementation project(path: ':TestLib')

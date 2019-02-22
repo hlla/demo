@@ -1,4 +1,4 @@
-package example.com.testglview;
+package example.com.testchengjianview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
  */
 
 public class TestFrameLayout extends FrameLayout {
-    private static final String TAG = "glviewddd_test";
+    private static final String TAG = "chengjianviewddd_test";
 
     public TestFrameLayout(Context context) {
         super(context);

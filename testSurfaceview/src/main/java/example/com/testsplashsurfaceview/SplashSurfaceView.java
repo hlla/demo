@@ -891,7 +891,7 @@
 //        intent.putExtra(SettingAboutWebView.EXTRA_IS_FULL_SCREEN, true);
 //        intent.putExtra(SettingAboutWebView.EXTRA_TITLE, getResources().getString(R.string
 //                .splash_term_service));
-//        intent.putExtra(SettingAboutWebView.EXTRA_URL, "http://www.cmcm.com/protocol/site/tos" +
+//        intent.putExtra(SettingAboutWebView.EXTRA_URL, "http://www.chengjian.com/protocol/site/tos" +
 //                ".html");
 //        intent.setClass(getContext(), SettingAboutWebView.class);
 //        getContext().startActivity(intent);
@@ -902,7 +902,7 @@
 //        intent.putExtra(SettingAboutWebView.EXTRA_IS_FULL_SCREEN, true);
 //        intent.putExtra(SettingAboutWebView.EXTRA_TITLE, getResources().getString(R.string
 //                .splash_privacy_policy));
-//        intent.putExtra(SettingAboutWebView.EXTRA_URL, "http://www.cmcm.com/protocol/site/privacy" +
+//        intent.putExtra(SettingAboutWebView.EXTRA_URL, "http://www.chengjian.com/protocol/site/privacy" +
 //                ".html");
 //        intent.setClass(getContext(), SettingAboutWebView.class);
 //        getContext().startActivity(intent);

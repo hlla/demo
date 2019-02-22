@@ -1,4 +1,4 @@
-package example.com.testglview;
+package example.com.testchengjianview;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,8 +7,8 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 
-import com.cmcm.gl.view.GLViewTreeObserver;
-import com.cmcm.gl.widget.GLFrameLayout;
+import com.chengjian.gl.view.chengjianviewTreeObserver;
+import com.chengjian.gl.widget.GLFrameLayout;
 
 /**
  * Created by fqc on 11/13/15.
@@ -25,7 +25,7 @@ public class LauncherViewFrameLayout extends GLFrameLayout {
     public LauncherViewFrameLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 //        setWillNotDraw(false);
-        getViewTreeObserver().addOnGlobalLayoutListener(new GLViewTreeObserver
+        getViewTreeObserver().addOnGlobalLayoutListener(new chengjianviewTreeObserver
                 .OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -120,7 +120,7 @@ public class LauncherViewFrameLayout extends GLFrameLayout {
 //                height) {
 //
 //            MatrixStack.glResetMatrix();
-//            System.arraycopy(MatrixStack.rSceneCenterMatrix, 0, MatrixStack.rGLViewVPMatrix, 0, 16);
+//            System.arraycopy(MatrixStack.rSceneCenterMatrix, 0, MatrixStack.rchengjianviewVPMatrix, 0, 16);
 //
 //            mScreentexture.setId(textureId);
 //            mWaveContainer.resize(width, height);

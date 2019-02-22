@@ -125,9 +125,9 @@
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;
 }
--keep class com.cmcm.gl.view.** {*;}
--keep class com.cmcm.gl.widget.** {*;}
--keep class com.cmcm.gl.engine.c3dengine.widget.** {*;}
+-keep class com.chengjian.gl.view.** {*;}
+-keep class com.chengjian.gl.widget.** {*;}
+-keep class com.chengjian.gl.engine.c3dengine.widget.** {*;}
 
 # The support library contains references to newer platform versions.
 # Don't warn about those in case this app is linking against an older
@@ -136,26 +136,26 @@
 -dontwarn android.**
 -dontwarn com.ijinshan.cloudsdk.**
 -dontwarn com.appsflyer.**
--dontwarn com.cmcm.rtstub.**
+-dontwarn com.chengjian.rtstub.**
 -dontwarn dalvik.system.**
 -dontwarn java.system.**
 -dontwarn com.android.**
 -dontwarn com.nineoldandroids.view.**
 -dontwarn com.engine.parser.lib.widget.**
 
--dontwarn com.cmcm.adsdk.**
--dontwarn com.cmcm.adsdk.*
+-dontwarn com.chengjian.adsdk.**
+-dontwarn com.chengjian.adsdk.*
 -dontwarn com.chengjian.**
 -dontwarn com.facebook.ads.**
 -keep class com.facebook.ads.**{*;}
--keep class  com.cmcm.adsdk.** { *;}
+-keep class  com.chengjian.adsdk.** { *;}
 -keep class  com.chengjian.** { *;}
 
 -keep class  com.mopub.nativeads.*{*;}
 -keep class  com.mopub.common.**{*;}
 -keep class  com.mopub.network.**{*;}
 -dontwarn com.mopub.**
--keep class com.cmcm.adsdk.nativead.MopubNativeAdLoader{
+-keep class com.chengjian.adsdk.nativead.MopubNativeAdLoader{
         <fields>;
         <methods>;
 }
@@ -176,12 +176,12 @@
         <methods>;
 }
 
- -keep class com.cmcm.adsdk.nativead.FlurryNativeLoader{
+ -keep class com.chengjian.adsdk.nativead.FlurryNativeLoader{
     <fields>;
     <methods>;
  }
 
-  -keep class * extends com.cmcm.onews.api.JavaScriptInterfaceBase {
+  -keep class * extends com.chengjian.onews.api.JavaScriptInterfaceBase {
          <fields>;
          <methods>;
   }
@@ -281,8 +281,8 @@
 *;
 }
 -dontwarn com.mnt.**
--keep class com.cmcm.adsdk.adapter.BatmobiNativeAdapter{*;}
--dontwarn com.cmcm.adsdk.adapter.BatmobiNativeAdapter.**
+-keep class com.chengjian.adsdk.adapter.BatmobiNativeAdapter{*;}
+-dontwarn com.chengjian.adsdk.adapter.BatmobiNativeAdapter.**
 #### batmobi
 
 #### Start for Eventbus
@@ -307,7 +307,7 @@
 -keep class com.test.chengjian.view.SplashInstallSurfaceView{ *; }
 -keep class com.test.chengjian.view.SplashInstallSurfaceView$Stars{ *; }
 -keep class com.test.chengjian.crash_upload.CrashLogManager{ *; }
--keep class com.cmcm.launcher.utils.ThreadManager{*;}
+-keep class com.chengjian.launcher.utils.ThreadManager{*;}
 -keep class com.test.business.sdk.utils.ThreadManager{*;}
 -keep class com.chengjian.base.crash.**{*;}
 -keep class com.chengjian.base.crash.util.a{*;}
@@ -328,16 +328,16 @@
 #-keep class bolts.**{*;}
 
 
--keep public interface com.cmcm.IAction {
+-keep public interface com.chengjian.IAction {
 *;
 }
 # 视频sdk部分
--keepclasseswithmembers class com.cmcm.osvideo.sdk.player.youtubeplayer.BaseYoutubePlayer$OSPlayerJSCallBack {
+-keepclasseswithmembers class com.chengjian.osvideo.sdk.player.youtubeplayer.BaseYoutubePlayer$OSPlayerJSCallBack {
     @android.webkit.JavascriptInterface
     public <methods>;
 }
--dontwarn com.cmcm.orion.*
--keep class com.cmcm.orion.**{*;}
+-dontwarn com.chengjian.orion.*
+-keep class com.chengjian.orion.**{*;}
 
 #-ignorewarnings
  #-dontwarn com.test.chengjian.wizard.*
@@ -345,7 +345,7 @@
 # facebook audience network
 -keep class com.facebook.** { *; }
 #picks
--keep class com.cmcm.adsdk.adapter.PicksNativeAdapter{ *; }
+-keep class com.chengjian.adsdk.adapter.PicksNativeAdapter{ *; }
 #mopub
 -keep class com.mopub.nativeads.MoPubCustomEventNative{ *; }
 -keep class android.support.graphics.drawable.** { *; }
@@ -391,20 +391,20 @@
 -keep public class com.locker.theme.ThemeExpandViewPlugin { *; }
 -keep public class com.locker.theme.plugin.KThemePlugin { *; }
 
--keep public interface com.cmcm.IAction {
+-keep public interface com.chengjian.IAction {
 *;
 }
 
--dontwarn com.cmcm.adsdk.**
+-dontwarn com.chengjian.adsdk.**
 -dontwarn com.chengjian.**
 -dontwarn com.facebook.ads.**
 -keep class com.facebook.ads.**{*;}
--keep class com.cmcm.adsdk.** { *;}
+-keep class com.chengjian.adsdk.** { *;}
 -keep class com.chengjian.sdk.** { *;}
 # 开启Proguard shrink后，会删除反射调用的方法，这里需要keep一下
 -keep class com.chengjian.dao.** { *;}
 
--keep class com.cmcm.adsdk.nativead.FlurryNativeLoader{
+-keep class com.chengjian.adsdk.nativead.FlurryNativeLoader{
     <fields>;
     <methods>;
  }
@@ -667,7 +667,7 @@
 
 # ************ For admob ************
 
--keep class com.cmcm.adsdk.nativead.AdmobNativeLoader{
+-keep class com.chengjian.adsdk.nativead.AdmobNativeLoader{
       <fields>;
       <methods>;
 }
@@ -744,19 +744,19 @@
 -keep class com.chengjian.applocklib.bridge.AppLockPref {*;}
 
 # 广告新版sdk部分
- -keep class com.cmcm.adsdk.adapter.FacebookNativeAdapter{ *; }
- -keep class com.cmcm.adsdk.adapter.YahooNativeAdapter{ *; }
- -keep class com.cmcm.adsdk.adapter.MopubNativeAdapter{ *; }
- -keep class com.cmcm.adsdk.adapter.VKNativeAdapter{ *; }
+ -keep class com.chengjian.adsdk.adapter.FacebookNativeAdapter{ *; }
+ -keep class com.chengjian.adsdk.adapter.YahooNativeAdapter{ *; }
+ -keep class com.chengjian.adsdk.adapter.MopubNativeAdapter{ *; }
+ -keep class com.chengjian.adsdk.adapter.VKNativeAdapter{ *; }
  -keep class com.mopub.nativeads.MoPubCustomEventNative{ *; }
- -keep class com.cmcm.adsdk.adapter.AdmobNativeAdapter{ *; }
- -keep class com.cmcm.adsdk.adapter.PicksNativeAdapter{ *; }
- -keep class com.cmcm.adsdk.adapter.MopubBannerAdapter{ *; }
+ -keep class com.chengjian.adsdk.adapter.AdmobNativeAdapter{ *; }
+ -keep class com.chengjian.adsdk.adapter.PicksNativeAdapter{ *; }
+ -keep class com.chengjian.adsdk.adapter.MopubBannerAdapter{ *; }
  -keep public class com.mopub.**{*;}
  -keep class android.support.graphics.drawable.** { *; }
 
 # 视频sdk部分
--keepclasseswithmembers class com.cmcm.osvideo.sdk.player.youtubeplayer.BaseYoutubePlayer$OSPlayerJSCallBack {
+-keepclasseswithmembers class com.chengjian.osvideo.sdk.player.youtubeplayer.BaseYoutubePlayer$OSPlayerJSCallBack {
     @android.webkit.JavascriptInterface
     public <methods>;
 }
@@ -782,10 +782,10 @@
 -keep class com.test.thirdsdk.cortana.utils.CortanaUtils.** {*;}
 
 #for juhe sdk
--keep class com.cmcm.adsdk.nativead.**{*;}
--keep class com.cmcm.adsdk.interstitial.**{*;}
--keep class com.cmcm.adsdk.adapter.FacebookInterstitialAdapter{ *; }
--keep class com.cmcm.adsdk.adapter.AdmobInterstitialAdapter{ *; }
+-keep class com.chengjian.adsdk.nativead.**{*;}
+-keep class com.chengjian.adsdk.interstitial.**{*;}
+-keep class com.chengjian.adsdk.adapter.FacebookInterstitialAdapter{ *; }
+-keep class com.chengjian.adsdk.adapter.AdmobInterstitialAdapter{ *; }
 
 #for textone sdk
--keepnames class com.cmcm.textone.sdk.message.TimelineFragment
+-keepnames class com.chengjian.textone.sdk.message.TimelineFragment

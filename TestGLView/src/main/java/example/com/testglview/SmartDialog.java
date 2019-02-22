@@ -1,5 +1,5 @@
 
-package example.com.testglview;
+package example.com.testchengjianview;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class SmartDialog extends Dialog {
-    private static final String TAG = "glview_SmartDialog";
+    private static final String TAG = "chengjianview_SmartDialog";
     private final static int INVALID_TYPE = -1;
     private View mView;
     private int mWidth;
