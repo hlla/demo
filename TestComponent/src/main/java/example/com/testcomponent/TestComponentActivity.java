@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,8 +33,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -41,6 +40,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.WeakHashMap;
@@ -57,16 +57,16 @@ import example.com.testcomponent.statics.TestStaticD;
 //import android.os.SystemProperties;
 
 public class TestComponentActivity extends Activity {
-    private static class SingletonHolder {
-        private static final TestComponentActivity INSTANCE = new TestComponentActivity();
-    }
+//    private static class SingletonHolder {
+//        private static final TestComponentActivity INSTANCE = new TestComponentActivity();
+//    }
+//
+//    private TestComponentActivity() {
+//    }
 
-    private TestComponentActivity() {
-    }
-
-    public static final TestComponentActivity getInstance() {
-        return SingletonHolder.INSTANCE;
-    }
+//    public static final TestComponentActivity getInstance() {
+//        return SingletonHolder.INSTANCE;
+//    }
 
     private static final int MSG_TIMER = 1;
     private static final String TAG = "TestComponent1_Activity";
@@ -123,6 +123,17 @@ public class TestComponentActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+        Log.e(TAG, "start activity");
+//        try {
+//            Thread.sleep(1500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Log.e(TAG, "onChange: selfChange=" + PKG_NAME);
 //        String name = SystemProperties.get("fhgfh");
 //        getContentResolver().registerContentObserver(TEST_URI,
@@ -368,12 +379,23 @@ public class TestComponentActivity extends Activity {
     protected void onPause() {
         super.onPause();
         Log.d(TAG, "onPause: ");
+//        try {
+//            Thread.sleep(1500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         Log.d(TAG, "onStop: ");
+
     }
 
     @OnClick(R.id.update)
@@ -466,11 +488,11 @@ public class TestComponentActivity extends Activity {
         public void onServiceDisconnected(ComponentName name) {
             Log.e(TAG, "onServiceDisconnected: name=" + name);
         }
-
-        @Override
-        public void onBindingDied(ComponentName name) {
-            Log.e(TAG, "onBindingDied: name=" + name);
-        }
+//
+//        @Override
+//        public void onBindingDied(ComponentName name) {
+//            Log.e(TAG, "onBindingDied: name=" + name);
+//        }
     };
 
     @OnClick(R.id.unBindservice)
@@ -504,11 +526,23 @@ public class TestComponentActivity extends Activity {
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @OnClick(R.id.main_broadcast)
     public void onMainBroadcastClicked() {
-        Intent intent = new Intent(MAIN_PROCESS_ACTION);
+//        Intent intent = new Intent(MAIN_PROCESS_ACTION);
 //        Intent intent = new Intent(Intent.ACTION_PACKAGE_ADDED);
 //        intent.setFlags(Intent.FLAG_RECEIVER_FOREGROUND);
 //        intent.setPackage(getPackageName());
-        sendBroadcast(intent);
+//        Intent intent = new Intent();
+//        intent.setClassName("com.test.chengjian", "com.microsoft.cortana.sdk.internal.auth" +
+//                ".SignInReceiver");
+//        sendBroadcast(intent);
+//        final PackageManager packageManager = getPackageManager();
+//        final Intent intent1 = new Intent("com.google.android.c2dm.intent.REGISTER");
+//        List<ResolveInfo> resolveInfo =
+//                packageManager.queryIntentServices(intent1,
+//                        PackageManager.MATCH_ALL);
+        Intent intent = new Intent(this, OuterShellActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+//        resolveInfo = null;
 //        pollServer();
 //        testAlarm();
     }
@@ -534,8 +568,14 @@ public class TestComponentActivity extends Activity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         Log.d(TAG, "onResume: data=");
+        super.onResume();
+//        try {
+//            Thread.sleep(1500);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
     }
 
     @Override
@@ -601,7 +641,9 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.test_handler)
     public void onTestHandlerClicked() {
-        mHandler.sendEmptyMessage(MSG_TIMER);
+//        String ff = null;
+//        ff.equalsIgnoreCase("kjh");
+//        mHandler.sendEmptyMessage(MSG_TIMER);
     }
 
     @OnClick(R.id.test_alarm)
@@ -650,14 +692,14 @@ public class TestComponentActivity extends Activity {
 //                .518f, .571f, .659f, .65f, .712f, .729f, .765f, .893f, 1f, 1f, 1f};
 //        init(controls);
 //        try {
-//            Context launcherContext = createPackageContext("com.ksmobile.launcher",
+//            Context launcherContext = createPackageContext("com.test.chengjian",
 //                    Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY | 8);
 //
 ////            File dir = launcherContext.getFilesDir();
 //            File dir = launcherContext.getExternalFilesDir(null);
 ////            File dir = new File(Environment.getExternalStorageDirectory().getPath() +
 ////                    "/Android/data/com" +
-////                    ".ksmobile.launcher/files");
+////                    ".chengjian.launcher/files");
 ////            boolean isDelete = dir.delete();
 //            File launcher = new File(dir, "CMLauncher/dump/");
 //            String[] pathList = launcher.list();

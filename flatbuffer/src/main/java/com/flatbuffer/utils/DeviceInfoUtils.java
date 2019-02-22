@@ -597,8 +597,8 @@ public class DeviceInfoUtils {
              at android.net.IConnectivityManager$Stub$Proxy.getActiveNetworkInfo
              (IConnectivityManager.java:688)
              at android.net.ConnectivityManager.getActiveNetworkInfo(ConnectivityManager.java:460)
-             at com.cleanmaster.kinfoc.ai.j(KInfocCommon.java:430)
-             at com.cleanmaster.util.bt.b(DumpUploader.java:48)
+             at com.chengjian.kinfoc.ai.j(KInfocCommon.java:430)
+             at com.chengjian.util.bt.b(DumpUploader.java:48)
              */
             nReturn = NET_EXCEPTION;
         } catch (Exception e) {

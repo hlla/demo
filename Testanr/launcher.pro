@@ -31,14 +31,14 @@
 -keepattributes SourceFile,LineNumberTable
 -keep public class com.google.vending.licensing.ILicensingService
 -keep public class com.android.vending.licensing.ILicensingService
--keep public class com.ksmobile.launcher.customitem.AlertClockAppWidget
--keep public class com.ksmobile.launcher.customitem.Clock3DAppWidget
--keep public class com.ksmobile.launcher.widget.WrapWidthTextView
--keep public class * extends com.ksmobile.launcher.move.OriginalDesktop
--keep public class * extends com.ksmobile.launcher.movelog.OriginalDesktop
--keep class  com.ksmobile.launcher.live_wallpaper.LiveWallpaperItem{*;}
--keep public class * extends com.ksmobile.launcher.live_wallpaper.LiveWallpaperItem
--keepnames class * extends com.ksmobile.launcher.customitem.CustomShortcutInfo
+-keep public class com.test.chengjian.customitem.AlertClockAppWidget
+-keep public class com.test.chengjian.customitem.Clock3DAppWidget
+-keep public class com.test.chengjian.widget.WrapWidthTextView
+-keep public class * extends com.test.chengjian.move.OriginalDesktop
+-keep public class * extends com.test.chengjian.movelog.OriginalDesktop
+-keep class  com.test.chengjian.live_wallpaper.LiveWallpaperItem{*;}
+-keep public class * extends com.test.chengjian.live_wallpaper.LiveWallpaperItem
+-keepnames class * extends com.test.chengjian.customitem.CustomShortcutInfo
 -keep public class * extends theme_engine.model.EntityNode
 -keep public class com.engine.parser.lib.utils.Timer
 -keep public class com.engine.parser.lib.utils.ValueInterpolator
@@ -50,16 +50,16 @@
 -keepclassmembers public class * extends theme_engine.script.CommandParser.Command {
     public static *** create(org.xmlpull.v1.XmlPullParser, int);
 }
--keepclassmembers class com.ksmobile.launcher.theme.cmclub.WebAppInterfaceActivity {
+-keepclassmembers class com.test.chengjian.theme.cmclub.WebAppInterfaceActivity {
     public *;
 }
--keepclassmembers class com.ksmobile.launcher.theme.cmclub.WebAppInterfaceThemeDetail {
+-keepclassmembers class com.test.chengjian.theme.cmclub.WebAppInterfaceThemeDetail {
     public *;
 }
--keepclassmembers class com.ksmobile.launcher.theme.cmclub.WebAppInterfaceThemeDIY {
+-keepclassmembers class com.test.chengjian.theme.cmclub.WebAppInterfaceThemeDIY {
     public *;
 }
--keepclassmembers class com.ksmobile.launcher.theme.cmclub.WebAppInterfaceWebView {
+-keepclassmembers class com.test.chengjian.theme.cmclub.WebAppInterfaceWebView {
     public *;
 }
 
@@ -69,7 +69,7 @@
     native <methods>;
 }
 
--keepclassmembers class com.ksmobile.launcher.menu.setting.CMClubActivity$Facebook {
+-keepclassmembers class com.test.chengjian.menu.setting.CMClubActivity$Facebook {
    public *;
 }
 -assumenosideeffects class android.util.Log {
@@ -145,11 +145,11 @@
 
 -dontwarn com.cmcm.adsdk.**
 -dontwarn com.cmcm.adsdk.*
--dontwarn com.cleanmaster.**
+-dontwarn com.chengjian.**
 -dontwarn com.facebook.ads.**
 -keep class com.facebook.ads.**{*;}
 -keep class  com.cmcm.adsdk.** { *;}
--keep class  com.cleanmaster.** { *;}
+-keep class  com.chengjian.** { *;}
 
 -keep class  com.mopub.nativeads.*{*;}
 -keep class  com.mopub.common.**{*;}
@@ -199,9 +199,9 @@
 #If you are using the Google Play Services
 # Preserve GMS classes to enable fetching the Advertising ID
 -keep class com.google.android.gms.**
--keep class com.ksmobile.launcher.widget.WallpaperView$StarInfo { *; }
--keep class com.ksmobile.launcher.customitem.FolderIconJsHandler { *; }
--keep class com.ksmobile.launcher.customitem.ThemeJsInterface { *; }
+-keep class com.test.chengjian.widget.WallpaperView$StarInfo { *; }
+-keep class com.test.chengjian.customitem.FolderIconJsHandler { *; }
+-keep class com.test.chengjian.customitem.ThemeJsInterface { *; }
 
 ############ start for fresco ##############
 -keep,allowobfuscation @interface com.facebook.common.internal.DoNotStrip
@@ -232,7 +232,7 @@
     native <methods>;
 }
 
--keep class com.ksmobile.launcher.menu.setting.provider.*
+-keep class com.test.chengjian.menu.setting.provider.*
 
 -keep class * extends java.util.ListResourceBundle {
         protected Object[][] getContents();
@@ -298,22 +298,22 @@
 #### End for Eventbus
 
 #Start NotificationCleaner
--dontwarn com.cleanmaster.ncmanager.ui.notifycleaner.view.fancleaner.NotificationCleaner
--dontwarn com.cleanmaster.ncmanager.ui.notifycleaner.view.fancleaner.CMLoadingSurface
--dontwarn com.cleanmaster.ncmanager.widget.WebViewEx
+-dontwarn com.chengjian.ncmanager.ui.notifycleaner.view.fancleaner.NotificationCleaner
+-dontwarn com.chengjian.ncmanager.ui.notifycleaner.view.fancleaner.CMLoadingSurface
+-dontwarn com.chengjian.ncmanager.widget.WebViewEx
 #End NotificationCleaner
 
 #install
--keep class com.ksmobile.launcher.view.SplashInstallSurfaceView{ *; }
--keep class com.ksmobile.launcher.view.SplashInstallSurfaceView$Stars{ *; }
--keep class com.ksmobile.launcher.crash_upload.CrashLogManager{ *; }
+-keep class com.test.chengjian.view.SplashInstallSurfaceView{ *; }
+-keep class com.test.chengjian.view.SplashInstallSurfaceView$Stars{ *; }
+-keep class com.test.chengjian.crash_upload.CrashLogManager{ *; }
 -keep class com.cmcm.launcher.utils.ThreadManager{*;}
--keep class com.ksmobile.business.sdk.utils.ThreadManager{*;}
--keep class com.cleanmaster.base.crash.**{*;}
--keep class com.cleanmaster.base.crash.util.a{*;}
--keep class com.ksmobile.business.sdk.utils.KSystemUtils{*;}
--keep class com.ksmobile.business.sdk.utils.ReflectUtil{*;}
--keep class com.ksmobile.business.sdk.wrapper.BusinessAdClient{*;}
+-keep class com.test.business.sdk.utils.ThreadManager{*;}
+-keep class com.chengjian.base.crash.**{*;}
+-keep class com.chengjian.base.crash.util.a{*;}
+-keep class com.test.business.sdk.utils.KSystemUtils{*;}
+-keep class com.test.business.sdk.utils.ReflectUtil{*;}
+-keep class com.test.business.sdk.wrapper.BusinessAdClient{*;}
 #install
 
 -dontwarn org.apache.*
@@ -340,7 +340,7 @@
 -keep class com.cmcm.orion.**{*;}
 
 #-ignorewarnings
- #-dontwarn com.ksmobile.launcher.wizard.*
+ #-dontwarn com.test.chengjian.wizard.*
 
 # facebook audience network
 -keep class com.facebook.** { *; }
@@ -396,13 +396,13 @@
 }
 
 -dontwarn com.cmcm.adsdk.**
--dontwarn com.cleanmaster.**
+-dontwarn com.chengjian.**
 -dontwarn com.facebook.ads.**
 -keep class com.facebook.ads.**{*;}
 -keep class com.cmcm.adsdk.** { *;}
--keep class com.cleanmaster.sdk.** { *;}
+-keep class com.chengjian.sdk.** { *;}
 # 开启Proguard shrink后，会删除反射调用的方法，这里需要keep一下
--keep class com.cleanmaster.dao.** { *;}
+-keep class com.chengjian.dao.** { *;}
 
 -keep class com.cmcm.adsdk.nativead.FlurryNativeLoader{
     <fields>;
@@ -443,7 +443,7 @@
 -keep class com.google.android.gms.auth.GoogleAuthUtil.** { *; }
 
 
-#-keep public class com.cleanmaster.ui.dialog.ClearTipDialogView.** { *; }
+#-keep public class com.chengjian.ui.dialog.ClearTipDialogView.** { *; }
 
 -keepattributes *Annotation*
 
@@ -459,29 +459,29 @@
 -dontwarn android.support.**
 -dontwarn com.ijinshan.kingmob.**
 -dontwarn android.content.pm.**
--dontwarn com.cleanmaster.cover.data.message.model.**
--dontwarn com.cleanmaster.ui.cover.LockerService$SysWindowController
--dontwarn com.cleanmaster.ui.cover.LockerService
--dontwarn com.cleanmaster.ui.cover.animationlist.widget.ViewCompatV7
+-dontwarn com.chengjian.cover.data.message.model.**
+-dontwarn com.chengjian.ui.cover.LockerService$SysWindowController
+-dontwarn com.chengjian.ui.cover.LockerService
+-dontwarn com.chengjian.ui.cover.animationlist.widget.ViewCompatV7
 -dontwarn com.facebook.ads.VideoAdActivity
 -dontwarn com.facebook.ads.VideoAdActivity$1
 -dontwarn com.facebook.ads.a.s
--dontwarn com.cleanmaster.util.SoundUtils
+-dontwarn com.chengjian.util.SoundUtils
 
--dontwarn  com.cleanmaster.ui.cover.widget.AScrollableView.**
--dontwarn  com.cleanmaster.ui.widget.WeatherAlertLayout.**
+-dontwarn  com.chengjian.ui.cover.widget.AScrollableView.**
+-dontwarn  com.chengjian.ui.widget.WeatherAlertLayout.**
 
 
--dontwarn com.cleanmaster.ui.widget.ViewCompat.**
+-dontwarn com.chengjian.ui.widget.ViewCompat.**
 -dontwarn com.google.android.gms.**
 
--dontwarn com.cleanmaster.util.TrimMemory
+-dontwarn com.chengjian.util.TrimMemory
 
--dontwarn com.cleanmaster.ui.cover.checkMessagePermisssion
+-dontwarn com.chengjian.ui.cover.checkMessagePermisssion
 
 # launcher search
--dontwarn com.ksmobile.launcher.search.webview.SearchWebView
--dontwarn com.ksmobile.launcher.search.webview.KWebView
+-dontwarn com.test.chengjian.search.webview.SearchWebView
+-dontwarn com.test.chengjian.search.webview.KWebView
 
 # EventBus
 -keepclassmembers class ** {
@@ -593,15 +593,15 @@
   public static final android.os.Parcelable$Creator *;
 }
 
--keep class com.cleanmaster.cleanhelper.a
--keepclassmembers class com.cleanmaster.cleanhelper.a{
+-keep class com.chengjian.cleanhelper.a
+-keepclassmembers class com.chengjian.cleanhelper.a{
   native <methods>;
   private *;
   public static java.lang.String b(java.lang.String, java.lang.String, int, java.lang.String);
 }
 
--keep class com.cleanmaster.util.a
--keepclassmembers class com.cleanmaster.util.a{
+-keep class com.chengjian.util.a
+-keepclassmembers class com.chengjian.util.a{
   native <methods>;
   public static void a();
   public static void a(java.lang.String, java.lang.String);
@@ -610,30 +610,30 @@
   public static java.lang.String a(byte[]);
 }
 
--keep class com.cleanmaster.util.b
--keepclassmembers class com.cleanmaster.util.b{
+-keep class com.chengjian.util.b
+-keepclassmembers class com.chengjian.util.b{
   native <methods>;
 }
 
--keep class com.cleanmaster.util.c
--keepclassmembers class com.cleanmaster.util.c{
+-keep class com.chengjian.util.c
+-keepclassmembers class com.chengjian.util.c{
   native <methods>;
 }
 
--keep public interface com.cleanmaster.util.IProgressCtrl
--keepclasseswithmembernames class com.cleanmaster.util.IProgressCtrl {
+-keep public interface com.chengjian.util.IProgressCtrl
+-keepclasseswithmembernames class com.chengjian.util.IProgressCtrl {
   public boolean isStop();
 }
 
--keep public interface com.cleanmaster.util.INameFilter
--keepclasseswithmembernames class com.cleanmaster.util.INameFilter {
+-keep public interface com.chengjian.util.INameFilter
+-keepclasseswithmembernames class com.chengjian.util.INameFilter {
   public boolean accept(java.lang.String, java.lang.String);
 }
 
 
 
--keep class com.cleanmaster.util.CMFailedException
--keepclassmembers class com.cleanmaster.util.CMFailedException {
+-keep class com.chengjian.util.CMFailedException
+-keepclassmembers class com.chengjian.util.CMFailedException {
   public *;
 }
 
@@ -704,15 +704,15 @@
 
 
 # for power-saver begin
--dontwarn com.cleanmaster.boost.acc.utils.DeviceUtils
--dontwarn com.cleanmaster.boost.powerengine.process.clond.ProcCloudScanTask
--dontwarn com.cleanmaster.cleancloud.core.base.CleanCloudDBBase
--dontwarn com.cleanmaster.util.PackageUtils
+-dontwarn com.chengjian.boost.acc.utils.DeviceUtils
+-dontwarn com.chengjian.boost.powerengine.process.clond.ProcCloudScanTask
+-dontwarn com.chengjian.cleancloud.core.base.CleanCloudDBBase
+-dontwarn com.chengjian.util.PackageUtils
 
 -dontwarn com.inneractive.api.ads.sdk.*
--dontwarn com.ksmobile.business.sdk.search.views.SearchController
--dontwarn com.ksmobile.business.sdk.search.webview.SearchWebView
--dontwarn com.ksmobile.business.sdk.search.views.*
+-dontwarn com.test.business.sdk.search.views.SearchController
+-dontwarn com.test.business.sdk.search.webview.SearchWebView
+-dontwarn com.test.business.sdk.search.views.*
 
 # for power-saver end
 
@@ -721,14 +721,14 @@
  }
 
 # for gesture unlock
--keep class com.cleanmaster.ui.cover.SlideToUnlockGesture$Bubble{
+-keep class com.chengjian.ui.cover.SlideToUnlockGesture$Bubble{
 	*;
 }
 
 # for msg cloud rule
--keep public class com.cleanmaster.cloudconfig.msgcloudrule.MsgRuleGrammerParser{*;}
--keep public class com.cleanmaster.cloudconfig.msgcloudrule.StaticCommandMethod{*;}
--keep public class com.cleanmaster.cover.data.message.model.NotificationMethod{*;}
+-keep public class com.chengjian.cloudconfig.msgcloudrule.MsgRuleGrammerParser{*;}
+-keep public class com.chengjian.cloudconfig.msgcloudrule.StaticCommandMethod{*;}
+-keep public class com.chengjian.cover.data.message.model.NotificationMethod{*;}
 
 # 取消Keep住整个android.*之后，会有NoSuchMethodError问题，这里修正一下
 -keep public class android.service.notification.** { *; }
@@ -738,10 +738,10 @@
 -keep public class * implements android.service.notification.* { *; }
 
 # AppLock
--keep class com.cleanmaster.applocklib.base.AppLockLib {*;}
--keep class com.cleanmaster.applocklib.utils.AppLockUtil {*;}
--keep public interface com.cleanmaster.applocklib.interfaces.IAppLockLib
--keep class com.cleanmaster.applocklib.bridge.AppLockPref {*;}
+-keep class com.chengjian.applocklib.base.AppLockLib {*;}
+-keep class com.chengjian.applocklib.utils.AppLockUtil {*;}
+-keep public interface com.chengjian.applocklib.interfaces.IAppLockLib
+-keep class com.chengjian.applocklib.bridge.AppLockPref {*;}
 
 # 广告新版sdk部分
  -keep class com.cmcm.adsdk.adapter.FacebookNativeAdapter{ *; }
@@ -770,16 +770,16 @@
 -keep class com.squareup.** {*;}
 -keep interface com.squareup.** {*;}
 
--keep class com.ksmobile.leakcanary.leakanalyzer.** {*;}
--keep class com.ksmobile.leakcanary.report.** {*;}
--keep interface com.ksmobile.leakcanary.report.** {*;}
--keep class com.cleanmaster.base.crash.DexPathInfo.** {*;}
+-keep class com.test.leakcanary.leakanalyzer.** {*;}
+-keep class com.test.leakcanary.report.** {*;}
+-keep interface com.test.leakcanary.report.** {*;}
+-keep class com.chengjian.base.crash.DexPathInfo.** {*;}
 
 -keep class com.microsoft.bing.** {*;}
 -keep class com.microsoft.cortana.** {*;}
 -keep class uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper.** {*;}
--keep class com.ksmobile.thirdsdk.cortana.inter.CortanaInfocConstants.** {*;}
--keep class com.ksmobile.thirdsdk.cortana.utils.CortanaUtils.** {*;}
+-keep class com.test.thirdsdk.cortana.inter.CortanaInfocConstants.** {*;}
+-keep class com.test.thirdsdk.cortana.utils.CortanaUtils.** {*;}
 
 #for juhe sdk
 -keep class com.cmcm.adsdk.nativead.**{*;}

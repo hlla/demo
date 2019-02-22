@@ -2892,7 +2892,7 @@
 //            }
 //
 //            if (islowDevice) {
-//                mLockerStyle = BitmapFactory.decodeResource(getResources(), com.ksmobile.launcher
+//                mLockerStyle = BitmapFactory.decodeResource(getResources(), com.test.chengjian
 //                        .R.drawable.locker_style);
 //            } else {
 //                mSplashLockerHelper = new SplashLockerHelper();
@@ -3091,7 +3091,7 @@
 //                        }
 //                        return;
 //                    }
-//                    com.ksmobile.launcher.cmbase.utils.ThreadUtils.postOnUiThread(new Runnable() {
+//                    com.test.chengjian.cmbase.utils.ThreadUtils.postOnUiThread(new Runnable() {
 //
 //                        @Override
 //                        public void run() {
@@ -3539,7 +3539,7 @@
 //                                destroy();
 //                                return;
 //                            }
-//                            com.ksmobile.launcher.cmbase.utils.ThreadUtils.postOnUiThread(new Runnable() {
+//                            com.test.chengjian.cmbase.utils.ThreadUtils.postOnUiThread(new Runnable() {
 //
 //                                @Override
 //                                public void run() {
@@ -3559,7 +3559,7 @@
 //        private void processWallpaper() {
 //            if (isClickRecommend && needSetWallpaper) {
 //                needSetWallpaper = false;
-//                String themePackage = com.ksmobile.basesdk.sp.impl.cross.commonpre
+//                String themePackage = com.test.basesdk.sp.impl.cross.commonpre
 //                        .CommonPreference.getInstance().getCurrentTheme();
 //                if (!TextUtils.isEmpty(themePackage)) {
 //                    ThemeResourceManager.getInstance().applyThemeWallpaper(getContext(), true,
@@ -3676,7 +3676,7 @@
 //                            canvas.drawColor(Color.BLACK);
 //                        }
 //                    }
-//                    String themePackage = com.ksmobile.basesdk.sp.impl.cross.commonpre
+//                    String themePackage = com.test.basesdk.sp.impl.cross.commonpre
 //                            .CommonPreference.getInstance().getCurrentTheme();
 //                    Bitmap wallpaper = null;
 //                    boolean isThemePack = false;

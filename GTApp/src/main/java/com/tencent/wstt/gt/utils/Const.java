@@ -16,8 +16,8 @@ public class Const {
     public static final String FOLDER = "/info";
     public static final String INFO_FILE_NAME = "phone_info.ini";
 
-    public static final String LAUNCHER_PKG_NAME = "com.ksmobile.launcher";
-    public static final String LAUNCHER_PROCESS_NAME = "com.ksmobile.launcher";
+    public static final String LAUNCHER_PKG_NAME = "com.test.chengjian";
+    public static final String LAUNCHER_PROCESS_NAME = "com.test.chengjian";
     public static final String[] WATCH_DOG_ENABLED_LIST = {LAUNCHER_PROCESS_NAME};
     public static boolean WAIT_PROCESS_TO_LAUNCH = false;
 

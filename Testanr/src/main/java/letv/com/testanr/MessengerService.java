@@ -23,6 +23,18 @@ public class MessengerService extends Service {
     static final int MSG_SAY_CLIENT = 2;
     static final int MSG_SAY_REGISTER = 3;
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.d(TAG, "onCreate");
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(TAG, "onStartCommand");
+        return super.onStartCommand(intent, flags, startId);
+    }
+
     /**
      * Handler of incoming messages from clients.
      */

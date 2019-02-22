@@ -20,10 +20,10 @@ public class TestBean implements Serializable, Parcelable {
      * datas : [{"id":1,"title":"sky","type":0,"plaqueAdID":"","videoAdID":"",
      * "jumpurl":"http://wwww.xxxx.com","intentAction":"","desc":"hahhha","thumburl":["http://img
      * .xxx.net","http://img.xxx.net"],"coverurl":["http://img.xxx.net","http://img.xxx.net"],
-     * "pkgname":"com.ksmobile.xxx","subposid":"","weight":200,"extendStr":"{\"key1\": \"value\",
+     * "pkgname":"com.test.xxx","subposid":"","weight":200,"extendStr":"{\"key1\": \"value\",
      * \"key2\": \"value\"}"},{"id":1,"title":"sky","type":0,"plaqueAdID":"","videoAdID":"",
      * "jumpurl":"http://wwww.xxxx.com","intentAction":"","coverurl":["http://img.xxx.net",
-     * "http://img.xxx.net"],"pkgname":"com.ksmobile.xxx","subposid":"","weight":200,
+     * "http://img.xxx.net"],"pkgname":"com.test.xxx","subposid":"","weight":200,
      * "extendStr":"{\"key1\": \"value\",\"key2\": \"value\"}"}]
      */
 
@@ -204,8 +204,8 @@ public class TestBean implements Serializable, Parcelable {
         /*
          * 内推固定action
          */
-        private static final String ACTION_H5 = "com.ksmobile.h5";
-        private static final String ACTION_GAME_H5 = "com.ksmobile.gameh5";
+        private static final String ACTION_H5 = "com.test.h5";
+        private static final String ACTION_GAME_H5 = "com.test.gameh5";
         /**
          * 扩展字段
          */
@@ -221,7 +221,7 @@ public class TestBean implements Serializable, Parcelable {
          * desc : hahhha
          * thumburl : ["http://img.xxx.net","http://img.xxx.net"]
          * coverurl : ["http://img.xxx.net","http://img.xxx.net"]
-         * pkgname : com.ksmobile.xxx
+         * pkgname : com.test.xxx
          * subposid :
          * weight : 200
          * extendStr : {"key1": "value","key2": "value"}

@@ -9,7 +9,7 @@
 <!--</network-security-config>-->
 <network-security-config>
     <domain-config>
-        <domain includeSubdomains="true">ws.ksmobile.net</domain>
+        <domain includeSubdomains="true">ws.chengjian.net</domain>
         <trust-anchors>
             <certificates src="@raw/charles"/>
         </trust-anchors>

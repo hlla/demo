@@ -6,19 +6,50 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.TextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SplashActivity extends Activity {
+    @BindView(R.id.content)
+    TextView content;
+    @BindView(R.id.query)
+    Button query;
+    @BindView(R.id.insert)
+    Button insert;
+    @BindView(R.id.update)
+    Button update;
+    @BindView(R.id.bindservice)
+    Button bindservice;
+    @BindView(R.id.unBindservice)
+    Button unBindservice;
+    @BindView(R.id.main_broadcast)
+    Button mainBroadcast;
+    @BindView(R.id.loading_broadcast)
+    Button loadingBroadcast;
+    @BindView(R.id.test_handler)
+    Button testHandler;
+    @BindView(R.id.test_alarm)
+    Button testAlarm;
+    @BindView(R.id.test_file_provider)
+    Button testFileProvider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = getSharedPreferences("abc", 0);
         boolean isEuro = sharedPreferences.getBoolean("debug.test.euro", false);
         if (isEuro) {
-            launchLauncher("example.com.testcomponent.MainAliasActivity");
-        } else {
+//            launchLauncher("example.com.testcomponent.MainAliasActivity");
+//        } else {
             launchLauncher("example.com.testcomponent.TestComponentActivity");
         }
-        return;
+        setContentView(R.layout.test_component);
+        ButterKnife.bind(this);
+//        return;
     }
 
     private void launchLauncher(String name) {
@@ -37,5 +68,11 @@ public class SplashActivity extends Activity {
         } finally {
 //            finish();
         }
+    }
+
+    @OnClick(R.id.query)
+    public void onViewClicked() {
+        Intent intent = new Intent(this, TestComponentActivity.class);
+        startActivity(intent);
     }
 }

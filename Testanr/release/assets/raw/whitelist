@@ -55,7 +55,7 @@ com.google.android.talk
 com.asus.message
 com.huawei.message
 com.lge.message
-com.cleanmaster.mguard
+com.chengjian.mguard
 com.google.android.gms
 com.google.android.googlequicksearchbox
 com.google.android.marvin.talkback
@@ -64,8 +64,8 @@ com.google.android.voicesearch
 com.google.android.apps.docs
 com.android.vending
 com.mx.browser
-com.cleanmaster.mguard_cn
-com.cleanmaster.security
+com.chengjian.mguard_cn
+com.chengjian.security
 com.dropbox.android
 com.samsung.groupcast
 com.ijinshan.kbatterydoctor_en
@@ -125,7 +125,7 @@ com.lookout
 com.google.android.keep
 com.sec.android.app.ve
 com.dragon.android.pandaspace
-com.cleanmaster.security_cn
+com.chengjian.security_cn
 com.baidu.browser.inter
 com.portal
 org.zwanoo.android.speedtest
@@ -158,7 +158,7 @@ com.google.android.apps.inputmethod.hindi
 com.mobile.indiapp
 com.tencent.token
 com.yschi.MyAppSharer
-com.kingsoft
+com.chengjian
 com.infraware.polarisoffice4
 com.duolingo
 com.google.android.apps.walletnfcrel
@@ -283,7 +283,7 @@ com.baidu.iknow
 com.ubivelox.mc.activity
 com.ijinshan.mguard
 com.cmbchina.ccd.pluto.cmbActivity
-com.cleanmaster.security.applock.diwali
+com.chengjian.security.applock.diwali
 com.shinhan.sbanking
 ua.privatbank.ap24
 com.tencent.gallerymanager
@@ -306,7 +306,7 @@ com.ais.mimo.eservice
 com.personal
 com.baidu.navi
 com.samsunguk.mygalaxy
-com.cleanmaster.security.heartbleed
+com.chengjian.security.heartbleed
 com.fenbi.android.gaozhong
 com.xtuone.android.syllabus
 com.csst.ecdict
@@ -375,7 +375,7 @@ net.nshc.droidxantivirus
 com.santander.app
 com.shinhancard.smartshinhan
 com.ijinshan.kwifi
-com.cleanmaster.security.struts2
+com.chengjian.security.struts2
 com.zhangdan.app
 com.ubikey
 kr.co.alba.m
@@ -437,7 +437,7 @@ net.metaquotes.metatrader4
 com.fullsix.android.labanquepostale.accountaccess
 com.dynamixsoftware.printhand
 cmm.liwenwen.ship.leaf
-com.cleanmaster.security.stubborntrjkiller
+com.chengjian.security.stubborntrjkiller
 com.wipit.android.boostwallet
 com.famigo.sandbox
 com.webcash.wooribank
@@ -489,7 +489,7 @@ com.finansbank.mobile.cepsube
 com.barclays.android.barclaysmobilebanking
 com.tocaboca.tocakitchen
 com.adpmobile.android
-com.kingsoft.wordback
+com.chengjian.wordback
 ua.novaposhtaa
 com.lakala.android
 com.softforum.sample
@@ -631,8 +631,8 @@ com.DolarToday
 com.speechtech.app.listening
 com.ups.mobile.android
 com.gabrielittner.timetable
-com.cleanmaster.security.cryptolockercleaner
-com.cleanmaster.security_x86
+com.chengjian.security.cryptolockercleaner
+com.chengjian.security_x86
 com.tdbank
 com.lib.cwmoney
 com.glassdoor.app

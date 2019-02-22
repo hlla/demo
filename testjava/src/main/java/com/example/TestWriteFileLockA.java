@@ -31,14 +31,18 @@ public class TestWriteFileLockA {
             public void run() {
                 try {
                     System.out.println("start write file lock");
-                    File file = new File("a.lock");
+                    File file = new File("bdd.lock");
                     FileOutputStream fos = new FileOutputStream(file);
+                    System.out.println("get write file lock 0 =" + file.exists());
                     FileChannel channel = fos.getChannel();
+                    System.out.println("get write file lock 1 =" + file.exists());
                     FileLock fileLock = channel.lock();
-                    System.out.println("get write file lock");
+                    System.out.println("get write file lock 2 =" + file.exists());
                     sleep(5000);
                     fileLock.release();
-                    System.out.println("end write file lock");
+                    sleep(1000);
+//                    System.out.println("end write file lock");
+                    System.out.println("get write file lock 3 =" + file.exists());
                 } catch (Exception e) {
                     System.out.println("e=" + e);
                 }

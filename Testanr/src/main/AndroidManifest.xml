@@ -496,7 +496,7 @@
         </service>
         <service
             android:name=".MessengerService"
-            android:process=":remote">
+            android:process=":remote_ms">
         </service>
         <service
             android:name=".MyJobService"

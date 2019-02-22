@@ -21,12 +21,50 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:testOnly="false"
-        android:theme="@style/AppTheme">
+        android:theme="@style/FirewallSettingsStyleApp">
+        <!--<activity-->
+            <!--android:name=".SplashActivity"-->
+            <!--android:exported="true"-->
+            <!--android:icon="@mipmap/ic_launcher_round"-->
+            <!--android:label="@string/app_name"-->
+            <!--android:process=":remote"-->
+            <!--&gt;-->
+            <!--&lt;!&ndash;<intent-filter>&ndash;&gt;-->
+            <!--&lt;!&ndash;<action android:name="android.intent.action.MAIN"/>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<category android:name="android.intent.category.HOME"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<category android:name="android.intent.category.DEFAULT"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;<category android:name="android.intent.category.MONKEY"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;</intent-filter>&ndash;&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <activity
+            android:name=".OuterShellActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_round"
+            android:label="@string/app_name"
+            >
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+
+            <!--<category android:name="android.intent.category.HOME"/>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+            <!--<category android:name="android.intent.category.MONKEY"/>-->
+            <!--</intent-filter>-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
+        </activity>
         <activity
             android:name=".TestComponentActivity"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_round"
             android:label="@string/app_name"
+            android:theme="@style/activity_theme"
             >
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN"/>-->
@@ -50,25 +88,25 @@
         <!--</intent-filter>-->
         <!--</activity>-->
 
-        <activity-alias
-            android:name=".MainAliasActivity"
-            android:excludeFromRecents="true"
-            android:icon="@mipmap/ic_launcher_round"
-            android:label="Samples Alias"
-            android:targetActivity=".TestComponentActivity"
-            android:visibleToInstantApps="true"
-            >
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
+        <!--<activity-alias-->
+            <!--android:name=".MainAliasActivity"-->
+            <!--android:excludeFromRecents="true"-->
+            <!--android:icon="@mipmap/ic_launcher_round"-->
+            <!--android:label="Samples Alias"-->
+            <!--android:targetActivity=".TestComponentActivity"-->
+            <!--android:visibleToInstantApps="true"-->
+            <!--&gt;-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.VIEW"/>-->
 
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <!--<category android:name="android.intent.category.DEFAULT"/>-->
+                <!--<category android:name="android.intent.category.BROWSABLE"/>-->
 
-                <data
-                    android:host="details"
-                    android:scheme="market"/>
-            </intent-filter>
-        </activity-alias>
+                <!--<data-->
+                    <!--android:host="details"-->
+                    <!--android:scheme="market"/>-->
+            <!--</intent-filter>-->
+        <!--</activity-alias>-->
         <provider
             android:name=".TestProvider"
             android:authorities="com.huawei.rcsbaseline.database.zone"
@@ -78,7 +116,7 @@
             />
         <!--<provider-->
         <!--android:name=".TestProviderOne"-->
-        <!--android:authorities="com.cleanmaster.mutiproconfig.dd"-->
+        <!--android:authorities="com.chengjian.mutiproconfig.dd"-->
         <!--android:exported="true"-->
         <!--/>-->
         <receiver

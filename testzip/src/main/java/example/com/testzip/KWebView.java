@@ -231,7 +231,7 @@ public class KWebView extends WebView {
                 目前的解决方案是，向用户弹出提示框，用户确认后可继续访问。
                  */
             Log.e(TAG, "onReceivedSslError>> handler = " + handler);
-//            com.ksmobile.launcher.webview.SafeSslErrorHandler.getInstance().onReceivedSslError
+//            com.test.chengjian.webview.SafeSslErrorHandler.getInstance().onReceivedSslError
 //                    (handler, error, getContext());
         }
     }

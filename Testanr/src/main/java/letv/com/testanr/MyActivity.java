@@ -61,8 +61,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import example.com.testlib.BuildConfig;
-import example.com.testlib.TestLib;
+//import example.com.testlib.BuildConfig;
+//import example.com.testlib.TestLib;
 import letv.com.testanr.reflect.FieldUtils;
 import letv.com.testanr.reflect.MethodUtils;
 
@@ -151,7 +151,7 @@ public class MyActivity extends Activity implements ActivityCompat
             "\t\t\t\t\t\"http://img.xxx.net\",\n" +
             "\t\t\t\t\t\"http://img.xxx.net\"\n" +
             "\t\t\t\t],\n" +
-            "\t\t\t\t\"pkgname\": \"com.ksmobile.xxx\",\n" +
+            "\t\t\t\t\"pkgname\": \"com.test.xxx\",\n" +
             "\t\t\t\t\"subposid\": \"\",\n" +
             "\t\t\t\t\"weight\": 200,\n" +
             "\t\t\t\t\"extendStr\": \"{\\\"key1\\\": \\\"value\\\",\\\"key2\\\": " +
@@ -169,7 +169,7 @@ public class MyActivity extends Activity implements ActivityCompat
             "\t\t\t\t\t\"http://img.xxx.net\",\n" +
             "\t\t\t\t\t\"http://img.xxx.net\"\n" +
             "\t\t\t\t],\n" +
-            "\t\t\t\t\"pkgname\": \"com.ksmobile.xxx\",\n" +
+            "\t\t\t\t\"pkgname\": \"com.test.xxx\",\n" +
             "\t\t\t\t\"subposid\": \"\",\n" +
             "\t\t\t\t\"weight\": 200,\n" +
             "\t\t\t\t\"extendStr\": \"{\\\"key1\\\": \\\"value\\\",\\\"key2\\\": " +
@@ -192,7 +192,7 @@ public class MyActivity extends Activity implements ActivityCompat
                     break;
                 }
             }
-            Log.d(TAG, "after handleMessage: " + BuildConfig.IS_PERFORMANCE);
+//            Log.d(TAG, "after handleMessage: " + BuildConfig.IS_PERFORMANCE);
 //            switch (what) {
 //                case STATIC_BROADCAST: {
 //                    Intent intent = new Intent(ACTION);
@@ -632,10 +632,10 @@ public class MyActivity extends Activity implements ActivityCompat
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        GameCenterBean gameCenterBean = new GameCenterBean();
-        gameCenterBean.setLeftData(null);
-        gameCenterBean.setRightData(null);
-        Log.d(TAG, "onCreate: " + gameCenterBean.getRightData().intern());
+//        GameCenterBean gameCenterBean = new GameCenterBean();
+//        gameCenterBean.setLeftData(null);
+//        gameCenterBean.setRightData(null);
+//        Log.d(TAG, "onCreate: " + gameCenterBean.getRightData().intern());
 //        boolean isShould = ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest
 //                .permission.READ_EXTERNAL_STORAGE);
 //        Log.d(TAG, "onCreate: isShould=" + isShould);
@@ -898,6 +898,18 @@ public class MyActivity extends Activity implements ActivityCompat
 //        }.start();
         final Thread.UncaughtExceptionHandler oldHandler = Thread
                 .getDefaultUncaughtExceptionHandler();
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                Log.d(TAG, "uncaughtException =" + t + " e=" + e + " t=" + t.getId() + " Thread="
+                        + Thread.currentThread() + " tid=" + t.getId());
+                try {
+                    Thread.currentThread().sleep(10000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
         Log.d(TAG, "sadasds =" + Looper.getMainLooper().getThread().getState());
 //        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
 //            @Override
@@ -972,21 +984,21 @@ public class MyActivity extends Activity implements ActivityCompat
 //        IntentFilter intentFilter1 = new IntentFilter(ACTION);
 //        registerReceiver(new MyStaticReceiverA(), intentFilter1);
         allocMemory();
-        View view = findViewById(R.id.bind_service_dddd);
-        testSchool.setOnClickListener(v -> Log.d(TAG, "onClick: 1111"));
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: ");
-            }
-        });
-        final View.OnClickListener clickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: clickListener=" + clickListener);
-            }
-        };
+//        View view = findViewById(R.id.bind_service_dddd);
+//        testSchool.setOnClickListener(v -> Log.d(TAG, "onClick: 1111"));
+//
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "onClick: ");
+//            }
+//        });
+//        final View.OnClickListener clickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "onClick: clickListener=" + clickListener);
+//            }
+//        };
     }
 
     int i = 0;
@@ -1162,6 +1174,24 @@ public class MyActivity extends Activity implements ActivityCompat
 
     @OnClick(R.id.start_fg_service)
     public void onStartFgServiceClicked() {
+        Intent intent1 = new Intent(MyActivity.this, MyService.class);
+        intent1.putExtra("abc", "cj");
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startForegroundService(intent1);
+//                startService(intent1);
+//                startService(intent1);
+//                onStopFgServiceClicked();
+//                startService(intent1);
+//                stopService(intent);
+            }
+            //            @Override
+//            public void run() {
+//                Log.d(TAG, "run: isni=" + MyActivity.this.isFinishing());
+//                windowManager.addView(view, params);
+//            }
+        }, 0 * 1000);
         File file = new File(Environment.getExternalStorageDirectory() + "/test.txt");
         try {
             FileInputStream inputStream = new FileInputStream(file);
@@ -1382,18 +1412,50 @@ public class MyActivity extends Activity implements ActivityCompat
     @OnClick(R.id.job_Service)
     public void onJobServiceClicked() {
         Log.d(TAG, "onJobServiceClicked");
-        for (int i = 0; i < 5; i++) {
-            Thread handlerThread = new Thread("name i=" + i) {
-                @Override
-                public void run() {
-                    setPriority(Thread.MAX_PRIORITY);
-                    while (true) {
-
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                Log.d(TAG, "work thread start");
+                synchronized (MyActivity.this) {
+                    Log.d(TAG, "work thread start 1");
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+                    String a = null;
+                    a.getBytes();
+                    Log.d(TAG, "work thread end");
                 }
-            };
-            handlerThread.start();
+            }
+        };
+        Log.d(TAG, "onJobServiceClicked thread =" + thread.getId() + " current.tid=" + Thread
+                .currentThread().getId());
+//        String a = null;
+//        a.getBytes();
+        thread.setName("abc");
+        thread.start();
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        Log.d(TAG, "sleep after");
+//        synchronized (this) {
+//            Log.d(TAG, "main thread run");
+//        }
+//        for (int i = 0; i < 5; i++) {
+//            Thread handlerThread = new Thread("name i=" + i) {
+//                @Override
+//                public void run() {
+//                    setPriority(Thread.MAX_PRIORITY);
+//                    while (true) {
+//
+//                    }
+//                }
+//            };
+//            handlerThread.start();
+//        }
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            pollServer();
 //        }
@@ -1458,7 +1520,7 @@ public class MyActivity extends Activity implements ActivityCompat
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-//                startForegroundService(intent);
+                startService(intent);
 //                stopService(intent);
             }
             //            @Override
@@ -1707,7 +1769,7 @@ public class MyActivity extends Activity implements ActivityCompat
 
     @OnClick(R.id.test_handler_anr)
     public void onTestHandlerAnrClicked() {
-        new TestLib().test();
+//        new TestLib().test();
         Log.d(TAG, "onTestHandlerAnrClicked: 11");
         Message message = Message.obtain();
         final Object object = new Object();

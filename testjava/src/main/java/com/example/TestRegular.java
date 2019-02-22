@@ -45,7 +45,7 @@ public class TestRegular {
         }
 //        System.out.println("m=" + m);
 //        Pattern pattern = Pattern.compile(cc);
-////        Matcher matcher = pattern.matcher("* references com.ksmobile.launcher.LauncherAppState
+////        Matcher matcher = pattern.matcher("* references com.test.chengjian.LauncherAppState
 //// .c" +
 ////                "(Unknown " +
 ////                "Source)");
@@ -53,7 +53,7 @@ public class TestRegular {
 ////        Matcher matcher1 = pattern.matcher("* GC ROOT com.android.internal.policy" +
 ////                ".PhoneWindow$DecorView.mContext");
 ////        System.out.println("GC" + matcher1.matches());
-////        Matcher matcher2 = pattern.matcher(" * references com.ksmobile.launcher.wizard" +
+////        Matcher matcher2 = pattern.matcher(" * references com.test.chengjian.wizard" +
 ////                ".ProRatingWizardManager.encodeImpl");
 //        Matcher matcher2 = pattern.matcher("references letv.com.testanr.b.b.ab()");
 //        System.out.println("references5=" + matcher2.matches() + " num=" + matcher2.groupCount());
@@ -61,13 +61,13 @@ public class TestRegular {
 //             expressionTypeIndex++) {
 //            System.out.println("group=" + matcher2.group(expressionTypeIndex));
 //        }
-//        Matcher matcher5 = pattern.matcher("* references com.ksmobile.launcher.LauncherAppState
+//        Matcher matcher5 = pattern.matcher("* references com.test.chengjian.LauncherAppState
 // .encodeImpl");
 //        System.out.println("references5=" + matcher5.matches());
 //        Matcher matcher3 = pattern.matcher(" * GC ROOT static android.view.inputmethod" +
 //                ".InputMethodManager.sInstance");
 //        System.out.println(" GC ROOT=" + matcher3.matches());
-//        Matcher matcher6 = pattern.matcher("* at com.ksmobile.launcher.LauncherAppState.c");
+//        Matcher matcher6 = pattern.matcher("* at com.test.chengjian.LauncherAppState.c");
 //        System.out.println("at=" + matcher6.matches());
 //
 //        Pattern pattern1 = Pattern.compile(b);
@@ -79,7 +79,7 @@ public class TestRegular {
 ////        Pattern pattern2 = Pattern.compile(" (?:\\b(?:at|references|(?:GC ROOT [encodeImpl-z0-9A-Z]+)))
 //// +\\.+(([encodeImpl-z0-9A-Z]+))");
 ////        Matcher matcher11 = pattern2.matcher("industryddd encodeImpl w ea");
-//        Matcher matcher11 = pattern2.matcher("* GC ROOT static com.ksmobile.launcher.wizard" +
+//        Matcher matcher11 = pattern2.matcher("* GC ROOT static com.test.chengjian.wizard" +
 //                ".ProRatingWizardManager$encodeImpl.encodeImpl");
 ////        Matcher matcher11 = pattern2.matcher(" references.dsd");
 //        System.out.println("matcher11=" + matcher11.matches() + " matcher11.groupCount()=" +

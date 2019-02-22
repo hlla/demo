@@ -92,7 +92,7 @@ public class ZipActivity extends Activity {
                     ClassLoader classLoader = getClassLoader();
 //                    Class.forName("example.com.testzip.MultiDexExtractor");
                     getClassLoader().loadClass("example.com.testzip.MultiDexExtractor");
-                    Class class11 = classLoader.loadClass("com.cleanmaster.ui.cover" +
+                    Class class11 = classLoader.loadClass("com.chengjian.ui.cover" +
                             ".CoverViewContainer");
                     Class class111 = classLoader.loadClass("dalvik.system.DexPathList");
 //                    Method[] methods = class111.getDeclaredMethods();

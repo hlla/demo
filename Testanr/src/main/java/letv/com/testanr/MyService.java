@@ -1,9 +1,9 @@
 package letv.com.testanr;
 
+import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,15 +21,15 @@ import java.util.List;
  * Created by chengjian on 17/5/31.
  */
 
-public class MyService extends Service {
+public class MyService extends IntentService {
     private static final String TAG = "Testanr_MyService";
     public static final int NOTIFICATION_ID = 11111;
     public static final String KEY_IS_FOREGROUND = "is_foreground";
     public static final String KEY_IS_CONTENT = "content";
 
-//    public MyService() {
-//        super("dfdsfdfd");
-//    }
+    public MyService() {
+        super("dfdsfdfd");
+    }
 
 //    @Override
 //    protected void onHandleIntent(@Nullable Intent intent) {
@@ -141,6 +141,7 @@ public class MyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "onCreate: ");
         Notification.Builder builder = new Notification.Builder(this);
 //        String content = intent.getStringExtra(KEY_IS_CONTENT);
         builder.setContentText("gfhgfhghgf");
@@ -164,7 +165,7 @@ public class MyService extends Service {
             //通知才能正常弹出
             nm.createNotificationChannel(notificationChannel);
         }
-        startForeground(NOTIFICATION_ID, builder.build());
+//        startForeground(NOTIFICATION_ID, builder.build());
 //        startForeground(NOTIFICATION_ID, new Notification());
 //        try {
 //            Thread.sleep(5000);
@@ -188,6 +189,7 @@ public class MyService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.e(TAG, "onStartCommand 11: startId=" + startId + " intent=" + intent);
+//        Log.d(TAG, "onCreate: ");
 //        builder.build().defaults |= Notification.DEFAULT_VIBRATE;
 //        builder.build().defaults |= Notification.DEFAULT_SOUND;
 //        builder.build().defaults |= Notification.DEFAULT_LIGHTS;
@@ -198,37 +200,41 @@ public class MyService extends Service {
 //        Intent innerIntent = new Intent(this, GrayInnerService.class);
 //        startService(innerIntent);
 //        if (intent.getBooleanExtra(KEY_IS_FOREGROUND, false)) {
-//        Notification.Builder builder = new Notification.Builder(this);
-//        String content = intent.getStringExtra(KEY_IS_CONTENT);
-//        builder.setContentText(content);
-//        builder.setContentTitle("this is Content title");
-////        builder.setPriority(Notification.);
-////        builder.setTicker("this is ticker");
-//        builder.setSmallIcon(R.drawable.ic_launcher);
-//        builder.setPriority(Notification.PRIORITY_MAX);
-//        final NotificationManager nm = (NotificationManager) this
-//                .getSystemService(Context.NOTIFICATION_SERVICE);
-//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-//            //只在Android O之上需要渠道
-//            NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
-//                    "dd", NotificationManager.IMPORTANCE_DEFAULT);
-//            builder.setChannelId("sdfdsfd");
-//            notificationChannel.setDescription("this is test");
-//            notificationChannel.setSound(null, null);
-//            notificationChannel.enableVibration(true);
-//            notificationChannel.setLightColor(Color.RED);
-//            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
-//            //通知才能正常弹出
-//            nm.createNotificationChannel(notificationChannel);
-//        }
-////        startForeground(NOTIFICATION_ID, builder.build());
-////        startForeground(NOTIFICATION_ID, new Notification());
+        Notification.Builder builder = new Notification.Builder(this);
+        String content = intent.getStringExtra(KEY_IS_CONTENT);
+        builder.setContentText(content);
+        builder.setContentTitle("this is Content title");
+//        builder.setPriority(Notification.);
+//        builder.setTicker("this is ticker");
+        builder.setSmallIcon(R.drawable.ic_launcher);
+        builder.setPriority(Notification.PRIORITY_MAX);
+        final NotificationManager nm = (NotificationManager) this
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            //只在Android O之上需要渠道
+            NotificationChannel notificationChannel = new NotificationChannel("sdfdsfd",
+                    "dd", NotificationManager.IMPORTANCE_DEFAULT);
+            builder.setChannelId("sdfdsfd");
+            notificationChannel.setDescription("this is test");
+            notificationChannel.setSound(null, null);
+            notificationChannel.enableVibration(true);
+            notificationChannel.setLightColor(Color.RED);
+            //如果这里用IMPORTANCE_NOENE就需要在系统的设置里面开启渠道，
+            //通知才能正常弹出
+            nm.createNotificationChannel(notificationChannel);
+        }
+//        startForeground(NOTIFICATION_ID, builder.build());
+//        Intent intent1 = new Intent(this, MessengerService.class);
+//        startService(intent1);
+//        startForeground(NOTIFICATION_ID, new Notification());
 //        stopForeground(true);
 //        stopSelf();
         Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
             @Override
             public boolean queueIdle() {
-//                stopSelf();
+                Log.d(TAG, "queueIdle: ");
+//                Process.killProcess(Process.myPid());
+                stopSelf();
                 return false;
             }
         });
@@ -238,9 +244,9 @@ public class MyService extends Service {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-//        int resultCode = super.onStartCommand(intent, flags, startId);
-//        Log.d(TAG, "onStartCommand end: startId=" + startId + " resultCode=" + resultCode);
-        return super.onStartCommand(intent, flags, startId);
+        int resultCode = super.onStartCommand(intent, flags, startId);
+        Log.d(TAG, "onStartCommand end: startId=" + startId + " resultCode=" + resultCode);
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -269,6 +275,16 @@ public class MyService extends Service {
     }
 
     @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        Log.e(TAG, "onHandleIntent intent=" + intent);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public boolean onUnbind(Intent intent) {
         Log.d(TAG, "onUnbind 11: intent=" + intent);
         return true;
@@ -278,6 +294,6 @@ public class MyService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.d(TAG, "onDestroy ");
-//        System.exit(0);
+        System.exit(0);
     }
 }
