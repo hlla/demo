@@ -115,8 +115,8 @@ public class FixDexUtil {
                 //3.3 合并两个dex数组
                 Object dexElements = combineArray(leftDexElements, rightDexElements);
                 // 重写给PathList里面的Element[] dexElements;赋值
-                Object pathList = getPathList(pathLoader);// 一定要重新获取，不要用pathPathList，会报错
-                setField(pathList, pathList.getClass(), "dexElements", dexElements);
+//                Object pathList = getPathList(pathLoader);// 一定要重新获取，不要用pathPathList，会报错
+                setField(pathPathList, pathPathList.getClass(), "dexElements", dexElements);
             }
             Toast.makeText(appContext, "修复完成", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {

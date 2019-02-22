@@ -33,6 +33,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -641,8 +643,9 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.test_handler)
     public void onTestHandlerClicked() {
-        String ff = null;
-        ff.equalsIgnoreCase("kjh");
+        Glide.with()
+//        String ff = null;
+//        ff.equalsIgnoreCase("kjh");
 //        mHandler.sendEmptyMessage(MSG_TIMER);
     }
 

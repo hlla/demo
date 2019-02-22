@@ -26,11 +26,11 @@ public class OuterShellActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.outer_shell);
         ButterKnife.bind(this);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -42,7 +42,7 @@ public class OuterShellActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(TAG, "onResume: ");
+        String ff = null;
     }
 
     @Override
