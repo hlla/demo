@@ -108,7 +108,7 @@ public class MyService extends Service {
             nm.createNotificationChannel(notificationChannel);
         }
 //        startForeground(NOTIFICATION_ID, builder.build());
-//            startForeground(NOTIFICATION_ID, new Notification());
+//        startForeground(NOTIFICATION_ID, new Notification());
 //        stopForeground(true);
 //        stopSelf();
 //        }

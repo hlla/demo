@@ -14,18 +14,19 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.LocaleList;
 import android.os.Message;
-import android.os.RemoteException;
 import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -34,6 +35,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.FutureTarget;
+import com.bumptech.glide.request.target.Target;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,10 +45,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.WeakHashMap;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -122,6 +125,13 @@ public class TestComponentActivity extends Activity {
         }
     }
 
+    String url1 = "http://img.daimg.com/uploads/allimg/120528/3-12052Q95604205.jpg";
+    String url2 = "http://img.daimg.com/uploads/allimg/120528/3-12052Q95604205.jpg";
+    String url3 = "http://e.hiphotos.baidu" +
+            ".com/zhidao/pic/item/d439b6003af33a87d5ef2a14c45c10385343b539.jpg";
+    String url4 = "http://online.cdn.qianqian" +
+            ".com/qianqian/info/88d70556125919f9c756e1cf9e3455e7.exe";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,8 +194,64 @@ public class TestComponentActivity extends Activity {
     private static final String DEX_PREFIX = "classes";
     private static final String DEX_SUFFIX = ".dex";
 
+    public static String getLanguage() {
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= 24) {
+            locale = LocaleList.getDefault().get(0);
+        } else {
+            locale = Locale.getDefault();
+        }
+        return locale.getLanguage();
+    }
+
+    public static String getLanguage3() {
+        String localeString = "en_US";
+        String language = getLanguage();
+        String country = Locale.getDefault().getCountry();
+        if (!TextUtils.isEmpty(language)) {
+            if (TextUtils.isEmpty(country)) {
+                localeString = language;
+            } else {
+                localeString = String.format("%s_%s", language, country);
+            }
+        }
+        return localeString;
+    }
+
     @OnClick(R.id.query)
     public void onQueryClicked() {
+        String content = getLanguage3();
+        Log.d(TAG, "onQueryClicked: content=" + content);
+        new Thread() {
+            @Override
+            public void run() {
+                Log.d(TAG, "startDownload 1");
+                FutureTarget<File> target = Glide.with(TestComponentActivity.this).downloadOnly().load(url4).submit();
+                File file1 = null;
+                try {
+                    file1 = target.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, "startDownload 2 file=" + file1.getPath());
+                Target<Drawable> ss = Glide.with(TestComponentActivity.this).load(url2).preload();
+                Log.d(TAG, "startDownload 3");
+//        FutureTarget<File> target1 = Glide.with(this).downloadOnly().load(url2).submit();
+//        File file2 = null;
+//        try {
+//            file2 = target.get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+//        Log.d(TAG, "startDownload 3 file2=" + file2.getPath());
+                Glide.with(TestComponentActivity.this).load(url3).preload();
+            }
+        }.start();
+
         int secondaryCount = 0;
         int secondaryNumber = 2;
         File file = new File(Environment.getExternalStorageDirectory() + "/1.apk");
@@ -504,25 +570,32 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.bindservice)
     public void onBindserviceClicked() {
+
 //        ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
 //        manager.killBackgroundProcesses("example.com.testcomponent");
         Intent intent = new Intent();
 //        intent.setClassName("letv.com.testanr11", "letv.com.testanr.MyService");
         intent.setClassName("example.com.testcomponent.dd", "example.com.testcomponent.MyService");
-        boolean result = bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
-        new Thread() {
-            @Override
-            public void run() {
-                if (null != mIMyAidlInterface) {
-                    try {
-                        mIMyAidlInterface.test(1);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }.start();
-        Log.e(TAG, "onBindServiceClicked: end result=" + result);
+        startForegroundService(intent);
+        try {
+            Thread.sleep(7000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        boolean result = bindService(intent, mServiceConnection, BIND_AUTO_CREATE);
+//        new Thread() {
+//            @Override
+//            public void run() {
+//                if (null != mIMyAidlInterface) {
+//                    try {
+//                        mIMyAidlInterface.test(1);
+//                    } catch (RemoteException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }.start();
+//        Log.e(TAG, "onBindServiceClicked: end result=" + result);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -643,7 +716,6 @@ public class TestComponentActivity extends Activity {
 
     @OnClick(R.id.test_handler)
     public void onTestHandlerClicked() {
-        Glide.with()
 //        String ff = null;
 //        ff.equalsIgnoreCase("kjh");
 //        mHandler.sendEmptyMessage(MSG_TIMER);

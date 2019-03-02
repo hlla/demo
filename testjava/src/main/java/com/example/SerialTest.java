@@ -11,7 +11,38 @@ import java.io.ObjectOutputStream;
 public class SerialTest {
 
     public static void main(String[] args) throws IOException {
-        String aa = null;
+        int aa[] = {10, 8, 23, 9, 67, 1, 12, 4, 7, 2};
+//        int aa[] = {11, 8};
+        int length = aa.length;
+        int temp = 0;
+//        for (int i = 0; i < length; i++) {
+//            for (int m = 0; m < length - i - 1; m++) {
+//                if (aa[m] > aa[m + 1]) {
+//                    temp = aa[m];
+//                    aa[m] = aa[m + 1];
+//                    aa[m + 1] = temp;
+//                }
+//            }
+//        }
+        for (int i = 1; i < length; i++) {
+            int p = i - 1;
+//            int c = i;
+            while (p >= 0 && aa[p] > aa[p + 1]) {
+//                System.out.println("result ppp=" + p + " aa[p]=" + aa[p] + " aa[p+1]=" + aa[p +
+// 1]);
+                temp = aa[p];
+//                System.out.println("result ppp=" + temp);
+                aa[p] = aa[p + 1];
+//                System.out.println("result ppp=" + aa[p]);
+                aa[p + 1] = temp;
+                p--;
+//                System.out.println("result ppp=" + p + " aa[p]=" + aa[0] + " aa[p+1]=" + aa[1]);
+            }
+        }
+        for (int a : aa) {
+            System.out.println("result a=" + a);
+        }
+        String aaa = null;
         Person person = new Person(1234, "wang");
         System.out.println("Person Serial" + person);
         FileOutputStream fos = new FileOutputStream("Person.txt");

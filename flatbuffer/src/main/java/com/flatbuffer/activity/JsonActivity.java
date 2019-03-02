@@ -17,12 +17,16 @@
 package com.flatbuffer.activity;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.UiThread;
+import android.support.annotation.WorkerThread;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -60,7 +64,7 @@ import java.util.List;
 public class JsonActivity extends AppCompatActivity {
     private static final int TEST_NUM = 100;
     public static final String TAG = JsonActivity.class.getSimpleName();
-    private TextView textViewFlat;
+    private static TextView textViewFlat;
     private TextView textViewJson;
     private TextView textViewFastJson;
     private TextView textViewAndroidJson;
@@ -69,13 +73,52 @@ public class JsonActivity extends AppCompatActivity {
     private String mJsonData = "";
     private String[] mNames = null;
     private SharedPreferences mSP;
+    static AsyncTask task = new AsyncTask() {
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            textViewFlat.setText("ddgdgdf");
+            return null;
+        }
+    };
 
+    //    @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_json);
         textViewFlat = (TextView) findViewById(R.id.textViewFlat);
         textViewJson = (TextView) findViewById(R.id.textViewJson);
+        ViewTreeObserver observer = textViewJson.getViewTreeObserver();
+        observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Log.d(TAG, "onGlobalLayout: w=" + textViewJson.getWidth() + " h=" + textViewJson
+                        .getHeight());
+            }
+        });
+        observer.addOnDrawListener(new ViewTreeObserver.OnDrawListener() {
+            @Override
+            public void onDraw() {
+                Log.d(TAG, "onDraw: w=" + textViewJson.getWidth() + " h=" + textViewJson
+                        .getHeight());
+            }
+        });
+        observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                Log.d(TAG, "onPreDraw: w=" + textViewJson.getWidth() + " h=" + textViewJson
+                        .getHeight());
+                return true;
+            }
+        });
+        textViewJson.post(new Runnable() {
+            @Override
+            public void run() {
+                Exception e = new Exception("post");
+                Log.d(TAG, "post: w=" + textViewJson.getWidth() + " h=" + textViewJson
+                        .getHeight(), e);
+            }
+        });
         textViewFastJson = (TextView) findViewById(R.id.textViewFastJson);
         textViewAndroidJson = (TextView) findViewById(R.id.textViewAndroidJson);
         sImageView = new ImageView(this);
@@ -84,6 +127,7 @@ public class JsonActivity extends AppCompatActivity {
         mSP = getSharedPreferences("abc", 0);
     }
 
+    @WorkerThread
     public void loadFromFlatBuffer(View view) {
         byte[] buffer = Utils.readRawResource(getApplication(), R.raw
                 .sample_flatbuffer);
@@ -96,6 +140,7 @@ public class JsonActivity extends AppCompatActivity {
         Log.d(TAG, "loadFromFlatBuffer " + logText + " length=" + peopleList.peoplesLength());
     }
 
+    @UiThread
     public void loadFromGson(View view) {
 //        textViewJson.setText("");
 //        Log.d(TAG, "loadFromJson 1");
